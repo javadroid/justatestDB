@@ -15,7 +15,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-      <h1 className="text-3xl font-bold underline text-rose-600">
+      <h1 className="text-yellow-600 font-bold underline ">
         Hello world This is the start
       </h1>
       </main>
