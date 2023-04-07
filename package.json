@@ -1,0 +1,29 @@
+{
+    "name": "newsems",
+    "version": "1.0.0",
+    "description": "New Sems is a mobile number renting app",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/tdnt-dev/newsems-backend.git"
+    },
+    "author": "Godwin Ikpe Ugbe",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/tdnt-dev/newsems-backend/issues"
+    },
+    "homepage": "https://github.com/tdnt-dev/newsems-backend#readme",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.3",
+        "express.js": "^1.0.0",
+        "jsonwebtoken": "^9.0.0",
+        "mysql": "^2.18.1",
+        "nodemon": "^2.0.22",
+        "uuid": "^9.0.0"
+    }
+}
