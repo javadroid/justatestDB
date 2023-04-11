@@ -2,7 +2,17 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import Hero from "../assets/phone-image.png";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import {
+  MagnifyingGlassIcon,
+  InformationCircleIcon,
+  ClockIcon,
+} from "@heroicons/react/24/outline";
+import Ad from "../assets/ad.png";
+import Cry from "../assets/cry-emoji.svg";
+import Smile from "../assets/smile-emoji.svg";
+import Tablet from "../assets/list-pic.png";
+import Socials from "../assets/social-btn.png";
+import LadyLaptop from "../assets/lady-laptop.png";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,7 +25,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main className="">
         <section className="w-full bg-gradient-to-r from-sky-400 to-blue-500">
           <div className="mx-auto flex max-w-7xl flex-col px-4 py-6 lg:flex-row lg:items-center lg:justify-between">
             <div>
@@ -69,7 +79,7 @@ export default function Home() {
                 now
               </h1>
             </div>
-            <div className="lg:flex lg:h-[631px] lg:w-[1110px] lg:justify-center lg:self-center lg:drop-shadow-xl">
+            <div className="lg:flex lg:h-[631px] lg:justify-center lg:self-center lg:drop-shadow-xl xl:w-[1110px]">
               <div className="m-4 mt-10 rounded-t-2xl bg-color-bg_light px-7 py-4 lg:mx-0">
                 <div>
                   <h1 className="text-xl font-extrabold ">1. Select Country</h1>
@@ -137,9 +147,304 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div>
-            <h1>Most Popular Services</h1>
-            <div></div>
+          <div className="mt-8 ">
+            <h1 className="text-center text-3xl font-extrabold">
+              Most Popular Services
+            </h1>
+            <div className="mt-11">
+              <div className="m-5 mx-auto grid max-w-sm grid-cols-2 justify-items-start">
+                <div>
+                  <p>Country</p>
+                  <div>⛳ Fake Country</div>
+                </div>
+                <div>
+                  <p>Service</p>
+                  <div>✅ Fake service</div>
+                </div>
+                <div className="">
+                  <p>Activated</p>
+                  <p>327 times</p>
+                </div>
+                <div>
+                  <p>Cost</p>
+                  <p>0.19 $</p>
+                </div>
+              </div>
+              <button className="bg-color-primary text-white">
+                Receive SMS
+              </button>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div className="mx-auto max-w-7xl px-3">
+            <h1 className="mx-auto w-3/4 max-w-7xl text-center text-2xl font-extrabold lg:w-1/2 lg:text-3xl">
+              It's no secret that almost all online services are selling your
+              personal data.
+            </h1>
+            <div className="md:flex md:items-baseline md:justify-center md:space-x-5">
+              <div className="lg flex flex-col items-center rounded-3xl bg-color-bg_primary-500 py-5">
+                <Image
+                  src={Ad}
+                  alt="AD image"
+                  className="h-80 w-80 object-contain"
+                />
+                <div className="flex flex-col">
+                  <h3 className="w-3/4 self-center text-center text-2xl font-bold">
+                    Have you registered on Facebook?
+                  </h3>
+                  <p className="w-3/4 self-center text-left text-base font-medium">
+                    You immediately receive an avalanche of targeted
+                    advertising.
+                  </p>
+                </div>
+              </div>
+              <div className="mt-4 flex flex-col items-center rounded-3xl bg-color-bg_primary-500 py-5">
+                <Image
+                  src={Ad}
+                  alt="AD image"
+                  className="h-80 w-80 object-contain"
+                />
+                <div className="flex flex-col">
+                  <h3 className="w-3/4 self-center text-center text-2xl font-bold">
+                    Have you registered on Facebook?
+                  </h3>
+                  <p className="w-3/4 self-center text-left text-base font-medium">
+                    You immediately receive an avalanche of targeted
+                    advertising.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="mx-auto mt-16 max-w-3xl">
+              <div className="flex items-center space-x-9">
+                <Image
+                  src={Cry}
+                  alt="AD image"
+                  className="h-14 w-14 object-contain"
+                />
+                <div className="rounded-2xl bg-white px-9 py-5 drop-shadow-xl">
+                  <h2 className="text-2xl font-extrabold text-color-primary">
+                    Can we not do this?
+                  </h2>
+                </div>
+              </div>
+              <div className="flex flex-row-reverse items-center gap-5 pt-5">
+                <Image
+                  src={Smile}
+                  alt="AD image"
+                  className="h-14 w-14 object-contain"
+                />
+                <div className="rounded-2xl bg-white px-9 py-5 drop-shadow-xl">
+                  <h2 className="text-2xl font-extrabold text-color-primary">
+                    Yes
+                  </h2>
+                </div>
+              </div>
+            </div>
+            <div className="my-8 px-5">
+              <div className="flex items-center justify-between gap-12">
+                <div className=" hidden lg:block lg:w-[700px]">
+                  <Image
+                    src={Tablet}
+                    alt="Tablet Pic"
+                    className="h-full w-full object-contain "
+                  />
+                </div>
+                <div>
+                  <h2 className="w-3/5 text-2xl font-extrabold">
+                    SMS-MAN - service for private registration at online
+                    resources
+                  </h2>
+                  <p className="mt-14 text-lg font-normal lg:w-3/5">
+                    We give you the opportunity to anonymously use the phone
+                    number online to receive SMS to register on sites and
+                    application.
+                  </p>
+                  <p className="mt-4 text-lg font-normal lg:w-1/2">
+                    At the same time, you can be sure that no one but you will
+                    have access to it.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="bg-gradient-to-r from-sky-400 to-blue-500 py-10">
+          <div className="mx-auto max-w-sm lg:max-w-7xl">
+            <h1 className="my-4 text-center text-4xl font-extrabold text-white">
+              Sign Up
+            </h1>
+            <div className="mb-4 flex flex-col space-y-5 self-center lg:mb-7 lg:flex-row lg:items-baseline lg:justify-center lg:gap-12">
+              <input placeholder="Enter email" className="px-5 py-2 lg:w-1/5" />
+              <input
+                placeholder="Create password"
+                className="px-5 py-2 lg:w-1/5"
+              />
+              <button className="rounded-lg bg-color-primary py-3 text-white drop-shadow-[0_4px_15px_rgba(231,237,250,0.25)] lg:w-1/5">
+                Sign Up
+              </button>
+            </div>
+            <div>
+              <p className="mb-4 text-center text-lg font-extrabold text-white/50 lg:mb-5">
+                Or log in with your social network
+              </p>
+              <div className="flex items-center justify-center space-x-3">
+                <Image
+                  src={Socials}
+                  alt="Soacila Button"
+                  className="h-12 w-20 object-contain"
+                />
+                <Image
+                  src={Socials}
+                  alt="Soacila Button"
+                  className="h-12 w-20 object-contain"
+                />
+                <Image
+                  src={Socials}
+                  alt="Soacila Button"
+                  className="h-12 w-20 object-contain"
+                />
+                <Image
+                  src={Socials}
+                  alt="Soacila Button"
+                  className="h-12 w-20 object-contain"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="my-16">
+          <div className="mx-auto flex max-w-7xl flex-col items-center px-5">
+            <h1 className="self-center text-center text-2xl font-extrabold md:w-2/5">
+              Registration on the sites without SMS to your personal number in 3
+              steps
+            </h1>
+            <div className="flex flex-col items-center md:mx-auto md:max-w-5xl md:flex-row md:gap-20">
+              <Image
+                src={LadyLaptop}
+                alt="Lady with Laptop"
+                className="h-80 w-80 object-contain"
+              />
+              <div className="flex flex-col items-center">
+                <h1 className="mb-6 w-4/5 self-center text-center text-xl font-bold md:text-left">
+                  Get your number in your personal cabinet
+                </h1>
+                <p className="w-4/5 text-lg">
+                  To register with SMS-MAN you only need to enter your email
+                  address. No ID information or other contacts.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col items-center md:mx-auto md:max-w-5xl md:flex-row-reverse md:gap-20">
+              <Image
+                src={LadyLaptop}
+                alt="Lady with Laptop"
+                className="h-80 w-80 object-contain"
+              />
+              <div className="flex flex-col items-center">
+                <h1 className="mb-6 w-4/5 self-center text-center text-xl font-bold md:text-left">
+                  Get your number in your personal cabinet
+                </h1>
+                <p className="w-4/5 text-lg">
+                  To register with SMS-MAN you only need to enter your email
+                  address. No ID information or other contacts.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-col items-center md:mx-auto md:max-w-5xl md:flex-row md:gap-20">
+              <Image
+                src={LadyLaptop}
+                alt="Lady with Laptop"
+                className="h-80 w-80 object-contain"
+              />
+              <div className="flex flex-col items-center">
+                <h1 className="mb-6 w-4/5 self-center text-center text-xl font-bold md:text-left">
+                  Get your number in your personal cabinet
+                </h1>
+                <p className="w-4/5 text-lg">
+                  To register with SMS-MAN you only need to enter your email
+                  address. No ID information or other contacts.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section className="bg-color-bg_primary-500">
+          <div className="mx-auto max-w-7xl px-10">
+            <div className="flex flex-col">
+              <h1 className="mb-10 text-center text-xl font-extrabold">
+                You can buy a disposable phone number or rent one for up to a
+                month
+              </h1>
+              <div className="flex h-28 items-baseline justify-between border border-l-0 border-r-0 border-t-0 border-blue-300">
+                <div className="border-r-3 flex h-full w-full border border-b-0 border-l-0 border-t-0 border-blue-300 px-1">
+                  <p className="text-center text-base font-extrabold">
+                    One-time number for sms
+                  </p>
+                  <InformationCircleIcon className="h-5 w-5 text-blue-500" />
+                </div>
+                <div className="border-l-3 flex w-full items-center justify-center space-x-2 ">
+                  <p className="text-center text-base font-extrabold">Rent</p>
+                  <InformationCircleIcon className="h-5 w-5 text-blue-500" />
+                </div>
+              </div>
+              <div className="mt-4 flex items-center justify-center">
+                <ClockIcon className="h-5 w-5 text-blue-500" />
+                <h1>Rent Duration</h1>
+              </div>
+              <div className="flex h-10 items-baseline justify-between border border-l-0 border-r-0 border-t-0 border-blue-300">
+                <div className="border-r-3 flex h-full w-full border border-b-0 border-l-0 border-t-0 border-blue-300 px-1">
+                  <p className="text-center text-base font-extrabold">
+                    Up to 20 minutes
+                  </p>
+                </div>
+                <div className="border-l-3 flex w-full items-center justify-center space-x-2 ">
+                  <p className="text-center text-base font-extrabold">
+                    up to 90 days
+                  </p>
+                </div>
+              </div>
+              <div>
+                <h1>Rent Duration</h1>
+              </div>
+              <div className="flex h-28 items-baseline justify-between border border-l-0 border-r-0 border-t-0 border-blue-300">
+                <div className="border-r-3 flex h-full w-full border border-b-0 border-l-0 border-t-0 border-blue-300 px-1">
+                  <p className="text-center text-base font-extrabold">
+                    One-time number for sms2
+                  </p>
+                  <InformationCircleIcon className="h-5 w-5 text-blue-500" />
+                </div>
+                <div className="border-l-3 flex w-full items-center justify-center space-x-2 ">
+                  <p className="text-center text-base font-extrabold">Rent</p>
+                  <InformationCircleIcon className="h-5 w-5 text-blue-500" />
+                </div>
+              </div>
+              <div className="flex h-28 items-baseline justify-between border border-l-0 border-r-0 border-t-0 border-blue-300">
+                <div className="border-r-3 flex h-full w-full border border-b-0 border-l-0 border-t-0 border-blue-300 px-1">
+                  <p className="text-center text-base font-extrabold">
+                    One-time number for sms3
+                  </p>
+                  <InformationCircleIcon className="h-5 w-5 text-blue-500" />
+                </div>
+                <div className="border-l-3 flex w-full items-center justify-center space-x-2 ">
+                  <p className="text-center text-base font-extrabold">Rent</p>
+                  <InformationCircleIcon className="h-5 w-5 text-blue-500" />
+                </div>
+              </div>
+              <div className="flex h-28 items-baseline justify-between border border-l-0 border-r-0 border-t-0 border-blue-300">
+                <div className="border-r-3 flex h-full w-full border border-b-0 border-l-0 border-t-0 border-blue-300 px-1">
+                  <p className="text-center text-base font-extrabold">
+                    One-time number for sms4
+                  </p>
+                  <InformationCircleIcon className="h-5 w-5 text-blue-500" />
+                </div>
+                <div className="border-l-3 flex w-full items-center justify-center space-x-2 ">
+                  <p className="text-center text-base font-extrabold">Rent</p>
+                  <InformationCircleIcon className="h-5 w-5 text-blue-500" />
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </main>

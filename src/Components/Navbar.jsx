@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const Navbar = () => {
   return (
-    <nav className=" flex h-16 w-full items-center justify-between bg-color-primary_darken p-4 text-white">
+    <nav className=" sticky top-0 z-50 flex h-16 w-full items-center justify-between bg-color-primary_darken p-4 text-white">
       <div className="mx-auto flex max-w-7xl flex-grow items-center justify-between">
         <div>
           <Image
