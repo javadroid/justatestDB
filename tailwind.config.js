@@ -1,14 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./app/**/*.{js,ts,jsx,tsx}",
-    "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
- 
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    // screens: {
+    //   sm: "375px",
+    //   md: "768px",
+    //   lg: "976px",
+    //   xl: "1440px"
+    // },
     extend: {
       colors: {
         "color-primary": "#0187ff",
@@ -30,16 +32,19 @@ module.exports = {
         "color-decor_blue": "#2aabee",
         "color-tg": "#29a9ea",
         "color-yt": "#c4302b",
-        },
+      },
+      // dropShadow: {
+      //   "3xl": "0px 4px 15px rgba(37,39,86,0.15)",
+      // },
       fontSize: {
         h1Size: "3.6rem",
-        h2Size: "2.6rem",
+        h2Size: "2rem",
         h3Size: "2.2rem",
         h4Size: "2rem",
         h5Size: "1.8rem",
         h6Size: "1.6rem",
-        },
+      },
     },
   },
   plugins: [],
-}
+};

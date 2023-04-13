@@ -13,7 +13,7 @@ import {
 
 const PromoInformation = () => {
   return (
-    <section className="bg-color-bg_primary-500">
+    <section className="bg-color-bg_primary-500 pt-4 md:pt-10">
       <div className="mx-auto max-w-7xl px-10">
         <div className="flex flex-col">
           <div className="lg:mb-10 lg:flex lg:items-center lg:gap-10">

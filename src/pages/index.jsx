@@ -6,7 +6,6 @@ import Hero from "@/assets/phone-image.png";
 import Ad from "@/assets/ad.png";
 import Cry from "@/assets/cry-emoji.svg";
 import Smile from "@/assets/smile-emoji.svg";
-import Socials from "@/assets/social-btn.png";
 import LadyLaptop from "@/assets/lady-laptop.png";
 import Form from "@/Components/Form";
 import Chill from "@/assets/img.png";
@@ -17,6 +16,7 @@ import FAQ from "@/Components/FAQ";
 import Connection from "@/Components/Connection";
 import PromoInformation from "@/Components/PromoInformation";
 import Table from "@/Components/Table";
+import SignUpSecton from "@/Components/SignUpSecton";
 
 export default function Home() {
   return (
@@ -83,7 +83,7 @@ export default function Home() {
             </div>
             <Table />
           </div>
-          <div className="mt-8 flex flex-col items-center">
+          <div className="mt-9 flex flex-col items-center">
             <h1 className="text-center text-3xl font-extrabold">
               Most Popular Services
             </h1>
@@ -161,50 +161,7 @@ export default function Home() {
             <HeroSection />
           </div>
         </section>
-        <section className="bg-gradient-to-r from-sky-400 to-blue-500 py-10">
-          <div className="mx-auto max-w-sm px-5 lg:max-w-7xl">
-            <h1 className="my-4 text-center text-4xl font-extrabold text-white">
-              Sign Up
-            </h1>
-            <div className="mb-4 flex flex-col space-y-5 self-center lg:mb-7 lg:flex-row lg:items-baseline lg:justify-center lg:gap-12">
-              <input placeholder="Enter email" className="px-5 py-2 lg:w-1/5" />
-              <input
-                placeholder="Create password"
-                className="px-5 py-2 lg:w-1/5"
-              />
-              <button className="rounded-lg bg-color-primary py-3 text-white drop-shadow-[0_4px_15px_rgba(231,237,250,0.25)] lg:w-1/5">
-                Sign Up
-              </button>
-            </div>
-            <div>
-              <p className="mb-4 text-center text-lg font-extrabold text-white/50 lg:mb-5">
-                Or log in with your social network
-              </p>
-              <div className="mx-5 flex items-center justify-center space-x-3">
-                <Image
-                  src={Socials}
-                  alt="Soacila Button"
-                  className="h-12 w-20 object-contain"
-                />
-                <Image
-                  src={Socials}
-                  alt="Soacila Button"
-                  className="h-12 w-20 object-contain"
-                />
-                <Image
-                  src={Socials}
-                  alt="Soacila Button"
-                  className="h-12 w-20 object-contain"
-                />
-                <Image
-                  src={Socials}
-                  alt="Soacila Button"
-                  className="h-12 w-20 object-contain"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
+        <SignUpSecton />
         <section className="my-16">
           <div className="mx-auto flex max-w-7xl flex-col items-center px-5">
             <h1 className="self-center text-center text-2xl font-extrabold md:w-2/5">
