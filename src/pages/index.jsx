@@ -8,7 +8,6 @@ import Cry from "@/assets/cry-emoji.svg";
 import Smile from "@/assets/smile-emoji.svg";
 import Socials from "@/assets/social-btn.png";
 import LadyLaptop from "@/assets/lady-laptop.png";
-
 import Form from "@/Components/Form";
 import Chill from "@/assets/img.png";
 import Services from "@/Components/Services";
@@ -18,8 +17,6 @@ import FAQ from "@/Components/FAQ";
 import Connection from "@/Components/Connection";
 import PromoInformation from "@/Components/PromoInformation";
 import Table from "@/Components/Table";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
