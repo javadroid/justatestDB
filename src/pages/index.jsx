@@ -63,6 +63,7 @@ export default function Home() {
                 src={Hero}
                 alt="Hero"
                 className="h-[500px] w-[570px] object-contain"
+                priority={true}
               />
             </div>
           </div>
