@@ -28,15 +28,24 @@ const PromoInformation = () => {
                 month
               </h1>
               <div className="flex h-28 items-baseline justify-between border border-l-0 border-r-0 border-t-0 border-blue-300 lg:h-0 lg:border-0">
-                <div className="border-r-3 flex h-full w-full border border-b-0 border-l-0 border-t-0 border-blue-300 px-1 md:justify-center lg:border-0">
-                  <p className="text-center text-base font-extrabold md:w-4/6 md:text-xl">
+                <div className="border-r-3 flex h-full w-full border border-b-0 border-l-0 border-t-0 border-blue-300 px-1 md:justify-center lg:flex-col lg:items-center lg:border-0">
+                  <p className="text-center text-base font-extrabold md:w-4/6 md:text-xl lg:text-left">
                     One-time number for sms
+                    <br />
+                  </p>
+                  <p className="hidden lg:flex lg:text-start">
+                    Receive a one-time SMS to a virtual number from the one
+                    website or application chosen when ordering.
                   </p>
                   <InformationCircleIcon className="h-6 w-6 text-blue-500 lg:hidden" />
                 </div>
-                <div className="border-l-3 flex w-full items-center justify-center space-x-2 ">
+                <div className="border-l-3 flex w-full items-center justify-center space-x-2 lg:h-[104px] lg:flex-col lg:items-center lg:justify-between">
                   <p className="text-center text-base font-extrabold md:text-xl">
                     Rent
+                  </p>
+                  <p className="hidden lg:flex lg:text-start">
+                    Rent a phone number to receive an unlimited number of SMS
+                    from any website or app.
                   </p>
                   <InformationCircleIcon className="h-5 w-5 text-blue-500 lg:hidden" />
                 </div>
@@ -73,7 +82,7 @@ const PromoInformation = () => {
             </div>
             <div className="flex h-full items-baseline justify-between border border-l-0 border-r-0 border-t-0 border-blue-300 lg:contents">
               <div className="border-r-3 flex h-full w-full border border-b-0 border-l-0 border-t-0 border-blue-300 px-1 lg:border-0">
-                <p className="pb-3 text-center text-base font-extrabold md:w-4/5 md:text-xl">
+                <p className="pb-3 text-center text-base font-extrabold md:w-4/5 md:text-xl lg:w-full lg:text-left">
                   From the one site/application you selected when ordering
                 </p>
               </div>
