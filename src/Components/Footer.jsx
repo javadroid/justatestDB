@@ -65,7 +65,7 @@ export const Footer = () => {
         </div>
       </div>
       <div className="bg-color-bg_light p-6 text-center md:p-4">
-        <ul className="flex flex-col items-center space-y-5 md:flex-row md:justify-around md:space-x-1">
+        <ul className="flex flex-col items-center space-y-3 text-slate-500/50 md:flex-row md:justify-around md:space-x-1">
           <li>Privacy Policy</li>
           <li>Terms of Use</li>
           <li>Payment & Refund</li>

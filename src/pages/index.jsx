@@ -1,18 +1,23 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import Hero from "../assets/phone-image.png";
-import {
-  MagnifyingGlassIcon,
-  InformationCircleIcon,
-  ClockIcon,
-} from "@heroicons/react/24/outline";
-import Ad from "../assets/ad.png";
-import Cry from "../assets/cry-emoji.svg";
-import Smile from "../assets/smile-emoji.svg";
-import Tablet from "../assets/list-pic.png";
-import Socials from "../assets/social-btn.png";
-import LadyLaptop from "../assets/lady-laptop.png";
+import Hero from "@/assets/phone-image.png";
+
+import Ad from "@/assets/ad.png";
+import Cry from "@/assets/cry-emoji.svg";
+import Smile from "@/assets/smile-emoji.svg";
+import Socials from "@/assets/social-btn.png";
+import LadyLaptop from "@/assets/lady-laptop.png";
+
+import Form from "@/Components/Form";
+import Chill from "@/assets/img.png";
+import Services from "@/Components/Services";
+import HeroSection from "@/Components/HeroSection";
+import Advantages from "@/Components/Advantages";
+import FAQ from "@/Components/FAQ";
+import Connection from "@/Components/Connection";
+import PromoInformation from "@/Components/PromoInformation";
+import Table from "@/Components/Table";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -79,100 +84,14 @@ export default function Home() {
                 now
               </h1>
             </div>
-            <div className="lg:flex lg:h-[631px] lg:justify-center lg:self-center lg:drop-shadow-xl xl:w-[1110px]">
-              <div className="m-4 mt-10 rounded-t-2xl bg-color-bg_light px-7 py-4 lg:mx-0">
-                <div>
-                  <h1 className="text-xl font-extrabold ">1. Select Country</h1>
-                  <div className="flex w-full items-center space-x-1 border border-x-0 border-t-0 border-blue-300">
-                    <MagnifyingGlassIcon className="h-6 w-6" />
-                    <input
-                      type="text"
-                      placeholder="Search"
-                      className="bg-transparent py-1 text-lg font-medium italic text-black outline-none"
-                    />
-                  </div>
-                  <ul className="pt-2">
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                  </ul>
-                  <p className="pt-4 text-lg font-normal text-color-text_light">
-                    Available Countries- 128
-                  </p>
-                </div>
-              </div>
-              <div className="m-4 mt-10 bg-white px-7 py-2 drop-shadow-xl lg:mx-0 lg:w-full">
-                <div className=" ">
-                  <div className="lg:flex lg:items-center lg:justify-between lg:gap-10">
-                    <h1 className="text-xl font-extrabold lg:w-full">
-                      2. Select a service
-                    </h1>
-                    <div className="flex w-full items-center space-x-1 border border-x-0 border-t-0 border-blue-300 lg:w-3/4">
-                      <MagnifyingGlassIcon className="h-6 w-6" />
-                      <input
-                        type="text"
-                        placeholder="Search"
-                        className="bg-transparent py-1 text-lg font-medium italic text-black outline-none"
-                      />
-                    </div>
-                  </div>
-                  <ul className="pt-2">
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                    <li className="p-2">📸 Fake Country</li>
-                  </ul>
-                  <div className="flex items-baseline space-x-10">
-                    <p className="pt-4 text-lg font-normal text-color-text_light">
-                      Available services- 2312
-                    </p>
-                    <button className="rounded-lg bg-color-primary px-11 py-2 font-medium text-white">
-                      Receive SMS
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Table />
           </div>
-          <div className="mt-8 ">
+          <div className="mt-8 flex flex-col items-center">
             <h1 className="text-center text-3xl font-extrabold">
               Most Popular Services
             </h1>
-            <div className="mt-11">
-              <div className="m-5 mx-auto grid max-w-sm grid-cols-2 justify-items-start">
-                <div>
-                  <p>Country</p>
-                  <div>⛳ Fake Country</div>
-                </div>
-                <div>
-                  <p>Service</p>
-                  <div>✅ Fake service</div>
-                </div>
-                <div className="">
-                  <p>Activated</p>
-                  <p>327 times</p>
-                </div>
-                <div>
-                  <p>Cost</p>
-                  <p>0.19 $</p>
-                </div>
-              </div>
-              <button className="bg-color-primary text-white">
-                Receive SMS
-              </button>
+            <div className="mt-11 flex w-full flex-col">
+              <Services />
             </div>
           </div>
         </section>
@@ -242,36 +161,11 @@ export default function Home() {
                 </div>
               </div>
             </div>
-            <div className="my-8 px-5">
-              <div className="flex items-center justify-between gap-12">
-                <div className=" hidden lg:block lg:w-[700px]">
-                  <Image
-                    src={Tablet}
-                    alt="Tablet Pic"
-                    className="h-full w-full object-contain "
-                  />
-                </div>
-                <div>
-                  <h2 className="w-3/5 text-2xl font-extrabold">
-                    SMS-MAN - service for private registration at online
-                    resources
-                  </h2>
-                  <p className="mt-14 text-lg font-normal lg:w-3/5">
-                    We give you the opportunity to anonymously use the phone
-                    number online to receive SMS to register on sites and
-                    application.
-                  </p>
-                  <p className="mt-4 text-lg font-normal lg:w-1/2">
-                    At the same time, you can be sure that no one but you will
-                    have access to it.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <HeroSection />
           </div>
         </section>
         <section className="bg-gradient-to-r from-sky-400 to-blue-500 py-10">
-          <div className="mx-auto max-w-sm lg:max-w-7xl">
+          <div className="mx-auto max-w-sm px-5 lg:max-w-7xl">
             <h1 className="my-4 text-center text-4xl font-extrabold text-white">
               Sign Up
             </h1>
@@ -289,7 +183,7 @@ export default function Home() {
               <p className="mb-4 text-center text-lg font-extrabold text-white/50 lg:mb-5">
                 Or log in with your social network
               </p>
-              <div className="flex items-center justify-center space-x-3">
+              <div className="mx-5 flex items-center justify-center space-x-3">
                 <Image
                   src={Socials}
                   alt="Soacila Button"
@@ -370,83 +264,59 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="bg-color-bg_primary-500">
-          <div className="mx-auto max-w-7xl px-10">
-            <div className="flex flex-col">
-              <h1 className="mb-10 text-center text-xl font-extrabold">
-                You can buy a disposable phone number or rent one for up to a
-                month
-              </h1>
-              <div className="flex h-28 items-baseline justify-between border border-l-0 border-r-0 border-t-0 border-blue-300">
-                <div className="border-r-3 flex h-full w-full border border-b-0 border-l-0 border-t-0 border-blue-300 px-1">
-                  <p className="text-center text-base font-extrabold">
-                    One-time number for sms
-                  </p>
-                  <InformationCircleIcon className="h-5 w-5 text-blue-500" />
-                </div>
-                <div className="border-l-3 flex w-full items-center justify-center space-x-2 ">
-                  <p className="text-center text-base font-extrabold">Rent</p>
-                  <InformationCircleIcon className="h-5 w-5 text-blue-500" />
-                </div>
-              </div>
-              <div className="mt-4 flex items-center justify-center">
-                <ClockIcon className="h-5 w-5 text-blue-500" />
-                <h1>Rent Duration</h1>
-              </div>
-              <div className="flex h-10 items-baseline justify-between border border-l-0 border-r-0 border-t-0 border-blue-300">
-                <div className="border-r-3 flex h-full w-full border border-b-0 border-l-0 border-t-0 border-blue-300 px-1">
-                  <p className="text-center text-base font-extrabold">
-                    Up to 20 minutes
-                  </p>
-                </div>
-                <div className="border-l-3 flex w-full items-center justify-center space-x-2 ">
-                  <p className="text-center text-base font-extrabold">
-                    up to 90 days
-                  </p>
-                </div>
-              </div>
-              <div>
-                <h1>Rent Duration</h1>
-              </div>
-              <div className="flex h-28 items-baseline justify-between border border-l-0 border-r-0 border-t-0 border-blue-300">
-                <div className="border-r-3 flex h-full w-full border border-b-0 border-l-0 border-t-0 border-blue-300 px-1">
-                  <p className="text-center text-base font-extrabold">
-                    One-time number for sms2
-                  </p>
-                  <InformationCircleIcon className="h-5 w-5 text-blue-500" />
-                </div>
-                <div className="border-l-3 flex w-full items-center justify-center space-x-2 ">
-                  <p className="text-center text-base font-extrabold">Rent</p>
-                  <InformationCircleIcon className="h-5 w-5 text-blue-500" />
-                </div>
-              </div>
-              <div className="flex h-28 items-baseline justify-between border border-l-0 border-r-0 border-t-0 border-blue-300">
-                <div className="border-r-3 flex h-full w-full border border-b-0 border-l-0 border-t-0 border-blue-300 px-1">
-                  <p className="text-center text-base font-extrabold">
-                    One-time number for sms3
-                  </p>
-                  <InformationCircleIcon className="h-5 w-5 text-blue-500" />
-                </div>
-                <div className="border-l-3 flex w-full items-center justify-center space-x-2 ">
-                  <p className="text-center text-base font-extrabold">Rent</p>
-                  <InformationCircleIcon className="h-5 w-5 text-blue-500" />
-                </div>
-              </div>
-              <div className="flex h-28 items-baseline justify-between border border-l-0 border-r-0 border-t-0 border-blue-300">
-                <div className="border-r-3 flex h-full w-full border border-b-0 border-l-0 border-t-0 border-blue-300 px-1">
-                  <p className="text-center text-base font-extrabold">
-                    One-time number for sms4
-                  </p>
-                  <InformationCircleIcon className="h-5 w-5 text-blue-500" />
-                </div>
-                <div className="border-l-3 flex w-full items-center justify-center space-x-2 ">
-                  <p className="text-center text-base font-extrabold">Rent</p>
-                  <InformationCircleIcon className="h-5 w-5 text-blue-500" />
-                </div>
-              </div>
+        <PromoInformation />
+        <section className="my-10">
+          <div className="mx-auto max-w-7xl">
+            <div className="mx-auto max-w-3xl px-6 text-justify">
+              <p className="mb-4 text-lg font-normal">
+                "SMS-man" gives you the opportunity to buy a virtual number for
+                registration in popular services at the best price on the net.
+                Previously, to register an additional account in a social
+                network or messenger you had to buy a SIM-card or ask your
+                husband/wife to share the phone (which is not always possible)..
+              </p>
+              <p className="mb-4 text-lg font-normal">
+                First of all, it costs money to get a new SIM card. Secondly, it
+                is a whole event - to come to the office, fill out a form with
+                passport data...
+              </p>
+              <p className="mb-4 text-lg font-normal">
+                On this site you can buy a virtual phone number for Telegram,
+                Whatsapp, Viber, Instagram, Facebook, and any other popular
+                platform from just 0,05$.
+              </p>
+              <p className="mb-4 text-lg font-normal">
+                The service is suitable for users who need both one-time and
+                mass SMS verification of accounts in social networks,
+                messengers, payment systems, dating sites and any other services
+                that require SMS verification.
+              </p>
+              <p className="mb-4 text-lg font-normal">
+                Get a virtual phone number in just a few minutes!
+              </p>
+              <p className="mb-4 text-lg font-normal">
+                The entire process is automated and occurs in a user-friendly
+                interface. There is no need to contact managers to connect the
+                number. At the same time, support is always ready to help in
+                case of anything.
+              </p>
+              <p className="mb-4 text-lg font-normal">
+                So feel free to use it!
+              </p>
             </div>
+            <div className="flex items-center justify-center lg:gap-40">
+              <Image
+                src={Chill}
+                alt="Chill Pic"
+                className="hidden h-[350px] w-[350px] object-contain lg:flex"
+              />
+              <Form />
+            </div>
+            <Advantages />
           </div>
         </section>
+        <Connection />
+        <FAQ />
       </main>
     </>
   );
