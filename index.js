@@ -11,9 +11,11 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
 
-// add routes
-const router = require('./routes/router.js');
-app.use('/api', router);
+// adding routes
+const users = require('./routes/users.js');
+const admins = require('./routes/admin.js');
+app.use('/api', users);
+app.use('/api/admin', admins);
 // app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 
 // run server
