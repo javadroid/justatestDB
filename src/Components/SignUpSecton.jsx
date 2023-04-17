@@ -39,7 +39,7 @@ export default function SignUpSecton() {
             </Link>
             <Link href="/facebook" className="w-1/4 text-center">
               <Icon
-                icon="teenyicons:facebook-solid"
+                icon="simple-icons:facebook"
                 className="md:5xl w-full text-4xl text-[#4267b2] transition duration-500 ease-in-out hover:opacity-75"
               />
             </Link>
