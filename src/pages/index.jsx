@@ -18,6 +18,7 @@ import Connection from "@/Components/Connection";
 import PromoInformation from "@/Components/PromoInformation";
 import Table from "@/Components/Table";
 import SignUpSecton from "@/Components/SignUpSecton";
+import Cookies from "@/Components/Cookies";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,7 +32,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="">
-        <section className="w-full bg-gradient-to-r from-sky-400 to-blue-500">
+        <section className="relative w-full bg-gradient-to-r from-sky-400 to-blue-500">
           <div className="mx-auto flex max-w-7xl flex-col px-4 py-6 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <div>
@@ -72,16 +73,12 @@ export default function Home() {
         </section>
         <section className="bg-color-bg_light-100 py-20">
           <div className="mx-auto max-w-7xl lg:flex lg:flex-col">
-            <div>
+            <div className="px-1">
               <h2 className="text-center text-2xl font-extrabold text-color-primary_darken">
                 Check how it Works
               </h2>
               <h1 className="text-center text-4xl font-extrabold">
-                Choose your country and
-                <br />
-                service receive SMS right
-                <br />
-                now
+                Choose your country and service receive SMS right now
               </h1>
             </div>
             <Table />
@@ -98,8 +95,8 @@ export default function Home() {
         <section>
           <div className="mx-auto max-w-7xl px-3">
             <h1 className="mx-auto w-3/4 max-w-7xl text-center text-2xl font-extrabold lg:w-1/2 lg:text-3xl">
-              It's no secret that almost all online services are selling your
-              personal data.
+              It&apos;s no secret that almost all online services are selling
+              your personal data.
             </h1>
             <div className="md:flex md:items-baseline md:justify-center md:space-x-5">
               <div className="lg flex flex-col items-center rounded-3xl bg-color-bg_primary-500 py-5">
@@ -226,11 +223,12 @@ export default function Home() {
           <div className="mx-auto max-w-7xl">
             <div className="mx-auto max-w-3xl px-6 text-justify">
               <p className="mb-4 text-lg font-normal">
-                "SMS-man" gives you the opportunity to buy a virtual number for
-                registration in popular services at the best price on the net.
-                Previously, to register an additional account in a social
-                network or messenger you had to buy a SIM-card or ask your
-                husband/wife to share the phone (which is not always possible)..
+                &quot;SMS-man&quot; gives you the opportunity to buy a virtual
+                number for registration in popular services at the best price on
+                the net. Previously, to register an additional account in a
+                social network or messenger you had to buy a SIM-card or ask
+                your husband/wife to share the phone (which is not always
+                possible)..
               </p>
               <p className="mb-4 text-lg font-normal">
                 First of all, it costs money to get a new SIM card. Secondly, it
@@ -274,6 +272,7 @@ export default function Home() {
         </section>
         <Connection />
         <FAQ />
+        <Cookies />
       </main>
     </>
   );

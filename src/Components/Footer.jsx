@@ -2,6 +2,10 @@ import Image from "next/image";
 import React from "react";
 import Logo from "../assets/Logo.png";
 import FooterIcon from "../assets/footer.png";
+import FaceBook from "../assets/socials/Facebook.svg";
+import Gmail from "../assets/socials/Gmail.svg";
+import Whatsapp from "../assets/socials/Whatsapp.svg";
+import Youtube from "../assets/socials/Youtube.svg";
 
 export const Footer = () => {
   return (
@@ -29,28 +33,28 @@ export const Footer = () => {
         <div className="flex items-center justify-center gap-5 p-5">
           <div>
             <Image
-              src={FooterIcon}
+              src={FaceBook}
               alt="Footer Icon"
               className="h-10 w-10 object-contain"
             />
           </div>
           <div>
             <Image
-              src={FooterIcon}
+              src={Gmail}
               alt="Footer Icon"
               className="h-10 w-10 object-contain"
             />
           </div>
           <div>
             <Image
-              src={FooterIcon}
+              src={Whatsapp}
               alt="Footer Icon"
               className="h-10 w-10 object-contain"
             />
           </div>
           <div>
             <Image
-              src={FooterIcon}
+              src={Youtube}
               alt="Footer Icon"
               className="h-10 w-10 object-contain"
             />
