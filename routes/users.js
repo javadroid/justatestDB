@@ -42,11 +42,10 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
                                     // has hashed pw => add to database
                                     const vstatus = 'unverified'
                                     db.query(
-                                        `INSERT INTO users (id, firstname, lastname, username, email, phone_no, password, vstatus, reg_date) VALUES ('${id}', '${req.body.firstname}', '${req.body.lastname}', '${req.body.username}', '${req.body.email}',
-                            '${req.body.phone_no}', '${hash}', '${vstatus}', now())`,
+                                        `INSERT INTO users (id, username, email, password, vstatus, reg_date) VALUES ('${id}', '${req.body.username}', '${req.body.email}', '${hash}', '${vstatus}', now())`,
                                         (err, result) => {
                                             if (err) {
-                                                throw err;
+                                                // throw err;
                                                 return res.status(400).send({
                                                     msg: err
                                                 });
@@ -58,14 +57,12 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
                                                 html: `<div style="text-align:justify;">
                                                 <h4>Hello ${req.body.firstname} ${req.body.lastname}</h4>
                                                 <p>You just sign up on SMS-MAN, please click the button below to verify your account</p>
-                                                <button><a href="https://smsman/api/verify-email/${id}">Verify Account</a></button>
-                                                <P>Or copy this url and paste on your browser: HTTPS://paysequr.com/api/verify-email/${id} </P>`
+                                                <button><a href="https://newsems.com/api/verify-email/${id}">Verify Account</a></button>
+                                                <P>Or copy this url and paste on your browser: HTTPS://newsems.com/api/verify-email/${id} </P>`
                                             };
                                             mg.messages().send(data, function(error, body) {
                                                 console.log(body);
                                             });
-
-
                                             return res.status(201).send({
                                                 msg: 'User Has Been Successfully Registered!'
                                             });
@@ -79,15 +76,29 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
             }
         });
 });
-router.post('/google_signup', (req, res, next) => {
+router.post('/social_media_sign', (req, res, next) => {
     db.query(
         `SELECT * FROM users WHERE LOWER(email) = LOWER(${db.escape(
          req.body.email
        )});`,
         (err, result) => {
             if (result.length) {
-                return res.status(409).send({
-                    msg: 'This email is already in used!'
+                const token = jwt.sign({
+                        username: result[0].email,
+                        userId: result[0].id
+                    },
+                    'SECRETKEY', {
+                        expiresIn: '7d'
+                    }
+                );
+
+                db.query(
+                    `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
+                );
+                return res.status(200).send({
+                    msg: 'Logged in!',
+                    token,
+                    user: result[0]
                 });
             } else {
                 db.query(
@@ -96,17 +107,32 @@ router.post('/google_signup', (req, res, next) => {
             )});`,
                     (err, result) => {
                         if (result.length) {
-                            return res.status(409).send({
-                                msg: 'This username is already in used!'
+                            const token = jwt.sign({
+                                    username: result[0].email,
+                                    userId: result[0].id
+                                },
+                                'SECRETKEY', {
+                                    expiresIn: '7d'
+                                }
+                            );
+
+                            db.query(
+                                `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
+                            );
+                            return res.status(200).send({
+                                msg: 'Logged in!',
+                                token,
+                                user: result[0]
                             });
+
                         } else {
                             // username is available
                             const vstatus = 'verified'
                             db.query(
-                                `INSERT INTO users (id, firstname, lastname, username, email, vstatus, google_id, reg_date) VALUES ('${uuid.v4()}', '${req.body.firstname}', '${req.body.lastname}', '${req.body.username}', '${req.body.email}', '${vstatus}', '${req.body.google_id}', now())`,
+                                `INSERT INTO users (id, email, vstatus, reg_date) VALUES ('${uuid.v4()}', '${req.body.email}', '${vstatus}', now())`,
                                 (err, result) => {
                                     if (err) {
-                                        throw err;
+                                        //throw err;
                                         return res.status(400).send({
                                             msg: err
                                         });

@@ -1,7 +1,7 @@
 {
     "name": "newsems",
     "version": "1.0.0",
-    "description": "New Sems is a mobile number renting app",
+    "description": "Newsems is a mobile number renting app",
     "main": "index.js",
     "scripts": {
         "start": "nodemon index.js"
