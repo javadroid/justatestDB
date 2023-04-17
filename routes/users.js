@@ -58,7 +58,7 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
                                                 <h4>Hello ${req.body.firstname} ${req.body.lastname}</h4>
                                                 <p>You just sign up on SMS-MAN, please click the button below to verify your account</p>
                                                 <button><a href="https://newsems.com/api/verify-email/${id}">Verify Account</a></button>
-                                                <P>Or copy this url and paste on your browser: HTTPS://newsems.com/api/verify-email/${id} </P>`
+                                                <P>Or copy this url and paste on your browser: https://newsems.com/api/verify-email/${id} </P>`
                                             };
                                             mg.messages().send(data, function(error, body) {
                                                 console.log(body);
