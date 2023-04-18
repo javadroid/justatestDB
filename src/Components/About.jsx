@@ -8,7 +8,7 @@ import Image from 'next/image';
 export default function About() {
   return (
     <section className="bg-color-bg_primary-500">
-      <div className="container m-auto px-4 py-2">
+      <div className="m-auto px-4 py-2">
         <div className="max-w-2xl mx-auto py-14 text-justify md:text-xl">
           <p className="my-4">
             &quot;SMS-Man&quot; gives you the opportunity to rent a virtual number to receive SMS. The leased number can be used for registration on almost any platform that requires a mobile number for registration.

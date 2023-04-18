@@ -31,30 +31,19 @@ export default function SignUpSecton() {
             Or log in with your social network
           </p>
           <div className="flex items-center justify-center space-x-10">
-            <Link href="/github" className="w-1/4">
-              <Icon
-                icon="logos:github-octocat"
-                className="w-full text-5xl transition duration-500 ease-in-out hover:opacity-75 md:text-6xl"
-              />
-            </Link>
-            <Link href="/facebook" className="w-1/4 text-center">
-              <Icon
-                icon="teenyicons:facebook-solid"
-                className="md:5xl w-full text-4xl text-[#4267b2] transition duration-500 ease-in-out hover:opacity-75"
-              />
-            </Link>
-            <Link href="/twitter">
-              <Icon
-                icon="bi:twitter"
-                className=" md:5xl w-full text-4xl text-[#03a9f4] transition duration-500 ease-in-out hover:opacity-75"
-              />
-            </Link>
-            <Link href="/google">
-              <Icon
-                icon="cib:google"
-                className="w-full text-4xl text-[#d93025] transition duration-500 ease-in-out hover:opacity-75 md:text-5xl"
-              />
-            </Link>
+          <Link href="/"  className="w-1/4 bg-color-black px-4 rounded-md">
+                <Icon icon="octicon:mark-github-16" className="w-full text-5xl text-color-white coltransition duration-500 ease-in-out hover:opacity-75" />
+                  {/* <Icon icon="logos:github-octocat" className="w-full text-5xl transition duration-500 ease-in-out hover:opacity-75 md:text-6xl" /> */}
+              </Link>
+              <Link href="/"  className="w-1/4 bg-[#4267b2] px-4 py-2 rounded-md">
+                  <Icon icon="teenyicons:facebook-solid" className="w-full text-4xl text-color-white transition duration-500 ease-in-out hover:opacity-75" />
+              </Link>
+              <Link href="/" className="w-1/4 bg-[#03a9f4] px-4 py-2 rounded-md">
+                  <Icon icon="bi:twitter" className=" w-full text-4xl text-color-white transition duration-500 ease-in-out hover:opacity-75" />
+              </Link>
+              <Link href="/google" className="w-1/4 bg-[#d93025] px-4 py-2 rounded-md">
+                  <Icon icon="cib:google" className="w-full text-4xl text-color-white transition duration-500 ease-in-out hover:opacity-75" />
+              </Link>
           </div>
           <div>
             <Link href="/telegram">
