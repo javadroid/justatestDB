@@ -36,6 +36,9 @@ module.exports = {
       dropShadow: {
         "3xl": "0px 4px 15px rgba(37,39,86,0.15)",
       },
+      maxWidth: {
+        '1/2': '50%',
+      },
       fontSize: {
         h1Size: "3.6rem",
         h2Size: "2rem",

@@ -16,7 +16,7 @@ const Rent = () => {
   {/*Hero section*/}
       <section id="hero" className="bg-blue-500 text-2.2rem text-white">
         {/* Flex container */}
-          <div className="flex flex-col mx-auto overflow-hidden items-center py-20 space-y-6 md:justify-start px-6 lg:flex-row lg:justify-between ">
+          <div className="container flex flex-col mx-auto overflow-hidden items-center py-20 space-y-6 md:justify-start px-6 lg:flex-row lg:justify-between ">
             {/* Left hero */}
             <div className="mb-30 space-y-12 md:px-2 md:w-full">
               <h1 className="text-3xl font-bold text-center md:w-full md:text-5xl md:text-left">

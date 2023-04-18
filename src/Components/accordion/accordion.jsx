@@ -10,7 +10,7 @@ function Accordion() {
   }
 
   return (
-    <section className="max-w-6xl bg-color-primary rounded-lg space-y-8 p-6">
+    <section className="max-w-3xl bg-color-primary rounded-lg space-y-8 p-6 md:rounded-3xl lg:mx-auto">
       {items.map((item, index) => (
         <div key={index}>
           <div className="accordion-item">
