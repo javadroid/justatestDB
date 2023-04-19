@@ -229,6 +229,28 @@ router.post('/login', (req, res, next) => {
     );
 });
 
+//Fetching referral hostory
+router.get('/referral/history/:refCode', (req, res, next) => {
+    const refCode = req.params.refCode;
+    db.query(
+        `SELECT * FROM referrals WHERE referrer = '${refCode}'`,
+        (err, result) => {
+            if (result.length) {
+                // const data = JSON.parse(result);
+                //console.log(data.bonus);
+                return res.status(200).send({
+                    referrals: { result }
+                });
+            } else {
+                return res.status(302).send({
+                    msg: "You haven't refer a user yet!"
+                });
+            }
+        }
+    )
+});
+
+
 //To protect a route now, simply include this middleware when calling the route as follows:
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
     console.log(req.userData);
