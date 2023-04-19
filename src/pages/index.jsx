@@ -75,7 +75,7 @@ export default function Home() {
           <div className="mx-auto max-w-7xl lg:flex lg:flex-col">
             <div className="px-1">
               <h2 className="text-center text-2xl font-extrabold text-color-primary_darken">
-                Check how it Works
+                Check How it Works
               </h2>
               <h1 className="text-center text-4xl font-extrabold">
                 Choose your country and service receive SMS right now
