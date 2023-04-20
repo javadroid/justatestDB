@@ -8,10 +8,10 @@ import Image from 'next/image';
 export default function About() {
   return (
     <section className="bg-color-bg_primary-500">
-      <div className="container m-auto px-4 py-2">
+      <div className="m-auto px-4 py-2">
         <div className="max-w-2xl mx-auto py-14 text-justify md:text-xl">
           <p className="my-4">
-            &quot;SMS-Man&quot; gives you the opportunity to rent a virtual number to receive SMS. The leased number can be used for registration on almost any platform that requires a mobile number for registration.
+            &quot;Newsems&quot; gives you the opportunity to rent a virtual number to receive SMS. The leased number can be used for registration on almost any platform that requires a mobile number for registration.
           </p>
           <p className="my-4">
             Many online services require you to confirm your phone number via SMS to register. This means that you can&apos;t register an additional account in your favorite messenger or social network without a phone number. But to apply for a new SIM card, you have to come to a cell phone shop, give your passport details and pay a lot of money...... Tremendous.
@@ -20,7 +20,7 @@ export default function About() {
             If you rent a number on our service, you will be able to receive SMS on the rented number during the entire rental period. This will allow you to register an unlimited number of accounts for WhatsApp, Telegram, Gmail, Facebook, Tinder and any other services that require SMS verification!
           </p>
           <p className="my-4">
-            Number rental on the service &quot;SMS-Man&quot; has many advantages, which you can find below: <br />
+            Number rental on the service &quot;Newsems&quot; has many advantages, which you can find below: <br />
             - A rented number will help you preserve your anonymity in social networks and messengers. <br />
               
             - You will finally be able to register as many social network accounts as you want <br />
@@ -53,17 +53,17 @@ export default function About() {
                   Or log in with your social network
                 </p>
                 <div className="flex space-x-4 items-center justify-center">
-                  <Link href="/github"  className="w-1/4">
-                      <Icon icon="logos:github-octocat" className="w-full text-5xl transition duration-500 ease-in-out hover:opacity-75 md:text-6xl" />
+                  <Link href="/"  className="w-1/4 bg-color-black px-4 rounded-md">
+                    <Icon icon="octicon:mark-github-16" className="w-full text-5xl text-color-white coltransition duration-500 ease-in-out hover:opacity-75" />
                   </Link>
-                  <Link href="/facebook"  className="w-1/4 text-center">
-                      <Icon icon="teenyicons:facebook-solid" className="w-full text-4xl text-[#4267b2] transition duration-500 ease-in-out hover:opacity-75 md:text-5xl" />
+                  <Link href="/"  className="w-1/4 bg-[#4267b2] px-4 py-2 rounded-md">
+                    <Icon icon="teenyicons:facebook-solid" className="w-full text-4xl text-color-white transition duration-500 ease-in-out hover:opacity-75" />
                   </Link>
-                  <Link href="/twitter">
-                      <Icon icon="bi:twitter" className=" w-full text-4xl text-[#03a9f4] transition duration-500 ease-in-out hover:opacity-75 md:text-5xl" />
+                  <Link href="/" className="w-1/4 bg-[#03a9f4] px-4 py-2 rounded-md">
+                    <Icon icon="bi:twitter" className=" w-full text-4xl text-color-white transition duration-500 ease-in-out hover:opacity-75" />
                   </Link>
-                  <Link href="/google">
-                      <Icon icon="cib:google" className="w-full text-4xl text-[#d93025] transition duration-500 ease-in-out hover:opacity-75 md:text-5xl" />
+                  <Link href="/google" className="w-1/4 bg-[#d93025] px-4 py-2 rounded-md">
+                    <Icon icon="cib:google" className="w-full text-4xl text-color-white transition duration-500 ease-in-out hover:opacity-75" />
                   </Link>
                 </div>
                 <div>

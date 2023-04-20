@@ -4,7 +4,7 @@ import SignUpForm from '@/Components/SignUpForm';
 const Signup= () => {
   return (
     <section id='signup' className="bg-color-bg_light">
-      <div className='container mx-auto sm:px-4 py-6'>
+      <div className='md:w-4/5 mx-auto py-6'>
         <SignUpForm />
       </div>
     </section>

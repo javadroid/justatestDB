@@ -5,12 +5,12 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    // screens: {
-    //   sm: "375px",
-    //   md: "768px",
-    //   lg: "976px",
-    //   xl: "1440px"
-    // },
+    screens: {
+      sm: "375px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1440px"
+    },
     extend: {
       colors: {
         "color-primary": "#0187ff",
@@ -33,9 +33,12 @@ module.exports = {
         "color-tg": "#29a9ea",
         "color-yt": "#c4302b",
       },
-      // dropShadow: {
-      //   "3xl": "0px 4px 15px rgba(37,39,86,0.15)",
-      // },
+      dropShadow: {
+        "3xl": "0px 4px 15px rgba(37,39,86,0.15)",
+      },
+      maxWidth: {
+        '1/2': '50%',
+      },
       fontSize: {
         h1Size: "3.6rem",
         h2Size: "2rem",

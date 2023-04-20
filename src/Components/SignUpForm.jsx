@@ -4,7 +4,7 @@ import { Icon } from '@iconify/react';
 
 const SignUpForm = () => {
   return (
-      <div className=" mx-4 px-6 pt-4 pb-12 bg-color-white rounded-2xl shadow-[0px_4px_15px_rgba(37,39,86,0.15)] sm:rounded-3xl  sm:m-auto md:max-w-lg lg:max-w-xl">
+      <div className=" mx-2 px-6 pt-4 pb-12 bg-color-white rounded-2xl shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:rounded-3xl md:max-w-md md:m-auto lg:max-w-xl">
           <div className="max-w-xs m-auto">
             <h3 className="font-bold text-h2Size text-center my-4">
               Sign up
@@ -24,21 +24,21 @@ const SignUpForm = () => {
               Or log in with your social network
             </p>
             <div className="flex space-x-4 items-center justify-center">
-              <Link href="/github"  className="w-1/4">
-                  <Icon icon="logos:github-octocat" className="w-full text-5xl transition duration-500 ease-in-out hover:opacity-75 md:text-6xl" />
+            <Link href="/"  className="w-1/4 bg-color-black px-4 rounded-md">
+                <Icon icon="octicon:mark-github-16" className="w-full text-5xl text-color-white coltransition duration-500 ease-in-out hover:opacity-75" />
               </Link>
-              <Link href="/facebook"  className="w-1/4 text-center">
-                  <Icon icon="teenyicons:facebook-solid" className="w-full text-4xl text-[#4267b2] transition duration-500 ease-in-out hover:opacity-75 md:text-5xl" />
+              <Link href="/"  className="w-1/4 bg-[#4267b2] px-4 py-2 rounded-md">
+                  <Icon icon="teenyicons:facebook-solid" className="w-full text-4xl text-color-white transition duration-500 ease-in-out hover:opacity-75" />
               </Link>
-              <Link href="/twitter">
-                  <Icon icon="bi:twitter" className=" w-full text-4xl text-[#03a9f4] transition duration-500 ease-in-out hover:opacity-75 md:text-5xl" />
+              <Link href="/" className="w-1/4 bg-[#03a9f4] px-4 py-2 rounded-md">
+                  <Icon icon="bi:twitter" className=" w-full text-4xl text-color-white transition duration-500 ease-in-out hover:opacity-75" />
               </Link>
-              <Link href="/google">
-                  <Icon icon="cib:google" className="w-full text-4xl text-[#d93025] transition duration-500 ease-in-out hover:opacity-75 md:text-5xl" />
+              <Link href="/google" className="w-1/4 bg-[#d93025] px-4 py-2 rounded-md">
+                  <Icon icon="cib:google" className="w-full text-4xl text-color-white transition duration-500 ease-in-out hover:opacity-75" />
               </Link>
             </div>
             <div>
-              <Link href="/telegram">
+              <Link href="/">
                 <button className="flex items-center justify-center space-x-4 text-center text-color-white bg-[#54a9eb] mt-2 px-4 py-2 rounded-lg transition duration-500 ease-in-out hover:opacity-75">
                   <Icon icon="akar-icons:telegram-fill" className="text-3xl" />
                   <span className="md:text-base">Log in with Telegram</span>
