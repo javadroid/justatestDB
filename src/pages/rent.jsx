@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image'
-import device from '../assets/images/Device.webp'
+import device from '../assets/hero.png'
 import device2 from '../assets/images/pic_en.webp'
 import Estonia from '../assets/flags/Estonia.svg';
 import Cyprus from '../assets/flags/Cyprus.svg';
@@ -14,56 +14,55 @@ const Rent = () => {
   return (
     <>
   {/*Hero section*/}
-      <section id="hero" className="bg-blue-500 text-2.2rem text-white">
+      <section id="hero" className="bg-gradient-to-b from-[rgb(13,65,213)] to-[#0187FF] text-2.2rem text-white">
         {/* Flex container */}
-          <div className="container flex flex-col mx-auto overflow-hidden items-center py-20 space-y-6 md:justify-start px-6 lg:flex-row lg:justify-between ">
+          <div className="container max-w-7xl flex flex-col mx-auto overflow-hidden items-center py-20 space-y-6 md:justify-start px-6 lg:flex-row lg:justify-between lg:ml-16 lg:pt-32 ">
             {/* Left hero */}
-            <div className="mb-30 space-y-12 md:px-2 md:w-full">
-              <h1 className="text-3xl font-bold text-center md:w-full md:text-5xl md:text-left">
+            <div className="flex-1 mb-30 space-y-12 md:px-2 md:w-full">
+              <h1 className="text-3xl font-extrabold text-center md:w-full md:text-5xl md:text-left lg:text-4xl">
                 Receive SMS online
               </h1>
               <p className="w-sm max-w-lg text-left text-xl">
-                Register on social networks, marketplaces, exchanges and online services 
-                <span className="text-accent"> 
-                  without spam
-                </span> and <span className="text-yellow-500">
+                Register on social networks, marketplaces, exchanges and online services  
+                <span className="text-color-accent"> without spam
+                </span> and <span className="text-color-accent">
                   disclosure of personal data.
                 </span>
               </p>
               <div className="flex flex-col md:justify-start md:flex-row">
                 <span className="relative before:absolute before:block before:w-85 before:bg-[url('../assets/before/arrow_intro-1.svg')]">
                 </span>
-                <a className="p-3 px-6 pt-2 mb-8 text-blue-600 font-bold text-center bg-white rounded-full baseline md:px-16">
+                <a className="p-3 px-6 pt-3 mb-8 text-color-primary_black font-bold text-center bg-white rounded-full baseline md:px-16 lg:px-14 xl:px-16">
                   Rent number
                 </a>
-                <a className="p-3 px-6 pt-2 mb-8 bg-blue-600 font-bold text-center text-white rounded-full baseline md:px-16 md:ml-4">
+                <a className="p-3 px-6 pt-3 mb-8 bg-color-primary_black font-bold text-center text-white rounded-full baseline md:px-16 md:ml-4 lg:px-16 xl:px-16">
                   Receive SMS
                 </a>
               </div>
             </div>
             {/* Right Hero */}
-              <div className="relative md:px-2">
+              <div className="w-full flex-1 md:px-2">
                 <picture>
-                <Image src={device} alt="" className="relative" />
+                <Image src={device} alt="" className="" />
                 </picture>
               </div>
           </div>
       </section>
 
       {/* Phone number rental */}
-      <section className="bg-blue-300 py-10">
+      <section className="bg-color-bg_light py-10">
           <div className=" max-w-7xl mx-auto items-center justify-center md:flex md:flex-row-reverse">
             <div className="px-4 md:w-full lg:w-1/2">
-              <h2 className="text-xl font-bold text-left text-black mb-4 md:text-3xl md:text-center lg:mb-12 lg:text-left">
-                SMS-MAN - phone number rental to receive SMS
+              <h2 className="text-xl font-extrabold text-left text-black mb-4 md:text-3xl md:text-center lg:mb-12 lg:text-left">
+                Newsems - phone number rental to receive SMS
               </h2>
-              <p className="text-sm text-gray-600 mb-4 text-left md:text-xl">
-                With SMS-MAN service you can rent a virtual number to receive sms from 20+ countries for: 24 hours, a week or a month. You can rent a phone number for SMS to receive any number of messages for a selected period of time.
+              <p className="text-sm mb-4 text-left md:text-2xl">
+                With Newsems service you can rent a virtual number to receive sms from 20+ countries for: 24 hours, a week or a month. You can rent a phone number for SMS to receive any number of messages for a selected period of time.
               </p>
-              <p className="text-sm text-gray-600 mb-4 text-left md:text-xl">
+              <p className="text-sm mb-4 text-left md:text-2xl">
                 This is very handy when you need to register many accounts in online services to one number.
               </p>
-              <p className="text-sm text-gray-600 text-left md:text-xl">
+              <p className="text-sm text-left md:text-2xl">
                 If phone number won&apos;t be suitable (if you hasn&apos;t received any SMS), you can easily cancel it within 20 minutes without losing money.
               </p>
             </div>

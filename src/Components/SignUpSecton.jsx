@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 
 export default function SignUpSecton() {
   return (
-    <section className="bg-gradient-to-r from-sky-400 to-blue-500">
+    <section className="bg-gradient-to-b from-[#0D41D5] to-[#0187FF]">
       <div className="mx-auto max-w-full px-4 py-8 lg:py-14">
         <div className="m-auto max-w-sm lg:max-w-4xl xl:max-w-6xl">
           <h3 className="my-4 text-center text-2xl font-bold text-color-white md:text-4xl">
@@ -27,7 +27,7 @@ export default function SignUpSecton() {
           </form>
         </div>
         <div className="m-auto flex flex-col items-center justify-between space-y-4">
-          <p className="text-center text-sm font-bold text-color-text_light md:text-base lg:text-xl">
+          <p className="text-center text-sm font-bold text-color-white opacity-50 md:text-base lg:text-xl">
             Or log in with your social network
           </p>
           <div className="flex items-center justify-center space-x-10">
