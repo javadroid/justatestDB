@@ -41,37 +41,37 @@ const BlogComponent = () => {
           <button className="rounded-md bg-color-primary px-8 py-1 text-white">
             <Icon
               icon="simple-icons:facebook"
-              className="md:5xl w-full  transition duration-200 ease-in-out hover:opacity-75"
+              className="h-4 w-4  transition duration-200 ease-in-out hover:opacity-75"
             />
           </button>
           <button className="rounded-md bg-color-primary px-8 py-1 text-white">
             <Icon
               icon="simple-icons:twitter"
-              className="md:5xl w-full  transition duration-200 ease-in-out hover:opacity-75"
+              className="h-4 w-4  transition duration-200 ease-in-out hover:opacity-75"
             />
           </button>
           <button className="rounded-md bg-color-primary px-8 py-1 text-white">
             <Icon
               icon="simple-icons:instagram"
-              className="md:5xl w-full  transition duration-200 ease-in-out hover:opacity-75"
+              className="h-4 w-4  transition duration-200 ease-in-out hover:opacity-75"
             />
           </button>
           <button className="rounded-md bg-color-primary px-8 py-1 text-white">
             <Icon
               icon="simple-icons:telegram"
-              className="md:5xl w-full  transition duration-200 ease-in-out hover:opacity-75"
+              className="h-4 w-4  transition duration-200 ease-in-out hover:opacity-75"
             />
           </button>
           <button className="rounded-md bg-color-primary px-8 py-1 text-white">
             <Icon
               icon="simple-icons:reddit"
-              className="md:5xl w-full  transition duration-200 ease-in-out hover:opacity-75"
+              className="h-4 w-4  transition duration-200 ease-in-out hover:opacity-75"
             />
           </button>
           <button className="rounded-md bg-color-primary px-8 py-1 text-white">
             <Icon
               icon="simple-icons:pinterest"
-              className="md:5xl w-full  transition duration-200 ease-in-out hover:opacity-75"
+              className="h-4 w-4  transition duration-200 ease-in-out hover:opacity-75"
             />
           </button>
         </div>
