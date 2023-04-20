@@ -25,21 +25,21 @@ function Help() {
           <h1 className="font-extrabold text-center text-2xl pt-2 sm:text-4xl">Help Section</h1>
           <p className="text-center text-sm pb-32 sm:text-xl md:text-2xl md:w-10/12 md:mx-auto md:pb-16">Here you can find instructions on how to use Newsems service and answers to the most common questions</p>
         </div>
-        <div className="max-w-6xl -mt-24 flex flex-col justify-around text-center items-center px-4 md:px-16 md:pt-16 md:pb-8 md:space-y-0 md:space-x-8 md:flex-row md:flex-wrap lg:flex-nowrap lg:mx-auto">
-          <div className="bg-color-bg_light p-4 rounded-2xl drop-shadow-3xl mb-8 md:w-[45%] md:px-8">
-            <Link href="">
+        <div className="max-w-6xl -mt-24 flex flex-col justify-around text-center items-center md:px-16 md:pt-16 md:pb-8 md:space-x-8 md:flex-row md:flex-wrap lg:flex-nowrap lg:mx-auto">
+          <div className="bg-color-bg_light px-2 rounded-2xl drop-shadow-3xl mb-8 md:w-[45%] md:px-8">
+            <Link href="" className="p-4 text-center">
               <Image src={fast1} alt="" className="inline" />
               <h2 className="font-extrabold text-color-primary text-xs sm:text-lg">How to get a number for one-time sign up?</h2>
             </Link>
           </div>
-          <div className="bg-color-bg_light p-4 rounded-2xl drop-shadow-3xl md:m-0 md:w-[45%] md:px-8">
-            <Link href="">
+          <div className="bg-color-bg_light px-2 rounded-2xl drop-shadow-3xl mb-8 md:w-[45%] md:px-8">
+            <Link href="" className="px-4 text-center">
               <Image src={fast2} alt="" className="inline" />
               <h2 className="font-extrabold text-color-primary text-xs sm:text-lg">How to get sms to a bought number?</h2>
             </Link>
           </div>
-          <div className="bg-color-bg_light p-4 rounded-2xl drop-shadow-3xl md:w-[45%] md:px-8">
-            <Link href="">
+          <div className="bg-color-bg_light max-w-full basis-full px-2 rounded-2xl drop-shadow-3xl md:w-[45%] md:px-8">
+            <Link href="" className="px-8 text-center">
               <Image src={fast3} alt="" className="inline" />
               <h2 className="font-extrabold text-color-primary text-xs sm:text-lg">How to get a long-term number?</h2>
             </Link>

@@ -16,7 +16,7 @@ const Rent = () => {
   {/*Hero section*/}
       <section id="hero" className="bg-gradient-to-b from-[rgb(13,65,213)] to-[#0187FF] text-2.2rem text-white">
         {/* Flex container */}
-          <div className="container max-w-7xl flex flex-col mx-auto overflow-hidden items-center py-20 space-y-6 md:justify-start px-6 lg:flex-row lg:justify-between lg:ml-16 lg:pt-32 ">
+          <div className="max-w-7xl flex flex-col mx-auto overflow-hidden items-center py-20 space-y-6 md:justify-start px-6 lg:mx-auto lg:flex-row lg:justify-between lg:pt-32 ">
             {/* Left hero */}
             <div className="flex-1 mb-30 space-y-12 md:px-2 md:w-full">
               <h1 className="text-3xl font-extrabold text-center md:w-full md:text-5xl md:text-left lg:text-4xl">
@@ -88,6 +88,7 @@ const Rent = () => {
           {/* Steps Container */}
           <form>
             <ol className="flex flex-col mt-8 space-y-8 md:flex-wrap md:mt-12 md:space-y-0 md:space-x-8 md:flex-row justify-between lg:space-x-1">
+              
                  {/* step 1 */}
               <li className="w-auto h-48 px-4 rounded-3xl shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:mb-11">
                 <div className="mx-4">
@@ -212,6 +213,7 @@ const Rent = () => {
                     </div>
                 </div>
               </li>
+
                 {/* step 3 */}
               <li className="w-auto h-48 px-4 rounded-3xl shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:w-1/2 lg:w-1/3">
                 <div className="flex flex-col items-center p-6 ">
