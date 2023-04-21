@@ -271,7 +271,7 @@ function Help() {
             <p className="mb-2 text-[10px] sm:text-sm">
               For any questions you may have when reviewing Newsems, there is a{" "}
               <Link
-                href="https://sms-man.com/feedback"
+                href="https://Newsems.com/feedback"
                 className="text-color-primary underline"
               >
                 <span>feedback form</span>

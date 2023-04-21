@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { items } from "./accordionItem"
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid'
 
-function Accordion() {
+const Accordion = () => {
   const [activeIndex, setActiveIndex] = useState(null);
 
   function handleClick(index) {

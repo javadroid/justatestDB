@@ -2,13 +2,13 @@ import React from "react";
 import Image from "next/image";
 import device from "../assets/hero.png";
 import device2 from "../assets/images/pic_en.webp";
-import Estonia from "../assets/flags/Estonia.svg";
-import Cyprus from "../assets/flags/Cyprus.svg";
 import SignUpSecton from "@/Components/SignUpSecton";
 import About from "@/Components/About";
 import Advantages from "@/Components/Advantages";
 import PromoInformation from "@/Components/PromoInformation";
 import Connection from "@/Components/Connection";
+import Country from "@/Components/countries/country";
+import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 
 const Rent = () => {
   return (
@@ -91,156 +91,27 @@ const Rent = () => {
           <h2 className="text-center text-xl font-bold text-blue-500">
             Check how it works!
           </h2>
-          <p className="text-center text-2xl font-bold md:text-3xl">
+          <p className="text-center text-xl font-bold md:text-3xl">
             Rent virtual number online in 3 steps right now
           </p>
           {/* Steps Container */}
           <form>
             <ol className="mt-8 flex flex-col justify-between space-y-8 md:mt-12 md:grid md:grid-cols-2 md:flex-wrap md:gap-5 md:space-x-8 md:space-y-0 lg:flex lg:flex-row lg:space-x-1">
               {/* step 1 */}
-              <li className="h-48 w-auto overflow-y-scroll rounded-3xl px-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:mb-11">
+              <li className="relative before:absolute before:-left-3 before:grid before:h-14 before:w-14 before:place-items-center before:rounded-tl-3xl before:rounded-br-3xl before:bg-color-bg_primary-500 before:text-2xl before:font-bold before:text-color-primary before:content-['1']  h-48 w-auto rounded-3xl px-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:mb-11">
                 <div className="mx-4">
                   {/* title */}
                   <div className="flex items-center justify-center p-4">
-                    <span className="text-xl font-bold">
+                    <span className="text-base font-bold md:text-xl">
                       Select your country
                     </span>
                   </div>
                   {/* countries */}
                   <div className="body">
                     <div className="country mb-4">
-                      <div className="w-full overflow-y-auto hover:overflow-y-scroll">
-                        <div className="h-32 w-full pl-2">
-                          <table className="ml-0 w-full pl-4">
-                            <tbody>
-                              {/* c1 */}
-                              <tr className="mb-0">
-                                <td className="flex items-center justify-start">
-                                  <span>
-                                    <Image
-                                      src={Estonia}
-                                      alt="Estonia flag"
-                                      className="mr-2 flex w-8 items-center"
-                                    />
-                                  </span>
-                                  <span className="text-base">Estonia</span>
-                                </td>
-                                <td>
-                                  <span className="text-base text-gray-500">
-                                    +372
-                                  </span>
-                                </td>
-                              </tr>
-                              {/* c1 */}
-                              <tr className="mb-0">
-                                <td className="flex items-center justify-start">
-                                  <span>
-                                    <Image
-                                      src={Cyprus}
-                                      alt="Estonia flag"
-                                      className="mr-2 flex w-8 items-center"
-                                    />
-                                  </span>
-                                  <span className="text-base">Cyprus</span>
-                                </td>
-                                <td>
-                                  <span className="text-base text-gray-500">
-                                    +372
-                                  </span>
-                                </td>
-                              </tr>
-                              {/* c1 */}
-                              <tr>
-                                <td className="flex items-center justify-start">
-                                  <span>
-                                    <Image
-                                      src={Estonia}
-                                      alt="Estonia flag"
-                                      className="mr-2 flex w-8 items-center"
-                                    />
-                                  </span>
-                                  <span className="text-base">Estonia</span>
-                                </td>
-                                <td>
-                                  <span className="text-base text-gray-500">
-                                    +372
-                                  </span>
-                                </td>
-                              </tr>
-                              {/* c1 */}
-                              <tr>
-                                <td className="flex items-center justify-start">
-                                  <span>
-                                    <Image
-                                      src={Estonia}
-                                      alt="Estonia flag"
-                                      className="mr-2 flex w-8 items-center"
-                                    />
-                                  </span>
-                                  <span className="text-base">Estonia</span>
-                                </td>
-                                <td>
-                                  <span className="text-base text-gray-500">
-                                    +372
-                                  </span>
-                                </td>
-                              </tr>
-                              {/* c1 */}
-                              <tr>
-                                <td className="flex items-center justify-start">
-                                  <span>
-                                    <Image
-                                      src={Estonia}
-                                      alt="Estonia flag"
-                                      className="mr-2 flex w-8 items-center"
-                                    />
-                                  </span>
-                                  <span className="text-base">Estonia</span>
-                                </td>
-                                <td>
-                                  <span className="text-base text-gray-500">
-                                    +372
-                                  </span>
-                                </td>
-                              </tr>
-                              {/* c1 */}
-                              <tr>
-                                <td className="flex items-center justify-start">
-                                  <span>
-                                    <Image
-                                      src={Estonia}
-                                      alt="Estonia flag"
-                                      className="mr-2 flex w-8 items-center"
-                                    />
-                                  </span>
-                                  <span className="text-base">Estonia</span>
-                                </td>
-                                <td>
-                                  <span className="text-base text-gray-500">
-                                    +372
-                                  </span>
-                                </td>
-                              </tr>
-                              {/* c1 */}
-                              <tr>
-                                <td className="flex items-center justify-start">
-                                  <span>
-                                    <Image
-                                      src={Estonia}
-                                      alt="Estonia flag"
-                                      className="mr-2 flex w-8 items-center"
-                                    />
-                                  </span>
-                                  <span className="text-base">Estonia</span>
-                                </td>
-                                <td>
-                                  <span className="text-base text-gray-500">
-                                    +372
-                                  </span>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                      <div className="roll scrollbar-thin scrollbar-thumb-color-decor_blue scrollbar-track-[#0187ff1a] h-32 w-full overflow-hidden overflow-y-scroll">
+                        <div className="h-32 w-full px-2">
+                          <Country />
                         </div>
                       </div>
                     </div>
@@ -249,56 +120,60 @@ const Rent = () => {
               </li>
 
               {/* step 2 */}
-              <li className="md: lg: h-48 w-auto rounded-3xl px-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:mb-11">
+              <li className="relative before:absolute before:-left-3 before:grid before:h-14 before:w-14 before:place-items-center before:rounded-tl-3xl before:rounded-br-3xl before:bg-color-bg_primary-500 before:text-2xl before:font-bold before:text-color-primary before:content-['2'] h-48 w-auto rounded-3xl px-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:mb-11">
                 <div className="flex flex-col items-center px-6 ">
                   {/* Heading */}
-                  <div className="bg-bgLIght rounded-l-full bg-transparent">
+                  <div>
                     <div className="flex items-center justify-center">
-                      <h3 className="my-2 px-4 text-xl font-bold">
+                      <h3 className="my-2 px-4 text-base font-bold md:text-xl">
                         Set rent duration
                       </h3>
                     </div>
                   </div>
                   {/* Time */}
-                  <div className="">
+                  <div>
                     <div className=" flex flex-col items-center justify-between">
                       <div className="mb-2 flex flex-row items-center justify-center space-x-4">
-                        <button className="bg-bgPrimar  w-20 rounded-sm py-2 text-base text-blue-400">
+                        <button className="bg-color-bg_primary-500 w-32 rounded-lg py-2 text-sm active:text-color-primary active:border md:text-base">
                           Hour
                         </button>
-                        <button className="bg-bgPrimar  w-20 rounded-sm py-2 text-base text-blue-400">
+                        <button className="bg-color-bg_primary-500  w-32 rounded-lg py-2 text-sm active:text-color-primary active:border md:text-base">
                           Day
                         </button>
                       </div>
                       <div className="mb-2 flex flex-row items-center justify-center space-x-4">
-                        <button className="bg-bgPrimar  w-20 rounded-sm py-2 text-base text-blue-400">
+                        <button className="bg-color-bg_primary-500  w-32 rounded-lg py-2 text-sm active:text-color-primary active:border md:text-base">
                           Week
                         </button>
-                        <button className="bg-bgPrimar  w-20 rounded-sm py-2 text-base text-blue-400">
+                        <button className="bg-color-bg_primary-500  w-32 rounded-lg py-2 text-sm active:text-color-primary active:border md:text-base">
                           Month
                         </button>
                       </div>
-                      <div className="bg-bgPrimar text-black-400 mb-4 w-44 rounded-sm py-1 text-xl font-bold">
-                        1
+                      <div className="bg-color-bg_primary-500  rounded-lg active:text-color-primary active:border mb-4 max-w-[270px] h-10 w-[270px] py-1 flex justify-between font-bold">
+                        <PlusCircleIcon className="text-color-primary" />
+                        <p className="text-xl">1</p>
+                        <MinusCircleIcon className="text-color-primary" />
                       </div>
                     </div>
                   </div>
                 </div>
               </li>
-                {/* step 3 */}
-              <li className="w-auto h-48 px-4 rounded-3xl shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:w-1/2 lg:w-1/3">
+
+              {/* step 3 */}
+              <li className="relative before:absolute before:-left-3 before:grid before:h-14 before:w-14 before:place-items-center before:rounded-tl-3xl before:rounded-br-3xl before:bg-color-bg_primary-500 before:text-2xl before:font-bold before:text-color-primary before:content-['3'] h-48 w-auto rounded-3xl px-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:col-span-2 ">
                 <div className="flex flex-col items-center p-6 ">
                   {/* Heading */}
-                  <div className="bg-bgLIght rounded-l-full bg-transparent">
-                    <div className="flex items-center justify-center space-x-8">
-                      <h3 className="text-xl font-bold">Rent a number</h3>
+                  <div className="md:self-start lg:self-center">
+                    <div className="md:ml-8 lg:pl-0">
+                      <h3 className="text-base font-bold md:text-xl">Rent a number</h3>
                     </div>
                   </div>
+                  {/* others */}
                   <div className="flex flex-col items-center justify-center p-4">
-                    <button className="bg-bgPrimar mb-4 w-48 rounded-sm py-2 text-xl">
+                    <button className="bg-bgPrimar mb-4 w-48 rounded-sm py-2 text-base md:text-xl">
                       It&apos;ll cost $0.06
                     </button>
-                    <button className="w-48  rounded-xl bg-blue-800 py-2 text-xl font-bold text-white">
+                    <button className="w-48  rounded-xl bg-blue-800 py-2 text-base font-bold text-white md:text-xl">
                       Rent
                     </button>
                   </div>
