@@ -24,7 +24,7 @@ export default function About() {
             - A rented number will help you preserve your anonymity in social networks and messengers. <br />
               
             - You will finally be able to register as many social network accounts as you want <br />
-            - Renting a number will cost you much less than getting a new SIM-card. Prices SMS-man is one of the lowest. <br />
+            - Renting a number will cost you much less than getting a new SIM-card. Prices Newsems is one of the lowest. <br />
             - You do not need to have special skills to rent a number. You can do it in a couple of minutes.<br />
           </p>
           <p className="my-4">You can rent a number right now!</p>

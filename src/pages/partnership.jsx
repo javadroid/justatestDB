@@ -17,13 +17,13 @@ const partnership = () => {
             SMS – this page is exactly what you need
           </p>
           <p className="mb-10">
-            Start earning money on your SIM-cards with SMS-Man!
+            Start earning money on your SIM-cards with Newsems!
           </p>
           <h1 className="mb-10 text-2xl font-extrabold">
             What can we do together?
           </h1>
           <p className="mb-5">
-            SMS-Man is a worldwide platform providing SMS receiving online.
+            Newsems is a worldwide platform providing SMS receiving online.
             Nowadays we have 200 000 active users and more than 100 million
             requests to get SMS daily.
           </p>
@@ -31,7 +31,7 @@ const partnership = () => {
             And it is not a maximum: demands of our clients grow rapidly. That’s
             why we are searching for you!
           </p>
-          <h1 className="text-2xl font-extrabold">How to connect SMS-Man?</h1>
+          <h1 className="text-2xl font-extrabold">How to connect Newsems?</h1>
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div>
               <h3 className="mb-5 mt-10">REST API</h3>

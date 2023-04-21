@@ -1,7 +1,7 @@
 import React from "react";
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 
-const verification = () => {
+const Verification = () => {
   return (
     <section className="mx-auto min-h-[48vh] max-w-7xl">
       <div className=" flex flex-col items-center px-5">
@@ -18,4 +18,4 @@ const verification = () => {
   );
 };
 
-export default verification;
+export default Verification;

@@ -27,16 +27,16 @@ export default function Terms() {
             <p>2. If the Client has successfully purchased and activated at least one number after depositing the balance, the funds remaining on the Client&apos;s balance cannot be refunded.</p>
             <p>3. Information about problems with the use of products of Newsems must be passed to our support service within 5 (five) days from the date of purchase of the number. Otherwise, the product will be considered successfully used.</p>
             <p>4. When the replenishment of the Client&apos;s account balance was made by any means within a period exceeding 1 (one) calendar week before contacting the Newsems support service, any refund is not possible.</p>
-            <p>5. SMS-MAN does not satisfy refund/exchange requests that are based on the incompatibility of our products with third-party software, unless it is marked as compatible on the web page of a specific product.</p>
+            <p>5. Newsems does not satisfy refund/exchange requests that are based on the incompatibility of our products with third-party software, unless it is marked as compatible on the web page of a specific product.</p>
             <p>6. According to the Refund operation procedure, refunds to the Client are processing in the following way:</p>
-            <p>The Client files with the SMS-MAN service a request for a Refund Operation using the support email: info@SMS-MAN.com, from the e-mail to which a client&apos;s account was registered. The request must specify: the refund amount, payment system, details for the transfer of funds, as well as the reason for the refund.</p>
-            <p>SMS-MAN reviews the request within 5 business days. At the same time, the refund period may be extended for reasons beyond the control of SMS-MAN.</p>
-            <p>SMS-MAN is obliged to offer alternative options for the provision of the Service. If this is not possible, then SMS-MAN is obliged to make a refund, within the framework of this document.</p>
-            <p>SMS-MAN service determines the amount of a refund based on the balance of the Client. At the same time, the payment system may deduct a commission for the refund operation.</p>
-            <p>SMS-MAN does the Refund operation based on the method of refund specified in the Client&apos;s request, and if it is not possible to refund the Client&apos;s money according to the selected refund method, the SMS-MAN service offers the Client other ways to do the Refund operation.</p>
-            <p>If the Client does not specify the method of refund in the request, the refund is made to the payment method with which the Client previously replenished the balance of the SMS-MAN account.</p>
+            <p>The Client files with the Newsems service a request for a Refund Operation using the support email: info@Newsems.com, from the e-mail to which a client&apos;s account was registered. The request must specify: the refund amount, payment system, details for the transfer of funds, as well as the reason for the refund.</p>
+            <p>Newsems reviews the request within 5 business days. At the same time, the refund period may be extended for reasons beyond the control of Newsems.</p>
+            <p>Newsems is obliged to offer alternative options for the provision of the Service. If this is not possible, then Newsems is obliged to make a refund, within the framework of this document.</p>
+            <p>Newsems service determines the amount of a refund based on the balance of the Client. At the same time, the payment system may deduct a commission for the refund operation.</p>
+            <p>Newsems does the Refund operation based on the method of refund specified in the Client&apos;s request, and if it is not possible to refund the Client&apos;s money according to the selected refund method, the Newsems service offers the Client other ways to do the Refund operation.</p>
+            <p>If the Client does not specify the method of refund in the request, the refund is made to the payment method with which the Client previously replenished the balance of the Newsems account.</p>
             <p>7. If the Client&apos;s account is blocked for violation of the rules for using the Service, no refund is made.</p>
-            <p>8. Before sending a refund request, the Client must be sure that such a request does not contradict this Refund Policy and/or any document presented on the sites https://sms-man.ru; https://sms-man.com.</p>
+            <p>8. Before sending a refund request, the Client must be sure that such a request does not contradict this Refund Policy and/or any document presented on the sites https://Newsems.ru; https://Newsems.com.</p>
           </div>
         </div>
       </div>

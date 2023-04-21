@@ -15,7 +15,7 @@ const HeroSection = () => {
         </div>
         <div>
           <h2 className="w-3/5 text-2xl font-extrabold">
-            SMS-MAN - service for private registration at online resources
+            Newsems - service for private registration at online resources
           </h2>
           <p className="mt-14 text-lg font-normal lg:w-3/5">
             We give you the opportunity to anonymously use the phone number

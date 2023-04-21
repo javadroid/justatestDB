@@ -21,7 +21,7 @@ const Connection = () => {
               Solutions for professionals
             </h1>
             <p className="self-center text-base md:w-1/2">
-              SMS-MAN provides anonymity tools not only for ordinary users, but
+              Newsems provides anonymity tools not only for ordinary users, but
               also for professionals who need to register their accounts in bulk
               and access blocked resources.
             </p>

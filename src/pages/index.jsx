@@ -179,7 +179,7 @@ export default function Home() {
                   Get your number in your personal cabinet
                 </h1>
                 <p className="w-4/5 text-lg">
-                  To register with SMS-MAN you only need to enter your email
+                  To register with Newsems you only need to enter your email
                   address. No ID information or other contacts.
                 </p>
               </div>
@@ -195,7 +195,7 @@ export default function Home() {
                   Get your number in your personal cabinet
                 </h1>
                 <p className="w-4/5 text-lg">
-                  To register with SMS-MAN you only need to enter your email
+                  To register with Newsems you only need to enter your email
                   address. No ID information or other contacts.
                 </p>
               </div>
@@ -211,7 +211,7 @@ export default function Home() {
                   Get your number in your personal cabinet
                 </h1>
                 <p className="w-4/5 text-lg">
-                  To register with SMS-MAN you only need to enter your email
+                  To register with Newsems you only need to enter your email
                   address. No ID information or other contacts.
                 </p>
               </div>
@@ -223,7 +223,7 @@ export default function Home() {
           <div className="mx-auto max-w-7xl">
             <div className="mx-auto max-w-3xl px-6 text-justify">
               <p className="mb-4 text-lg font-normal">
-                &quot;SMS-man&quot; gives you the opportunity to buy a virtual
+                &quot;Newsems&quot; gives you the opportunity to buy a virtual
                 number for registration in popular services at the best price on
                 the net. Previously, to register an additional account in a
                 social network or messenger you had to buy a SIM-card or ask
