@@ -21,34 +21,34 @@ function Help() {
   return (
     <section className="pb-20">
       <div className="bg-color-bg_light pb-24">
-        <div className="mx-0 space-y-4 bg-color-bg_primary-500  px-4 sm:space-y-8 sm:pb-12">
+        <div className="mx-0 space-y-4 bg-color-bg_primary-500 px-4 sm:space-y-8 sm:pb-12 lg:pt-14">
           <h1 className="pt-2 text-center text-2xl font-extrabold sm:text-4xl">
             Help Section
           </h1>
-          <p className="pb-32 text-center text-sm sm:text-xl md:mx-auto md:w-10/12 md:pb-16 md:text-2xl">
+          <p className="pb-32 text-center text-sm sm:text-xl md:mx-auto md:w-10/12 md:pb-16 md:text-2xl lg:max-w-[70%]">
             Here you can find instructions on how to use Newsems service and
             answers to the most common questions
           </p>
         </div>
-        <div className="-mt-24 flex max-w-6xl flex-col items-center justify-around px-4 text-center md:flex-row md:flex-wrap md:space-x-8 md:space-y-0 md:px-16 md:pb-8 md:pt-16 lg:mx-auto lg:flex-nowrap">
-          <div className="rounded-2xl bg-color-bg_light p-4 drop-shadow-3xl md:w-[45%]  md:px-8 lg:mb-0">
-            <Link href="">
+        <div className="width-full mx-auto -mt-24 flex max-w-5xl flex-col md:justify-center text-center md:flex-row md:flex-wrap md:pb-8 md:-mt-16 lg:flex-nowrap">
+          <div className="px-3 mb-8 basis-full md:basis-1/2 lg:basis-1/3 b-0">
+            <Link href="" className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl">
               <Image src={fast1} alt="" className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get a number for one-time sign up?
               </h2>
             </Link>
           </div>
-          <div className="rounded-2xl bg-color-bg_light p-4 drop-shadow-3xl md:m-0 md:w-[45%] md:px-8">
-            <Link href="">
+          <div className="px-3 mb-8 basis-full md:basis-1/2 lg:basis-1/3">
+            <Link href="" className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl">
               <Image src={fast2} alt="" className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get sms to a bought number?
               </h2>
             </Link>
           </div>
-          <div className="rounded-2xl bg-color-bg_light p-4 drop-shadow-3xl md:w-[45%] md:px-8">
-            <Link href="">
+          <div className="px-3 basis-full md:basis-1/2 lg:basis-1/3">
+            <Link href="" className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl">
               <Image src={fast3} alt="" className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get a long-term number?
@@ -72,7 +72,7 @@ function Help() {
           </h2>
         </div>
         <div className="flex max-w-6xl items-start justify-between md:mx-auto md:px-8">
-          <aside className="sticky top-16 hidden max-w-[20rem] flex-1 md:block">
+          <aside className="sticky top-20 hidden max-w-[20rem] flex-1 md:block">
             <ul className="space-y-2">
               <li>
                 <Link href="" className="text-sm text-color-primary">

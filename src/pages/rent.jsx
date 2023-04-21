@@ -28,17 +28,17 @@ const Rent = () => {
             <p className="w-sm max-w-lg text-left text-xl">
               Register on social networks, marketplaces, exchanges and online
               services
-              <span className="text-color-accent"> without spam</span> and{" "}
+              <span className="text-color-accent"> without spam</span> and 
               <span className="text-color-accent">
                 disclosure of personal data.
               </span>
             </p>
             <div className="flex flex-col md:flex-row md:justify-start">
               <span className="before:w-85 relative before:absolute before:block before:bg-[url('../assets/before/arrow_intro-1.svg')]"></span>
-              <a className="baseline mb-8 rounded-full bg-white p-3 px-6 pt-3 text-center font-bold text-color-primary_black md:px-16 lg:px-14 xl:px-16">
+              <a className="baseline mb-8 rounded-full bg-white p-3 px-6 pt-3 text-center font-bold text-color-primary_black md:px-12 lg:px-14 xl:px-16">
                 Rent number
               </a>
-              <a className="baseline mb-8 rounded-full bg-color-primary_black p-3 px-6 pt-3 text-center font-bold text-white md:ml-4 md:px-16 lg:px-16 xl:px-16">
+              <a className="baseline mb-8 rounded-full bg-color-primary_black p-3 px-6 pt-3 text-center font-bold text-white md:ml-4 md:px-16 lg:px-12 xl:px-16">
                 Receive SMS
               </a>
             </div>
@@ -50,37 +50,6 @@ const Rent = () => {
             </picture>
           </div>
         </div>
-          <div className="max-w-7xl flex flex-col mx-auto overflow-hidden items-center py-20 space-y-6 md:justify-start px-6 lg:mx-auto lg:flex-row lg:justify-between lg:pt-32 ">
-            {/* Left hero */}
-            <div className="flex-1 mb-30 space-y-12 md:px-2 md:w-full">
-              <h1 className="text-3xl font-extrabold text-center md:w-full md:text-5xl md:text-left lg:text-4xl">
-                Receive SMS online
-              </h1>
-              <p className="w-sm max-w-lg text-left text-xl">
-                Register on social networks, marketplaces, exchanges and online services  
-                <span className="text-color-accent"> without spam
-                </span> and <span className="text-color-accent">
-                  disclosure of personal data.
-                </span>
-              </p>
-              <div className="flex flex-col md:justify-start md:flex-row">
-                <span className="relative before:absolute before:block before:w-85 before:bg-[url('../assets/before/arrow_intro-1.svg')]">
-                </span>
-                <a className="p-3 px-6 pt-3 mb-8 text-color-primary_black font-bold text-center bg-white rounded-full baseline md:px-16 lg:px-14 xl:px-16">
-                  Rent number
-                </a>
-                <a className="p-3 px-6 pt-3 mb-8 bg-color-primary_black font-bold text-center text-white rounded-full baseline md:px-16 md:ml-4 lg:px-16 xl:px-16">
-                  Receive SMS
-                </a>
-              </div>
-            </div>
-            {/* Right Hero */}
-              <div className="w-full flex-1 md:px-2">
-                <picture>
-                <Image src={device} alt="" className="" />
-                </picture>
-              </div>
-          </div>
       </section>
 
       {/* Phone number rental */}
@@ -316,9 +285,8 @@ const Rent = () => {
                   </div>
                 </div>
               </li>
-
-              {/* step 3 */}
-              <li className="lg: h-48 w-auto rounded-3xl px-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:col-span-2 ">
+                {/* step 3 */}
+              <li className="w-auto h-48 px-4 rounded-3xl shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:w-1/2 lg:w-1/3">
                 <div className="flex flex-col items-center p-6 ">
                   {/* Heading */}
                   <div className="bg-bgLIght rounded-l-full bg-transparent">
