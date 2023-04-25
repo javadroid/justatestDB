@@ -92,7 +92,7 @@ router.get('/user/transactions/:userid', userMiddleware.isLoggedIn, (req, res, n
 //Login user
 router.post('/login', (req, res, next) => {
     db.query(
-        `SELECT * FROM admin WHERE user = '${req.body.username}'`,
+        `SELECT * FROM admins WHERE user = '${req.body.username}'`,
         (err, result) => {
             // user does not exists
             if (err) {
@@ -127,7 +127,6 @@ router.post('/login', (req, res, next) => {
                     msg: 'Username or password is incorrect!'
                 });
             }
-
         }
     );
 });

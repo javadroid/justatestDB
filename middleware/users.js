@@ -25,8 +25,8 @@ module.exports = {
         }
 
         // password (repeat) does not match
-        if (!req.body.password_repeat ||
-            req.body.password != req.body.ComfirmPassword
+        if (!req.body.confirmPassword ||
+            req.body.password != req.body.confirmPassword
         ) {
             return res.status(400).send({
                 msg: 'Both passwords must match'
