@@ -170,6 +170,62 @@ router.get('/verify-email/${id}', (req, res, next) => {
     );
     // res.send({ 'Message': 'Welcome' })
 });
+// changing user password
+router.post('/user/changepassword/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
+    const uid = req.params.userid;
+    db.query(
+        `SELECT * FROM users WHERE id = ${db.escape(uid)};`,
+        (err, result) => {
+            // user does not exists
+            if (err) {
+                // throw err;
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+
+            if (!result.length) {
+                return res.status(404).send({
+                    msg: 'User not found!'
+                });
+            }
+
+            // check password
+            bcrypt.compare(
+                req.body.password,
+                result[0]['password'],
+                (bErr, bResult) => {
+                    //if password is wrong
+                    if (bErr) {
+                        // throw bErr;
+                        return res.status(401).send({
+                            msg: bErr
+                        });
+                    }
+                    // if password is correct
+                    if (bResult) {
+                        const npass = request.body.newpassword;
+                        const cnpass = request.body.confirm_newpassword;
+                        if (cnpass != npass) {
+                            return res.status(401).send({
+                                msg: 'Please ensure the confirm password matches the new password.'
+                            });
+                        }
+                        db.query(
+                            `UPDATE users SET password = '${npass}' WHERE id = '${uid}'`
+                        );
+                        return res.status(200).send({
+                            msg: 'Password has been successfully changed.',
+                        });
+                    }
+                    return res.status(401).send({
+                        msg: 'Incorrect user password entered'
+                    });
+                }
+            );
+        }
+    );
+});
 //Login user
 router.post('/login', (req, res, next) => {
     db.query(
@@ -219,11 +275,23 @@ router.post('/login', (req, res, next) => {
                         db.query(
                             `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
                         );
-                        return res.status(200).send({
-                            msg: 'Logged in!',
-                            token,
-                            user: result[0]
-                        });
+                        db.query(
+                            `SELECT * FROM wallets WHERE user_id = '${result[0].id}'`,
+                            (err, rest) => {
+                                if (err) {
+                                    // throw err;
+                                    return res.status(400).send({
+                                        msg: err
+                                    });
+                                }
+                                return res.status(200).send({
+                                    msg: 'Logged in!',
+                                    token,
+                                    user: result[0],
+                                    wallet_balance: rest[0].balance
+                                });
+                            }
+                        );
                     }
                     return res.status(401).send({
                         msg: 'Username or password is incorrect!'
@@ -234,14 +302,12 @@ router.post('/login', (req, res, next) => {
     );
 });
 //Log out user
-router.post('/logout/:id', (req, res, next) => {
-    const user = req.params.id;
+router.post('/logout/:userid', (req, res, next) => {
+    const user = req.params.userid;
     db.query(
         `DELETE last_login FROM users WHERE id = '${user}'`,
         (err, result) => {
             if (result.length) {
-                // const data = JSON.parse(result);
-                //console.log(data.bonus);
                 return res.status(200).send({
                     msg: "User is logged out and session expired."
                 });

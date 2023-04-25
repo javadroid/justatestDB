@@ -17,6 +17,6 @@ const admins = require('./routes/admin.js');
 app.use('/api', users);
 app.use('/api/admin', admins);
 // app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
-
+let i = 0;
 // run server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

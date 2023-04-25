@@ -71,27 +71,6 @@ router.delete('/user/:id', userMiddleware.isLoggedIn, (req, res, next) => {
         }
     )
 });
-router.get('/verify-email/:id', userMiddleware.isLoggedIn, (req, res, next) => {
-    const vstatus = 'verified'
-    const idv = req.params.id;
-    console.log(idv);
-    db.query(
-        `UPDATE users SET vstatus='${vstatus}' WHERE id='${idv}'`,
-        (err, result) => {
-            if (err) {
-                // throw err;
-                return res.status(400).send({
-                    msg: err
-                });
-            }
-
-            return res.status(200).send("Your email has been successfully verified. You can now login from our mobile app!");
-
-
-        }
-    );
-});
-
 // fetch user transaction history
 router.get('/user/transactions/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
     const idv = req.params.userid;
@@ -110,73 +89,6 @@ router.get('/user/transactions/:userid', userMiddleware.isLoggedIn, (req, res, n
 
         });
 });
-// Fetching user info for kyc verification
-// router.get('/user/info/:id', userMiddleware.isLoggedIn, (req, res, next) => {
-//     const vstatus = 'verified'
-//     const idv = req.params.id;
-//     console.log(idv);
-//     db.query(
-//         `SELECT * FROM kyc WHERE userid='${idv}'`,
-//                 (err, result) => {
-//                         if (err) {
-//                             return res.status(400).send({
-//                                 msg: err
-//                             });
-//                         }
-
-//             return res.status(200).send(result);
-
-
-//                 }
-//             );
-// });
-
-// approve user kyc
-// router.put('/user/kyc/approve/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
-//     const vstatus = 'Approved'
-//     const idv = req.params.userid;
-//     console.log(idv);
-//     db.query(
-//         `UPDATE kyc SET approved='${vstatus}' WHERE id='${idv}'`,
-//                 (err, result) => {
-//                         if (err) {
-//                             return res.status(400).send({
-//                                 msg: err
-//                             });
-//                         }
-
-//             return res.status(200).send({
-//                             msg: 'User KYC has been successfully approved',
-//                             status: 'Approved'
-//                         });
-
-
-//                 }
-//             );
-// });
-// Disapprove user kyc
-// router.put('/user/kyc/disapprove/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
-//     const vstatus = 'Disapproved'
-//     const idv = req.params.userid;
-//     console.log(idv);
-//     db.query(
-//         `UPDATE kyc SET approved='${vstatus}' WHERE id='${idv}'`,
-//                 (err, result) => {
-//                         if (err) {
-//                             return res.status(400).send({
-//                                 msg: err
-//                             });
-//                         }
-
-//             return res.status(200).send({
-//                             msg: 'User KYC has been successfully disapproved',
-//                             status: 'Dispproved'
-//                         });
-
-
-//                 }
-//             );
-// });
 //Login user
 router.post('/login', (req, res, next) => {
     db.query(
@@ -219,5 +131,25 @@ router.post('/login', (req, res, next) => {
         }
     );
 });
+//Log out user
+router.post('/logout/:id', (req, res, next) => {
+    const user = req.params.id;
+    db.query(
+        `DELETE last_login FROM admin WHERE id = '${user}'`,
+        (err, result) => {
+            if (result.length) {
+                // const data = JSON.parse(result);
+                //console.log(data.bonus);
+                return res.status(200).send({
+                    msg: "User is logged out and session expired."
+                });
+            } else {
+                return res.status(302).send({
+                    msg: "You haven't refer a user yet!"
+                });
+            }
+        }
+    )
 
+});
 module.exports = router;
