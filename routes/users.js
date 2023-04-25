@@ -12,6 +12,7 @@ const db = require('../lib/db.js');
 const userMiddleware = require('../middleware/users.js');
 // User registration
 router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
+
     db.query(
         `SELECT * FROM users WHERE LOWER(email) = LOWER(${db.escape(
          req.body.email
@@ -42,7 +43,7 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
                                     // has hashed pw => add to database
                                     const vstatus = 'unverified'
                                     db.query(
-                                        `INSERT INTO users (apikey, username, email, password, vstatus, reg_date) VALUES ('${apikey}', '${req.body.username}', '${req.body.email}', '${hash}', '${vstatus}', now())`,
+                                        `INSERT INTO users (username, email, password, apikey, vstatus, reg_date) VALUES ('${req.body.username}', '${req.body.email}', '${hash}', '${apikey}', '${vstatus}', now())`,
                                         (err, result) => {
                                             if (err) {
                                                 // throw err;
@@ -153,7 +154,7 @@ router.get('/log', (req, res, next) => {
 });
 router.get('/verify-email/${id}', (req, res, next) => {
     const userid = req.params.id;
-    const vstatus = 'Verified'
+    const vstatus = 'verified'
     db.query(
         `UPDATE users SET vstatus='${vstatus}' WHERE id='${userid}'`,
         (err, result) => {
@@ -187,7 +188,11 @@ router.post('/login', (req, res, next) => {
                     msg: 'Username or password is incorrect!'
                 });
             }
-
+            if (result[0].vstatus != 'verify') {
+                return res.status(401).send({
+                    msg: 'You must verify your email address before you can login!'
+                });
+            }
             // check password
             bcrypt.compare(
                 req.body.password,
@@ -228,9 +233,29 @@ router.post('/login', (req, res, next) => {
         }
     );
 });
+//Log out user
+router.post('/logout/:id', (req, res, next) => {
+    const user = req.params.id;
+    db.query(
+        `DELETE last_login FROM users WHERE id = '${user}'`,
+        (err, result) => {
+            if (result.length) {
+                // const data = JSON.parse(result);
+                //console.log(data.bonus);
+                return res.status(200).send({
+                    msg: "User is logged out and session expired."
+                });
+            } else {
+                return res.status(302).send({
+                    msg: "You haven't refer a user yet!"
+                });
+            }
+        }
+    )
 
+});
 //Fetching referral hostory
-router.get('/referral/history/:refCode', (req, res, next) => {
+router.get('/referral/history/:refCode', userMiddleware.isLoggedIn, (req, res, next) => {
     const refCode = req.params.refCode;
     db.query(
         `SELECT * FROM referrals WHERE referrer = '${refCode}'`,
