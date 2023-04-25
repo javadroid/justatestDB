@@ -30,7 +30,7 @@ export default function SignUpSecton() {
           <p className="text-center text-sm font-bold text-color-white opacity-50 md:text-base lg:text-xl">
             Or log in with your social network
           </p>
-          <div className="flex items-center justify-center space-x-10">
+          <div className="flex items-center justify-center space-x-4 md:space-x-6">
             <Link href="/"  className="w-1/4 bg-color-black px-4 rounded-md">
                 <Icon icon="octicon:mark-github-16" className="w-full text-5xl text-color-white transition duration-500 ease-in-out hover:opacity-75" />
             </Link>

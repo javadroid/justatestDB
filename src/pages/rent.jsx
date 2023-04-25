@@ -96,7 +96,7 @@ const Rent = () => {
           </p>
           {/* Steps Container */}
           <form>
-            <ol className="mt-8 flex flex-col justify-between space-y-8 md:mt-12 md:grid md:grid-cols-2 md:flex-wrap md:gap-5 md:space-x-8 md:space-y-0 lg:flex lg:flex-row lg:space-x-1">
+            <ol className="mt-8 flex flex-col justify-between space-y-8 md:mt-12 md:grid md:grid-cols-2 md:flex-wrap md:gap-5 md:space-x-8 md:space-y-0 lg:grid-cols-3 lg:space-x-1">
               {/* step 1 */}
               <li className="relative before:absolute before:-left-3 before:grid before:h-14 before:w-14 before:place-items-center before:rounded-tl-3xl before:rounded-br-3xl before:bg-color-bg_primary-500 before:text-2xl before:font-bold before:text-color-primary before:content-['1']  h-48 w-auto rounded-3xl px-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:mb-11">
                 <div className="mx-4">
@@ -160,7 +160,7 @@ const Rent = () => {
               </li>
 
               {/* step 3 */}
-              <li className="relative before:absolute before:-left-3 before:grid before:h-14 before:w-14 before:place-items-center before:rounded-tl-3xl before:rounded-br-3xl before:bg-color-bg_primary-500 before:text-2xl before:font-bold before:text-color-primary before:content-['3'] h-48 w-auto rounded-3xl px-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:col-span-2 ">
+              <li className="relative before:absolute before:-left-3 before:grid before:h-14 before:w-14 before:place-items-center before:rounded-tl-3xl before:rounded-br-3xl before:bg-color-bg_primary-500 before:text-2xl before:font-bold before:text-color-primary before:content-['3'] h-48 w-auto rounded-3xl px-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:col-span-2 lg:col-span-1">
                 <div className="flex flex-col items-center p-6 ">
                   {/* Heading */}
                   <div className="md:self-start lg:self-center">
@@ -173,7 +173,7 @@ const Rent = () => {
                     <button className="bg-bgPrimar mb-4 w-48 rounded-sm py-2 text-base md:text-xl">
                       It&apos;ll cost $0.06
                     </button>
-                    <button className="w-48  rounded-xl bg-blue-800 py-2 text-base font-bold text-white md:text-xl">
+                    <button className="w-48  rounded-xl bg-color-primary py-2 text-base font-bold text-white md:text-xl">
                       Rent
                     </button>
                   </div>
