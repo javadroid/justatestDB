@@ -6,7 +6,7 @@ const mailgun = require("mailgun-js");
 const DOMAIN = 'sandboxb21bd93e7e794e4f88a01d13f923ec59.mailgun.org';
 const mg = mailgun({ apiKey: process.env.MAILGUN_API_KEY, domain: DOMAIN })
 const uuid = require('uuid');
-const id = uuid.v4();
+const apikey = uuid.v4();
 const jwt = require('jsonwebtoken');
 const db = require('../lib/db.js');
 const userMiddleware = require('../middleware/users.js');
@@ -42,7 +42,7 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
                                     // has hashed pw => add to database
                                     const vstatus = 'unverified'
                                     db.query(
-                                        `INSERT INTO users (id, username, email, password, vstatus, reg_date) VALUES ('${id}', '${req.body.username}', '${req.body.email}', '${hash}', '${vstatus}', now())`,
+                                        `INSERT INTO users (apikey, username, email, password, vstatus, reg_date) VALUES ('${apikey}', '${req.body.username}', '${req.body.email}', '${hash}', '${vstatus}', now())`,
                                         (err, result) => {
                                             if (err) {
                                                 // throw err;
@@ -51,12 +51,12 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
                                                 });
                                             }
                                             const data = {
-                                                from: 'hello@smsman.com',
+                                                from: 'hello@newsems.com',
                                                 to: req.body.email,
                                                 subject: 'Verify Your Account',
                                                 html: `<div style="text-align:justify;">
                                                 <h4>Hello ${req.body.firstname} ${req.body.lastname}</h4>
-                                                <p>You just sign up on SMS-MAN, please click the button below to verify your account</p>
+                                                <p>You just sign up on Newsems, please click the button below to verify your account</p>
                                                 <button><a href="https://newsems.com/api/verify-email/${id}">Verify Account</a></button>
                                                 <P>Or copy this url and paste on your browser: https://newsems.com/api/verify-email/${id} </P>`
                                             };
@@ -103,8 +103,8 @@ router.post('/social_media_sign', (req, res, next) => {
             } else {
                 db.query(
                     `SELECT * FROM users WHERE LOWER(username) = LOWER(${db.escape(
-            req.body.username
-            )});`,
+                    req.body.username
+                    )});`,
                     (err, result) => {
                         if (result.length) {
                             const token = jwt.sign({
@@ -129,7 +129,7 @@ router.post('/social_media_sign', (req, res, next) => {
                             // username is available
                             const vstatus = 'verified'
                             db.query(
-                                `INSERT INTO users (id, email, vstatus, reg_date) VALUES ('${uuid.v4()}', '${req.body.email}', '${vstatus}', now())`,
+                                `INSERT INTO users (apikey, email, vstatus, reg_date) VALUES ('${uuid.v4()}', '${req.body.email}', '${vstatus}', now())`,
                                 (err, result) => {
                                     if (err) {
                                         //throw err;
@@ -249,7 +249,23 @@ router.get('/referral/history/:refCode', (req, res, next) => {
         }
     )
 });
-
+// fetch user topup history
+router.get('/user/payment/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
+    const idv = req.params.userid;
+    db.query(
+        `SELECT * FROM transactions WHERE user_id='${idv}' AND type='topup'`,
+        (err, result) => {
+            if (result.length) {
+                return res.status(200).send({
+                    user_topups: { result }
+                });
+            } else {
+                return res.status(404).send({
+                    msg: 'Please topup your wallet.'
+                });
+            }
+        });
+});
 
 //To protect a route now, simply include this middleware when calling the route as follows:
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
