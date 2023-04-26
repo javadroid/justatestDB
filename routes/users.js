@@ -156,20 +156,20 @@ router.get('/log', (req, res, next) => {
 router.get('/verify-email/:apikey', (req, res, next) => {
     const user_apikey = req.params.apikey;
     res.send(user_apikey);
-    // const vstatus = 'verified'
-    // db.query(
-    //     `UPDATE users SET vstatus='${vstatus}' WHERE apikey='${user_apikey}'`,
-    //     (err, result) => {
-    //         if (err) {
-    //             return res.status(400).send({
-    //                 msg: err
-    //             });
-    //         }
-    //         return res.status(201).send({
-    //             msg: 'Email verification was succesful!'
-    //         });
-    //     }
-    // );
+    const vstatus = 'verified'
+    db.query(
+        `UPDATE users SET vstatus='${vstatus}' WHERE apikey='${user_apikey}'`,
+        (err, result) => {
+            if (err) {
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+            return res.status(201).send({
+                msg: 'Email verification was succesful!'
+            });
+        }
+    );
 });
 // changing user password
 router.post('/user/changepassword/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
