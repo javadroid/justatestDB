@@ -6,6 +6,7 @@ import FaceBook from "../assets/socials/Facebook.svg";
 import Gmail from "../assets/socials/Gmail.svg";
 import Whatsapp from "../assets/socials/Whatsapp.svg";
 import Youtube from "../assets/socials/Youtube.svg";
+import Link from "next/link";
 
 export const Footer = () => {
   return (
@@ -20,14 +21,30 @@ export const Footer = () => {
         </div>
         <div>
           <ul className="flex flex-wrap justify-center gap-4">
-            <li>Receive SMS Online</li>
-            <li>Rent</li>
-            <li>API Connection</li>
-            <li>Referal Program</li>
-            <li>Partnership</li>
-            <li>Partners</li>
-            <li>Blog</li>
-            <li>Help</li>
+            <Link href={"/"}>
+              <li>Receive SMS Online</li>
+            </Link>
+            <Link href={"/rent"}>
+              <li>Rent</li>
+            </Link>
+            <Link href={"/"}>
+              <li>API Connection</li>
+            </Link>
+            <Link href={"/ref"}>
+              <li>Referal Program</li>
+            </Link>
+            <Link href={"/partnership"}>
+              <li>Partnership</li>
+            </Link>
+            <Link href={"/partners"}>
+              <li>Partners</li>
+            </Link>
+            <Link href={"/blog"}>
+              <li>Blog</li>
+            </Link>
+            <Link href={"/help"}>
+              <li>Help</li>
+            </Link>
           </ul>
         </div>
         <div className="flex items-center justify-center gap-5 p-5">
@@ -70,9 +87,15 @@ export const Footer = () => {
       </div>
       <div className="bg-color-bg_light p-6 text-center md:p-4">
         <ul className="flex flex-col items-center space-y-3 text-slate-500/50 md:flex-row md:justify-around md:space-x-1">
-          <li>Privacy Policy</li>
-          <li>Terms of Use</li>
-          <li>Payment & Refund</li>
+          <Link href={"/privacy"}>
+            <li>Privacy Policy</li>
+          </Link>
+          <Link href={"/terms"}>
+            <li>Terms of Use</li>
+          </Link>
+          <Link href={"/payment-policy"}>
+            <li>Payment & Refund</li>
+          </Link>
         </ul>
       </div>
     </footer>

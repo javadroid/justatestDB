@@ -1,5 +1,5 @@
 import BlogComponent from "@/Components/BlogComponent";
-import Sidebar from "@/Components/Sidebar";
+import BlogSidebar from "@/Components/BlogSidebar";
 import React from "react";
 
 const blog = () => {
@@ -13,7 +13,7 @@ const blog = () => {
           <BlogComponent />
           <BlogComponent />
         </div>
-        <Sidebar />
+        <BlogSidebar />
       </div>
     </section>
   );
