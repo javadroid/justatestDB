@@ -3,9 +3,8 @@ import star from '../../assets/images/star.svg'
 import rus from '../../assets/flags/Russia.svg'
 import ama from '../../assets/socials/Amazon.svg'
 import vib from '../../assets/socials/Viber.svg'
-import { ArrowsUpDownIcon, ChevronDownIcon, MagnifyingGlassIcon} from '@heroicons/react/24/outline';
+import { ArrowsUpDownIcon, ChevronDownIcon, ClipboardDocumentCheckIcon, MagnifyingGlassIcon} from '@heroicons/react/24/outline';
 import Image from 'next/image';
-import { Ruslan_Display } from 'next/font/google'
 
 const ReceiveSms = () => {
   return (
@@ -105,65 +104,64 @@ const ReceiveSms = () => {
         </div>
 
 
-        {/* <div>
+        <div>
           <h2 className="text-center font-bold">History</h2>
-        </div> */}
-        {/* <div className="px-2 pt-8">
+        </div>
+        <div className="px-2 pt-8">
           <div className="max-w-3xl mx-auto relative bg-color-white rounded-xl shadow-[0px_4px_15px_rgba(37,39,86,0.15)] pt-6 mb-8">
-            <div className="pt-8 px-2">
-              <div className="wrapper">
-                <table>
-                  <thead className="hidden">
+            <div className="px-2">
+              <div className="wrapper px-6 pb-10">
+                <table className="text-xs border-collapse w-full">
+                  <thead className="hidden text-left text-color-table_gray lg:block">
                     <tr>
-                      <th>
+                      <th className="pb-2 font-medium">
                         <span>Bought</span>
                       </th>
-                      <th>
+                      <th className="pb-2 font-medium">
                         <span>Service</span>
                       </th>
-                      <th>
+                      <th className="pb-2 font-medium">
                         <span>Country</span>
                       </th>
-                      <th>
+                      <th className="pb-2 font-medium">
                         <span>Phone</span>
                       </th>
-                      <th>
+                      <th className="pb-2 font-medium">
                         <span>Price</span>
                       </th>
-                      <th>
+                      <th className="pb-2 font-medium">
                         <span>Message</span>
                       </th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>
+                  <tbody className="text-left block">
+                    <tr className="block">
+                      <td data-label="Bought" className="block text-right pl-[50%] relative">
                         <span>2023-04-06 13:25:56</span>
                       </td>
-                      <td>
-                        <div>
-                          <Image src={vib} alt="" className="-mt-1" />
-                          <span>Viber</span>
-                        </div>
+                      <td data-label="Service" className="block text-right pl-[50%] relative">
+                        <span className="flex text-center space-x-1">
+                          <Image src={vib} alt="" className="" />
+                          <span className="m-1">Viber</span>
+                        </span>
                       </td>
-                      <td>
-                        <div>
-                          {/* <span className="flex items-center w-full mr-14">
-                              <span>
-                                <Image src={rus} alt="" width={20} className="mr-2" />
-                              </span>
-                              <span>Russian Fed...</span>
-                            </span>
-                        </div>
+                      <td data-label="Bought" className="block text-right pl-[50%] relative">
+                        <span className="flex text-center space-x-1">
+                          <Image src={rus} alt="" width={20} />
+                          <span>Russian Federation</span>
+                        </span>
                       </td>
-                      <td>
-                        <span>2023-04-06 13:25:56</span>
+                      <td data-label="Bought" className="block text-right pl-[50%] relative">
+                        <span className="flex text-center space-x-4">
+                          <span>+7925505276</span>
+                          <ClipboardDocumentCheckIcon width={16} className="text-color-primary" />
+                        </span>
                       </td>
-                      <td>
-                        <span>2023-04-06 13:25:56</span>
+                      <td className="block text-right pl-[50%] relative">
+                        <span>0.19$</span>
                       </td>
-                      <td>
-                        <span>2023-04-06 13:25:56</span>
+                      <td className="block text-right pl-[50%] relative">
+                        <span className="text-color-api-red bg-[rgba(255,67,130,.1)] p-2 rounded-md">SMS not received</span>
                       </td>
                     </tr>
                   </tbody>
@@ -171,7 +169,7 @@ const ReceiveSms = () => {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   )
