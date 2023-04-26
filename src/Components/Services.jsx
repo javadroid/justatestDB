@@ -3,7 +3,7 @@ import React from "react";
 const Services = () => {
   return (
     <div className="mx-5 flex flex-col items-center rounded-lg rounded-t-none bg-slate-50 drop-shadow-xl lg:mx-auto lg:max-w-7xl lg:flex-row">
-      <div className="m-5 mx-auto grid max-w-sm grid-cols-2 justify-items-start gap-10 gap-x-36 pr-5 lg:mx-10 lg:max-w-4xl lg:grid-cols-4 lg:gap-x-32">
+      <div className="m-5 mx-auto grid max-w-sm grid-cols-2 justify-items-start gap-10 sm:px-5 md:gap-x-36 lg:mx-10 lg:max-w-4xl lg:grid-cols-4 lg:gap-x-32">
         <div>
           <p>Country</p>
           <div>
