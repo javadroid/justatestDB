@@ -131,7 +131,7 @@ router.post('/login', (req, res, next) => {
     );
 });
 //Log out user
-router.post('/logout/:id', (req, res, next) => {
+router.delete('/logout/:id', (req, res, next) => {
     const user = req.params.id;
     db.query(
         `DELETE last_login FROM admin WHERE id = '${user}'`,
@@ -153,7 +153,7 @@ router.post('/logout/:id', (req, res, next) => {
 });
 // Setting up number renting module
 // Admin can set the renting fee base on coutry and duration
-router.post('/setrentfee', (req, res, next) => {
+router.post('/setrentfee', userMiddleware.isLoggedIn, (req, res, next) => {
 
     const { country, duration, amount } = req.body;
     if (!country || !duration || amount) {
@@ -171,9 +171,112 @@ router.post('/setrentfee', (req, res, next) => {
                 });
             }
             return res.status(201).send({
-                msg: 'Rent amount and duration has been successfully set up!'
+                msg: 'Rent amount and duration has been successfully set up!',
+                data: result
             });
         }
     );
 });
+
+// Set up payment method module
+router.post('/paymentmethod', userMiddleware.isLoggedIn, (req, res, next) => {
+
+    const { method, min_amount } = req.body;
+    if (!method || !min_amount) {
+        return res.status(403).send({
+            msg: 'All fields are required!'
+        });
+    }
+    db.query(
+        `INSERT INTO pay_methods (method, min_amount, setup_date) VALUES ('${method}', '${min_amount}', now())`,
+        (err, result) => {
+            if (err) {
+                // throw err;
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+            return res.status(201).send({
+                msg: method + ' has been successfully added as a payment method.',
+                data: result
+            });
+        }
+    );
+});
+// delete payment method
+router.delete('/paymentmethod/:method', userMiddleware.isLoggedIn, (req, res, next) => {
+
+    const method = req.params.method;
+    if (!method) {
+        return res.status(403).send({
+            msg: 'Please ensure you pass the payment method you want to delete as a parameter!'
+        });
+    }
+    db.query(
+        `DELETE FROM pay_methods WHERE method='${method}'`,
+        (err, result) => {
+            if (err) {
+                // throw err;
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+            return res.status(201).send({
+                msg: method + ' payment method has been successfully deleted!',
+            });
+        }
+    );
+});
+// diasable payment method
+router.put('/disablemethod/:method', userMiddleware.isLoggedIn, (req, res, next) => {
+    let status = 'Disable';
+    const method = req.params.method;
+    if (!method) {
+        return res.status(403).send({
+            msg: 'Please ensure you pass the payment method you want to disable as a parameter!'
+        });
+    }
+    db.query(
+        `UPDATE pay_methods SET status='${status}' WHERE method='${method}'`,
+        (err, result) => {
+            if (err) {
+                // throw err;
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+            return res.status(201).send({
+                msg: method + ' payment method has been successfully disable.',
+            });
+        }
+    );
+});
+
+// enable payment method
+router.put('/enablemethod/:method', userMiddleware.isLoggedIn, (req, res, next) => {
+    let status = 'Enable';
+    const method = req.params.method;
+    if (!method) {
+        return res.status(403).send({
+            msg: 'Please ensure you pass the payment method you want to disable as a parameter!'
+        });
+    }
+    db.query(
+        `UPDATE pay_methods SET status='${status}' WHERE method='${method}'`,
+        (err, result) => {
+            if (err) {
+                // throw err;
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+            return res.status(201).send({
+                msg: method + ' payment method has been successfully enable!',
+            });
+        }
+    );
+});
+
+
+
 module.exports = router;

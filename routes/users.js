@@ -7,12 +7,13 @@ const DOMAIN = 'sandboxb21bd93e7e794e4f88a01d13f923ec59.mailgun.org';
 const mg = mailgun({ apiKey: process.env.MAILGUN_API_KEY, domain: DOMAIN })
 const uuid = require('uuid');
 const apikey = uuid.v4();
+const id = Math.floor(Math.random() * 500000) + 1;
 const jwt = require('jsonwebtoken');
 const db = require('../lib/db.js');
 const userMiddleware = require('../middleware/users.js');
 // User registration
 router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
-    Math.floor(6, 125854)
+
 
     db.query(
         `SELECT * FROM users WHERE LOWER(email) = LOWER(${db.escape(
@@ -44,7 +45,7 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
                                     // has hashed pw => add to database
                                     const vstatus = 'unverified'
                                     db.query(
-                                        `INSERT INTO users (username, email, password, apikey, vstatus, reg_date) VALUES ('${req.body.username}', '${req.body.email}', '${hash}', '${apikey}', '${vstatus}', now())`,
+                                        `INSERT INTO users (id, username, email, password, apikey, vstatus, reg_date) VALUES ('${id}', '${req.body.username}', '${req.body.email}', '${hash}', '${apikey}', '${vstatus}', now())`,
                                         (err, result) => {
                                             if (err) {
                                                 // throw err;
@@ -131,7 +132,7 @@ router.post('/social_media_sign', (req, res, next) => {
                             // username is available
                             const vstatus = 'verified'
                             db.query(
-                                `INSERT INTO users (apikey, email, vstatus, reg_date) VALUES ('${apikey}', '${req.body.email}', '${vstatus}', now())`,
+                                `INSERT INTO users (id, apikey, email, vstatus, reg_date) VALUES ('${id}', '${apikey}', '${req.body.email}', '${vstatus}', now())`,
                                 (err, result) => {
                                     if (err) {
                                         //throw err;
@@ -321,6 +322,17 @@ router.post('/logout/:userid', (req, res, next) => {
     )
 
 });
+// proper logging out user
+// router.put("/logout", authToken, function(req, res) {
+//     const authHeader = req.headers["authorization"];
+//     jwt.sign(authHeader, "", { expiresIn: 1 }, (logout, err) => {
+//         if (logout) {
+//             res.send({ msg: 'You have been Logged Out' });
+//         } else {
+//             res.send({ msg: 'Error' });
+//         }
+//     });
+// });
 //Fetching referral hostory
 router.get('/referral/history/:refCode', userMiddleware.isLoggedIn, (req, res, next) => {
     const refCode = req.params.refCode;
@@ -398,14 +410,39 @@ router.get('/rentfees/:country/:duration', (req, res, next) => {
                     msg: err
                 });
             }
-
             if (!result.length) {
                 return res.status(309).send({
                     msg: 'This country you seleted does not have numbers available for rent.'
                 });
             }
             return res.status(200).send({
-                d: result
+                data: result
+            });
+        }
+    );
+});
+
+// Fetching all the available payment methods
+router.get('/paymentmethods', userMiddleware.isLoggedIn, (req, res, next) => {
+    let status = "Enable";
+    db.query(
+        `SELECT * FROM pay_methods WHERE status = '${status}'`,
+        (err, result) => {
+            // user does not exists
+            if (err) {
+                // throw err;
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+            if (!result.length) {
+                return res.status(309).send({
+                    msg: 'There is no payment method available yet.'
+                });
+            }
+
+            return res.status(200).send({
+                pay_methods: result
             });
         }
     );
