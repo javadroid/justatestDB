@@ -12,6 +12,7 @@ const db = require('../lib/db.js');
 const userMiddleware = require('../middleware/users.js');
 // User registration
 router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
+    Math.floor(6, 125854)
 
     db.query(
         `SELECT * FROM users WHERE LOWER(email) = LOWER(${db.escape(
@@ -58,14 +59,14 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
                                                 html: `<div style="text-align:justify;">
                                                 <h4>Hello ${req.body.firstname} ${req.body.lastname}</h4>
                                                 <p>You just sign up on Newsems, please click the button below to verify your account</p>
-                                                <button><a href="https://newsems.com/api/verify-email/${id}">Verify Account</a></button>
-                                                <P>Or copy this url and paste on your browser: https://newsems.com/api/verify-email/${id} </P>`
+                                                <button><a href="http://161.35.218.95:3000/api/verify-email/${apikey}">Verify Account</a></button>
+                                                <P>Or copy this url and paste on your browser: http://161.35.218.95:3000/api/verify-email/${apikey} </P>`
                                             };
                                             mg.messages().send(data, function(error, body) {
                                                 console.log(body);
                                             });
                                             return res.status(201).send({
-                                                msg: 'User Has Been Successfully Registered!'
+                                                msg: 'User Has Been Successfully Registered. Plase check your email to verify your account.'
                                             });
                                         }
                                     );
@@ -130,7 +131,7 @@ router.post('/social_media_sign', (req, res, next) => {
                             // username is available
                             const vstatus = 'verified'
                             db.query(
-                                `INSERT INTO users (apikey, email, vstatus, reg_date) VALUES ('${uuid.v4()}', '${req.body.email}', '${vstatus}', now())`,
+                                `INSERT INTO users (apikey, email, vstatus, reg_date) VALUES ('${apikey}', '${req.body.email}', '${vstatus}', now())`,
                                 (err, result) => {
                                     if (err) {
                                         //throw err;
@@ -152,23 +153,23 @@ router.post('/social_media_sign', (req, res, next) => {
 router.get('/log', (req, res, next) => {
     res.send({ 'Message': 'Welcome' })
 });
-router.get('/verify-email/${id}', (req, res, next) => {
-    const userid = req.params.id;
-    const vstatus = 'verified'
-    db.query(
-        `UPDATE users SET vstatus='${vstatus}' WHERE id='${userid}'`,
-        (err, result) => {
-            if (err) {
-                return res.status(400).send({
-                    msg: err
-                });
-            }
-            return res.status(201).send({
-                msg: 'Email verification was succesful!'
-            });
-        }
-    );
-    // res.send({ 'Message': 'Welcome' })
+router.get('/verify-email/:apikey', (req, res, next) => {
+    const user_apikey = req.params.apikey;
+    res.send(user_apikey);
+    // const vstatus = 'verified'
+    // db.query(
+    //     `UPDATE users SET vstatus='${vstatus}' WHERE apikey='${user_apikey}'`,
+    //     (err, result) => {
+    //         if (err) {
+    //             return res.status(400).send({
+    //                 msg: err
+    //             });
+    //         }
+    //         return res.status(201).send({
+    //             msg: 'Email verification was succesful!'
+    //         });
+    //     }
+    // );
 });
 // changing user password
 router.post('/user/changepassword/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
@@ -343,6 +344,7 @@ router.get('/referral/history/:refCode', userMiddleware.isLoggedIn, (req, res, n
 // fetch user topup history
 router.get('/user/payment/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
     const idv = req.params.userid;
+
     db.query(
         `SELECT * FROM transactions WHERE user_id='${idv}' AND type='topup'`,
         (err, result) => {
