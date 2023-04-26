@@ -405,7 +405,7 @@ router.get('/rentfees/:country/:duration', (req, res, next) => {
                 });
             }
             return res.status(200).send({
-                data: result
+                d: result
             });
         }
     );
