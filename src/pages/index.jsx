@@ -7,7 +7,6 @@ import Ad from "@/assets/ad.png";
 import Cry from "@/assets/cry-emoji.svg";
 import Smile from "@/assets/smile-emoji.svg";
 import LadyLaptop from "@/assets/lady-laptop.png";
-
 import Form from "@/Components/Form";
 import Chill from "@/assets/img.png";
 import Services from "@/Components/Services";
@@ -19,8 +18,6 @@ import PromoInformation from "@/Components/PromoInformation";
 import Table from "@/Components/Table";
 import SignUpSecton from "@/Components/SignUpSecton";
 import Cookies from "@/Components/Cookies";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
@@ -67,6 +64,7 @@ export default function Home() {
                 src={Hero}
                 alt="Hero"
                 className="h-[500px] w-[570px] object-contain"
+                priority={true}
               />
             </div>
           </div>
