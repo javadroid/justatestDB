@@ -151,4 +151,29 @@ router.post('/logout/:id', (req, res, next) => {
     )
 
 });
+// Setting up number renting module
+// Admin can set the renting fee base on coutry and duration
+router.post('/setrentfee', (req, res, next) => {
+
+    const { country, duration, amount } = req.body;
+    if (!country || !duration || amount) {
+        return res.status(403).send({
+            msg: 'All fields are required!'
+        });
+    }
+    db.query(
+        `INSERT INTO renr_cal (country, duration, amount, setup_date) VALUES ('${country}', '${duration}', '${amount}', now())`,
+        (err, result) => {
+            if (err) {
+                // throw err;
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+            return res.status(201).send({
+                msg: 'Rent amount and duration has been successfully set up!'
+            });
+        }
+    );
+});
 module.exports = router;

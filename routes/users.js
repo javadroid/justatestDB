@@ -359,6 +359,57 @@ router.get('/user/payment/:userid', userMiddleware.isLoggedIn, (req, res, next) 
             }
         });
 });
+// Renting calculator module start here
+//Getting country rent fee
+router.get('/rentfees/:country', (req, res, next) => {
+    const country = req.params.country;
+    db.query(
+        `SELECT * FROM rent_cal WHERE country = '${country}'`,
+        (err, result) => {
+            // user does not exists
+            if (err) {
+                // throw err;
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+
+            if (!result.length) {
+                return res.status(309).send({
+                    msg: 'This country you seleted does not have numbers available for rent.'
+                });
+            }
+            return res.status(200).send({
+                msg: result
+            });
+        }
+    );
+});
+router.get('/rentfees/:country/:duration', (req, res, next) => {
+    const country = req.params.country;
+    const duration = req.params.duration;
+    db.query(
+        `SELECT * FROM rent_cal WHERE country = '${country}' AND duration='${duration}'`,
+        (err, result) => {
+            // user does not exists
+            if (err) {
+                // throw err;
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+
+            if (!result.length) {
+                return res.status(309).send({
+                    msg: 'This country you seleted does not have numbers available for rent.'
+                });
+            }
+            return res.status(200).send({
+                data: result
+            });
+        }
+    );
+});
 
 //To protect a route now, simply include this middleware when calling the route as follows:
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
