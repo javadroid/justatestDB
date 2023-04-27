@@ -26,3 +26,73 @@
     height: 7px;
     cursor: pointer;
 }
+
+.table {
+  width: 100%;
+  /* display: grid; */
+}
+.header-row {
+  display: none;
+}
+.table-row {
+  width: 100%;
+  padding: 12px 10px;
+  display: grid;
+  column-gap: 10px;
+  row-gap: 25px;
+  grid-template-areas: 
+      "a  b"
+      "c  c"
+      "d  e"
+      "f  f";
+  margin-bottom: 50px;
+}
+.table-row:nth-of-type(2n+1) {
+  background: #e3f0ff;
+}
+.bought {
+  grid-area: a;
+}
+.service {
+  grid-area: b;
+}
+.country {
+  grid-area: c;
+}
+.phone {
+  grid-area: d;
+}
+.price {
+  grid-area: e;
+  text-align: right;
+}
+.message {
+  grid-area: f;
+}
+.message p {
+  text-align: center;
+  background: pink;
+}
+
+@media only screen and (min-width: 991.99px) {
+  .header-row {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 4fr 3fr 4fr 4fr 1fr 4fr;
+      column-gap: 10px;
+      align-items: stretch;
+  }
+  .table-row {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 4fr 3fr 4fr 4fr 1fr 4fr;
+      column-gap: 10px;
+      row-gap: 0;
+      align-items: stretch;
+      margin-bottom: 0;
+      grid-template-areas: "a b c d e f";
+  }
+  h6 {
+      display: none;
+  }
+}

@@ -37,12 +37,22 @@ const ReceiveSms = () => {
                   </div>
                   <div className="country body">
                     <div className="dashboard">
-                      <div className="boxes flex flex-col justify-center px-2 space-y-2">
+                      <div className="boxes flex flex-col justify-between px-2 space-y-2 md:space-x-2 md:grid md:grid-cols-2 md:flex-wrap md:space-y-0 md:gap-5 md:px-4">
+                      <div className="mb-1 flex bg-color-bg_primary-500 border border-color-primary rounded-lg">
+                        <div className="flex items-center p-4 text-xs sm:justify-between">
+                          <Image src={star} alt="" className="-mt-1" />
+                          <div className="flex items-center w-full mr-14">
+                            <span>
+                              <Image src={rus} alt="" width={20} className="mr-2" />
+                            </span>
+                            <span>Russian Fed...</span>
+                          </div>
+                          <span>381329</span>
+                        </div>
+                        </div>                        
                         <div className="mb-1 flex bg-color-bg_primary-500 border border-color-primary rounded-lg">
-                          <div className="flex items-center p-4 text-xs">
-                            {/* <button> */}
+                          <div className="flex items-center p-4 text-xs sm:justify-between">
                             <Image src={star} alt="" className="-mt-1" />
-                            {/* </button> */}
                             <div className="flex items-center w-full mr-14">
                               <span>
                                 <Image src={rus} alt="" width={20} className="mr-2" />
@@ -51,14 +61,36 @@ const ReceiveSms = () => {
                             </div>
                             <span>381329</span>
                           </div>
-                        </div>
+                        </div>                    
+                        <div className="mb-1 flex bg-color-bg_primary-500 border border-color-primary rounded-lg">
+                          <div className="flex items-center p-4 text-xs sm:justify-between">
+                            <Image src={star} alt="" className="-mt-1" />
+                            <div className="flex items-center w-full mr-14">
+                              <span>
+                                <Image src={rus} alt="" width={20} className="mr-2" />
+                              </span>
+                              <span>Russian Fed...</span>
+                            </div>
+                            <span>381329</span>
+                          </div>
+                        </div>                    
+                        <div className="mb-1 flex bg-color-bg_primary-500 border border-color-primary rounded-lg">
+                          <div className="flex items-center p-4 text-xs sm:justify-between">
+                            <Image src={star} alt="" className="-mt-1" />
+                            <div className="flex items-center w-full mr-14">
+                              <span>
+                                <Image src={rus} alt="" width={20} className="mr-2" />
+                              </span>
+                              <span>Russian Fed...</span>
+                            </div>
+                            <span>381329</span>
+                          </div>
+                        </div>                    
                       </div>
                     </div>
                     <div className="flex text-color-primary text-xs space-x-2 mt-4 ml-2">
                       <span>Available countries - 182</span>
-                      {/* <span> */}
                         <ChevronDownIcon width={16} />
-                      {/* </span> */}
                     </div>
                   </div>
                 </div>
@@ -103,69 +135,136 @@ const ReceiveSms = () => {
           </div>
         </div>
 
-
         <div>
           <h2 className="text-center font-bold">History</h2>
         </div>
         <div className="px-2 pt-8">
-          <div className="max-w-3xl mx-auto relative bg-color-white rounded-xl shadow-[0px_4px_15px_rgba(37,39,86,0.15)] pt-6 mb-8">
+          <div className="max-w-3xl mx-auto relative bg-color-white rounded-xl shadow-[0px_4px_15px_rgba(37,39,86,0.15)] pt-6 mb-8 lg:max-w-4xl">
             <div className="px-2">
               <div className="wrapper px-6 pb-10">
-                <table className="text-xs border-collapse w-full">
-                  <thead className="hidden text-left text-color-table_gray lg:block">
-                    <tr>
-                      <th className="pb-2 font-medium">
-                        <span>Bought</span>
-                      </th>
-                      <th className="pb-2 font-medium">
-                        <span>Service</span>
-                      </th>
-                      <th className="pb-2 font-medium">
-                        <span>Country</span>
-                      </th>
-                      <th className="pb-2 font-medium">
-                        <span>Phone</span>
-                      </th>
-                      <th className="pb-2 font-medium">
-                        <span>Price</span>
-                      </th>
-                      <th className="pb-2 font-medium">
-                        <span>Message</span>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-left block">
-                    <tr className="block">
-                      <td data-label="Bought" className="block text-right pl-[50%] relative">
-                        <span>2023-04-06 13:25:56</span>
-                      </td>
-                      <td data-label="Service" className="block text-right pl-[50%] relative">
-                        <span className="flex text-center space-x-1">
-                          <Image src={vib} alt="" className="" />
-                          <span className="m-1">Viber</span>
-                        </span>
-                      </td>
-                      <td data-label="Bought" className="block text-right pl-[50%] relative">
-                        <span className="flex text-center space-x-1">
-                          <Image src={rus} alt="" width={20} />
-                          <span>Russian Federation</span>
-                        </span>
-                      </td>
-                      <td data-label="Bought" className="block text-right pl-[50%] relative">
-                        <span className="flex text-center space-x-4">
-                          <span>+7925505276</span>
-                          <ClipboardDocumentCheckIcon width={16} className="text-color-primary" />
-                        </span>
-                      </td>
-                      <td className="block text-right pl-[50%] relative">
-                        <span>0.19$</span>
-                      </td>
-                      <td className="block text-right pl-[50%] relative">
-                        <span className="text-color-api-red bg-[rgba(255,67,130,.1)] p-2 rounded-md">SMS not received</span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div className="table">
+                  <div className="header-row">
+                    <div className="th text-color-table_gray">
+                    <p>Bought</p>
+                    </div>
+                    <div className="th text-color-table_gray">
+                    <p>Service</p>
+                    </div>
+                    <div className="th text-color-table_gray">
+                    <p>Country</p>
+                    </div>
+                    <div className="th text-color-table_gray">
+                    <p>Phone</p>
+                    </div>
+                    <div className="th text-color-table_gray">
+                    <p>Price</p>
+                    </div>
+                    <div className="th text-color-table_gray">
+                    <p>Message</p>
+                    </div>
+                    </div>
+                    <div className="table-body">
+                      <div className="table-row drop-shadow-xl md:drop-shadow-none pb-4">
+                        <div className="td bought md:py-2">
+                            <h6 className="text-color-table_gray font-medium">Bought</h6>
+                            <p>2025-07-15 12:23:48</p>
+                        </div>
+                        <div className="td service md:py-2">
+                            <h6 className="text-color-table_gray font-medium">Service</h6>
+                            <p className="flex">
+                              <span><Image src={vib} alt="" className="mr-1" />
+                                </span>Viber</p>
+                        </div>
+                        <div className="td country md:py-2">
+                            <h6 className="text-color-table_gray font-medium">Country</h6>
+                            <p className="flex">
+                              <span>
+                              <Image src={rus} alt="" width={20} className="mr-2" />
+                              </span>Russia</p>
+                        </div>
+                        <div className="td phone md:py-2">
+                            <h6 className="text-color-table_gray font-medium">Phone</h6>
+                            <p className="flex">+134346088643<span>
+                            <ClipboardDocumentCheckIcon width={20} className="text-color-primary ml-3" />
+                              </span></p>
+                        </div>
+                        <div className="td price md:py-2">
+                            <h6 className="text-color-table_gray font-medium">Price</h6>
+                            <p>$0.19</p>
+                        </div>
+                        <div className="td message">
+                            <h6 className="text-color-table_gray font-medium">Message</h6>
+                            <p className="text-color-api-red bg-[rgba(255,67,130,.1)] py-2 rounded-md">SMS not recieved</p>
+                        </div>
+                      </div>
+                      <div className="table-row drop-shadow-xl md:drop-shadow-none mb-4">
+                        <div className="td bought md:py-2">
+                            <h6 className="text-color-table_gray font-medium">Bought</h6>
+                            <p>2025-07-15 12:23:48</p>
+                        </div>
+                        <div className="td service md:py-2">
+                            <h6 className="text-color-table_gray font-medium">Service</h6>
+                            <p className="flex">
+                              <span><Image src={vib} alt="" className="mr-1" />
+                                </span>Viber</p>
+                        </div>
+                        <div className="td country md:py-2">
+                            <h6 className="text-color-table_gray font-medium">Country</h6>
+                            <p className="flex">
+                              <span>
+                              <Image src={rus} alt="" width={20} className="mr-2" />
+                              </span>Russia</p>
+                        </div>
+                        <div className="td phone md:py-2">
+                            <h6 className="text-color-table_gray font-medium">Phone</h6>
+                            <p className="flex">+134346088643<span>
+                            <ClipboardDocumentCheckIcon width={20} className="text-color-primary ml-3" />
+                              </span></p>
+                        </div>
+                        <div className="td price md:py-2">
+                            <h6 className="text-color-table_gray font-medium">Price</h6>
+                            <p>$0.19</p>
+                        </div>
+                        <div className="td message">
+                            <h6 className="text-color-table_gray font-medium">Message</h6>
+                            <p className="text-color-api-red bg-[rgba(255,67,130,.1)] py-2 rounded-md">SMS not recieved</p>
+                        </div>
+                      </div>
+                      <div className="table-row drop-shadow-xl md:drop-shadow-none mb-4">
+                        <div className="td bought md:py-2">
+                            <h6 className="text-color-table_gray font-medium">Bought</h6>
+                            <p>2025-07-15 12:23:48</p>
+                        </div>
+                        <div className="td service md:py-2">
+                            <h6 className="text-color-table_gray font-medium">Service</h6>
+                            <p className="flex">
+                              <span><Image src={vib} alt="" className="mr-1" />
+                                </span>Viber</p>
+                        </div>
+                        <div className="td country md:py-2">
+                            <h6 className="text-color-table_gray font-medium">Country</h6>
+                            <p className="flex">
+                              <span>
+                              <Image src={rus} alt="" width={20} className="mr-2" />
+                              </span>Russia</p>
+                        </div>
+                        <div className="td phone md:py-2">
+                            <h6 className="text-color-table_gray font-medium">Phone</h6>
+                            <p className="flex">+134346088643<span>
+                            <ClipboardDocumentCheckIcon width={20} className="text-color-primary ml-3" />
+                              </span></p>
+                        </div>
+                        <div className="td price md:py-2">
+                            <h6 className="text-color-table_gray font-medium">Price</h6>
+                            <p>$0.19</p>
+                        </div>
+                        <div className="td message">
+                            <h6 className="text-color-table_gray font-medium">Message</h6>
+                            <p className="text-color-api-red bg-[rgba(255,67,130,.1)] py-2 rounded-md">SMS not recieved</p>
+                        </div>
+                      </div>
+                    </div>
+                </div>
               </div>
             </div>
           </div>
