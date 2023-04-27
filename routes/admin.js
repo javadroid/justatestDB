@@ -57,7 +57,6 @@ router.delete('/user/:id', userMiddleware.isLoggedIn, (req, res, next) => {
                     Error: err
                 });
             }
-
             if (result.affectedRows >= 1) {
                 return res.status(202).send({
                     msg: result.affectedRows + ' User has been successfully deleted!'
@@ -69,7 +68,7 @@ router.delete('/user/:id', userMiddleware.isLoggedIn, (req, res, next) => {
                 });
             }
         }
-    )
+    );
 });
 // fetch user transaction history
 router.get('/user/transactions/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
@@ -130,6 +129,7 @@ router.post('/login', (req, res, next) => {
         }
     );
 });
+// Admin user login ends here
 //Log out user
 router.delete('/logout/:id', (req, res, next) => {
     const user = req.params.id;
@@ -151,6 +151,9 @@ router.delete('/logout/:id', (req, res, next) => {
     )
 
 });
+
+
+// Number renting module start here
 // Setting up number renting module
 // Admin can set the renting fee base on coutry and duration
 router.post('/setrentfee', userMiddleware.isLoggedIn, (req, res, next) => {
@@ -177,8 +180,10 @@ router.post('/setrentfee', userMiddleware.isLoggedIn, (req, res, next) => {
         }
     );
 });
+// Number renting fee module ends here
 
-// Set up payment method module
+// Payment method module starts here
+// Set up payment method
 router.post('/paymentmethod', userMiddleware.isLoggedIn, (req, res, next) => {
 
     const { method, min_amount } = req.body;
@@ -276,7 +281,104 @@ router.put('/enablemethod/:method', userMiddleware.isLoggedIn, (req, res, next) 
         }
     );
 });
+// Payment methods module ends here
 
+//Laguage module starts here
+//setting up language
+router.post('/createlang', userMiddleware.isLoggedIn, (req, res, next) => {
+    const { language } = req.body;
+    if (!language) {
+        return res.status(401).send({
+            msg: "language is required!"
+        });
+    }
+    db.query(
+        `INSERT INTO languages(language, status, created_date) VALUES ('${language}', '${status}', now())`,
+        (err, result) => {
+            if (err) {
+                // throw err;
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+            return res.status(201).send({
+                msg: language + ' language has been successfully added!',
+            });
+        }
+    );
+});
 
+// deleting a language from the system
+router.delete('/deletelang:language', userMiddleware.isLoggedIn, (req, res, next) => {
+    const language = req.params.language;
+    if (!language) {
+        return res.status(401).send({
+            msg: "language must be passed a parameter!"
+        });
+    }
+    db.query(
+        `DELETE FROM languages WHERE language='${language}')`,
+        (err, result) => {
+            if (err) {
+                // throw err;
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+            return res.status(201).send({
+                msg: language + ' language has been successfully deleted!',
+            });
+        }
+    );
+});
+// Disabling a language from the system
+router.put('/disablelang:language', userMiddleware.isLoggedIn, (req, res, next) => {
+    const language = req.params.language;
+    let status = "Disable";
+    if (!language) {
+        return res.status(401).send({
+            msg: "language must be passed a parameter!"
+        });
+    }
+    db.query(
+        `UPDATE languages SET status='${status}' WHERE language='${language}')`,
+        (err, result) => {
+            if (err) {
+                // throw err;
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+            return res.status(201).send({
+                msg: language + ' language has been disable!',
+            });
+        }
+    );
+});
+// Enabling a language in the system
+router.put('/enablelang:language', userMiddleware.isLoggedIn, (req, res, next) => {
+    const language = req.params.language;
+    let status = "Enable";
+    if (!language) {
+        return res.status(401).send({
+            msg: "language must be passed a parameter!"
+        });
+    }
+    db.query(
+        `UPDATE languages SET status='${status}' WHERE language='${language}')`,
+        (err, result) => {
+            if (err) {
+                // throw err;
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+            return res.status(201).send({
+                msg: language + ' language has been Enable!',
+            });
+        }
+    );
+});
+//language module ends here
 
 module.exports = router;
