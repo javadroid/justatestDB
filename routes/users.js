@@ -43,8 +43,10 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
                                     } else {
                                         // has hashed pw => add to database
                                         const vstatus = 'unverified'
+                                        let str = req.body.username
+                                        const ref = Math.floor(Math.random() * 5000) + 1 + (str.charAt(0) + str.charAt(1) + str.charAt(2));
                                         db.query(
-                                            `INSERT INTO users (id, username, email, password, apikey, vstatus, reg_date) VALUES ('${id}', '${req.body.username}', '${req.body.email}', '${hash}', '${apikey}', '${vstatus}', now())`,
+                                            `INSERT INTO users (id, username, email, password, apikey, vstatus, reg_date, ref_code) VALUES ('${id}', '${req.body.username}', '${req.body.email}', '${hash}', '${apikey}', '${vstatus}', now(), '${ref}')`,
                                             (err, result) => {
                                                 if (err) {
                                                     // throw err;
@@ -136,9 +138,11 @@ router.post('/social_media_sign', (req, res, next) => {
 
                             } else {
                                 // username is available
-                                const vstatus = 'verified'
+                                const vstatus = 'verified';
+                                let str = req.body.username
+                                const ref = Math.floor(Math.random() * 5000) + 1 + (str.charAt(0) + str.charAt(1) + str.charAt(2));
                                 db.query(
-                                    `INSERT INTO users (id, apikey, email, vstatus, reg_date) VALUES ('${id}', '${apikey}', '${req.body.email}', '${vstatus}', now())`,
+                                    `INSERT INTO users (id, apikey, email, vstatus, reg_date, ref_code) VALUES ('${id}', '${apikey}', '${req.body.email}', '${vstatus}', now(), '${ref}')`,
                                     (err, result) => {
                                         if (err) {
                                             //throw err;
@@ -529,11 +533,12 @@ router.get("/languages", (rea, res, next) => {
 // Fetching laguages ends here
 
 // Change user api key starts here
-router.put("/changeapikey", userMiddleware.isLoggedIn, (req, res, next) => {
-    let status = "Enable";
+router.put("/changeapikey/:userid", userMiddleware.isLoggedIn, (req, res, next) => {
+    const userid = req.params.userid;
+    let newAPI = uuid.v4();
     try {
         db.query(
-            `SELECT * FROM pay_methods WHERE status = '${status}'`,
+            `UPDATE users SET apikey='${newAPI}' WHERE id = '${userid}'`,
             (err, result) => {
                 // user does not exists
                 if (err) {
@@ -542,14 +547,15 @@ router.put("/changeapikey", userMiddleware.isLoggedIn, (req, res, next) => {
                         msg: err
                     });
                 }
-                if (!result.length) {
-                    return res.status(309).send({
-                        msg: 'There is no payment method available yet.'
+                if (!result.affectedRow) {
+                    return res.status(409).send({
+                        msg: 'You can not change your api key at the moment!'
                     });
                 }
 
                 return res.status(200).send({
-                    pay_methods: result
+                    msg: 'Your api key has been successfully changed!',
+                    data: result
                 });
             }
         );
