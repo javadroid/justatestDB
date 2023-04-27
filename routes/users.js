@@ -372,7 +372,7 @@ router.get('/user/payment/:userid', userMiddleware.isLoggedIn, (req, res, next) 
         });
 });
 // Renting calculator module start here
-//Getting country rent fee
+//Getting rent fee by country
 router.get('/rentfees/:country', (req, res, next) => {
     const country = req.params.country;
     db.query(
@@ -397,6 +397,7 @@ router.get('/rentfees/:country', (req, res, next) => {
         }
     );
 });
+// get rent fee by country and duration
 router.get('/rentfees/:country/:duration', (req, res, next) => {
     const country = req.params.country;
     const duration = req.params.duration;
@@ -422,6 +423,7 @@ router.get('/rentfees/:country/:duration', (req, res, next) => {
     );
 });
 
+// payment method starts here
 // Fetching all the available payment methods
 router.get('/paymentmethods', userMiddleware.isLoggedIn, (req, res, next) => {
     let status = "Enable";
@@ -447,6 +449,34 @@ router.get('/paymentmethods', userMiddleware.isLoggedIn, (req, res, next) => {
         }
     );
 });
+// payment method ends here
+
+// Fetch available languages
+router.get("/languages", (rea, res, next) => {
+    db.query(
+        `SELECT * FROM languages`,
+        (err, result) => {
+            // if query error
+            if (err) {
+                // throw err;
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+            // if there is no language available
+            if (!result.length) {
+                return res.status(309).send({
+                    msg: 'There is no language available yet.'
+                });
+            }
+
+            return res.status(200).send({
+                languages: result
+            });
+        }
+    );
+});
+// Efyching laguages ends here
 
 //To protect a route now, simply include this middleware when calling the route as follows:
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
