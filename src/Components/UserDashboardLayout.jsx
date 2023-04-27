@@ -12,7 +12,7 @@ const UserDashboardLayout = ({ children }) => {
       </div>
       <div className="flex">
         <Sidebar />
-        <main className="h-full">{children}</main>
+        <main className="h-full w-full">{children}</main>
       </div>
       <Footer />
     </div>

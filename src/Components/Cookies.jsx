@@ -26,6 +26,9 @@ const Cookies = () => {
         >
           No, manage cookies
         </button>
+        {/* <tbody className="text-left block w-full md:inline-block"> */}
+          {/* <tr className="block w-full lg:inline-block"> */}
+        {/* td   className="block text-right pl-[50%] py-2 relative w-full before:absolute before:content-[attr(data-label)] before:left-0 before:width-1/2 before:text-color-table_gray md:text-left lg:inline lg:before:hidden" */}
       </div>
     </div>
   );
