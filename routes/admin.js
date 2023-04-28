@@ -580,6 +580,4 @@ router.put('/feedback/:id', userMiddleware.isLoggedIn, (req, res, next) => {
         console.log(err);
     }
 });
-// Feed backs module ends here
-
 module.exports = router;

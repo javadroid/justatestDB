@@ -587,7 +587,7 @@ router.post('/feedback', userMiddleware.isLoggedIn, (req, res, next) => {
             })
         }
         db.query(
-            `INSERT INTO feedbackss (username, email, message) VALUES ('${username}', '${email}', '${message}')`,
+            `INSERT INTO feedbacks (username, email, message) VALUES ('${username}', '${email}', '${message}')`,
             (err, result) => {
                 // user does not exists
                 if (err) {
@@ -611,6 +611,105 @@ router.post('/feedback', userMiddleware.isLoggedIn, (req, res, next) => {
         console.log(err);
     }
 });
+
+
+// Blog modules
+// fetching all blog posts
+router.get("/blog/posts", (rea, res, next) => {
+    try {
+        db.query(
+            `SELECT * FROM blog_posts`,
+            (err, result) => {
+                // if query error
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                // if there is no language available
+                if (!result.length) {
+                    return res.status(309).send({
+                        msg: 'There is no post available yet.'
+                    });
+                }
+                return res.status(200).send({
+                    posts: result
+                });
+            }
+        );
+    } catch (err) {
+        console.log(err)
+    }
+});
+// fetching single blog post
+router.get("/blog/post/:postid", (rea, res, next) => {
+    let postid = req.params.postid;
+    try {
+        db.query(
+            `SELECT * FROM blog_posts WHERE id='${postid}'`,
+            (err, result) => {
+                // if query error
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                // if there is no language available
+                if (!result.length) {
+                    return res.status(309).send({
+                        msg: 'This post does not exist!'
+                    });
+                }
+                return res.status(200).send({
+                    data: result
+                });
+            }
+        );
+    } catch (err) {
+        console.log(err)
+    }
+});
+
+// Comment on a post
+router.post('/comment/:postid/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
+    try {
+        let postid = req.params.postid;
+        let user = reqparams.userid
+        const { comment } = req.body;
+        if (!user || !comment) {
+            return res.status(409).send({
+                msg: "All fields are required!"
+            })
+        }
+        db.query(
+            `INSERT INTO comments (postid, userid, comment) VALUES ('${postid}', '${user}', '${comment}')`,
+            (err, result) => {
+                // user does not exists
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                if (!result.length) {
+                    return res.status(409).send({
+                        msg: 'Something went wrong!'
+                    });
+                }
+                return res.status(200).send({
+                    msg: 'You have successfully commented!',
+                    data: result
+                });
+            }
+        );
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+//  blog posts module ends here
 
 //To protect a route now, simply include this middleware when calling the route as follows:
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
