@@ -147,12 +147,24 @@ router.post('/social_media_sign', (req, res, next) => {
                                         if (err) {
                                             //throw err;
                                             return res.status(400).send({
-                                                msg: err
+                                                msg: 'Can not create user at the moment!',
+                                                error: err
+
                                             });
                                         }
-                                        return res.status(201).send({
-                                            msg: 'User Has Been Successfully Registered!'
-                                        });
+                                        db.query(`INSERT INTO wallets (userid) VALUES ('${id}')`,
+                                            (err, result) => {
+                                                if (err) {
+                                                    return res.status(400).send({
+                                                        msg: 'Something went wrong!',
+                                                        error: err
+
+                                                    });
+                                                }
+                                                return res.status(201).send({
+                                                    msg: 'Sign up was successful!'
+                                                });
+                                            });
                                     }
                                 );
                             }
@@ -337,13 +349,13 @@ router.post('/logout/:userid', (req, res, next) => {
         db.query(
             `DELETE last_login FROM users WHERE id = '${user}'`,
             (err, result) => {
-                if (result.length) {
+                if (result.affetedRow) {
                     return res.status(200).send({
                         msg: "User is logged out and session expired."
                     });
                 } else {
                     return res.status(302).send({
-                        msg: "You haven't refer a user yet!"
+                        msg: "It seems you passed a wrong user id as a request parameter!"
                     });
                 }
             }
@@ -369,7 +381,7 @@ router.get('/referral/history/:refCode', userMiddleware.isLoggedIn, (req, res, n
     try {
         const refCode = req.params.refCode;
         db.query(
-            `SELECT * FROM referrals WHERE referrer = '${refCode}'`,
+            `SELECT users.username AS referral, referrals.reg_date AS signup_date, referrals.first_deposit AS deposit, referrals.bonus AS earn FROM users JOIN referrals      ON users.referrer= '${refCode}' AND referrals.referrer='${refCode}'`,
             (err, result) => {
                 if (result.length) {
                     // const data = JSON.parse(result);
