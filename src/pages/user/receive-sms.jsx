@@ -28,7 +28,6 @@ const ReceiveSms = () => {
             </div>
           </div>
         </div>
-
         <History />
       </div>
     </div>
