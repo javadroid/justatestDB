@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image';
 import UserDashboardLayout from "@/Components/UserDashboardLayout";
 import { ArrowsUpDownIcon } from '@heroicons/react/24/solid';
 import History from '@/Components/History';
