@@ -46,7 +46,7 @@ const SignUpForm = () => {
         <div className="flex items-center justify-center space-x-4">
           <div
             className="w-1/4 rounded-md bg-color-black px-4"
-            onClick={async () => await signIn()}
+            onClick={signIn}
           >
             <Icon
               icon="octicon:mark-github-16"
