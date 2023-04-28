@@ -90,6 +90,11 @@ router.get('/user/transactions/:userid', userMiddleware.isLoggedIn, (req, res, n
 });
 //Login user
 router.post('/login', (req, res, next) => {
+    if (!req.body.username) {
+        return res.status(409).send({
+            msg: 'Username is require!'
+        })
+    }
     db.query(
         `SELECT * FROM admins WHERE user = '${req.body.username}'`,
         (err, result) => {
@@ -208,6 +213,29 @@ router.post('/paymentmethod', userMiddleware.isLoggedIn, (req, res, next) => {
         }
     );
 });
+// fetching available payment methods
+router.get('/paymethods', userMiddleware.isLoggedIn, (req, res, next) => {
+    db.query(
+        `SELECT * FROM pay_methods ORDER BY date DESC`,
+        (err, result) => {
+            if (err) {
+                // throw err;
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+            if (!result.length) {
+                return res.status(404).send({
+                    msg: 'No languagethod is available yet!',
+                });
+            }
+            return res.status(200).send({
+                languages: result
+            });
+        }
+    );
+});
+
 // delete payment method
 router.delete('/paymentmethod/:method', userMiddleware.isLoggedIn, (req, res, next) => {
 
@@ -307,6 +335,29 @@ router.post('/createlang', userMiddleware.isLoggedIn, (req, res, next) => {
         }
     );
 });
+// fetching available languages
+router.get('/languages', userMiddleware.isLoggedIn, (req, res, next) => {
+    db.query(
+        `SELECT * FROM languages ORDER BY language`,
+        (err, result) => {
+            if (err) {
+                // throw err;
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+            if (!result.length) {
+                return res.status(404).send({
+                    msg: 'No language available yet!',
+                });
+            }
+            return res.status(200).send({
+                languages: result
+            });
+        }
+    );
+});
+
 
 // deleting a language from the system
 router.delete('/deletelang:language', userMiddleware.isLoggedIn, (req, res, next) => {
