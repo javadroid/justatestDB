@@ -564,7 +564,6 @@ router.put("/changeapikey/:userid", userMiddleware.isLoggedIn, (req, res, next) 
                         msg: 'You can not change your api key at the moment!'
                     });
                 }
-
                 return res.status(200).send({
                     msg: 'Your api key has been successfully changed!',
                     data: result
@@ -575,8 +574,43 @@ router.put("/changeapikey/:userid", userMiddleware.isLoggedIn, (req, res, next) 
         console.log(e);
     }
 });
+// Change API key ends here
 
-
+// Feedback module start here
+//sending feedback to the admin
+router.post('/feedback', userMiddleware.isLoggedIn, (req, res, next) => {
+    try {
+        const { username, email, message } = req.body;
+        if (!username || !email || message) {
+            return res.status(409).send({
+                msg: "All fields are required!"
+            })
+        }
+        db.query(
+            `INSERT INTO feedbackss (username, email, message) VALUES ('${username}', '${email}', '${message}')`,
+            (err, result) => {
+                // user does not exists
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                if (!result.length) {
+                    return res.status(409).send({
+                        msg: 'Something went wrong!'
+                    });
+                }
+                return res.status(200).send({
+                    msg: 'Your feedback has been successfully sent!',
+                    data: result
+                });
+            }
+        );
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 //To protect a route now, simply include this middleware when calling the route as follows:
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {

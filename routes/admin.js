@@ -525,4 +525,61 @@ router.put('/enablelang:language', userMiddleware.isLoggedIn, (req, res, next) =
 });
 //language module ends here
 
+// Feedback module starts here
+// fetching feedbacks from the users
+router.get('/feedbacks', userMiddleware.isLoggedIn, (req, res, next) => {
+    try {
+        db.query(
+            `SELECT * FROM feedbacks ORDER BY id DESC`,
+            (err, result) => {
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                if (!result.length) {
+                    return res.status(404).send({
+                        msg: 'No feedback yet!',
+                    });
+                }
+                return res.status(200).send({
+                    feedbacks: result
+                });
+            }
+        );
+    } catch (err) {
+        console.log(err);
+    }
+});
+// To mark the feedback satus as seen
+router.put('/feedback/:id', userMiddleware.isLoggedIn, (req, res, next) => {
+    let fb_id = req.params.id;
+    let status = "seen"
+    try {
+        db.query(
+            `UPDATE feedbacks SET status='${status}' WHERE id='${fb_id}'`,
+            (err, result) => {
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                if (!result.affectedRow) {
+                    return res.status(404).send({
+                        msg: 'Sorry, something went wrong. Try again!',
+                    });
+                }
+                return res.status(200).send({
+                    msg: "Success"
+                });
+            }
+        );
+    } catch (err) {
+        console.log(err);
+    }
+});
+// Feed backs module ends here
+
 module.exports = router;
