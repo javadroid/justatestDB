@@ -1,99 +1,107 @@
-import Link from 'next/link';
 import React from 'react'
 import UserDashboardLayout from "@/Components/UserDashboardLayout";
-import step1 from '../../assets/images/step_1.jpg'
-import step2 from '../../assets/images/step_2.webp'
-import step3 from '../../assets/images/step_3.webp'
-import step4 from '../../assets/images/step_4.webp'
-import step5 from '../../assets/images/step_5.webp'
-import step6 from '../../assets/images/step_6.webp'
-import Image from 'next/image';
+import Country from '@/Components/countries/country';
+import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
+
 
 const Rent = () => {
   return (
-    <div className="bg-color-bg_light w-full">
-      <div className="dashboard-instruction max-w-2xl m-auto p-4">
-        <div className="dashboard-box shadow-[0px 4px 15px rgba(37,39,86,0.15)] bg-color-white rounded-3xl px-4 pt-8 pb-10 lg:px-8">
-          <div className="dashboard-inner text-[11px] sm:text-sm">
-            <h2 className="font-bold text-center mb-4 md:text-left md:text-lg">Sign up in Facebook via SMS-MAN</h2>
-            <ol className=" space-y-4">
-              <li className="space-y-2">
-                <h3 className="font-extrabold text-center mb-2 md:text-left md:text-lg">Step 1. Buy a number.</h3>
-                <p>For this, you use a one-time <Link href="" className="text-color-primary underline">SMS receive</Link> or <Link href="" className="text-color-primary underline">rent a number.</Link></p>
-                <p>
-                  <picture>
-                    <Image src={step1} width={540} height={255} alt="" />
-                  </picture>
-                </p>
+    <div className="bg-color-bg_light w-full h-screen">
+      <div className="dashboard-instruction max-w-5xl m-auto p-4">
+        <div className="dashboard-box shadow-[0px_4px_15px_rgba(37,39,86,0.15)] bg-color-white rounded-3xl px-4 pt-8 pb-10 lg:px-8">
+          <form>
+            <ol className="mt-8 flex flex-col justify-between space-y-8 md:mt-12 md:grid md:grid-cols-2 md:flex-wrap md:gap-5 md:space-x-8 md:space-y-0 lg:grid-cols-3 lg:space-x-1">
+              {/* step 1 */}
+              <li className="h-48 w-auto rounded-3xl px-4 md:mb-11">
+                <div className="mx-4">
+                  {/* title */}
+                  <div className="flex items-center justify-center p-4">
+                    <span className="text-base font-bold md:text-xl">
+                     1. Select your country
+                    </span>
+                  </div>
+                  {/* countries */}
+                  <div className="body">
+                    <div className="country mb-4">
+                      <div className="roll scrollbar-thin scrollbar-thumb-color-decor_blue scrollbar-track-[#0187ff1a] h-32 w-full overflow-hidden overflow-y-scroll">
+                        <div className="h-32 w-full px-2">
+                          <Country />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </li>
-              <li className="space-y-2">
-                <h3 className="font-extrabold text-center mb-2 md:text-left md:text-lg">Step 2: Copy the obtained number.</h3>
-                <p>Copy the number by clicking on the icon next to it or by selecting the digits and pressing Ctrl+C.</p>
-                <p>
-                  <picture>
-                    <Image src={step2} width={540} height={41} alt="" />
-                  </picture>
-                </p>
+
+              {/* step 2 */}
+              <li className="h-48 w-auto rounded-3xl px-4 md:mb-11">
+                <div className="flex flex-col items-center px-6 ">
+                  {/* Heading */}
+                  <div>
+                    <div className="flex items-center justify-center">
+                      <h3 className="my-2 px-4 text-base font-bold md:text-xl">
+                        2. Set rent duration
+                      </h3>
+                    </div>
+                  </div>
+                  {/* Time */}
+                  <div>
+                    <div className=" flex flex-col items-center justify-between">
+                      <div className="mb-2 flex flex-row items-center justify-center space-x-4">
+                        <button className="bg-color-bg_primary-500 w-32 rounded-lg py-2 text-sm active:text-color-primary active:border md:text-base">
+                          Hour
+                        </button>
+                        <button className="bg-color-bg_primary-500  w-32 rounded-lg py-2 text-sm active:text-color-primary active:border md:text-base">
+                          Day
+                        </button>
+                      </div>
+                      <div className="mb-2 flex flex-row items-center justify-center space-x-4">
+                        <button className="bg-color-bg_primary-500  w-32 rounded-lg py-2 text-sm active:text-color-primary active:border md:text-base">
+                          Week
+                        </button>
+                        <button className="bg-color-bg_primary-500  w-32 rounded-lg py-2 text-sm active:text-color-primary active:border md:text-base">
+                          Month
+                        </button>
+                      </div>
+                      <div className="bg-color-bg_primary-500  rounded-lg active:text-color-primary active:border mb-4 max-w-[270px] h-10 w-[270px] py-1 flex justify-between font-bold">
+                        <PlusCircleIcon className="text-color-primary" />
+                        <p className="text-xl">1</p>
+                        <MinusCircleIcon className="text-color-primary" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </li>
-              <li className="space-y-2">
-                <h3 className="font-extrabold text-center mb-2 md:text-left md:text-lg">Step 3. Fill in the sign up form in Facebook.</h3>
-                <p>Go to facebook.com. Click on &quot;Create New Account&quot;.</p>
-                <p>
-                  <picture>
-                    <Image src={step3} width={540} height={328} alt="" />
-                  </picture>
-                </p>
+
+              {/* step 3 */}
+              <li className="h-48 w-auto rounded-3xl px-4 md:col-span-2 lg:col-span-1">
+                <div className="flex flex-col items-center p-6 ">
+                  {/* Heading */}
+                  <div className="md:self-start lg:self-center">
+                    <div className="md:ml-8 lg:pl-0">
+                      <h3 className="text-base font-bold md:text-xl">3. Rent a number</h3>
+                    </div>
+                  </div>
+                  {/* others */}
+                  <div className="flex flex-col items-center justify-center p-4">
+                    <button className="bg-bgPrimar mb-4 w-48 rounded-sm py-2 text-base md:text-xl">
+                      It&apos;ll cost $0.06
+                    </button>
+                    <button className="w-48  rounded-xl bg-color-primary py-2 text-base font-bold text-white md:text-xl">
+                      Rent
+                    </button>
+                  </div>
+                </div>
               </li>
-              <li className="space-y-2">
-                <h3 className="font-extrabold text-center mb-2 md:text-left md:text-lg">Step 4. Enter the number when signing up.</h3>
-                <p>Specify the First and Surname, the day of birth and Gender. Paste copied number into Facebook form, click &quot;Sign up&quot;.</p>
-                <p>
-                  <picture>
-                    <Image src={step4} width={540} height={465} alt="" />
-                  </picture>
-                </p>
-              </li>
-              <li className="space-y-2">
-                <h3 className="font-extrabold text-center mb-2 md:text-left md:text-lg">Step 5. Receive an SMS in your personal cabinet.</h3>
-                <p>After you filled in the number of registration, go to SMS-MAN, click &quot;Receive SMS&quot; and copy the code.</p>
-                <p>
-                  <picture>
-                    <Image src={step5} width={540} height={250} alt="" />
-                  </picture>
-                </p>
-                {/* <p>
-                  <strong>Note:</strong> If the security system of Facebook decided to call us and not to send an SMS, then just wait until the timer expires. After that, press &quot;Send SMS&quot;.
-                </p> */}
-                <p>
-                  <picture>
-                  </picture>
-                </p>
-              </li>
-              <li className="space-y-2">
-                <h3 className="font-extrabold text-center mb-2 md:text-left md:text-lg">Step 6. Insert the received code of Facebook.</h3>
-                <p>After you filled in the number of registration, go to SMS-MAN, click &quot;Receive SMS&quot; and copy the code.</p>
-                <p  className="pb-4">
-                  <picture>
-                    <Image src={step6} width={540} height={326} alt="" />
-                  </picture>
-                </p>
-              </li>
-              <strong>That&apos;s all! We are registered in Facebook =)</strong>
-              <div className="space-y-2 flex flex-col text-center md:flex-row md:space-y-0 md:space-x-3 md:justify-evenly">
-                <Link href="https://sms-man.com" className="rounded-3xl bg-color-primary py-2 text-color-white md:basis-1/3">Got it </Link>
-                <Link href="https://sms-man.com/feedback" className="bg-color-white text-color-primary border border-color-primary py-2 rounded-3xl md:basis-1/3">
-                <span>Not clear?</span></Link>
-                <div>We redirect you to support</div>
-              </div>
             </ol>
-          </div>
+          </form>
         </div>
       </div>
     </div>
   )
 }
 
-export default Rent;
+export default Rent
 
 Rent.getLayout = function getLayout(page) {
   return <UserDashboardLayout>{page}</UserDashboardLayout>;
