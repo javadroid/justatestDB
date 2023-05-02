@@ -142,7 +142,7 @@ router.post('/social_media_sign', (req, res, next) => {
                                 let str = req.body.username
                                 const ref = Math.floor(Math.random() * 5000) + 1 + (str.charAt(0) + str.charAt(1) + str.charAt(2));
                                 db.query(
-                                    `INSERT INTO users (id, apikey, email, vstatus, reg_date, ref_code) VALUES ('${id}', '${apikey}', '${req.body.email}', '${vstatus}', now(), '${ref}')`,
+                                    `INSERT INTO users (id, apikey, username, email, vstatus, reg_date, ref_code) VALUES ('${id}', '${apikey}', '${str}', '${req.body.email}', '${vstatus}', now(), '${ref}')`,
                                     (err, result) => {
                                         if (err) {
                                             //throw err;
