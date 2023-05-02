@@ -276,15 +276,27 @@ router.post('/login', (req, res, next) => {
                         msg: err
                     });
                 }
-
                 if (!result.length) {
-                    return res.status(401).send({
+                    return res.status(404).send({
                         msg: 'Username or password is incorrect!'
                     });
                 }
+                // check if the user is email has been verified
                 if (result[0].vstatus != 'verify') {
                     return res.status(401).send({
                         msg: 'You must verify your email address before you can login!'
+                    });
+                }
+                // check if the user permission is freezed
+                if (result[0].permission == 'Freez') {
+                    return res.status(401).send({
+                        msg: 'Your account has been freezed, Please contact the support team.'
+                    });
+                }
+                // check if the user permission is disable
+                if (result[0].permission == 'Disable') {
+                    return res.status(401).send({
+                        msg: 'Your account has been disable, you can not longer login.'
                     });
                 }
                 // check password

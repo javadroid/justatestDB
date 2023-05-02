@@ -88,6 +88,84 @@ router.delete('/user/:id', userMiddleware.isLoggedIn, (req, res, next) => {
         })
     }
 });
+// freez user from logging in
+router.put('/freez/user/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
+    try {
+        let user = req.params.userid;
+        const nstatus = "Freez";
+        db.query(
+            `UPDATE users SET permission='${nstatus}' WHERE id='${user}'`,
+            (err, result) => {
+                if (result.length) {
+                    return res.status(200).send({
+                        users: { result }
+                    });
+                } else {
+                    return res.status(404).send({
+                        msg: 'No user is found!'
+                    });
+                }
+            });
+    } catch (err) {
+        return res.status(401).send({
+            Error: err
+        })
+    }
+
+})
+
+// disable user user from logging in
+router.put('/disable/user/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
+        try {
+            let user = req.params.userid;
+            const nstatus = "Disable";
+            db.query(
+                `UPDATE users SET permission='${nstatus}' WHERE id='${user}'`,
+                (err, result) => {
+                    if (result.length) {
+                        return res.status(200).send({
+                            users: { result }
+                        });
+                    } else {
+                        return res.status(404).send({
+                            msg: 'No user is found!'
+                        });
+                    }
+                });
+        } catch (err) {
+            return res.status(401).send({
+                Error: err
+            })
+        }
+
+    })
+    // enable user access to his/her accoutn
+router.put('/enable/user/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
+    try {
+        let user = req.params.userid;
+        const nstatus = "Enable";
+        db.query(
+            `UPDATE users SET permission='${nstatus}' WHERE id='${user}'`,
+            (err, result) => {
+                if (result.length) {
+                    return res.status(200).send({
+                        users: { result }
+                    });
+                } else {
+                    return res.status(404).send({
+                        msg: 'No user is found!'
+                    });
+                }
+            });
+    } catch (err) {
+        return res.status(401).send({
+            Error: err
+        })
+    }
+
+})
+
+
 // fetch user transaction history
 router.get('/user/transactions/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
