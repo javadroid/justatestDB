@@ -278,7 +278,7 @@ const Sidebar = () => {
     //     </div>
     //   </aside>
     <aside className="h-screen bg-color-bg_primary-500 ">
-      <div className="m-4 flex w-full flex-col space-y-10 px-7 text-base lg:mt-12 lg:font-medium">
+      <div className="m-4 flex w-full flex-col space-y-10 text-base lg:px-7 lg:mt-12 lg:font-medium">
         <div className="flex items-center gap-1">
           <EnvelopeIcon className=" h-6 w-6 text-color-primary" />
           <p className="hidden lg:block">Receive SMS</p>

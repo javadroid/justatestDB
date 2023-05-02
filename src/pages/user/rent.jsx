@@ -8,15 +8,16 @@ const Rent = () => {
   return (
     <div className="bg-color-bg_light w-full h-screen">
       <div className="dashboard-instruction max-w-5xl m-auto p-4">
-        <div className="dashboard-box shadow-[0px_4px_15px_rgba(37,39,86,0.15)] bg-color-white rounded-3xl px-4 pt-8 pb-10 lg:px-8">
+        <h1 className="font-extrabold text-center  my-4">Rent new number</h1>
+        <div className="dashboard-box shadow-[0px_4px_15px_rgba(37,39,86,0.15)] bg-color-white rounded-3xl px-2  pb-10 lg:px-8">
           <form>
             <ol className="mt-8 flex flex-col justify-between space-y-8 md:mt-12 md:grid md:grid-cols-2 md:flex-wrap md:gap-5 md:space-x-8 md:space-y-0 lg:grid-cols-3 lg:space-x-1">
               {/* step 1 */}
-              <li className="h-48 w-auto rounded-3xl px-4 md:mb-11">
-                <div className="mx-4">
+              <li className="h-48 w-auto md:mb-11">
+                <div className="mr-4">
                   {/* title */}
                   <div className="flex items-center justify-center p-4">
-                    <span className="text-base font-bold md:text-xl">
+                    <span className="font-bold text-xl">
                      1. Select your country
                     </span>
                   </div>
@@ -24,7 +25,7 @@ const Rent = () => {
                   <div className="body">
                     <div className="country mb-4">
                       <div className="roll scrollbar-thin scrollbar-thumb-color-decor_blue scrollbar-track-[#0187ff1a] h-32 w-full overflow-hidden overflow-y-scroll">
-                        <div className="h-32 w-full px-2">
+                        <div className="h-32 w-full pr-2">
                           <Country />
                         </div>
                       </div>
