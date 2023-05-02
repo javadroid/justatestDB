@@ -113,11 +113,23 @@ router.post('/social_media_sign', (req, res, next) => {
                     db.query(
                         `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
                     );
-                    return res.status(200).send({
-                        msg: 'Logged in!',
-                        token,
-                        user: result[0]
-                    });
+                    db.query(
+                        `SELECT * FROM wallets WHERE user_id = '${result[0].id}'`,
+                        (err, rest) => {
+                            if (err) {
+                                // throw err;
+                                return res.status(400).send({
+                                    msg: err
+                                });
+                            }
+                            return res.status(200).send({
+                                msg: 'Logged in!',
+                                token,
+                                user: result[0],
+                                wallet_balance: rest[0].balance
+                            });
+                        }
+                    );
                 } catch (e) {
                     console.log(e);
                 }
