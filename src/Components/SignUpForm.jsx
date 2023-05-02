@@ -5,6 +5,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 
 const SignUpForm = () => {
   const { data: session } = useSession();
+  // console.log(session);
   return (
     <div className=" mx-2 rounded-2xl bg-color-white px-6 pb-12 pt-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:m-auto md:max-w-md md:rounded-3xl lg:max-w-xl">
       <div className="m-auto max-w-xs">
@@ -53,7 +54,11 @@ const SignUpForm = () => {
               className="coltransition w-full text-5xl text-color-white duration-500 ease-in-out hover:opacity-75"
             />
           </div>
-          <Link href="/" className="w-1/4 rounded-md bg-[#4267b2] px-4 py-2">
+          <Link
+            href="/"
+            className="w-1/4 rounded-md bg-[#4267b2] px-4 py-2"
+            onClick={signOut}
+          >
             <Icon
               icon="teenyicons:facebook-solid"
               className="w-full text-4xl text-color-white transition duration-500 ease-in-out hover:opacity-75"
