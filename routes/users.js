@@ -54,6 +54,7 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
                                                         msg: err
                                                     });
                                                 }
+
                                                 const data = {
                                                     from: 'hello@newsems.com',
                                                     to: req.body.email,
@@ -67,9 +68,19 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
                                                 mg.messages().send(data, function(error, body) {
                                                     console.log(body);
                                                 });
-                                                return res.status(201).send({
-                                                    msg: 'User Has Been Successfully Registered. Plase check your email to verify your account.'
-                                                });
+                                                db.query(`INSERT INTO wallets (user_id) VALUES ('${id}')`,
+                                                    (err, result) => {
+                                                        if (err) {
+                                                            return res.status(400).send({
+                                                                msg: 'Something went wrong!',
+                                                                error: err
+
+                                                            });
+                                                        }
+                                                        return res.status(201).send({
+                                                            msg: 'User Has Been Successfully Registered. Plase check your email to verify your account.'
+                                                        });
+                                                    });
                                             }
                                         );
                                     }
@@ -152,7 +163,7 @@ router.post('/social_media_sign', (req, res, next) => {
 
                                             });
                                         }
-                                        db.query(`INSERT INTO wallets (userid) VALUES ('${id}')`,
+                                        db.query(`INSERT INTO wallets (user_id) VALUES ('${id}')`,
                                             (err, result) => {
                                                 if (err) {
                                                     return res.status(400).send({
