@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { Icon } from '@iconify/react';
-import chatting from '../assets/images/chatting.svg'
+import chatting from '../assets/images/chatting.png'
 import Image from 'next/image';
 
 
