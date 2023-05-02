@@ -6,21 +6,24 @@ import { useSession, signIn, signOut } from "next-auth/react";
 const SignUpForm = () => {
   const { data: session } = useSession();
 
-  useEffect(async () => {
-    if (session) {
-      const res = await axios.post(
-        "http://161.35.218.95:3000/api/social_media_sign",
-        {
-          username: session.user.name,
-          email: session.user.email,
-        },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
+  useEffect(() => {
+    const res = async () => {
+      if (session) {
+        await axios.post(
+          "http://161.35.218.95:3000/api/social_media_sign",
+          {
+            username: session.user.name,
+            email: session.user.email,
           },
-        }
-      );
-    }
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+      }
+    };
+    res();
   }, [session]);
 
   // console.log(session);
