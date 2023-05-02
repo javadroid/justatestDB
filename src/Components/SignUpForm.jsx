@@ -39,7 +39,7 @@ const SignUpForm = () => {
             className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
           />
           <input
-            type="email"
+            type="Username"
             placeholder="Enter your Username"
             className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
           />
