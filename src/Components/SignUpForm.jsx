@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 const SignUpForm = () => {
   const { data: session } = useSession();
+
+  useEffect(async () => {
+    if (session) {
+      const res = await axios.post(
+        "http://161.35.218.95:3000/api/social_media_sign",
+        {
+          username: session.user.name,
+          email: session.user.email,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+    }
+  }, [session]);
+
   // console.log(session);
   return (
     <div className=" mx-2 rounded-2xl bg-color-white px-6 pb-12 pt-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:m-auto md:max-w-md md:rounded-3xl lg:max-w-xl">
