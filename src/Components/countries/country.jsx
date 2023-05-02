@@ -13,7 +13,7 @@ const Country = () => {
               <Image
                 src={country.flag}
                 alt=""
-                className="mr-2 flex w-8 items-center"
+                className="ml-4 mr-2 flex w-8 items-center"
               />
             </span>
             <span className="text-xs font-medium md:text-base">{country.name}</span>
