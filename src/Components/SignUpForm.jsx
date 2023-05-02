@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useSession, signIn, signOut } from "next-auth/react";
+import axios from "axios";
 
 const SignUpForm = () => {
   const { data: session } = useSession();
