@@ -292,7 +292,7 @@ router.post('/login', (req, res, next) => {
     try {
         if (!req.body.email || !req.body.password) {
             return res.status(400).send({
-                msg: 'email and password are required!'
+                msg: 'Email and password are required!'
             });
         }
         db.query(
@@ -307,7 +307,7 @@ router.post('/login', (req, res, next) => {
                 }
                 if (!result.length) {
                     return res.status(404).send({
-                        msg: 'Username or password is incorrect!'
+                        msg: 'Email or password is incorrect!'
                     });
                 }
                 // check if the user is email has been verified
