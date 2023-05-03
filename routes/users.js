@@ -288,7 +288,7 @@ router.post('/user/changepassword/:userid', userMiddleware.isLoggedIn, (req, res
     }
 });
 //Login user
-router.post('/login', (req, res, next) => {
+router.post('/login', async(req, res, next) => {
     try {
         if (!req.body.email || !req.body.password) {
             return res.status(400).send({
@@ -328,7 +328,7 @@ router.post('/login', (req, res, next) => {
                         msg: 'Your account has been disable, you can not longer login.'
                     });
                 }
-                // check password
+                // check and compare passwords
                 bcrypt.compare(
                     req.body.password,
                     result[0]['password'],
@@ -352,25 +352,38 @@ router.post('/login', (req, res, next) => {
                             );
 
                             db.query(
-                                `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
-                            );
-                            db.query(
-                                `SELECT * FROM wallets WHERE user_id = '${result[0].id}'`,
-                                (err, rest) => {
-                                    if (err) {
-                                        // throw err;
+                                `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`,
+                                (er, re) => {
+                                    if (er) {
                                         return res.status(400).send({
-                                            msg: err
+                                            msg: er
                                         });
                                     }
-                                    return res.status(200).send({
-                                        msg: 'Logged in!',
-                                        token,
-                                        user: result[0],
-                                        wallet_balance: rest[0].balance
-                                    });
+                                    if (re.affectedRows <= 0) {
+                                        return res.status(409).send({
+                                            msg: 'Something went wrong, could not update the last login time!'
+                                        });
+                                    }
+                                    db.query(
+                                        `SELECT * FROM wallets WHERE user_id = '${result[0].id}'`,
+                                        (err, rest) => {
+                                            if (err) {
+                                                // throw err;
+                                                return res.status(400).send({
+                                                    msg: err
+                                                });
+                                            }
+                                            return res.status(200).send({
+                                                msg: 'Logged in!',
+                                                token,
+                                                user: result[0],
+                                                wallet_balance: rest[0].balance
+                                            });
+                                        }
+                                    );
                                 }
                             );
+
                         }
                         return res.status(401).send({
                             msg: 'Username or password is incorrect!'
