@@ -292,7 +292,7 @@ router.post('/login', (req, res, next) => {
     try {
         if (!req.body.email || !req.body.password) {
             return res.status(400).send({
-                msg: 'Email and password are required!'
+                msg: 'Email and password can not be empty required!'
             });
         }
         db.query(
@@ -305,7 +305,7 @@ router.post('/login', (req, res, next) => {
                         msg: err
                     });
                 }
-                if (result.length >= 1) {
+                if (result.length <= 0) {
                     return res.status(404).send({
                         msg: 'Email or password is incorrect!'
                     });
