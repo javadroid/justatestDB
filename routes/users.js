@@ -306,7 +306,7 @@ router.post('/login', (req, res, next) => {
                     });
                 }
                 // check if the user is email has been verified
-                if (result[0].vstatus != 'verify') {
+                if (result[0].vstatus != 'verified') {
                     return res.status(401).send({
                         msg: 'You must verify your email address before you can login!'
                     });
