@@ -291,7 +291,7 @@ router.post('/user/changepassword/:userid', userMiddleware.isLoggedIn, (req, res
 router.post('/login', (req, res, next) => {
     try {
         db.query(
-            `SELECT * FROM users WHERE username || email = ${db.escape(req.body.username)};`,
+            `SELECT * FROM users WHERE username =${db.escape(req.body.username)} || email = ${db.escape(req.body.username)};`,
             (err, result) => {
                 // user does not exists
                 if (err) {
