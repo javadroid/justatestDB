@@ -296,7 +296,7 @@ router.post('/login', (req, res, next) => {
             });
         }
         db.query(
-            `SELECT * FROM users WHERE email = ${req.body.email};`,
+            `SELECT * FROM users WHERE email = '${req.body.email}';`,
             (err, result) => {
                 // user does not exists
                 if (err) {
