@@ -31,7 +31,7 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
                         (err, result) => {
                             if (result.length) {
                                 return res.status(409).send({
-                                    msg: 'This username is already in used!'
+                                    msg: 'This username is already in use!'
                                 });
                             } else {
                                 // username is available
@@ -61,7 +61,7 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
                                                     to: req.body.email,
                                                     subject: 'Verify Your Account',
                                                     html: `<div style="text-align:justify;">
-                                                <h4>Hello ${req.body.firstname} ${req.body.lastname}</h4>
+                                                <h4>Hello ${req.body.username}</h4>
                                                 <p>You just sign up on Newsems, please click the button below to verify your account</p>
                                                 <button><a href="http://161.35.218.95:3000/api/verify-email/${apikey}">Verify Account</a></button>
                                                 <P>Or copy this url and paste on your browser: http://161.35.218.95:3000/api/verify-email/${apikey} </P>`
@@ -205,7 +205,7 @@ router.post('/social_media_sign', (req, res, next) => {
 router.get('/log', (req, res, next) => {
     res.send({ 'Message': 'Welcome' })
 });
-router.get('/verify-email/:apikey', (req, res, next) => {
+router.put('/verify-email/:apikey', (req, res, next) => {
     try {
         const user_apikey = req.params.apikey;
         res.send(user_apikey);
