@@ -218,7 +218,7 @@ router.get('/verify-email/:apikey', (req, res, next) => {
                         msg: err
                     });
                 }
-                return res.status(201).send({
+                return res.status(200).send({
                     msg: 'Email verification was succesful!'
                 });
             }
