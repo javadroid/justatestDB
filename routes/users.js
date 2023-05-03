@@ -339,7 +339,7 @@ router.post('/login', async(req, res, next) => {
                         if (bErr) {
                             // throw bErr;
                             return res.status(401).send({
-                                msg: 'Username or password is incorrect!'
+                                msg: 'Password is incorrect!'
                             });
                         }
 
