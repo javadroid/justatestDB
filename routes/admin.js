@@ -96,7 +96,7 @@ router.put('/freez/user/:userid', userMiddleware.isLoggedIn, (req, res, next) =>
         db.query(
             `UPDATE users SET permission='${nstatus}' WHERE id='${user}'`,
             (err, result) => {
-                if (result.length) {
+                if (result.affectedRows) {
                     return res.status(200).send({
                         users: { result }
                     });
@@ -122,7 +122,7 @@ router.put('/disable/user/:userid', userMiddleware.isLoggedIn, (req, res, next) 
             db.query(
                 `UPDATE users SET permission='${nstatus}' WHERE id='${user}'`,
                 (err, result) => {
-                    if (result.length) {
+                    if (result.affectedRows) {
                         return res.status(200).send({
                             users: { result }
                         });
@@ -141,30 +141,54 @@ router.put('/disable/user/:userid', userMiddleware.isLoggedIn, (req, res, next) 
     })
     // enable user access to his/her accoutn
 router.put('/enable/user/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
-    try {
-        let user = req.params.userid;
-        const nstatus = "Enable";
-        db.query(
-            `UPDATE users SET permission='${nstatus}' WHERE id='${user}'`,
-            (err, result) => {
-                if (result.length) {
-                    return res.status(200).send({
-                        users: { result }
-                    });
-                } else {
-                    return res.status(404).send({
-                        msg: 'No user is found!'
-                    });
-                }
-            });
-    } catch (err) {
-        return res.status(401).send({
-            Error: err
-        })
-    }
+        try {
+            let user = req.params.userid;
+            const nstatus = "Enable";
+            db.query(
+                `UPDATE users SET permission='${nstatus}' WHERE id='${user}'`,
+                (err, result) => {
+                    if (result.affectedRows) {
+                        return res.status(200).send({
+                            users: { result }
+                        });
+                    } else {
+                        return res.status(404).send({
+                            msg: 'No user is found with such user ID!'
+                        });
+                    }
+                });
+        } catch (err) {
+            return res.status(401).send({
+                Error: err
+            })
+        }
 
-})
+    })
+    // delete user from the system
+router.delete('/delete/user/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
+        try {
+            let user = req.params.userid;
+            db.query(
+                `DELETE FROM users WHERE id='${user}'`,
+                (err, result) => {
+                    if (result.affectedRows) {
+                        return res.status(200).send({
+                            msg: "User has been successfully deleted."
+                        });
+                    } else {
+                        return res.status(404).send({
+                            msg: 'Wrong user ID was passed as a parameter data.'
+                        });
+                    }
+                });
+        } catch (err) {
+            return res.status(401).send({
+                Error: err
+            })
+        }
 
+    })
+    // User permission module ends here
 
 // fetch user transaction history
 router.get('/user/transactions/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
@@ -249,7 +273,7 @@ router.delete('/logout/:id', (req, res, next) => {
     db.query(
         `DELETE last_login FROM admin WHERE id = '${user}'`,
         (err, result) => {
-            if (result.affectedRow) {
+            if (result.affectedRows) {
                 // const data = JSON.parse(result);
                 //console.log(data.bonus);
                 return res.status(200).send({
@@ -513,7 +537,7 @@ router.get('/languages', userMiddleware.isLoggedIn, (req, res, next) => {
 
 
 // deleting a language from the system
-router.delete('/deletelang:language', userMiddleware.isLoggedIn, (req, res, next) => {
+router.delete('/deletelang/:language', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
         const language = req.params.language;
         if (!language) {
@@ -542,7 +566,7 @@ router.delete('/deletelang:language', userMiddleware.isLoggedIn, (req, res, next
     }
 });
 // Disabling a language from the system
-router.put('/disablelang:language', userMiddleware.isLoggedIn, (req, res, next) => {
+router.put('/disablelang/:language', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
         const language = req.params.language;
         let status = "Disable";
@@ -572,7 +596,7 @@ router.put('/disablelang:language', userMiddleware.isLoggedIn, (req, res, next) 
     }
 });
 // Enabling a language in the system
-router.put('/enablelang:language', userMiddleware.isLoggedIn, (req, res, next) => {
+router.put('/enablelang/:language', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
         const language = req.params.language;
         let status = "Enable";
@@ -644,7 +668,7 @@ router.put('/feedback/:id', userMiddleware.isLoggedIn, (req, res, next) => {
                         msg: err
                     });
                 }
-                if (!result.affectedRow) {
+                if (!result.affectedRows) {
                     return res.status(404).send({
                         msg: 'Sorry, something went wrong. Try again!',
                     });
@@ -658,4 +682,31 @@ router.put('/feedback/:id', userMiddleware.isLoggedIn, (req, res, next) => {
         console.log(err);
     }
 });
+// feedback module ends here
+
+// Blog posts module starts here
+router.post('/create_post', userMiddleware.isLoggedIn, (req, res, next) => {
+    try {
+
+    } catch (err) {
+        console.log(err);
+    }
+});
+// Deleting blog post
+router.delete('/delete_post', userMiddleware.isLoggedIn, (req, res, next) => {
+    try {
+
+    } catch (err) {
+        console.log(err);
+    }
+});
+// Editing blog post
+router.put('/delete_post', userMiddleware.isLoggedIn, (req, res, next) => {
+    try {
+
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 module.exports = router;

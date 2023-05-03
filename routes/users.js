@@ -7,12 +7,12 @@ const DOMAIN = 'sandboxb21bd93e7e794e4f88a01d13f923ec59.mailgun.org';
 const mg = mailgun({ apiKey: process.env.MAILGUN_API_KEY, domain: DOMAIN })
 const uuid = require('uuid');
 const apikey = uuid.v4();
-const id = Math.floor(Math.random() * 500000) + 1;
 const jwt = require('jsonwebtoken');
 const db = require('../lib/db.js');
 const userMiddleware = require('../middleware/users.js');
 // User registration
 router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
+
     try {
         db.query(
             `SELECT * FROM users WHERE LOWER(email) = LOWER(${db.escape(
@@ -44,6 +44,7 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
                                         // has hashed pw => add to database
                                         const vstatus = 'unverified'
                                         let str = req.body.username
+                                        const id = Math.floor(Math.random() * 3473) + 1 + (str.charAt(1) + str.charAt(2));
                                         const ref = Math.floor(Math.random() * 5000) + 1 + (str.charAt(0) + str.charAt(1) + str.charAt(2));
                                         db.query(
                                             `INSERT INTO users (id, username, email, password, apikey, vstatus, reg_date, ref_code) VALUES ('${id}', '${req.body.username}', '${req.body.email}', '${hash}', '${apikey}', '${vstatus}', now(), '${ref}')`,
@@ -241,7 +242,7 @@ router.post('/user/changepassword/:userid', userMiddleware.isLoggedIn, (req, res
                     });
                 }
 
-                if (!result.length) {
+                if (!result.affectedRows) {
                     return res.status(404).send({
                         msg: 'User not found!'
                     });
@@ -594,7 +595,7 @@ router.put("/changeapikey/:userid", userMiddleware.isLoggedIn, (req, res, next) 
                         msg: err
                     });
                 }
-                if (!result.affectedRow) {
+                if (!result.affectedRows) {
                     return res.status(409).send({
                         msg: 'You can not change your api key at the moment!'
                     });
