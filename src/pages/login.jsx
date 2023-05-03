@@ -1,35 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link';
 import { Icon } from '@iconify/react';
-import { useForm } from 'react-hook-form';
+// import axios from "axios";
+// import { useForm } from 'react-hook-form';
 
 const Login = () => {
-  const { data: session } = useSession();
+  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  useEffect(() => {
-    const res = async () => {
-      if (session) {
-        await axios.post(
-          "http://161.35.218.95:3000/api/social_media_sign",
-          {
-            username: session.user.name,
-            email: session.user.email,
-            password: session.user.password,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-      }
-    };
-    res();
-  }, [session]);
+  async function login() {
+    console.warn(userName, email, password)
+    let item={userName, email, password};
+    let result = await fetch("http://161.35.218.95:3000/api/login", {
+    method: 'POST',  
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(item)
+  });
+  result = await result.json();
+  localStorage.setItem("user-info", JSON.stringify(result));
+  history.pushState("/add");
+  }
 
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = data => console.log(data);
-  console.log(watch("example"));
 
   return (
     <section id='login' className="bg-color-bg_light">
@@ -39,11 +34,19 @@ const Login = () => {
             <h3 className="font-bold text-h2Size text-center my-4">
               Log in
             </h3>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4 items-center justify-items-center">
-              <input defaultValue="test" {...register("example")} type="username" placeholder="Enter your Username" className="w-full border border-color-primary_black px-4 py-3 rounded-lg focus:outline-dashed focus:border-color-primary_black text-xs text-color-primary_black sm:text-lg" />
-              <input {...register("exampleRequired", { required: true })} type="email" placeholder="Enter email" className="w-full border border-color-primary_black px-4 py-3 rounded-lg focus:outline-dashed focus:border-color-primary_black text-xs text-color-primary_black sm:text-lg" />
-              <input type="password" placeholder="Enter password" className="w-full border border-color-primary_black px-4  py-3 rounded-lg focus:outline-dashed focus:border-color-primary_black text-sm text-color-primary_black sm:text-lg" />
-              <button className="w-full bg-color-primary text-color-white font-bold rounded-3xl py-3 md:text-lg lg:text-xl lg:py-4">Sign in</button>
+            <form className="flex flex-col space-y-4 items-center justify-items-center">
+              <input type="username" placeholder="Enter your Username"
+              onChange={(e) => setUserName(e.target.value)}
+              className="w-full border border-color-primary_black px-4 py-3 rounded-lg focus:outline-dashed focus:border-color-primary_black text-xs text-color-primary_black sm:text-lg" />
+              <input type="email" placeholder="Enter email" 
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full border border-color-primary_black px-4 py-3 rounded-lg focus:outline-dashed focus:border-color-primary_black text-xs text-color-primary_black sm:text-lg" />
+              <input type="password" placeholder="Enter password" 
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full border border-color-primary_black px-4  py-3 rounded-lg focus:outline-dashed focus:border-color-primary_black text-sm text-color-primary_black sm:text-lg" />
+              <button 
+              onClick={login}
+              className="w-full bg-color-primary text-color-white font-bold rounded-3xl py-3 md:text-lg lg:text-xl lg:py-4">Sign in</button>
               <span>
                 <Link href="/" className="text-color-primary font-bold hover:underline">
                   Forgot Password?

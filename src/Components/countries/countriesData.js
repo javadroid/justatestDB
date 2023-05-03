@@ -22,7 +22,6 @@ import Cyprus from '../../assets/flags/Cyprus.svg'
 import Spain from '../../assets/flags/Spain.svg'
 
 
-
 export const countries = [
   {
     flag: UK,

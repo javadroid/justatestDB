@@ -1,4 +1,5 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 import React from "react";
 
 const Table = () => {
@@ -63,9 +64,11 @@ const Table = () => {
             <p className="pt-4 text-lg font-normal text-color-text_light">
               Available services- 2312
             </p>
-            <button className="rounded-lg bg-color-primary px-11 py-2 font-medium text-white">
+            <Link href={"/login"} className="rounded-lg bg-color-primary px-11 py-2 font-medium text-center text-white">
+            <button>
               Receive SMS
             </button>
+            </Link>
           </div>
         </div>
       </div>

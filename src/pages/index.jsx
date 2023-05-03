@@ -18,6 +18,8 @@ import PromoInformation from "@/Components/PromoInformation";
 import Table from "@/Components/Table";
 import SignUpSecton from "@/Components/SignUpSecton";
 import Cookies from "@/Components/Cookies";
+import About from "@/Components/About";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -45,18 +47,21 @@ export default function Home() {
                     without spam{" "}
                   </span> and <br />
                   <span className="text-yellow-500">
-                    disclosure of personal data
+                    disclosure of personal data.
                   </span>
-                  .
                 </p>
               </div>
-              <div className="flex w-full flex-col items-center justify-between space-y-5 pt-24 md:flex-row md:place-items-baseline md:justify-center md:space-x-6 md:pt-11">
-                <button className="w-full rounded-full bg-white py-2 text-lg font-bold text-color-primary_darken">
+              <div className="flex w-full flex-col items-center justify-between space-y-5 pt-24 md:flex-row md:place-items-baseline md:justify-center md:space-y-0 md:space-x-6 md:pt-11">
+                <Link href={"/login"}  className="w-full rounded-full bg-white py-2 text-center text-lg font-bold text-color-primary_darken">
+                  <button>
                   Receive SMS
-                </button>
-                <button className="w-full rounded-full bg-color-primary_black py-2 text-lg font-bold text-white">
+                  </button>
+                </Link>
+                <Link href={"/login"} className="w-full rounded-full bg-color-primary_black py-2 text-center text-lg font-bold text-white">
+                  <button>
                   Rent number
-                </button>
+                  </button>
+                </Link>
               </div>
             </div>
             <div className="sm:flex sm:items-center sm:justify-center">
@@ -217,57 +222,7 @@ export default function Home() {
           </div>
         </section>
         <PromoInformation />
-        <section className="my-10">
-          <div className="mx-auto max-w-7xl">
-            <div className="mx-auto max-w-3xl px-6 text-justify">
-              <p className="mb-4 text-lg font-normal">
-                &quot;Newsems&quot; gives you the opportunity to buy a virtual
-                number for registration in popular services at the best price on
-                the net. Previously, to register an additional account in a
-                social network or messenger you had to buy a SIM-card or ask
-                your husband/wife to share the phone (which is not always
-                possible)..
-              </p>
-              <p className="mb-4 text-lg font-normal">
-                First of all, it costs money to get a new SIM card. Secondly, it
-                is a whole event - to come to the office, fill out a form with
-                passport data...
-              </p>
-              <p className="mb-4 text-lg font-normal">
-                On this site you can buy a virtual phone number for Telegram,
-                Whatsapp, Viber, Instagram, Facebook, and any other popular
-                platform from just 0,05$.
-              </p>
-              <p className="mb-4 text-lg font-normal">
-                The service is suitable for users who need both one-time and
-                mass SMS verification of accounts in social networks,
-                messengers, payment systems, dating sites and any other services
-                that require SMS verification.
-              </p>
-              <p className="mb-4 text-lg font-normal">
-                Get a virtual phone number in just a few minutes!
-              </p>
-              <p className="mb-4 text-lg font-normal">
-                The entire process is automated and occurs in a user-friendly
-                interface. There is no need to contact managers to connect the
-                number. At the same time, support is always ready to help in
-                case of anything.
-              </p>
-              <p className="mb-4 text-lg font-normal">
-                So feel free to use it!
-              </p>
-            </div>
-            <div className="flex items-center justify-center lg:gap-40">
-              <Image
-                src={Chill}
-                alt="Chill Pic"
-                className="hidden h-[350px] w-[350px] object-contain lg:flex"
-              />
-              <Form />
-            </div>
-            <Advantages />
-          </div>
-        </section>
+        <About />
         <Connection />
         <FAQ />
         <Cookies />

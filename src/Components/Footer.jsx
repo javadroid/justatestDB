@@ -48,41 +48,41 @@ export const Footer = () => {
           </ul>
         </div>
         <div className="flex items-center justify-center gap-5 p-5">
-          <div>
+          <Link href="" target="_blank">
             <Image
               src={FaceBook}
               alt="Footer Icon"
               className="h-10 w-10 object-contain"
             />
-          </div>
-          <div>
+          </Link>
+          <Link href="" target="_blank">
             <Image
               src={Gmail}
               alt="Footer Icon"
               className="h-10 w-10 object-contain"
             />
-          </div>
-          <div>
+          </Link>
+          <Link href="" target="_blank">
             <Image
               src={Whatsapp}
               alt="Footer Icon"
               className="h-10 w-10 object-contain"
             />
-          </div>
-          <div>
+          </Link>
+          <Link href="" target="_blank">
             <Image
               src={Youtube}
               alt="Footer Icon"
               className="h-10 w-10 object-contain"
             />
-          </div>
-          <div>
+          </Link>
+          <Link href="" target="_blank">
             <Image
               src={FooterIcon}
               alt="Footer Icon"
               className="h-10 w-10 object-contain"
             />
-          </div>
+          </Link>
         </div>
       </div>
       <div className="bg-color-bg_light p-6 text-center md:p-4">
