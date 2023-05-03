@@ -290,6 +290,11 @@ router.post('/user/changepassword/:userid', userMiddleware.isLoggedIn, (req, res
 //Login user
 router.post('/login', (req, res, next) => {
     try {
+        if (!req.body.username || !password) {
+            return res.status(400).send({
+                msg: 'Username and password are required!'
+            });
+        }
         db.query(
             `SELECT * FROM users WHERE username =${db.escape(req.body.username)} || email = ${db.escape(req.body.username)};`,
             (err, result) => {
