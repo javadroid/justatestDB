@@ -205,7 +205,7 @@ router.post('/social_media_sign', (req, res, next) => {
 router.get('/log', (req, res, next) => {
     res.send({ 'Message': 'Welcome' })
 });
-router.put('/verify-email/:apikey', (req, res, next) => {
+router.get('/verify-email/:apikey', (req, res, next) => {
     try {
         const user_apikey = req.params.apikey;
         res.send(user_apikey);
