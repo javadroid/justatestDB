@@ -296,7 +296,9 @@ router.post('/login', async(req, res, next) => {
             });
         }
         db.query(
-            `SELECT * FROM users WHERE email = '${req.body.email}'`,
+            `SELECT * FROM users WHERE LOWER(email) = LOWER(${db.escape(
+                req.body.email
+                )});`,
             (err, result) => {
                 // user does not exists
                 if (err) {
