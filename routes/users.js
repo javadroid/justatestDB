@@ -288,116 +288,200 @@ router.post('/user/changepassword/:userid', userMiddleware.isLoggedIn, (req, res
     }
 });
 //Login user
-router.post('/login', async(req, res, next) => {
-    try {
-        if (!req.body.email || !req.body.password) {
-            return res.status(400).send({
-                msg: 'Email and password can not be empty required!'
-            });
-        }
-        db.query(
-            `SELECT * FROM users WHERE LOWER(email) = LOWER(${db.escape(
-                req.body.email
-                )});`,
-            (err, result) => {
-                // user does not exists
-                if (err) {
-                    // throw err;
-                    return res.status(400).send({
-                        msg: err
-                    });
-                }
-                if (result.length <= 0) {
-                    return res.status(404).send({
-                        msg: 'Email or password is incorrect!'
-                    });
-                }
-                // check if the user is email has been verified
-                if (result[0].vstatus != 'verified') {
-                    return res.status(401).send({
-                        msg: 'You must verify your email address before you can login!'
-                    });
-                }
-                // check if the user permission is freezed
-                if (result[0].permission == 'Freez') {
-                    return res.status(401).send({
-                        msg: 'Your account has been freezed, Please contact the support team.'
-                    });
-                }
-                // check if the user permission is disable
-                if (result[0].permission == 'Disable') {
-                    return res.status(401).send({
-                        msg: 'Your account has been disable, you can not longer login.'
-                    });
-                }
-                // check and compare passwords
-                bcrypt.compare(
-                    req.body.password,
-                    result[0]['password'],
-                    (bErr, bResult) => {
-                        //When password is wrong
-                        if (bErr) {
-                            // throw bErr;
-                            return res.status(401).send({
-                                msg: 'Password is incorrect!'
-                            });
-                        }
+router.post('/login', (req, res, next) => {
+    db.query(
+        `SELECT * FROM users WHERE username || email = ${db.escape(req.body.email)};`,
+        (err, result) => {
+            // user does not exists
+            if (err) {
+                throw err;
+                return res.status(400).send({
+                    msg: err
+                });
+            }
+            if (!result.length) {
+                return res.status(401).send({
+                    msg: 'Username or password is incorrect!'
+                });
+            }
+            // if (result.length <= 0) {
+            //     return res.status(404).send({
+            //         msg: 'Email or password is incorrect!'
+            //     });
+            // }
+            // check if the user is email has been verified
+            if (result[0].vstatus != 'verified') {
+                return res.status(401).send({
+                    msg: 'You must verify your email address before you can login!'
+                });
+            }
+            // check if the user permission is freezed
+            if (result[0].permission == 'Freez') {
+                return res.status(401).send({
+                    msg: 'Your account has been freezed, Please contact the support team.'
+                });
+            }
+            // check if the user permission is disable
+            if (result[0].permission == 'Disable') {
+                return res.status(401).send({
+                    msg: 'Your account has been disable, you can not longer login.'
+                });
+            }
 
-                        if (bResult) {
-                            const token = jwt.sign({
-                                    username: result[0].username,
-                                    userId: result[0].id
-                                },
-                                'SECRETKEY', {
-                                    expiresIn: '7d'
-                                }
-                            );
-
-                            db.query(
-                                `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`,
-                                (er, re) => {
-                                    if (er) {
-                                        return res.status(400).send({
-                                            msg: er
-                                        });
-                                    }
-                                    if (re.affectedRows <= 0) {
-                                        return res.status(409).send({
-                                            msg: 'Something went wrong, could not update the last login time!'
-                                        });
-                                    }
-                                    db.query(
-                                        `SELECT * FROM wallets WHERE user_id = '${result[0].id}'`,
-                                        (err, rest) => {
-                                            if (err) {
-                                                // throw err;
-                                                return res.status(400).send({
-                                                    msg: err
-                                                });
-                                            }
-                                            return res.status(200).send({
-                                                msg: 'Logged in!',
-                                                token,
-                                                user: result[0],
-                                                wallet_balance: rest[0].balance
-                                            });
-                                        }
-                                    );
-                                }
-                            );
-
-                        }
+            // check password
+            bcrypt.compare(
+                req.body.password,
+                result[0]['password'],
+                (bErr, bResult) => {
+                    // wrong password
+                    if (bErr) {
+                        throw bErr;
                         return res.status(401).send({
                             msg: 'Username or password is incorrect!'
                         });
                     }
-                );
-            }
-        );
-    } catch (e) {
-        console.log(e);
-    }
+
+                    if (bResult) {
+                        const token = jwt.sign({
+                                username: result[0].username,
+                                userId: result[0].id
+                            },
+                            'SECRETKEY', {
+                                expiresIn: '7d'
+                            }
+                        );
+
+                        db.query(
+                            `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
+                        );
+                        return res.status(200).send({
+                            msg: 'Logged in!',
+                            token,
+                            user: result[0]
+                        });
+                    }
+                    return res.status(401).send({
+                        msg: 'Username or password is incorrect!'
+                    });
+                }
+            );
+        }
+    );
 });
+
+// router.post('/login', async(req, res, next) => {
+//     try {
+//         if (!req.body.email || !req.body.password) {
+//             return res.status(400).send({
+//                 msg: 'Email and password can not be empty required!'
+//             });
+//         }
+//         db.query(
+//             `SELECT * FROM users WHERE LOWER(email) = LOWER(${db.escape(
+//                 req.body.email
+//                 )});`,
+//             (err, result) => {
+//                 // user does not exists
+//                 if (err) {
+//                     // throw err;
+//                     return res.status(400).send({
+//                         msg: err
+//                     });
+//                 }
+//                 if (result.length <= 0) {
+//                     return res.status(404).send({
+//                         msg: 'Email or password is incorrect!'
+//                     });
+//                 }
+//                 // check if the user is email has been verified
+//                 if (result[0].vstatus != 'verified') {
+//                     return res.status(401).send({
+//                         msg: 'You must verify your email address before you can login!'
+//                     });
+//                 }
+//                 // check if the user permission is freezed
+//                 if (result[0].permission == 'Freez') {
+//                     return res.status(401).send({
+//                         msg: 'Your account has been freezed, Please contact the support team.'
+//                     });
+//                 }
+//                 // check if the user permission is disable
+//                 if (result[0].permission == 'Disable') {
+//                     return res.status(401).send({
+//                         msg: 'Your account has been disable, you can not longer login.'
+//                     });
+//                 }
+//                 // check and compare passwords
+//                 bcrypt.compare(
+//                     req.body.password,
+//                     result[0]['password'],
+//                     (bErr, bResult) => {
+
+//                         //When password is wrong
+//                         if (bErr) {
+//                             // throw bErr;
+//                             return res.status(401).send({
+//                                 msg: 'Password is incorrect!'
+//                             });
+//                         }
+
+//                         if (bResult) {
+//                             const token = jwt.sign({
+//                                     username: result[0].username,
+//                                     userId: result[0].id
+//                                 },
+//                                 'SECRETKEY', {
+//                                     expiresIn: '7d'
+//                                 }
+//                             );
+
+//                             db.query(
+//                                 `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`,
+//                                 (er, re) => {
+//                                     if (er) {
+//                                         return res.status(400).send({
+//                                             msg: er
+//                                         });
+//                                     }
+//                                     if (re.affectedRows <= 0) {
+//                                         return res.status(409).send({
+//                                             msg: 'Something went wrong, could not update the last login time!'
+//                                         });
+//                                     }
+//                                     db.query(
+//                                         `SELECT * FROM wallets WHERE user_id = '${result[0].id}'`,
+//                                         (err, rest) => {
+//                                             if (err) {
+//                                                 // throw err;
+//                                                 return res.status(400).send({
+//                                                     msg: err
+//                                                 });
+//                                             }
+
+//                                             console.log(rest[0]);
+//                                             return res.status(200).send({
+//                                                 msg: 'Logged in!',
+//                                                 token,
+//                                                 user: result[0],
+//                                                 wallet_balance: rest[0].balance
+//                                             });
+//                                         }
+//                                     );
+//                                 }
+//                             );
+
+//                         }
+//                         return res.status(401).send({
+//                             msg: 'Username or password is incorrect!'
+//                         });
+//                     }
+//                 );
+//             }
+//         );
+//     } catch (e) {
+//         console.log(e);
+//     }
+// });
 //Log out user
 router.post('/logout/:userid', (req, res, next) => {
     try {
