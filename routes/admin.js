@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-var nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
 const mailgun = require("mailgun-js");
 const DOMAIN = 'sandboxb21bd93e7e794e4f88a01d13f923ec59.mailgun.org';

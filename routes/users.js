@@ -846,7 +846,37 @@ router.post('/comment/:postid/:userid', userMiddleware.isLoggedIn, (req, res, ne
 
 //  blog posts module ends here
 
-//To protect a route now, simply include this middleware when calling the route as follows:
+// fetching user avialable balance
+router.get('/balance?useri', userMiddleware.isLoggedIn, (req, res, next) => {
+        let userid = req.params.userid;
+        try {
+            db.query(
+                `SELECT * FROM wallets WHERE user_id='${userid}'`,
+                (err, result) => {
+                    // if query error
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: err
+                        });
+                    }
+                    // if there is no language available
+                    if (!result.length) {
+                        return res.status(309).send({
+                            msg: 'This post does not exist!'
+                        });
+                    }
+                    return res.status(200).send({
+                        data: result
+                    });
+                }
+            );
+        } catch (err) {
+            console.log(err)
+        }
+
+    })
+    //To protect a route now, simply include this middleware when calling the route as follows:
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
     console.log(req.userData);
     res.send('This is the secret content. Only logged in users can see that!');
