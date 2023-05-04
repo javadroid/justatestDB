@@ -3,10 +3,10 @@ import { items } from "./accordionItem"
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid'
 
 const Accordion = () => {
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   function handleClick(index) {
-    setActiveIndex(index === activeIndex ? null : index);
+    setActiveIndex(index === activeIndex ? -1 : index);
   }
 
   return (

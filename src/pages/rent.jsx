@@ -9,6 +9,7 @@ import PromoInformation from "@/Components/PromoInformation";
 import Connection from "@/Components/Connection";
 import Country from "@/Components/countries/country";
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 const Rent = () => {
   return (
@@ -35,12 +36,12 @@ const Rent = () => {
             </p>
             <div className="flex flex-col md:flex-row md:justify-start">
               <span className="before:w-85 relative before:absolute before:block before:bg-[url('../assets/before/arrow_intro-1.svg')]"></span>
-              <a className="baseline mb-8 rounded-full bg-white p-3 px-6 pt-3 text-center font-bold text-color-primary_black md:px-12 lg:px-14 xl:px-16">
+              <Link href={"/login"} className="baseline mb-8 rounded-full bg-white p-3 px-6 pt-3 text-center font-bold text-color-primary_black md:px-12 lg:px-14 xl:px-16">
                 Rent number
-              </a>
-              <a className="baseline mb-8 rounded-full bg-color-primary_black p-3 px-6 pt-3 text-center font-bold text-white md:ml-4 md:px-16 lg:px-12 xl:px-16">
+              </Link>
+              <Link href={"/login"} className="baseline mb-8 rounded-full bg-color-primary_black p-3 px-6 pt-3 text-center font-bold text-white md:ml-4 md:px-16 lg:px-12 xl:px-16">
                 Receive SMS
-              </a>
+              </Link>
             </div>
           </div>
           {/* Right Hero */}
@@ -173,9 +174,11 @@ const Rent = () => {
                     <button className="bg-bgPrimar mb-4 w-48 rounded-sm py-2 text-base md:text-xl">
                       It&apos;ll cost $0.06
                     </button>
-                    <button className="w-48  rounded-xl bg-color-primary py-2 text-base font-bold text-white md:text-xl">
-                      Rent
-                    </button>
+                    <Link href={"/login"} className="w-48  rounded-xl bg-color-primary py-2 text-base font-bold text-center text-white md:text-xl">
+                      <button>
+                        Rent
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </li>
