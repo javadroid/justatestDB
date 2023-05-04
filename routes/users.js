@@ -304,11 +304,6 @@ router.post('/login', (req, res, next) => {
                     msg: 'Username or password is incorrect!'
                 });
             }
-            // if (result.length <= 0) {
-            //     return res.status(404).send({
-            //         msg: 'Email or password is incorrect!'
-            //     });
-            // }
             // check if the user is email has been verified
             if (result[0].vstatus != 'verified') {
                 return res.status(401).send({
@@ -335,7 +330,7 @@ router.post('/login', (req, res, next) => {
                 (bErr, bResult) => {
                     // wrong password
                     if (bErr) {
-                        throw bErr;
+                        // throw bErr;
                         return res.status(401).send({
                             msg: 'Username or password is incorrect!'
                         });
