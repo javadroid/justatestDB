@@ -6,7 +6,6 @@ const mailgun = require("mailgun-js");
 const DOMAIN = 'sandboxb21bd93e7e794e4f88a01d13f923ec59.mailgun.org';
 const mg = mailgun({ apiKey: process.env.MAILGUN_API_KEY, domain: DOMAIN })
 const uuid = require('uuid');
-const apikey = uuid.v4();
 const jwt = require('jsonwebtoken');
 const db = require('../lib/db.js');
 const userMiddleware = require('../middleware/users.js');
@@ -44,6 +43,7 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
                                         // has hashed pw => add to database
                                         const vstatus = 'unverified'
                                         let str = req.body.username
+                                        const apikey = uuid.v4() + (str.charAt(1) + str.charAt(0) + str.charAt(2));
                                         const id = Math.floor(Math.random() * 3473) + 1 + (str.charAt(1) + str.charAt(2));
                                         const ref = Math.floor(Math.random() * 5000) + 1 + (str.charAt(0) + str.charAt(1) + str.charAt(2));
                                         db.query(
@@ -205,9 +205,11 @@ router.post('/social_media_sign', (req, res, next) => {
 router.get('/log', (req, res, next) => {
     res.send({ 'Message': 'Welcome' })
 });
-router.put('/verify/:apikey', (req, res, next) => {
+
+// To verify user email
+router.put('/verify/email', (req, res, next) => {
     try {
-        const user_apikey = req.params.apikey;
+        const user_apikey = req.query.apikey;
         res.send(user_apikey);
         const vstatus = 'verified'
         db.query(
@@ -218,19 +220,17 @@ router.put('/verify/:apikey', (req, res, next) => {
                         msg: err
                     });
                 }
-                return res.status(200).send({
-                    msg: 'Email verification was succesful!'
-                });
             }
         );
+        return res.status(200);
     } catch (e) {
         console.log(e);
     }
 });
 // changing user password
-router.post('/user/changepassword/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
+router.post('/user/changepassword', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        const uid = req.params.userid;
+        const uid = req.query.userid;
         db.query(
             `SELECT * FROM users WHERE id = ${db.escape(uid)};`,
             (err, result) => {
@@ -364,123 +364,10 @@ router.post('/login', (req, res, next) => {
     );
 });
 
-// router.post('/login', async(req, res, next) => {
-//     try {
-//         if (!req.body.email || !req.body.password) {
-//             return res.status(400).send({
-//                 msg: 'Email and password can not be empty required!'
-//             });
-//         }
-//         db.query(
-//             `SELECT * FROM users WHERE LOWER(email) = LOWER(${db.escape(
-//                 req.body.email
-//                 )});`,
-//             (err, result) => {
-//                 // user does not exists
-//                 if (err) {
-//                     // throw err;
-//                     return res.status(400).send({
-//                         msg: err
-//                     });
-//                 }
-//                 if (result.length <= 0) {
-//                     return res.status(404).send({
-//                         msg: 'Email or password is incorrect!'
-//                     });
-//                 }
-//                 // check if the user is email has been verified
-//                 if (result[0].vstatus != 'verified') {
-//                     return res.status(401).send({
-//                         msg: 'You must verify your email address before you can login!'
-//                     });
-//                 }
-//                 // check if the user permission is freezed
-//                 if (result[0].permission == 'Freez') {
-//                     return res.status(401).send({
-//                         msg: 'Your account has been freezed, Please contact the support team.'
-//                     });
-//                 }
-//                 // check if the user permission is disable
-//                 if (result[0].permission == 'Disable') {
-//                     return res.status(401).send({
-//                         msg: 'Your account has been disable, you can not longer login.'
-//                     });
-//                 }
-//                 // check and compare passwords
-//                 bcrypt.compare(
-//                     req.body.password,
-//                     result[0]['password'],
-//                     (bErr, bResult) => {
-
-//                         //When password is wrong
-//                         if (bErr) {
-//                             // throw bErr;
-//                             return res.status(401).send({
-//                                 msg: 'Password is incorrect!'
-//                             });
-//                         }
-
-//                         if (bResult) {
-//                             const token = jwt.sign({
-//                                     username: result[0].username,
-//                                     userId: result[0].id
-//                                 },
-//                                 'SECRETKEY', {
-//                                     expiresIn: '7d'
-//                                 }
-//                             );
-
-//                             db.query(
-//                                 `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`,
-//                                 (er, re) => {
-//                                     if (er) {
-//                                         return res.status(400).send({
-//                                             msg: er
-//                                         });
-//                                     }
-//                                     if (re.affectedRows <= 0) {
-//                                         return res.status(409).send({
-//                                             msg: 'Something went wrong, could not update the last login time!'
-//                                         });
-//                                     }
-//                                     db.query(
-//                                         `SELECT * FROM wallets WHERE user_id = '${result[0].id}'`,
-//                                         (err, rest) => {
-//                                             if (err) {
-//                                                 // throw err;
-//                                                 return res.status(400).send({
-//                                                     msg: err
-//                                                 });
-//                                             }
-
-//                                             console.log(rest[0]);
-//                                             return res.status(200).send({
-//                                                 msg: 'Logged in!',
-//                                                 token,
-//                                                 user: result[0],
-//                                                 wallet_balance: rest[0].balance
-//                                             });
-//                                         }
-//                                     );
-//                                 }
-//                             );
-
-//                         }
-//                         return res.status(401).send({
-//                             msg: 'Username or password is incorrect!'
-//                         });
-//                     }
-//                 );
-//             }
-//         );
-//     } catch (e) {
-//         console.log(e);
-//     }
-// });
 //Log out user
-router.post('/logout/:userid', (req, res, next) => {
+router.post('/logout/', (req, res, next) => {
     try {
-        const user = req.params.userid;
+        const user = req.query.userid;
         db.query(
             `DELETE last_login FROM users WHERE id = '${user}'`,
             (err, result) => {
@@ -512,9 +399,9 @@ router.post('/logout/:userid', (req, res, next) => {
 //     });
 // });
 //Fetching referral hostory
-router.get('/referral/history/:refCode', userMiddleware.isLoggedIn, (req, res, next) => {
+router.get('/referral/history', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        const refCode = req.params.refCode;
+        const refCode = req.query.refCode;
         db.query(
             `SELECT users.username AS referral, referrals.reg_date AS signup_date, referrals.first_deposit AS deposit, referrals.bonus AS earn FROM users JOIN referrals      ON users.referrer= '${refCode}' AND referrals.referrer='${refCode}'`,
             (err, result) => {
@@ -536,8 +423,8 @@ router.get('/referral/history/:refCode', userMiddleware.isLoggedIn, (req, res, n
     }
 });
 // fetch user topup history
-router.get('/user/payment/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
-    const idv = req.params.userid;
+router.get('/user/payment/', userMiddleware.isLoggedIn, (req, res, next) => {
+    const idv = req.query.userid;
     try {
         db.query(
             `SELECT * FROM transactions WHERE user_id='${idv}' AND type='topup'`,
@@ -559,9 +446,9 @@ router.get('/user/payment/:userid', userMiddleware.isLoggedIn, (req, res, next) 
 });
 // Renting calculator module starts here
 //Getting rent fee by country
-router.get('/rentfees/:country', (req, res, next) => {
+router.get('/rentfees/country', (req, res, next) => {
     try {
-        const country = req.params.country;
+        const country = req.query.country;
         db.query(
             `SELECT * FROM rent_cal WHERE country = '${country}'`,
             (err, result) => {
@@ -588,10 +475,10 @@ router.get('/rentfees/:country', (req, res, next) => {
     }
 });
 // Get rent fee by country and duration
-router.get('/rentfees/:country/:duration', (req, res, next) => {
+router.get('/rentfees/country/duration', (req, res, next) => {
     try {
-        const country = req.params.country;
-        const duration = req.params.duration;
+        const country = req.query.country;
+        const duration = req.query.duration;
         db.query(
             `SELECT * FROM rent_cal WHERE country = '${country}' AND duration='${duration}'`,
             (err, result) => {
@@ -778,8 +665,8 @@ router.get("/blog/posts", (rea, res, next) => {
     }
 });
 // fetching single blog post
-router.get("/blog/post/:postid", (rea, res, next) => {
-    let postid = req.params.postid;
+router.get("/blog/post", (rea, res, next) => {
+    let postid = req.query.postid;
     try {
         db.query(
             `SELECT * FROM blog_posts WHERE id='${postid}'`,
@@ -808,10 +695,10 @@ router.get("/blog/post/:postid", (rea, res, next) => {
 });
 
 // Comment on a post
-router.post('/comment/:postid/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
+router.post('/comment', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        let postid = req.params.postid;
-        let user = reqparams.userid
+        let postid = req.query.postid;
+        let user = req.query.userid
         const { comment } = req.body;
         if (!user || !comment) {
             return res.status(409).send({
@@ -847,8 +734,9 @@ router.post('/comment/:postid/:userid', userMiddleware.isLoggedIn, (req, res, ne
 //  blog posts module ends here
 
 // fetching user avialable balance
-router.get('/balance?useri', userMiddleware.isLoggedIn, (req, res, next) => {
-        let userid = req.params.userid;
+router.get('/balance', userMiddleware.isLoggedIn, (req, res, next) => {
+        let userid = req.query.userid;
+        console.log(userid);
         try {
             db.query(
                 `SELECT * FROM wallets WHERE user_id='${userid}'`,
@@ -862,8 +750,8 @@ router.get('/balance?useri', userMiddleware.isLoggedIn, (req, res, next) => {
                     }
                     // if there is no language available
                     if (!result.length) {
-                        return res.status(309).send({
-                            msg: 'This post does not exist!'
+                        return res.status(404).send({
+                            msg: 'Incorrect user ID might have been passed!'
                         });
                     }
                     return res.status(200).send({
