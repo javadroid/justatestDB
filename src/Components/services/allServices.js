@@ -1,5 +1,5 @@
 import Amazon from "../../assets/socials/Amazon.svg";
-import ebay from "../../assets/socials/ebay.svg";
+import ebay from "../../assets/socials/eBay.svg";
 import Facebook from "../../assets/socials/Facebook.svg";
 import Gmail from "../../assets/socials/Gmail.svg";
 import LinkedIn from "../../assets/socials/LinkedIn.svg";
