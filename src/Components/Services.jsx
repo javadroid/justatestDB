@@ -1,4 +1,4 @@
-import React from "react";
+import Link from "next/link";
 
 const Services = () => {
   return (
@@ -26,9 +26,11 @@ const Services = () => {
         </div>
       </div>
       <div className="flex w-full flex-col self-center lg:w-1/4">
-        <button className="mx-5 mb-6 rounded-lg bg-color-primary px-2 py-2 text-white">
-          Receive SMS
-        </button>
+        <Link href={"/login"} className="mx-5 mb-6 rounded-lg bg-color-primary px-2 py-2 text-center text-white">
+          <button>
+            Receive SMS
+          </button>
+        </Link>
       </div>
     </div>
   );

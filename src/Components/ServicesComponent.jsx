@@ -3,6 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 import star from '../assets/images/star.svg'
 import ama from '../assets/socials/Amazon.svg'
+import Services2 from './services/Services2'
 
 const ServicesComponent = () => {
   return (
@@ -21,56 +22,7 @@ const ServicesComponent = () => {
       </div>
       <div className="service body">
         <div className="px-2">
-          <div className="boxes flex flex-col space-y-4 h-50 overflow-hidden overflow-y-scroll md:space-x-2 md:grid md:grid-cols-2 md:flex-wrap md:space-y-0 md:gap-5 md:px-4">
-            <div className="mb-1 bg-color-bg_primary-500 rounded-lg p-2">
-              <div className="flex flex-col space-y-3 text-xs font-medium p-2 lg:space-y-0 lg:flex-row lg:justify-between lg:text-sm">
-                <div className="flex items-center lg:w-3/4">
-                  <Image src={star} alt="" className="-mt-1" />
-                  <Image src={ama} width={20} alt="" className="mx-1" />
-                  <span className="lg:text-base">Amazon</span>
-                  <span className="ml-auto text-[#aec3f9]">100</span>
-                  <span className="mx-2 xl:mr-0">0.21$</span>
-                </div>
-                <button className="text-color-white bg-color-primary rounded-xl py-1 lg:px-1 xl:px-2">Buy SMS</button>
-              </div>
-            </div>
-            <div className="mb-1 bg-color-bg_primary-500 rounded-lg p-2">
-              <div className="flex flex-col space-y-3 text-xs font-medium p-2 lg:space-y-0 lg:flex-row lg:justify-between lg:text-sm">
-                <div className="flex items-center lg:w-3/4">
-                  <Image src={star} alt="" className="-mt-1" />
-                  <Image src={ama} width={20} alt="" className="mx-1" />
-                  <span className="lg:text-base">Amazon</span>
-                  <span className="ml-auto text-[#aec3f9]">100</span>
-                  <span className="mx-2 xl:mr-0">0.21$</span>
-                </div>
-                <button className="text-color-white bg-color-primary rounded-xl py-1 lg:px-1 xl:px-2">Buy SMS</button>
-              </div>
-            </div>
-            <div className="mb-1 bg-color-bg_primary-500 rounded-lg p-2">
-              <div className="flex flex-col space-y-3 text-xs font-medium p-2 lg:space-y-0 lg:flex-row lg:justify-between lg:text-sm">
-                <div className="flex items-center lg:w-3/4">
-                  <Image src={star} alt="" className="-mt-1" />
-                  <Image src={ama} width={20} alt="" className="mx-1" />
-                  <span className="lg:text-base">Amazon</span>
-                  <span className="ml-auto text-[#aec3f9]">100</span>
-                  <span className="mx-2 xl:mr-0">0.21$</span>
-                </div>
-                <button className="text-color-white bg-color-primary rounded-xl py-1 lg:px-1 xl:px-2">Buy SMS</button>
-              </div>
-            </div>
-            <div className="mb-1 bg-color-bg_primary-500 rounded-lg p-2">
-              <div className="flex flex-col space-y-3 text-xs font-medium p-2 lg:space-y-0 lg:flex-row lg:justify-between lg:text-sm">
-                <div className="flex items-center lg:w-3/4">
-                  <Image src={star} alt="" className="-mt-1" />
-                  <Image src={ama} width={20} alt="" className="mx-1" />
-                  <span className="lg:text-base">Amazon</span>
-                  <span className="ml-auto text-[#aec3f9]">100</span>
-                  <span className="mx-2 xl:mr-0">0.21$</span>
-                </div>
-                <button className="text-color-white bg-color-primary rounded-xl py-1 lg:px-1 xl:px-2">Buy SMS</button>
-              </div>
-            </div>
-          </div>
+          <Services2 />
         </div>
         <div className="flex text-color-primary text-xs space-x-2 mt-4 ml-8 md:text-lg">
           <span>Available services - 2312</span>
