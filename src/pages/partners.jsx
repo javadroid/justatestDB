@@ -7,7 +7,7 @@ export default function Privacy() {
   return (
     <section>
       <div className="mx-auto max-w-7xl px-5 py-14">
-        <div className="mb-24 flex flex-col items-center">
+        <div className="mb-24 mt-16 flex flex-col items-center">
           <h1 className="mb-10 text-center text-3xl font-extrabold">
             Partners
           </h1>

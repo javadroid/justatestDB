@@ -17,10 +17,10 @@ const Rent = () => {
       {/*Hero section*/}
       <section
         id="hero"
-        className="text-2.2rem bg-gradient-to-b from-[rgb(13,65,213)] to-[#0187FF] text-white"
+        className="text-2.2rem bg-gradient-to-b from-[#0d41d5] to-[#0187FF] text-white"
       >
         {/* Flex container */}
-        <div className="container mx-auto flex max-w-7xl flex-col items-center space-y-6 overflow-hidden px-6 py-20 md:justify-start  lg:flex-row lg:justify-between lg:pt-32 ">
+        <div className="container mx-auto flex max-w-7xl flex-col items-center space-y-6 overflow-hidden px-6 py-20 md:justify-start lg:flex-row lg:justify-between lg:pt-32 ">
           {/* Left hero */}
           <div className="mb-30 flex-1 space-y-12 md:w-full md:px-2">
             <h1 className="text-center text-3xl font-extrabold md:w-full md:text-left md:text-5xl lg:text-4xl">
@@ -85,21 +85,21 @@ const Rent = () => {
       </section>
 
       {/* How it works*/}
-      <section>
+      <section className="bg-color-bg_light-100 md:pt-24">
         {/* container to heading and the steps */}
-        <div className="w-4xl mx-auto mb-10 mt-8 max-w-6xl px-4 text-center md:mt-32 md:px-8">
+        <div className="w-4xl mx-auto max-w-6xl px-4 text-center md:pb-32 md:px-8">
           {/* Heading */}
-          <h2 className="text-center text-xl font-bold text-blue-500">
+          <h2 className="text-center text-xl font-extrabold text-blue-500 mb-4">
             Check how it works!
           </h2>
-          <p className="text-center text-xl font-bold md:text-3xl">
+          <p className="text-center text-xl font-extrabold md:text-3xl md:w-2/5 md:mx-auto">
             Rent virtual number online in 3 steps right now
           </p>
           {/* Steps Container */}
           <form>
-            <ol className="mt-8 flex flex-col justify-between space-y-8 md:mt-12 md:grid md:grid-cols-2 md:flex-wrap md:gap-5 md:space-x-8 md:space-y-0 lg:grid-cols-3 lg:space-x-1">
+            <ol className="mt-8 flex flex-col justify-between space-y-8 md:mt-12 md:grid md:grid-cols-2 md:flex-wrap md:gap-5  md:space-y-0 lg:grid-cols-3 lg:gap-16">
               {/* step 1 */}
-              <li className="relative before:absolute before:-left-3 before:grid before:h-14 before:w-14 before:place-items-center before:rounded-tl-3xl before:rounded-br-3xl before:bg-color-bg_primary-500 before:text-2xl before:font-bold before:text-color-primary before:content-['1']  h-48 w-auto rounded-3xl px-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:mb-11">
+              <li className="relative before:absolute before:-left-3 before:grid before:h-14 before:w-14 before:place-items-center before:rounded-tl-3xl before:rounded-br-3xl before:bg-color-bg_primary-500 before:text-2xl before:font-bold before:text-color-primary before:content-['1'] bg-color-white rounded-3xl px-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)]">
                 <div className="mx-4">
                   {/* title */}
                   <div className="flex items-center justify-center p-4">
@@ -121,7 +121,7 @@ const Rent = () => {
               </li>
 
               {/* step 2 */}
-              <li className="relative before:absolute before:-left-3 before:grid before:h-14 before:w-14 before:place-items-center before:rounded-tl-3xl before:rounded-br-3xl before:bg-color-bg_primary-500 before:text-2xl before:font-bold before:text-color-primary before:content-['2'] h-48 w-auto rounded-3xl px-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:mb-11">
+              <li className="relative before:absolute before:-left-3 before:grid before:h-14 before:w-14 before:place-items-center before:rounded-tl-3xl before:rounded-br-3xl before:bg-color-bg_primary-500 before:text-2xl before:font-bold before:text-color-primary before:content-['2'] bg-color-white rounded-3xl px-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)]">
                 <div className="flex flex-col items-center px-6 ">
                   {/* Heading */}
                   <div>
@@ -133,7 +133,7 @@ const Rent = () => {
                   </div>
                   {/* Time */}
                   <div>
-                    <div className=" flex flex-col items-center justify-between">
+                    <div className="mt-4 flex flex-col items-center justify-between">
                       <div className="mb-2 flex flex-row items-center justify-center space-x-4">
                         <button className="bg-color-bg_primary-500 w-32 rounded-lg py-2 text-sm active:text-color-primary active:border md:text-base">
                           Hour
@@ -161,7 +161,7 @@ const Rent = () => {
               </li>
 
               {/* step 3 */}
-              <li className="relative before:absolute before:-left-3 before:grid before:h-14 before:w-14 before:place-items-center before:rounded-tl-3xl before:rounded-br-3xl before:bg-color-bg_primary-500 before:text-2xl before:font-bold before:text-color-primary before:content-['3'] h-48 w-auto rounded-3xl px-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:col-span-2 lg:col-span-1">
+              <li className="relative before:absolute before:-left-3 before:grid before:h-14 before:w-14 before:place-items-center before:rounded-tl-3xl before:rounded-br-3xl before:bg-color-bg_primary-500 before:text-2xl before:font-bold before:text-color-primary before:content-['3'] bg-color-white rounded-3xl px-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:col-span-2 lg:col-span-1">
                 <div className="flex flex-col items-center p-6 ">
                   {/* Heading */}
                   <div className="md:self-start lg:self-center">

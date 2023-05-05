@@ -40,6 +40,28 @@ const Login = () => {
   // console.log(watch("example"));
 
   return (
+    <<<<<<< section
+    <section id='login' className="bg-color-bg_light">
+      <div className='md:w-4/5 mx-auto mt-14 pt-14 pb-6'>
+        <div className=" mx-2 px-6 pt-4 pb-12 bg-color-white rounded-2xl shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:rounded-3xl md:max-w-md md:m-auto lg:max-w-xl">
+          <div className="max-w-xs m-auto">
+            <h3 className="font-bold text-h2Size text-center my-4">
+              Log in
+            </h3>
+            <form className="flex flex-col space-y-4 items-center justify-items-center">
+              <input type="username" placeholder="Enter your Username"
+              onChange={(e) => setUserName(e.target.value)}
+              className="w-full border border-color-primary_black px-4 py-3 rounded-lg focus:outline-dashed focus:border-color-primary_black text-xs text-color-primary_black sm:text-lg" />
+              <input type="email" placeholder="Enter email" 
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full border border-color-primary_black px-4 py-3 rounded-lg focus:outline-dashed focus:border-color-primary_black text-xs text-color-primary_black sm:text-lg" />
+              <input type="password" placeholder="Enter password" 
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full border border-color-primary_black px-4  py-3 rounded-lg focus:outline-dashed focus:border-color-primary_black text-sm text-color-primary_black sm:text-lg" />
+              <button 
+              onClick={login}
+              className="w-full bg-color-primary text-color-white font-bold rounded-3xl py-3 md:text-lg lg:text-xl lg:py-4">Sign in</button>
+=======
     <section id="login" className="bg-color-bg_light">
       <div className="mx-auto py-6 md:w-4/5">
         <div className=" mx-2 rounded-2xl bg-color-white px-6 pb-12 pt-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:m-auto md:max-w-md md:rounded-3xl lg:max-w-xl">
@@ -64,6 +86,7 @@ const Login = () => {
               <button className="w-full rounded-3xl bg-color-primary py-3 font-bold text-color-white md:text-lg lg:py-4 lg:text-xl">
                 Sign in
               </button>
+>>>>>>> main
               <span>
                 <Link
                   href="/"

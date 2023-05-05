@@ -3,7 +3,7 @@ import Dropdown from "./Dropdown";
 
 const BlogSidebar = () => {
   return (
-    <aside className="h-full border-l-0 pt-6 lg:border-l lg:border-gray-400/20 lg:px-6">
+    <aside className="h-full border-l-0 pt-14 lg:border-l lg:border-gray-400/20 lg:px-6">
       <div className=" mb-2 border-b border-gray-400/20 lg:w-3/5">
         <h1 className="mb-5 font-bold">RECENT POSTS</h1>
         <p className="pb-3 text-color-primary">

@@ -4,7 +4,7 @@ export default function Terms() {
   return (
     <section>
       <div className="m-auto px-4 lg:px-0">
-        <div className="max-w-6xl my-8 mx-auto md:px-8">
+        <div className="max-w-6xl mt-24 mb-8 mx-auto md:px-8">
           <h3 className="font-bold text-center mb-4 sm:text-xl md:text-left">Payment Policy</h3>
           <div className=" font-medium text-[0.60rem] sm:text-sm space-y-2 md:text-justify">
             <p>1. Newsems takes financial liability for client&apos;s account balance at any particular time except the cases when the client&apos;s account details (login, password) were disclosed by the client himself or by all means and for any reason on the Internet. Company&apos;s financial liability begins with the first successful customer&apos;s payment to the Newsems and lasts up to the full expenditure of customer&apos;s funds.</p>

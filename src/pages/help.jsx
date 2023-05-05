@@ -19,7 +19,7 @@ import howRent2 from "../assets/images/howRent_2_en.webp";
 
 function Help() {
   return (
-    <section className="pb-20">
+    <section className="pb-20 mt-8">
       <div className="bg-color-bg_light pb-24">
         <div className="mx-0 space-y-4 bg-color-bg_primary-500 px-4 sm:space-y-8 sm:pb-12 lg:pt-14">
           <h1 className="pt-2 text-center text-2xl font-extrabold sm:text-4xl">
