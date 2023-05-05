@@ -31,9 +31,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="">
-        <section className="relative w-full bg-gradient-to-r from-sky-400 to-blue-500">
-          <div className="mx-auto flex max-w-7xl flex-col px-4 py-6 lg:flex-row lg:items-center lg:justify-between">
-            <div>
+        <section className="w-full bg-gradient-to-b from-[#0d41d5] to-[#0187FF]">
+          <div className="mx-auto mt-14 flex max-w-6xl flex-col px-4 pt-16 lg:flex-row lg:items-center lg:justify-between">
+            <div className="basis-1/2">
               <div>
                 <h1 className="text-4xl font-bold text-white">
                   RECEIVE SMS ONLINE
@@ -68,7 +68,6 @@ export default function Home() {
               <Image
                 src={Hero}
                 alt="Hero"
-                className="h-[500px] w-[570px] object-contain"
                 priority={true}
               />
             </div>
@@ -223,6 +222,7 @@ export default function Home() {
         </section>
         <PromoInformation />
         <About />
+        <Advantages />
         <Connection />
         <FAQ />
         <Cookies />

@@ -19,7 +19,7 @@ export default function Ref() {
             <li>Administration of Newsems has the right to deny withdrawal of funds in case of fraudulent use of the invited users or other abuses of the referral program</li>
           </ol>
           <p className="text-xs mb-2 sm:text-lg md:text-justify md:mb-4">If you have an application that works with our API, you can get affiliate payments from users you attracted.</p>
-          <p className="text-xs sm:text-lg md:text-justify">To do this <Link href="/" className="underline text-color-primary">write us.</Link></p>
+          <p className="text-xs sm:text-lg md:text-justify">To do this <Link href={"/contact"} className="underline text-color-primary">write us.</Link></p>
         </div>
       </div>
     </section>
