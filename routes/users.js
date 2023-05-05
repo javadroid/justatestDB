@@ -423,7 +423,7 @@ router.get('/referral/history', userMiddleware.isLoggedIn, (req, res, next) => {
     }
 });
 // fetch user topup history
-router.get('/user/payment/', userMiddleware.isLoggedIn, (req, res, next) => {
+router.get('/user/payment', userMiddleware.isLoggedIn, (req, res, next) => {
     const idv = req.query.userid;
     try {
         db.query(
@@ -567,9 +567,9 @@ router.get("/languages", (rea, res, next) => {
 // Fetching laguages ends here
 
 // Change user api key starts here
-router.put("/changeapikey/:userid", userMiddleware.isLoggedIn, (req, res, next) => {
+router.put("user//changeapikey", userMiddleware.isLoggedIn, (req, res, next) => {
     const userid = req.params.userid;
-    let newAPI = uuid.v4();
+    let newAPI = uuid.v4() + userid;
     try {
         db.query(
             `UPDATE users SET apikey='${newAPI}' WHERE id = '${userid}'`,
@@ -735,36 +735,35 @@ router.post('/comment', userMiddleware.isLoggedIn, (req, res, next) => {
 
 // fetching user avialable balance
 router.get('/balance', userMiddleware.isLoggedIn, (req, res, next) => {
-        let userid = req.query.userid;
-        console.log(userid);
-        try {
-            db.query(
-                `SELECT * FROM wallets WHERE user_id='${userid}'`,
-                (err, result) => {
-                    // if query error
-                    if (err) {
-                        // throw err;
-                        return res.status(400).send({
-                            msg: err
-                        });
-                    }
-                    // if there is no language available
-                    if (!result.length) {
-                        return res.status(404).send({
-                            msg: 'Incorrect user ID might have been passed!'
-                        });
-                    }
-                    return res.status(200).send({
-                        data: result
+    let userid = req.query.userid;
+    console.log(userid);
+    try {
+        db.query(
+            `SELECT * FROM wallets WHERE user_id='${userid}'`,
+            (err, result) => {
+                // if query error
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
                     });
                 }
-            );
-        } catch (err) {
-            console.log(err)
-        }
-
-    })
-    //To protect a route now, simply include this middleware when calling the route as follows:
+                // if there is no language available
+                if (!result.length) {
+                    return res.status(404).send({
+                        msg: 'Incorrect user ID might have been passed!'
+                    });
+                }
+                return res.status(200).send({
+                    data: result
+                });
+            }
+        );
+    } catch (err) {
+        console.log(err)
+    }
+});
+//To protect a route now, simply include this middleware when calling the route as follows:
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
     console.log(req.userData);
     res.send('This is the secret content. Only logged in users can see that!');

@@ -34,15 +34,15 @@ router.get('/all_users', userMiddleware.isLoggedIn, (req, res, next) => {
     }
 });
 // fetch user by id
-router.get('/user/:id', userMiddleware.isLoggedIn, (req, res, next) => {
+router.get('/user', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        const q_id = req.params.id;
+        const q_id = req.query.id;
         db.query(
             `SELECT * FROM users WHERE id = '${q_id}'`,
             (err, result) => {
                 if (result.length) {
                     return res.status(200).send({
-                        user: { result }
+                        user: result[0]
                     });
                 } else {
                     return res.status(404).send({
@@ -58,8 +58,8 @@ router.get('/user/:id', userMiddleware.isLoggedIn, (req, res, next) => {
     }
 });
 //delete user by id
-router.delete('/user/:id', userMiddleware.isLoggedIn, (req, res, next) => {
-    const q_id = req.params.id;
+router.delete('/user', userMiddleware.isLoggedIn, (req, res, next) => {
+    const q_id = req.query.id;
     try {
         db.query(
             `DELETE FROM users WHERE id = '${q_id}'`,
@@ -88,9 +88,9 @@ router.delete('/user/:id', userMiddleware.isLoggedIn, (req, res, next) => {
     }
 });
 // freez user from logging in
-router.put('/freez/user/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
+router.put('/freez/user/', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        let user = req.params.userid;
+        let user = req.query.userid;
         const nstatus = "Freez";
         db.query(
             `UPDATE users SET permission='${nstatus}' WHERE id='${user}'`,
@@ -114,9 +114,9 @@ router.put('/freez/user/:userid', userMiddleware.isLoggedIn, (req, res, next) =>
 })
 
 // disable user user from logging in
-router.put('/disable/user/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
+router.put('/disable/user', userMiddleware.isLoggedIn, (req, res, next) => {
         try {
-            let user = req.params.userid;
+            let user = req.query.userid;
             const nstatus = "Disable";
             db.query(
                 `UPDATE users SET permission='${nstatus}' WHERE id='${user}'`,
@@ -139,9 +139,9 @@ router.put('/disable/user/:userid', userMiddleware.isLoggedIn, (req, res, next) 
 
     })
     // enable user access to his/her accoutn
-router.put('/enable/user/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
+router.put('/enable/user', userMiddleware.isLoggedIn, (req, res, next) => {
         try {
-            let user = req.params.userid;
+            let user = req.query.userid;
             const nstatus = "Enable";
             db.query(
                 `UPDATE users SET permission='${nstatus}' WHERE id='${user}'`,
@@ -164,9 +164,9 @@ router.put('/enable/user/:userid', userMiddleware.isLoggedIn, (req, res, next) =
 
     })
     // delete user from the system
-router.delete('/delete/user/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
+router.delete('/delete/user', userMiddleware.isLoggedIn, (req, res, next) => {
         try {
-            let user = req.params.userid;
+            let user = req.query.userid;
             db.query(
                 `DELETE FROM users WHERE id='${user}'`,
                 (err, result) => {
@@ -190,9 +190,9 @@ router.delete('/delete/user/:userid', userMiddleware.isLoggedIn, (req, res, next
     // User permission module ends here
 
 // fetch user transaction history
-router.get('/user/transactions/:userid', userMiddleware.isLoggedIn, (req, res, next) => {
+router.get('/user/transactions', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        const idv = req.params.userid;
+        const idv = req.query.userid;
         db.query(
             `SELECT * FROM transactions WHERE user_id='${idv}'`,
             (err, result) => {
@@ -216,13 +216,13 @@ router.get('/user/transactions/:userid', userMiddleware.isLoggedIn, (req, res, n
 //Login user
 router.post('/login', (req, res, next) => {
     try {
-        if (!req.body.username) {
+        if (!req.body.email) {
             return res.status(409).send({
-                msg: 'Username is require!'
+                msg: 'Email is require!'
             })
         }
         db.query(
-            `SELECT * FROM admins WHERE user = '${req.body.username}'`,
+            `SELECT * FROM admins WHERE user = '${req.body.email}'`,
             (err, result) => {
                 // user does not exists
                 if (err) {
@@ -234,7 +234,7 @@ router.post('/login', (req, res, next) => {
 
                 if (!result.length) {
                     return res.status(401).send({
-                        msg: 'Username or password is incorrect!'
+                        msg: 'Email or password is incorrect!'
                     });
                     // check password
                 } else if (result[0]['password'] == req.body.password) {
@@ -267,10 +267,10 @@ router.post('/login', (req, res, next) => {
 });
 // Admin user login ends here
 //Log out user
-router.delete('/logout/:id', (req, res, next) => {
-    const user = req.params.id;
+router.delete('/logout', (req, res, next) => {
+    const userid = req.query.id;
     db.query(
-        `DELETE last_login FROM admin WHERE id = '${user}'`,
+        `DELETE last_login FROM admin WHERE id = '${userid}'`,
         (err, result) => {
             if (result.affectedRows) {
                 // const data = JSON.parse(result);
@@ -384,9 +384,9 @@ router.get('/paymethods', userMiddleware.isLoggedIn, (req, res, next) => {
 });
 
 // delete payment method
-router.delete('/paymentmethod/:method', userMiddleware.isLoggedIn, (req, res, next) => {
+router.delete('/paymentmethod', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        const method = req.params.method;
+        const method = req.query.method;
         if (!method) {
             return res.status(403).send({
                 msg: 'Please ensure you pass the payment method you want to delete as a parameter!'
@@ -413,10 +413,10 @@ router.delete('/paymentmethod/:method', userMiddleware.isLoggedIn, (req, res, ne
     }
 });
 // diasable payment method
-router.put('/disablemethod/:method', userMiddleware.isLoggedIn, (req, res, next) => {
+router.put('/disablemethod', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
         let status = 'Disable';
-        const method = req.params.method;
+        const method = req.query.method;
         if (!method) {
             return res.status(403).send({
                 msg: 'Please ensure you pass the payment method you want to disable as a parameter!'
@@ -444,10 +444,10 @@ router.put('/disablemethod/:method', userMiddleware.isLoggedIn, (req, res, next)
 });
 
 // enable payment method
-router.put('/enablemethod/:method', userMiddleware.isLoggedIn, (req, res, next) => {
+router.put('/enablemethod', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
         let status = 'Enable';
-        const method = req.params.method;
+        const method = req.query.method;
         if (!method) {
             return res.status(403).send({
                 msg: 'Please ensure you pass the payment method you want to disable as a parameter!'
@@ -536,9 +536,9 @@ router.get('/languages', userMiddleware.isLoggedIn, (req, res, next) => {
 
 
 // deleting a language from the system
-router.delete('/deletelang/:language', userMiddleware.isLoggedIn, (req, res, next) => {
+router.delete('/deletelang', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        const language = req.params.language;
+        const language = req.query.language;
         if (!language) {
             return res.status(401).send({
                 msg: "language must be passed a parameter!"
@@ -565,9 +565,9 @@ router.delete('/deletelang/:language', userMiddleware.isLoggedIn, (req, res, nex
     }
 });
 // Disabling a language from the system
-router.put('/disablelang/:language', userMiddleware.isLoggedIn, (req, res, next) => {
+router.put('/disablelang', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        const language = req.params.language;
+        const language = req.query.language;
         let status = "Disable";
         if (!language) {
             return res.status(401).send({
@@ -595,9 +595,9 @@ router.put('/disablelang/:language', userMiddleware.isLoggedIn, (req, res, next)
     }
 });
 // Enabling a language in the system
-router.put('/enablelang/:language', userMiddleware.isLoggedIn, (req, res, next) => {
+router.put('/enablelang', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        const language = req.params.language;
+        const language = req.query.language;
         let status = "Enable";
         if (!language) {
             return res.status(401).send({
@@ -654,8 +654,8 @@ router.get('/feedbacks', userMiddleware.isLoggedIn, (req, res, next) => {
     }
 });
 // To mark the feedback satus as seen
-router.put('/feedback/:id', userMiddleware.isLoggedIn, (req, res, next) => {
-    let fb_id = req.params.id;
+router.put('/feedback', userMiddleware.isLoggedIn, (req, res, next) => {
+    let fb_id = req.query.id;
     let status = "seen"
     try {
         db.query(
