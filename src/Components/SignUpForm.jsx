@@ -3,18 +3,49 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import axios from "axios";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 
 const SignUpForm = () => {
   const { data: session } = useSession();
+  const router = useRouter();
 
-  useEffect(() => {
-    const res = async () => {
-      if (session) {
+  // useEffect(() => {
+  //   const res = async () => {
+  //     if (session) {
+  //       await axios.post(
+  //         "http://161.35.218.95:3000/api/social_media_sign",
+  //         {
+  //           username: session.user.name,
+  //           email: session.user.email,
+  //         },
+  //         {
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //           },
+  //         }
+  //       );
+  //     }
+  //   };
+  //   res();
+  // }, [session]);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+    try {
+      const res = async () => {
         await axios.post(
-          "http://161.35.218.95:3000/api/social_media_sign",
+          "http://161.35.218.95:3000/api/signup",
           {
-            username: session.user.name,
-            email: session.user.email,
+            username: data.username,
+            email: data.email,
+            password: data.password,
+            confirmPassword: data.confirmPassword,
           },
           {
             headers: {
@@ -22,33 +53,43 @@ const SignUpForm = () => {
             },
           }
         );
-      }
-    };
-    res();
-  }, [session]);
+        router.push("/user/receive-sms");
+      };
+      res();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   
   return (
     <div className=" mx-2 rounded-2xl bg-color-white px-6 pb-12 pt-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:m-auto md:max-w-md md:rounded-3xl lg:max-w-xl">
       <div className="m-auto max-w-xs">
         <h3 className="my-4 text-center text-h2Size font-bold">Sign up</h3>
-        <form className="flex flex-col items-center justify-items-center space-y-4">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col items-center justify-items-center space-y-4"
+        >
           <input
-            type="email"
-            placeholder="Enter your email"
-            className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
-          />
-          <input
+            {...register("username")}
             type="Username"
             placeholder="Enter your Username"
             className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
           />
           <input
+            {...register("email", { required: true })}
+            type="email"
+            placeholder="Enter your email"
+            className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
+          />
+          <input
+            {...register("password", { required: true })}
             type="password"
             placeholder="Create password"
             className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
           />
           <input
+            {...register("confirmPassword", { required: true })}
             type="password"
             placeholder="Confirm password"
             className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
