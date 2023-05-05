@@ -28,7 +28,7 @@ const Login = () => {
 
   return (
     <section id='login' className="bg-color-bg_light">
-      <div className='md:w-4/5 mx-auto py-6'>
+      <div className='md:w-4/5 mx-auto mt-14 pt-14 pb-6'>
         <div className=" mx-2 px-6 pt-4 pb-12 bg-color-white rounded-2xl shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:rounded-3xl md:max-w-md md:m-auto lg:max-w-xl">
           <div className="max-w-xs m-auto">
             <h3 className="font-bold text-h2Size text-center my-4">

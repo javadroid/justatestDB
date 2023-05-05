@@ -6,7 +6,7 @@ const partnership = () => {
   return (
     <section>
       <div className="bg-color-bg_primary-500 p-20">
-        <h1 className="text-center text-4xl font-extrabold">
+        <h1 className="text-center mt-8 text-4xl font-extrabold">
           Make Money on SIM cards with a reliable service
         </h1>
       </div>

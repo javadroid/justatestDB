@@ -99,7 +99,7 @@
       margin-bottom: 0;
       grid-template-areas: "a b c d e f";
   }
-  h6 {
+ .table h6 {
       display: none;
   }
 }

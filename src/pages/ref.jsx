@@ -5,7 +5,7 @@ export default function Ref() {
   return (
     <section>
       <div className="m-auto md:px-4 xl:px-8">
-        <div className="max-w-6xl my-8 mx-auto px-4 xl:px-8">
+        <div className="max-w-6xl mt-24 mb-8 mx-auto px-4 xl:px-8">
           <h2 className="font-bold text-sm text-center mb-4 sm:text-xl md:text-left">Get money for attracted users!</h2>
           <p className="text-xs font-bold mb-2 sm:text-lg md:mb-6">Detailed conditions of the affiliate program:</p>
           <ol className="list-decimal text-xs space-y-2 mb-4 ml-10 sm:text-lg md:ml-12 md:text-justify">

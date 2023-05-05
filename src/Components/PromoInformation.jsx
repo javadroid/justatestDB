@@ -13,7 +13,7 @@ import {
 
 const PromoInformation = () => {
   return (
-    <section className="bg-color-bg_primary-500 pt-4 md:pt-10">
+    <section className="bg-color-bg_primary-500 pt-4 md:pt-10 lg:pb-20">
       <div className="mx-auto max-w-7xl lg:px-10">
         <div className="flex flex-col">
           <div className="lg:mb-10 lg:flex lg:items-center">
@@ -120,7 +120,7 @@ const PromoInformation = () => {
                 Number of services
               </h1>
             </div>
-            <div className="flex  h-full items-baseline border border-l-0 border-r-0 border-t-0 border-blue-300 lg:contents">
+            <div className="flex h-full items-baseline border border-l-0 border-r-0 border-t-0 border-blue-300 lg:contents">
               <div className="border-r-3 flex w-full border border-b-0 border-l-0 border-t-0 border-blue-300 px-1 lg:border-0">
                 <p className="text-center text-base font-extrabold md:text-xl">
                   1000+
@@ -133,10 +133,19 @@ const PromoInformation = () => {
               </div>
             </div>
           </div>
-          <div>
-            <div></div>
-            <button></button>
-            <button></button>
+          <div className="lg:grid lg:grid-cols-3 lg:pb-5 width-full text-color-white font-extrabold text-center">
+            <div className="hidden lg:block relative">
+              <span className="absolute bg-[url('../assets/images/arrow.svg')] bg-no-repeat bg-contain top-1/2 left-1/2 bg-[50%] -translate-y-1/2 -translate-x-1/2 w-48 h-48"></span>
+            </div>
+             
+            <div className="text-left">
+              <button className="bg-color-primary py-4 rounded-full w-2/3">
+                Buy a one-time number
+              </button>
+            </div>
+            <div className="text-left">
+              <button className="bg-color-primary_black py-4 rounded-full w-2/3">Rent Number</button>
+            </div>
           </div>
         </div>
       </div>
