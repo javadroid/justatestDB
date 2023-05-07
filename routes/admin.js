@@ -239,7 +239,7 @@ router.post('/login', (req, res, next) => {
                     // check password
                 } else if (result[0]['password'] == req.body.password) {
                     const token = jwt.sign({
-                            username: result[0].username,
+                            username: result[0].user,
                             userId: result[0].id
                         },
                         'SECRETKEY', {
