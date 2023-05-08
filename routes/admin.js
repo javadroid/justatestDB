@@ -498,7 +498,8 @@ router.put('/enablemethod', userMiddleware.isLoggedIn, (req, res, next) => {
 //setting up language
 router.post('/createlang', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        const { language } = req.body.language;
+        const language = req.body.language;
+        let status = "Enable";
         if (!language) {
             return res.status(401).send({
                 msg: "language is required!"
