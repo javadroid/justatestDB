@@ -123,7 +123,7 @@ router.put('/disable/user', userMiddleware.isLoggedIn, (req, res, next) => {
                 (err, result) => {
                     if (result.affectedRows) {
                         return res.status(200).send({
-                            users: { result }
+                            msg: result.affectedRows + " user account has been disabled successfully."
                         });
                     } else {
                         return res.status(404).send({
@@ -148,7 +148,7 @@ router.put('/enable/user', userMiddleware.isLoggedIn, (req, res, next) => {
                 (err, result) => {
                     if (result.affectedRows) {
                         return res.status(200).send({
-                            users: { result }
+                            msg: result.affectedRows + " user account has been disabled successfully."
                         });
                     } else {
                         return res.status(404).send({
@@ -172,7 +172,7 @@ router.delete('/delete/user', userMiddleware.isLoggedIn, (req, res, next) => {
                 (err, result) => {
                     if (result.affectedRows) {
                         return res.status(200).send({
-                            msg: "User has been successfully deleted."
+                            msg: result.affectedRows + " user account has been deleted successfully."
                         });
                     } else {
                         return res.status(404).send({
@@ -296,7 +296,7 @@ router.delete('/logout', (req, res, next) => {
 router.post('/setrentfee', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
         const { country, duration, amount } = req.body;
-        if (!country || !duration || amount) {
+        if (!country || !duration || !amount) {
             return res.status(403).send({
                 msg: 'All fields are required!'
             });

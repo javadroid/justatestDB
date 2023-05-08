@@ -49,7 +49,7 @@ module.exports = {
             next();
         } catch (err) {
             return res.status(401).send({
-                msg: 'Your session is not valid!'
+                msg: 'Your session is not valid, you must be logged in!'
             });
         }
     }
