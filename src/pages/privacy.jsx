@@ -4,7 +4,7 @@ export default function Privacy() {
   return (
     <section>
       <div className="m-auto px-4 lg:px-0">
-        <div className="max-w-6xl my-8 mx-auto md:px-8">
+        <div className="max-w-6xl mt-24 mb-8 mx-auto md:px-8">
           <h2 className="font-extrabold text-center text-lg mb-4 sm:text-[1.6rem] md:text-justify md:mb-6 lg:text-3xl lg:mb-8">Privacy Policy</h2>
           <div  className="text-justify font-medium text-[0.60rem] space-y-4 sm:text-sm md:text-base">
             <div className="space-y-3">

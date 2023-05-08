@@ -6,7 +6,7 @@ import { Icon } from "@iconify/react";
 
 const BlogComponent = () => {
   return (
-    <div className="mt-5 border-b border-gray-400/20 md:flex md:items-start md:gap-10">
+    <div className="mt-10 pt-4 border-b border-gray-400/20 md:flex md:items-start md:gap-10">
       <div>
         <Image src={Media} alt="Media" className="w-50 h-50  object-contain" />
       </div>

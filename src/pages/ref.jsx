@@ -5,7 +5,7 @@ export default function Ref() {
   return (
     <section>
       <div className="m-auto md:px-4 xl:px-8">
-        <div className="max-w-6xl my-8 mx-auto px-4 xl:px-8">
+        <div className="max-w-6xl mt-24 mb-8 mx-auto px-4 xl:px-8">
           <h2 className="font-bold text-sm text-center mb-4 sm:text-xl md:text-left">Get money for attracted users!</h2>
           <p className="text-xs font-bold mb-2 sm:text-lg md:mb-6">Detailed conditions of the affiliate program:</p>
           <ol className="list-decimal text-xs space-y-2 mb-4 ml-10 sm:text-lg md:ml-12 md:text-justify">
@@ -19,7 +19,7 @@ export default function Ref() {
             <li>Administration of Newsems has the right to deny withdrawal of funds in case of fraudulent use of the invited users or other abuses of the referral program</li>
           </ol>
           <p className="text-xs mb-2 sm:text-lg md:text-justify md:mb-4">If you have an application that works with our API, you can get affiliate payments from users you attracted.</p>
-          <p className="text-xs sm:text-lg md:text-justify">To do this <Link href="/" className="underline text-color-primary">write us.</Link></p>
+          <p className="text-xs sm:text-lg md:text-justify">To do this <Link href={"/contact"} className="underline text-color-primary">write us.</Link></p>
         </div>
       </div>
     </section>

@@ -66,7 +66,7 @@ const Login = () => {
 
   return (
     <section id="login" className="bg-color-bg_light">
-      <div className="mx-auto py-6 md:w-4/5">
+      <div className="mx-auto mt-14 pt-14 pb-6 md:w-4/5">
         <div className=" mx-2 rounded-2xl bg-color-white px-6 pb-12 pt-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:m-auto md:max-w-md md:rounded-3xl lg:max-w-xl">
           <div className="m-auto max-w-xs">
             <h3 className="my-4 text-center text-h2Size font-bold">Log in</h3>

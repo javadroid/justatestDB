@@ -6,11 +6,11 @@ const HeroSection = () => {
   return (
     <div className="my-8 px-5">
       <div className="flex items-center justify-between gap-12">
-        <div className=" hidden lg:block lg:w-[700px]">
+        <div className=" hidden lg:block">
           <Image
             src={Tablet}
             alt="Tablet Pic"
-            className="h-full w-full object-contain "
+            className=""
           />
         </div>
         <div>
