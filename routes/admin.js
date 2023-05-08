@@ -565,7 +565,7 @@ router.delete('/deletelang', userMiddleware.isLoggedIn, (req, res, next) => {
             });
         }
         db.query(
-            `DELETE FROM languages WHERE id='${language}')`,
+            `DELETE FROM languages WHERE id='${language}'`,
             (err, result) => {
                 if (err) {
                     // throw err;
