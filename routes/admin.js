@@ -390,7 +390,7 @@ router.delete('/paymentmethod', userMiddleware.isLoggedIn, (req, res, next) => {
         const method = req.query.id;
         if (!method) {
             return res.status(403).send({
-                msg: 'Please ensure you pass the payment method you want to delete as a parameter!'
+                msg: 'Please ensure you passed the payment method ID you want to delete as a parameter!'
             });
         }
         db.query(
@@ -402,9 +402,15 @@ router.delete('/paymentmethod', userMiddleware.isLoggedIn, (req, res, next) => {
                         msg: err
                     });
                 }
-                return res.status(201).send({
-                    msg: result.affectedRows + ' payment method has been successfully deleted!',
-                });
+                if (result.affectedRows) {
+                    return res.status(200).send({
+                        msg: result.affectedRows + ' payment method has been successfully deleted!',
+                    });
+                } else {
+                    return res.status(409).send({
+                        msg: 'No payment method with such ID exist!',
+                    });
+                }
             }
         );
     } catch (err) {
@@ -417,7 +423,7 @@ router.delete('/paymentmethod', userMiddleware.isLoggedIn, (req, res, next) => {
 router.put('/disablemethod', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
         let status = 'Disable';
-        const method = req.query.method;
+        const method = req.query.id;
         if (!method) {
             return res.status(403).send({
                 msg: 'Please ensure you pass the payment method you want to disable as a parameter!'
@@ -432,9 +438,15 @@ router.put('/disablemethod', userMiddleware.isLoggedIn, (req, res, next) => {
                         msg: err
                     });
                 }
-                return res.status(201).send({
-                    msg: method + ' payment method has been successfully disable.',
-                });
+                if (result.affectedRows) {
+                    return res.status(200).send({
+                        msg: result.affectedRows + ' payment method has been successfully deleted!',
+                    });
+                } else {
+                    return res.status(409).send({
+                        msg: 'No payment method with such ID exist!',
+                    });
+                }
             }
         );
     } catch (err) {
