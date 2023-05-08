@@ -601,7 +601,7 @@ router.put('/disablelang', userMiddleware.isLoggedIn, (req, res, next) => {
             });
         }
         db.query(
-            `UPDATE languages SET status='${status}' WHERE id='${language}')`,
+            `UPDATE languages SET status='${status}' WHERE id='${language}'`,
             (err, result) => {
                 if (err) {
                     // throw err;
@@ -637,7 +637,7 @@ router.put('/enablelang', userMiddleware.isLoggedIn, (req, res, next) => {
             });
         }
         db.query(
-            `UPDATE languages SET status='${status}' WHERE id='${language}')`,
+            `UPDATE languages SET status='${status}' WHERE id='${language}'`,
             (err, result) => {
                 if (err) {
                     // throw err;
