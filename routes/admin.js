@@ -216,9 +216,9 @@ router.get('/user/transactions', userMiddleware.isLoggedIn, (req, res, next) => 
 //Login user
 router.post('/login', (req, res, next) => {
     try {
-        if (!req.body.email) {
+        if (!req.body.email || !reqboy.password) {
             return res.status(409).send({
-                msg: 'Email is require!'
+                msg: 'Email and password are require!'
             })
         }
         db.query(
@@ -240,7 +240,8 @@ router.post('/login', (req, res, next) => {
                 } else if (result[0]['password'] == req.body.password) {
                     const token = jwt.sign({
                             username: result[0].user,
-                            userId: result[0].id
+                            userId: result[0].id,
+                            role: result[0].role
                         },
                         'SECRETKEY', {
                             expiresIn: '7d'
