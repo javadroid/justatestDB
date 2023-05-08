@@ -97,7 +97,7 @@ router.put('/freez/user/', userMiddleware.isLoggedIn, (req, res, next) => {
             (err, result) => {
                 if (result.affectedRows) {
                     return res.status(200).send({
-                        users: { result }
+                        msg: result.affectedRows + " user account has been freezed successfully."
                     });
                 } else {
                     return res.status(404).send({
