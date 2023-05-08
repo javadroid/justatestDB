@@ -19,7 +19,7 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
        )});`,
             (err, result) => {
                 if (result.length) {
-                    return res.status(409).send({
+                    return res.send({
                         msg: 'This email is already in used!'
                     });
                 } else {
@@ -29,7 +29,7 @@ router.post('/signup', userMiddleware.validateRegister, (req, res, next) => {
             )});`,
                         (err, result) => {
                             if (result.length) {
-                                return res.status(409).send({
+                                return res.send({
                                     msg: 'This username is already in use!'
                                 });
                             } else {

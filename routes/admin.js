@@ -240,7 +240,8 @@ router.post('/login', (req, res, next) => {
                 } else if (result[0]['password'] == req.body.password) {
                     const token = jwt.sign({
                             username: result[0].user,
-                            userId: result[0].id
+                            userId: result[0].id,
+                            role: result[0].role
                         },
                         'SECRETKEY', {
                             expiresIn: '7d'
