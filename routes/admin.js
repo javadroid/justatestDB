@@ -387,14 +387,14 @@ router.get('/paymethods', userMiddleware.isLoggedIn, (req, res, next) => {
 // delete payment method
 router.delete('/paymentmethod', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        const method = req.query.method;
+        const method = req.query.id;
         if (!method) {
             return res.status(403).send({
                 msg: 'Please ensure you pass the payment method you want to delete as a parameter!'
             });
         }
         db.query(
-            `DELETE FROM pay_methods WHERE method='${method}'`,
+            `DELETE FROM pay_methods WHERE id='${method}'`,
             (err, result) => {
                 if (err) {
                     // throw err;
@@ -403,7 +403,7 @@ router.delete('/paymentmethod', userMiddleware.isLoggedIn, (req, res, next) => {
                     });
                 }
                 return res.status(201).send({
-                    msg: method + ' payment method has been successfully deleted!',
+                    msg: result.affectedRows + ' payment method has been successfully deleted!',
                 });
             }
         );
