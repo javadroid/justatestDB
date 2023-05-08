@@ -6,20 +6,20 @@ module.exports = {
     validateRegister: (req, res, next) => {
         // username min length 3
         if (!req.body.username || req.body.username.length < 3) {
-            return res.send({
+            return res.status(400).send({
                 msg: 'Please enter a username with minimum of 3 chars'
             });
         }
         // password min 6 chars
         if (!req.body.email) {
-            return res.send({
+            return res.status(400).send({
                 msg: 'Please enter a valid email'
             });
         }
 
         // password min 6 chars
         if (!req.body.password || req.body.password.length < 6) {
-            return res.send({
+            return res.status(400).send({
                 msg: 'Please enter a password with min. 6 chars'
             });
         }
