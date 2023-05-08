@@ -216,11 +216,12 @@ router.get('/user/transactions', userMiddleware.isLoggedIn, (req, res, next) => 
 //Login user
 router.post('/login', (req, res, next) => {
     try {
-        if (!req.body.email || !reqboy.password) {
+        if (!req.body.email || !req.body.password) {
             return res.status(409).send({
                 msg: 'Email and password are require!'
             })
         }
+        console.log("I can reach here..")
         db.query(
             `SELECT * FROM admins WHERE user = '${req.body.email}'`,
             (err, result) => {
@@ -231,7 +232,6 @@ router.post('/login', (req, res, next) => {
                         msg: err
                     });
                 }
-
                 if (!result.length) {
                     return res.status(401).send({
                         msg: 'Email or password is incorrect!'
