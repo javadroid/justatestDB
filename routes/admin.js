@@ -558,14 +558,14 @@ router.get('/languages', userMiddleware.isLoggedIn, (req, res, next) => {
 // deleting a language from the system
 router.delete('/deletelang', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        const language = req.query.language;
+        const language = req.query.id;
         if (!language) {
             return res.status(401).send({
-                msg: "language must be passed a parameter!"
+                msg: "The language id must be passed a parameter!"
             });
         }
         db.query(
-            `DELETE FROM languages WHERE language='${language}')`,
+            `DELETE FROM languages WHERE id='${language}')`,
             (err, result) => {
                 if (err) {
                     // throw err;
@@ -573,9 +573,15 @@ router.delete('/deletelang', userMiddleware.isLoggedIn, (req, res, next) => {
                         msg: err
                     });
                 }
-                return res.status(201).send({
-                    msg: language + ' language has been successfully deleted!',
-                });
+                if (result.affectedRows) {
+                    return res.status(201).send({
+                        msg: result.affectedRows + ' language has been successfully deleted!',
+                    });
+                } else {
+                    return res.status(201).send({
+                        msg: 'No language exist with such id.',
+                    });
+                }
             }
         );
     } catch (err) {
@@ -587,15 +593,15 @@ router.delete('/deletelang', userMiddleware.isLoggedIn, (req, res, next) => {
 // Disabling a language from the system
 router.put('/disablelang', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        const language = req.query.language;
+        const language = req.query.id;
         let status = "Disable";
         if (!language) {
             return res.status(401).send({
-                msg: "language must be passed a parameter!"
+                msg: "language id must be passed a parameter!"
             });
         }
         db.query(
-            `UPDATE languages SET status='${status}' WHERE language='${language}')`,
+            `UPDATE languages SET status='${status}' WHERE id='${language}')`,
             (err, result) => {
                 if (err) {
                     // throw err;
@@ -603,9 +609,15 @@ router.put('/disablelang', userMiddleware.isLoggedIn, (req, res, next) => {
                         msg: err
                     });
                 }
-                return res.status(201).send({
-                    msg: language + ' language has been disable!',
-                });
+                if (result.affectedRows) {
+                    return res.status(201).send({
+                        msg: result.affectedRows + ' language has been successfully disable!',
+                    });
+                } else {
+                    return res.status(201).send({
+                        msg: 'No language exist with such id.',
+                    });
+                }
             }
         );
     } catch (err) {
@@ -617,7 +629,7 @@ router.put('/disablelang', userMiddleware.isLoggedIn, (req, res, next) => {
 // Enabling a language in the system
 router.put('/enablelang', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        const language = req.query.language;
+        const language = req.query.id;
         let status = "Enable";
         if (!language) {
             return res.status(401).send({
@@ -625,7 +637,7 @@ router.put('/enablelang', userMiddleware.isLoggedIn, (req, res, next) => {
             });
         }
         db.query(
-            `UPDATE languages SET status='${status}' WHERE language='${language}')`,
+            `UPDATE languages SET status='${status}' WHERE id='${language}')`,
             (err, result) => {
                 if (err) {
                     // throw err;
@@ -633,9 +645,15 @@ router.put('/enablelang', userMiddleware.isLoggedIn, (req, res, next) => {
                         msg: err
                     });
                 }
-                return res.status(201).send({
-                    msg: language + ' language has been Enable!',
-                });
+                if (result.affectedRows) {
+                    return res.status(201).send({
+                        msg: result.affectedRows + ' language has been successfully enable!',
+                    });
+                } else {
+                    return res.status(201).send({
+                        msg: 'No language exist with such id.',
+                    });
+                }
             }
         );
     } catch (err) {
