@@ -475,9 +475,15 @@ router.put('/enablemethod', userMiddleware.isLoggedIn, (req, res, next) => {
                         msg: err
                     });
                 }
-                return res.status(201).send({
-                    msg: method + ' payment method has been successfully enable!',
-                });
+                if (result.affectedRows) {
+                    return res.status(200).send({
+                        msg: result.affectedRows + ' payment method has been successfully enable!',
+                    });
+                } else {
+                    return res.status(409).send({
+                        msg: 'No payment method with such ID exist!',
+                    });
+                }
             }
         );
     } catch (err) {
