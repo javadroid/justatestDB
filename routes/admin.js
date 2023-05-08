@@ -359,7 +359,7 @@ router.post('/paymentmethod', userMiddleware.isLoggedIn, (req, res, next) => {
 router.get('/paymethods', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
         db.query(
-            `SELECT * FROM pay_methods ORDER BY date DESC`,
+            `SELECT * FROM pay_methods ORDER BY setup_date DESC`,
             (err, result) => {
                 if (err) {
                     // throw err;
