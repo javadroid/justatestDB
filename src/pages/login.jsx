@@ -3,12 +3,15 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
 import { useSession } from "next-auth/react";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 // import axios from "axios";
 // import { useForm } from 'react-hook-form';
 
 const Login = () => {
   const { data: session } = useSession();
+  const router = useRouter();
 
   // useEffect(() => {
   //   const res = async () => {
@@ -36,7 +39,29 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data);
+    try {
+      const res = async () => {
+        await axios.post(
+          "http://161.35.218.95:3000/api/login",
+          {
+            email: data.email,
+            password: data.password,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        router.push("/user/receive-sms");
+      };
+      res();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   // console.log(watch("example"));
 
   return (
