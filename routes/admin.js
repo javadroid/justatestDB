@@ -302,7 +302,7 @@ router.post('/setrentfee', userMiddleware.isLoggedIn, (req, res, next) => {
             });
         }
         db.query(
-            `INSERT INTO renr_cal (country, duration, amount, setup_date) VALUES ('${country}', '${duration}', '${amount}', now())`,
+            `INSERT INTO rent_cal (country, duration, amount, setup_date) VALUES ('${country}', '${duration}', '${amount}', now())`,
             (err, result) => {
                 if (err) {
                     // throw err;
