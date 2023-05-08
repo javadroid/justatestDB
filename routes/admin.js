@@ -426,7 +426,7 @@ router.put('/disablemethod', userMiddleware.isLoggedIn, (req, res, next) => {
         const method = req.query.id;
         if (!method) {
             return res.status(403).send({
-                msg: 'Please ensure you pass the payment method you want to disable as a parameter!'
+                msg: 'Please ensure you pass the ID of payment method you want to disable as a parameter!'
             });
         }
         db.query(
@@ -463,7 +463,7 @@ router.put('/enablemethod', userMiddleware.isLoggedIn, (req, res, next) => {
         const method = req.query.method;
         if (!method) {
             return res.status(403).send({
-                msg: 'Please ensure you pass the payment method you want to disable as a parameter!'
+                msg: 'Please ensure you pass the ID of payment method you want to enable as a parameter!'
             });
         }
         db.query(
@@ -498,7 +498,7 @@ router.put('/enablemethod', userMiddleware.isLoggedIn, (req, res, next) => {
 //setting up language
 router.post('/createlang', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        const { language } = req.body;
+        const { language } = req.body.language;
         if (!language) {
             return res.status(401).send({
                 msg: "language is required!"
