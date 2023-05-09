@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export const Footer = () => {
   return (
-    <footer>
+    <footer className="bg-color-bg_light-100">
       <div className="p-4">
         <div className="flex justify-center pb-16">
           <Image
@@ -19,8 +19,8 @@ export const Footer = () => {
             className="h-20 w-36 bg-blue-400 object-contain "
           />
         </div>
-        <div>
-          <ul className="flex flex-wrap justify-center gap-4">
+        <div className="max-w-6xl mx-auto px-2">
+          <ul className="flex flex-wrap justify-between gap-4 font-bold text-color-primary">
             <Link href={"/"}>
               <li>Receive SMS Online</li>
             </Link>
@@ -86,11 +86,11 @@ export const Footer = () => {
         </div>
       </div>
       <div className="bg-color-bg_light p-6 text-center md:p-4">
-        <ul className="flex flex-col items-center space-y-3 text-slate-500/50 md:flex-row md:justify-around md:space-x-1">
+        <ul className="flex flex-col items-center w-full space-y-3 text-slate-500/50 md:flex-row md:justify-center md:space-y-0 md:space-x-4 lg:h-16">
           <Link href={"/privacy"}>
             <li>Privacy Policy</li>
           </Link>
-          <Link href={"/terms"}>
+          <Link href={"/terms"} className="border-x border-slate-500/50 px-4">
             <li>Terms of Use</li>
           </Link>
           <Link href={"/payment-policy"}>

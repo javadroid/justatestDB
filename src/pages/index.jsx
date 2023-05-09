@@ -1,12 +1,15 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import Hero from "@/assets/phone-image.png";
+import Hero from "@/assets/receive-sms.png";
 
-import Ad from "@/assets/ad.png";
+import Ad from "@/assets/facebookReg.png";
+import Ad2 from "@/assets/craiglistAds.png";
 import Cry from "@/assets/cry-emoji.svg";
 import Smile from "@/assets/smile-emoji.svg";
-import LadyLaptop from "@/assets/lady-laptop.png";
+import LadyLaptop from "@/assets/step1.png";
+import LadyLaptop2 from "@/assets/step2.png";
+import LadyLaptop3 from "@/assets/step3.png";
 import Form from "@/Components/Form";
 import Chill from "@/assets/img.png";
 import Services from "@/Components/Services";
@@ -67,6 +70,8 @@ export default function Home() {
             <div className="sm:flex sm:items-center sm:justify-center">
               <Image
                 src={Hero}
+                width={500}
+                height={500}
                 alt="Hero"
                 priority={true}
               />
@@ -119,7 +124,7 @@ export default function Home() {
               </div>
               <div className="mt-4 flex flex-col items-center rounded-3xl bg-color-bg_primary-500 py-5">
                 <Image
-                  src={Ad}
+                  src={Ad2}
                   alt="AD image"
                   className="h-80 w-80 object-contain"
                 />
@@ -188,33 +193,31 @@ export default function Home() {
             </div>
             <div className="flex flex-col items-center md:mx-auto md:max-w-5xl md:flex-row-reverse md:gap-20">
               <Image
-                src={LadyLaptop}
+                src={LadyLaptop2}
                 alt="Lady with Laptop"
                 className="h-80 w-80 object-contain"
               />
               <div className="flex flex-col items-center">
                 <h1 className="mb-6 w-4/5 self-center text-center text-xl font-bold md:text-left">
-                  Get your number in your personal cabinet
+                  Enter your phone number when signing up online
                 </h1>
                 <p className="w-4/5 text-lg">
-                  To register with Newsems you only need to enter your email
-                  address. No ID information or other contacts.
+                  We support 1500+ of the most popular social networks, messengers, marketplaces and web sites.
                 </p>
               </div>
             </div>
             <div className="flex flex-col items-center md:mx-auto md:max-w-5xl md:flex-row md:gap-20">
               <Image
-                src={LadyLaptop}
+                src={LadyLaptop3}
                 alt="Lady with Laptop"
                 className="h-80 w-80 object-contain"
               />
               <div className="flex flex-col items-center">
                 <h1 className="mb-6 w-4/5 self-center text-center text-xl font-bold md:text-left">
-                  Get your number in your personal cabinet
+                  You receive an SMS in your personal profile
                 </h1>
                 <p className="w-4/5 text-lg">
-                  To register with Newsems you only need to enter your email
-                  address. No ID information or other contacts.
+                  You enter the verification code you received on the site. From $0.05 per activation. The number of numbers and activations is unlimited.
                 </p>
               </div>
             </div>

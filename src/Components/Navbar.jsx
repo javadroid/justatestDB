@@ -9,6 +9,7 @@ const Navbar = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
+
 const [isScrolled, setIsScrolled] = useState(false);
 useEffect(() => {
   function handleScroll() {

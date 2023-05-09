@@ -1,9 +1,9 @@
 import Image from "next/image";
 import React from "react";
-import Landline from "@/assets/landline.png";
-import Hand from "@/assets/hand.png";
-import Robot from "@/assets/robot.png";
-import Windows from "@/assets/windows.png";
+import Landline from "@/assets/247-support.png";
+import Hand from "@/assets/group-chat.png";
+import Robot from "@/assets/telegram-bot.png";
+import Windows from "@/assets/desktop-sms.png";
 import Link from "next/link";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 
