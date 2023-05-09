@@ -120,7 +120,7 @@ const SignUpForm = () => {
           </button>
         </form>
         <p className="my-2 text-center text-sm text-color-text_light sm:my-4 md:text-base">
-          Already have an account?{" "}
+          Already have an account?
           <Link
             href="/signup"
             className="font-bold text-color-primary hover:underline"
