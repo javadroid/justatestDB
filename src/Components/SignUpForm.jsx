@@ -53,7 +53,7 @@ const SignUpForm = () => {
             },
           }
         );
-        router.push("/user/receive-sms");
+        // router.push("/user/receive-sms");
       };
       res();
     } catch (error) {
@@ -61,7 +61,6 @@ const SignUpForm = () => {
     }
   };
 
-  
   return (
     <div className=" mx-2 rounded-2xl bg-color-white px-6 pb-12 pt-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:m-auto md:max-w-md md:rounded-3xl lg:max-w-xl">
       <div className="m-auto max-w-xs">
