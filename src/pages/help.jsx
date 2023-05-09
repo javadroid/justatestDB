@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import fast1 from "../assets/images/fast1.png";
 import fast2 from "../assets/images/fast2.png";
@@ -16,8 +15,13 @@ import getSmsCode from "../assets/images/getSmsCode_en.webp";
 import getSmsCode2 from "../assets/images/getSmsCode_2_en.webp";
 import howRent from "../assets/images/howRent_en.webp";
 import howRent2 from "../assets/images/howRent_2_en.webp";
+import { useRouter } from 'next/router'
 
 function Help() {
+
+  const router = useRouter();
+  
+  
   return (
     <section className="pb-20 mt-8">
       <div className="bg-color-bg_light pb-24">
@@ -32,7 +36,9 @@ function Help() {
         </div>
         <div className="width-full mx-auto -mt-24 flex max-w-5xl flex-col md:justify-center text-center md:flex-row md:flex-wrap md:pb-8 md:-mt-16 lg:flex-nowrap">
           <div className="px-3 mb-8 basis-full md:basis-1/2 lg:basis-1/3 b-0">
-            <Link href="" className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl">
+            <Link  onClick={() => {
+              router.push('#one-time')
+          }} href="#one-time" className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl">
               <Image src={fast1} alt="" className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get a number for one-time sign up?
@@ -40,7 +46,9 @@ function Help() {
             </Link>
           </div>
           <div className="px-3 mb-8 basis-full md:basis-1/2 lg:basis-1/3">
-            <Link href="" className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl">
+            <Link href="#how-to" onClick={() => {
+            router.push('#how-to')
+          }} className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl">
               <Image src={fast2} alt="" className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get sms to a bought number?
@@ -48,7 +56,9 @@ function Help() {
             </Link>
           </div>
           <div className="px-3 basis-full md:basis-1/2 lg:basis-1/3">
-            <Link href="" className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl">
+            <Link href="#long-term" onClick={() => {
+            router.push('#long-term');
+          }}  className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl">
               <Image src={fast3} alt="" className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get a long-term number?
@@ -156,7 +166,7 @@ function Help() {
               </li>
             </ol>
 
-            <h3 className="my-4 text-center text-xs font-extrabold sm:text-lg md:text-left">
+            <h3 id='one-time' className="my-4 text-center text-xs font-extrabold sm:text-lg md:text-left">
               How do I get a one-time registration number?
             </h3>
             <ol className="list-decimal space-y-4 pl-8 text-[10px] sm:text-sm">
@@ -237,7 +247,7 @@ function Help() {
             </ol>
 
             <h3 className="my-4 text-center text-xs font-extrabold sm:text-lg md:text-left">
-              How to rent a nubmeer for a very long time?
+              How to rent a number for a very long time?
             </h3>
             <p className="mb-2 text-[10px] sm:text-sm">
               1. To rent a number, go to the{" "}

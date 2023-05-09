@@ -27,23 +27,21 @@ export const faq = [
   },
   {
     question: "What do I do if I can't buy a virtual number?",
-    answer1: `It happens that you can not get a number the first time. Use our bot in the telegram. You do not need to request the number several times, it will be received by itself only by one of your clicks. Go ${(
-      <a href="https://t.me/Smsbyliknot_bot">
-        <span>here.</span>
+    answer1: <>
+    It happens that you can not get a number the first time. Use our bot in the telegram. You do not need to request the number several times, it will be received by itself only by one of your clicks. Go <a href="https://t.me/Smsbyliknot_bot">
+        <span className="text-color-primary underline">here.</span>
       </a>
-    )}`,
+      </>
   },
   {
     question: "Can I get a text message for free?",
-    answer: `Yes, you can get a free number in our ${(
-      <a href="https://t.me/smsnam" class="i-link">
-        <span>Telegram Channel</span>
+    answer1:<>
+    Yes, you can get a free number in our <a href="https://t.me/smsnam" class="i-link">
+        <span className="text-color-primary underline">Telegram Channel</span>
+      </a> and test our service without a deposit. But be aware that all toll-free numbers are public and anyone can read your text messages.
+    You can also check our special <a href="https://sms-man.com/free-numbers" class="i-link">
+        <span className="text-color-primary underline">page for free numbers. </span>
       </a>
-    )}  and test our service without a deposit. But be aware that all toll-free numbers are public and anyone can read your text messages.
-    You can also check our special ${(
-      <a href="https://sms-man.com/free-numbers" class="i-link">
-        <span>page for free numbers. </span>
-      </a>
-    )}`,
+    </>,
   },
 ];
