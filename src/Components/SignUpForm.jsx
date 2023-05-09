@@ -50,9 +50,6 @@ const SignUpForm = () => {
     {
       name: "twitter",
     },
-    {
-      name: "google",
-    },
   ];
 
   const handleOAuthSignIn = (provider) => () => signIn(provider);
