@@ -574,11 +574,11 @@ router.delete('/deletelang', userMiddleware.isLoggedIn, (req, res, next) => {
                     });
                 }
                 if (result.affectedRows) {
-                    return res.status(201).send({
+                    return res.status(200).send({
                         msg: result.affectedRows + ' language has been successfully deleted!',
                     });
                 } else {
-                    return res.status(201).send({
+                    return res.status(404).send({
                         msg: 'No language exist with such id.',
                     });
                 }
@@ -610,11 +610,11 @@ router.put('/disablelang', userMiddleware.isLoggedIn, (req, res, next) => {
                     });
                 }
                 if (result.affectedRows) {
-                    return res.status(201).send({
+                    return res.status(200).send({
                         msg: result.affectedRows + ' language has been successfully disable!',
                     });
                 } else {
-                    return res.status(201).send({
+                    return res.status(404).send({
                         msg: 'No language exist with such id.',
                     });
                 }
@@ -707,7 +707,7 @@ router.put('/feedback', userMiddleware.isLoggedIn, (req, res, next) => {
                 }
                 if (!result.affectedRows) {
                     return res.status(404).send({
-                        msg: 'Sorry, something went wrong. Try again!',
+                        msg: 'Wrong feedback id was passed!',
                     });
                 }
                 return res.status(200).send({
@@ -722,9 +722,16 @@ router.put('/feedback', userMiddleware.isLoggedIn, (req, res, next) => {
 // feedback module ends here
 
 // Blog posts module starts here
-router.post('/create_post', userMiddleware.isLoggedIn, (req, res, next) => {
+router.post('/create/post', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-
+        const { title, author, description, content } = req.body;
+        let buff = Buffer.from(content, 'utf8').toString('base64');
+        let DEcontent = Buffer.from(buff, 'base64').toString('utf8');
+        // let text = DEcontent.toString('ascii');
+        console.log("Encoded: " + buff);
+        console.log("Decoded: " + DEcontent);
+        console.log("Main content: " + content);
+        return;
     } catch (err) {
         console.log(err);
     }
