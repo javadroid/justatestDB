@@ -5,6 +5,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import { toast } from "react-hot-toast";
 
 const SignUpForm = () => {
   const { data: session } = useSession();
@@ -35,30 +36,51 @@ const SignUpForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => {
+
+  const instance = axios.create({
+    validateStatus: function (status) {
+      return status >= 200 && status < 300; // default
+    },
+  });
+
+  const providers = [
+    {
+      name: "github",
+    },
+    {
+      name: "twitter",
+    },
+    {
+      name: "google",
+    },
+  ];
+
+  const handleOAuthSignIn = (provider) => () => signIn(provider);
+
+  const onSubmit = async (data) => {
     console.log(data);
     try {
-      const res = async () => {
-        await axios.post(
-          "http://161.35.218.95:3000/api/signup",
-          {
-            username: data.username,
-            email: data.email,
-            password: data.password,
-            confirmPassword: data.confirmPassword,
+      const response = await instance.post(
+        "http://161.35.218.95:3000/api/signup",
+        {
+          username: data.username,
+          email: data.email,
+          password: data.password,
+          confirmPassword: data.confirmPassword,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
           },
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        // router.push("/user/receive-sms");
-      };
-      res();
+        }
+      );
+      toast.success(response.data.msg);
+      router.push("/");
     } catch (error) {
-      console.log(error);
+      console.log("Error is", error);
+      toast.error(error.response.data.msg);
     }
+    // router.push("/user/receive-sms");
   };
 
   return (
@@ -70,7 +92,7 @@ const SignUpForm = () => {
           className="flex flex-col items-center justify-items-center space-y-4"
         >
           <input
-            {...register("username")}
+            {...register("username", { required: true })}
             type="Username"
             placeholder="Enter your Username"
             className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
@@ -114,7 +136,7 @@ const SignUpForm = () => {
         <div className="flex items-center justify-center space-x-4">
           <div
             className="w-1/4 rounded-md bg-color-black px-4"
-            onClick={signIn}
+            onClick={handleOAuthSignIn(providers[0].name)}
           >
             <Icon
               icon="octicon:mark-github-16"
@@ -124,7 +146,7 @@ const SignUpForm = () => {
           <Link
             href="/"
             className="w-1/4 rounded-md bg-[#4267b2] px-4 py-2"
-            onClick={signOut}
+            //onClick={signOut}
           >
             <Icon
               icon="teenyicons:facebook-solid"
@@ -135,6 +157,7 @@ const SignUpForm = () => {
             <Icon
               icon="bi:twitter"
               className=" w-full text-4xl text-color-white transition duration-500 ease-in-out hover:opacity-75"
+              onClick={handleOAuthSignIn(providers[1].name)}
             />
           </Link>
           <Link
