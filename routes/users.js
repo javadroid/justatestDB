@@ -149,10 +149,12 @@ router.post('/social_media_sign', (req, res, next) => {
                                 // username is available
                                 const vstatus = 'verified';
                                 let str = req.body.username;
+                                const apikey = uuid.v4() + (str.charAt(1) + str.charAt(0) + str.charAt(2));
+                                const id = Math.floor(Math.random() * 3473) + 1 + (str.charAt(1) + str.charAt(2));
                                 const ref = Math.floor(Math.random() * 5000) + 1 + (str.charAt(0) + str.charAt(1) + str.charAt(2));
                                 db.query(
-                                    `INSERT INTO user (id, username, email, apikey, vstatus, reg_date, ref_code) VALUES ('${id}',  '${req.body.username}', '${req.body.email}', '${apikey}', '${vstatus}', now(), '${ref}')`,
-                                    (err, result) => {
+                                    `INSERT INTO users (id, username, email, apikey, vstatus, reg_date, ref_code) VALUES ('${id}',  '${req.body.username}', '${req.body.email}', '${apikey}', '${vstatus}', now(), '${ref}')`,
+                                    (err, resul) => {
                                         if (err) {
                                             //throw err;
                                             return res.status(400).send({
@@ -161,7 +163,7 @@ router.post('/social_media_sign', (req, res, next) => {
 
                                             });
                                         }
-                                        return res.send({ Ref: "I can reach here" })
+                                        // return res.send({ Ref: "I can reach here" })
                                         db.query(`INSERT INTO wallets (user_id) VALUES ('${id}')`,
                                             (err, result) => {
                                                 if (err) {
@@ -172,7 +174,7 @@ router.post('/social_media_sign', (req, res, next) => {
                                                     });
                                                 }
                                                 return res.status(201).send({
-                                                    msg: 'User Has Been Successfully Registered.'
+                                                    msg: 'User Has Been Successfully Registered, you can now login.'
                                                 });
                                             });
                                     }
