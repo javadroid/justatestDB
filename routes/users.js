@@ -101,7 +101,11 @@ router.post('/social_media_sign', (req, res, next) => {
          req.body.email
        )});`,
         (err, result) => {
-            if (result.length) {
+            if (err) {
+                return res.status(400).send({
+                    Error: err
+                })
+            } else if (result.length) {
                 const token = jwt.sign({
                         username: result[0].email,
                         userId: result[0].id
@@ -154,7 +158,7 @@ router.post('/social_media_sign', (req, res, next) => {
                             } else {
                                 // username is available
                                 const vstatus = 'verified';
-                                let str = req.body.username
+                                let str = req.body.username;
                                 const ref = Math.floor(Math.random() * 5000) + 1 + (str.charAt(0) + str.charAt(1) + str.charAt(2));
                                 db.query(
                                     `INSERT INTO users (id, apikey, username, email, vstatus, reg_date, ref_code) VALUES ('${id}', '${apikey}', '${str}', '${req.body.email}', '${vstatus}', now(), '${ref}')`,
