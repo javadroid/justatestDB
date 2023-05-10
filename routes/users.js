@@ -110,14 +110,21 @@ router.post('/social_media_sign', (req, res, next) => {
                         expiresIn: '7d'
                     }
                 );
-                try {
-                    db.query(
-                        `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
-                    );
-                    return res.status(200);
-                } catch (e) {
-                    console.log(e);
-                }
+                return res.status(200).send({
+                    msg: 'Logged in!',
+                    token,
+                    user: result[0]
+                });
+                // try {
+                //     db.query(
+                //         `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
+                //     );
+                //     return res.status(200);
+                // } catch (e) {
+                //     return res.status(400).send({
+                //         Error: err
+                //     });
+                // }
             } else {
                 try {
                     db.query(
@@ -170,8 +177,7 @@ router.post('/social_media_sign', (req, res, next) => {
                                                     });
                                                 }
                                                 return res.status(201).send({
-                                                    msg: 'Sign up was successful!',
-                                                    user: result[0]
+                                                    msg: 'User Has Been Successfully Registered.'
                                                 });
                                             });
                                     }
