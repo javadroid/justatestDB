@@ -724,20 +724,44 @@ router.put('/feedback', userMiddleware.isLoggedIn, (req, res, next) => {
 // Blog posts module starts here
 router.post('/create/post', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
+        let fb_link = "",
+            twt_link = "",
+            ingt_link = "";
         const { title, author, description, content } = req.body;
+        // encoding the content input
         let buff = Buffer.from(content, 'utf8').toString('base64');
+        // decoding the content
         let DEcontent = Buffer.from(buff, 'base64').toString('utf8');
-        // let text = DEcontent.toString('ascii');
         console.log("Encoded: " + buff);
         console.log("Decoded: " + DEcontent);
         console.log("Main content: " + content);
-        return;
+        if (!language) {
+            return res.status(401).send({
+                msg: "language is required!"
+            });
+        }
+        db.query(
+            `INSERT INTO languages(language, status, created_date) VALUES ('${language}', '${status}', now())`,
+            (err, result) => {
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                return res.status(201).send({
+                    msg: language + ' language has been successfully added!',
+                });
+            }
+        );
     } catch (err) {
-        console.log(err);
+        return res.status(401).send({
+            Error: err
+        })
     }
 });
 // Deleting blog post
-router.delete('/delete_post', userMiddleware.isLoggedIn, (req, res, next) => {
+router.delete('/delete/post', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
 
     } catch (err) {
@@ -745,7 +769,7 @@ router.delete('/delete_post', userMiddleware.isLoggedIn, (req, res, next) => {
     }
 });
 // Editing blog post
-router.put('/delete_post', userMiddleware.isLoggedIn, (req, res, next) => {
+router.put('/edit/post', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
 
     } catch (err) {
