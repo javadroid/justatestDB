@@ -119,16 +119,6 @@ router.post('/social_media_sign', (req, res, next) => {
                     token,
                     user: result[0]
                 });
-                // try {
-                //     db.query(
-                //         `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
-                //     );
-                //     return res.status(200);
-                // } catch (e) {
-                //     return res.status(400).send({
-                //         Error: err
-                //     });
-                // }
             } else {
                 try {
                     db.query(
@@ -146,9 +136,9 @@ router.post('/social_media_sign', (req, res, next) => {
                                     }
                                 );
 
-                                // db.query(
-                                //     `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
-                                // );
+                                db.query(
+                                    `UPDATE users SET last_login = now() WHERE id = '${result[0].id}'`
+                                );
                                 return res.status(200).send({
                                     msg: 'Logged in!',
                                     token,
