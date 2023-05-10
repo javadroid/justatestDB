@@ -150,7 +150,6 @@ router.post('/social_media_sign', (req, res, next) => {
                                 const vstatus = 'verified';
                                 let str = req.body.username;
                                 const ref = Math.floor(Math.random() * 5000) + 1 + (str.charAt(0) + str.charAt(1) + str.charAt(2));
-                                return res.send({ Ref: "I can reach here" })
                                 db.query(
                                     `INSERT INTO users (id, apikey, username, email, vstatus, reg_date, ref_code) VALUES ('${id}', '${apikey}', '${str}', '${req.body.email}', '${vstatus}', now(), '${ref}')`,
                                     (err, result) => {
@@ -162,6 +161,7 @@ router.post('/social_media_sign', (req, res, next) => {
 
                                             });
                                         }
+                                        return res.send({ Ref: "I can reach here" })
                                         db.query(`INSERT INTO wallets (user_id) VALUES ('${id}')`,
                                             (err, result) => {
                                                 if (err) {
