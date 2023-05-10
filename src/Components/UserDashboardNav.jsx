@@ -8,9 +8,9 @@ import { UserCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 
 const UserDashboardNav = () => {
   return (
-    <nav className="sticky top-0 z-50 flex h-16 w-full items-center justify-between bg-color-bg_primary-500 p-4 text-white lg:h-20">
-      <div className="flex  flex-grow items-center justify-end lg:justify-between">
-        <div className="hidden xl:flex xl:items-center xl:gap-11">
+    <nav className="top-0 z-50 flex h-16 w-full items-center justify-between bg-color-bg_primary-500 p-4 text-white lg:h-20">
+      <div className="flex flex-grow items-center justify-end lg:justify-between">
+        <div className="hidden lg:flex lg:items-center lg:gap-11">
           <Image src={Logo} alt="Logo Image" className="w-48  object-contain" />
           <button className="flex items-center space-x-5 rounded-md border-2 border-color-primary bg-white px-9 py-2 text-black">
             <div>
