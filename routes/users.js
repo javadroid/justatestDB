@@ -147,6 +147,7 @@ router.post('/social_media_sign', (req, res, next) => {
 
                             } else {
                                 // username is available
+                                return res.send({ msg: "I can reach here" })
                                 const vstatus = 'verified';
                                 let str = req.body.username;
                                 const ref = Math.floor(Math.random() * 5000) + 1 + (str.charAt(0) + str.charAt(1) + str.charAt(2));
