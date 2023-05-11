@@ -42,7 +42,10 @@ export default function About() {
                 <form className="flex flex-col space-y-4 items-center justify-between">
                   <input type="email" placeholder="Enter your email" className="w-full border border-color-primary_black px-4 py-3 rounded-lg focus:outline-dashed focus:border-color-primary_black text-xs text-color-primary_black md:text-lg" />
                   <input type="password" placeholder="Create password" className="w-full border border-color-primary_black px-4  py-3 rounded-lg focus:outline-dashed focus:border-color-primary_black text-xs text-color-primary_black md:text-lg" />
-                  <button className="w-full bg-color-primary text-color-white font-bold rounded-3xl py-3 md:text-lg lg:text-xl lg:py-4">Sign up</button>
+                  <button className="w-full bg-color-primary text-color-white font-bold rounded-3xl py-3 md:text-lg lg:text-xl lg:py-4 relative group overflow-hidden">
+                    <span className="absolute left-0 top-0 mt-16 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+                    <span className="relative">Sign up</span>
+                  </button>
                 </form>
                 <p className="text-center my-4 text-color-text_light text-sm md:text-base">
                   Already have an account? <Link href="/signup" className="text-color-primary font-bold hover:underline">Sign in.</Link>

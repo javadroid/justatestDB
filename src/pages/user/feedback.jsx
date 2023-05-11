@@ -8,7 +8,7 @@ import UserDashboardLayout from "@/Components/UserDashboardLayout";
 
 const feedback = () => {
   return (
-    <section className="mx-auto max-w-6xl bg-color-bg_light pb-20">
+    <section className="mx-auto h-auto max-w-6xl bg-color-bg_light pb-20">
       <div className=" pb-24">
         <div className="mx-0 space-y-4 bg-color-bg_light-100 px-4 sm:space-y-8 sm:pb-12 lg:pt-14">
           <h1 className="pt-2 text-center text-2xl font-extrabold sm:text-4xl">

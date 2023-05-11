@@ -17,7 +17,7 @@ const Rent = () => {
       {/*Hero section*/}
       <section
         id="hero"
-        className="text-2.2rem bg-gradient-to-b from-[#0d41d5] to-[#0187FF] text-white"
+        className="text-2.2rem bg-gradient-to-b from-[#0d41d5] to-[#0187FF] text-color-white"
       >
         {/* Flex container */}
         <div className="container mx-auto flex max-w-7xl flex-col items-center space-y-6 overflow-hidden px-6 py-20 md:justify-start lg:flex-row lg:justify-between lg:pt-32 ">
@@ -36,11 +36,13 @@ const Rent = () => {
             </p>
             <div className="flex flex-col md:flex-row md:justify-start">
               <span className="before:w-85 relative before:absolute before:block before:bg-[url('../assets/before/arrow_intro-1.svg')]"></span>
-              <Link href={"/login"} className="baseline mb-8 rounded-full bg-white p-3 px-6 pt-3 text-center font-bold text-color-primary_black md:px-12 lg:px-14 xl:px-16">
-                Rent number
+              <Link href={"/login"} className="baseline mb-8 rounded-full bg-white p-3 px-6 pt-3 text-center font-bold text-color-primary_black md:px-12 lg:px-14 xl:px-16 group relative overflow-hidden">
+                <span className="absolute -left-16 top-0 mt-12 h-64 w-60 bg-color-primary transition-all duration-300 ease-out rounded-full group-hover:-mt-4 group-hover:-rotate-180"></span>
+                <button className="relative">Rent number</button>
               </Link>
-              <Link href={"/login"} className="baseline mb-8 rounded-full bg-color-primary_black p-3 px-6 pt-3 text-center font-bold text-white md:ml-4 md:px-16 lg:px-12 xl:px-16">
-                Receive SMS
+              <Link href={"/login"} className="baseline mb-8 rounded-full bg-color-primary_black p-3 px-6 pt-3 text-center font-bold text-white md:ml-4 md:px-16 lg:px-12 xl:px-16 group relative overflow-hidden">
+                <span className="absolute -left-16 top-0 mt-12 h-64 w-60 bg-color-primary transition-all duration-300 ease-out rounded-full group-hover:-mt-4 group-hover:-rotate-180"></span>
+                <button className="relative">Receive SMS</button>
               </Link>
             </div>
           </div>

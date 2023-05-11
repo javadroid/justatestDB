@@ -21,8 +21,9 @@ export default function SignUpSecton() {
               placeholder="Create password"
               className="w-full border border-color-primary_black bg-color-white  px-4 py-3 text-sm text-color-primary_black placeholder-color-primary focus:border-color-primary_black focus:outline-none md:text-lg lg:w-1/3"
             />
-            <button className="w-full rounded-xl bg-color-primary py-3 font-bold text-color-white shadow-[0_4px_15px_rgba(231,237,250,.25)] md:py-4 md:text-lg lg:w-1/3 lg:text-xl">
-              Sign up
+            <button className="w-full rounded-xl bg-color-primary py-3 font-bold text-color-white shadow-[0_4px_15px_rgba(231,237,250,.25)] md:py-4 md:text-lg lg:w-1/3 lg:text-xl relative group overflow-hidden">
+              <span className="absolute left-0 top-0 mt-16 h-24 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+              <span className="relative">Sign up</span>
             </button>
           </form>
         </div>

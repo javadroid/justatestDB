@@ -38,8 +38,8 @@ export default function Home() {
           <div className="mx-auto mt-14 flex max-w-6xl flex-col px-4 pt-16 lg:flex-row lg:items-center lg:justify-between">
             <div className="basis-1/2">
               <div>
-                <h1 className="text-4xl font-bold text-white">
-                  RECEIVE SMS ONLINE
+                <h1 className="text-center text-color-white text-3xl font-extrabold md:w-full md:text-left md:text-5xl lg:text-4xl">
+                  Receive SMS online
                 </h1>
                 <p className=" text-2xl text-white">
                   Register on social networks, <br />
@@ -55,13 +55,13 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex w-full flex-col items-center justify-between space-y-5 pt-24 md:flex-row md:place-items-baseline md:justify-center md:space-y-0 md:space-x-6 md:pt-11">
-                <Link href={"/login"}  className="w-full rounded-full bg-white py-2 text-center text-lg font-bold text-color-primary_darken">
-                  <button>
-                  Receive SMS
-                  </button>
+                <Link href={"/login"}  className="w-full rounded-full bg-white py-2 text-center text-lg font-bold text-color-primary_black group relative overflow-hidden hover:text-white">
+                  <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+                  <button className="relative">Receive SMS</button>
                 </Link>
-                <Link href={"/login"} className="w-full rounded-full bg-color-primary_black py-2 text-center text-lg font-bold text-white">
-                  <button>
+                <Link href={"/login"} className="w-full rounded-full bg-color-primary_black py-2 text-center text-lg font-bold text-white group relative overflow-hidden hover:text-color-primary_black">
+                  <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-bg_light transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+                  <button className="relative">
                   Rent number
                   </button>
                 </Link>

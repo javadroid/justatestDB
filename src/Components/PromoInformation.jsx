@@ -139,12 +139,16 @@ const PromoInformation = () => {
             </div>
              
             <div className="text-left">
-              <button className="bg-color-primary py-4 rounded-full w-2/3">
-                Buy a one-time number
+              <button className="bg-color-primary py-4 rounded-full w-2/3 relative group overflow-hidden">
+                <span className="absolute left-0 top-0 mt-14 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+                <span className="relative">Buy a one-time number</span>
               </button>
             </div>
             <div className="text-left">
-              <button className="bg-color-primary_black py-4 rounded-full w-2/3">Rent Number</button>
+              <button className="bg-color-primary_black py-4 rounded-full w-2/3 relative group overflow-hidden">
+                <span className="absolute left-0 top-0 mt-14 h-20 w-full bg-color-primary transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+                <span className="relative">Rent Number</span>
+              </button>
             </div>
           </div>
         </div>

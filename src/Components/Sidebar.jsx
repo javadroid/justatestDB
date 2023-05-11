@@ -16,6 +16,52 @@ import Link from "next/link";
 
 const Sidebar = () => {
   return (
+    <aside className="h-auto w-1/4 bg-color-bg_primary-500 ">
+      <div className="px-2 flex w-full flex-col space-y-2 text-base lg:px-8 lg:mt-12 lg:font-medium">
+        <Link href={"/user/receive-sms"} className="flex items-center gap-3 p-4 relative rounded-xl transition-all ease-in-out duration-300 hover:bg-color-bg_light active:bg-color-bg_light">
+          <EnvelopeIcon className=" h-6 w-6 text-color-primary" />
+          <p className="hidden lg:block">Receive SMS</p>
+        </Link>
+        <Link href={"/user/rent"} className="flex items-center gap-3 p-4 relative rounded-xl transition-all ease-in-out duration-300 hover:bg-color-bg_light">
+          <DevicePhoneMobileIcon className="h-6 w-6  text-color-primary " />
+          <p className="hidden lg:block"> Rent</p>
+        </Link>
+        <Link href={"/user/profile"} className="flex items-center gap-3 p-4 relative rounded-xl transition-all ease-in-out duration-300 hover:bg-color-bg_light">
+          <UserCircleIcon className="h-6 w-6 text-color-primary" />
+          <p className="hidden lg:block"> Profile</p>
+        </Link>
+        <Link href={"/user/payment"} className="flex items-center gap-3 p-4 relative rounded-xl transition-all ease-in-out duration-300 hover:bg-color-bg_light">
+          <CreditCardIcon className="h-6 w-6 text-color-primary" />
+          <p className="hidden lg:block">Top up balance</p>
+        </Link>
+        <Link href={"/user/earn"} className="flex items-center gap-3 p-4 relative rounded-xl transition-all ease-in-out duration-300 hover:bg-color-bg_light">
+          <HandThumbUpIcon className="h-6 w-4 text-color-primary" />
+          <p className="hidden lg:block">Earn money sms</p>
+        </Link>
+        <Link href={"/user/instructions"} className="flex items-center gap-3 p-4 relative rounded-xl transition-all ease-in-out duration-300 hover:bg-color-bg_light">
+          <InformationCircleIcon className="h-6 w-6 text-color-primary" />
+          <p className="hidden lg:block"> Instructions</p>
+        </Link>
+        <Link href={""} className="flex items-center gap-3 p-4 relative rounded-xl transition-all ease-in-out duration-300 hover:bg-color-bg_light">
+          <Cog6ToothIcon className="h-6 w-6 text-color-primary" />
+          <p className="hidden lg:block">API connection</p>
+        </Link>
+        <Link href={"/user/feedback"} className="flex items-center gap-3 p-4 relative rounded-xl transition-all ease-in-out duration-300 hover:bg-color-bg_light">
+          <PhoneArrowUpRightIcon className="h-6 w-6 text-color-primary" />
+          <p className="hidden lg:block"> Feedback</p>
+        </Link>
+        <div className="flex flex-col  space-y-1">
+          <Link href={"/help"} className="flex items-center gap-3 p-4 relative rounded-xl transition-all ease-in-out duration-300 hover:bg-color-bg_light">
+            <InformationCircleIcon className="h-6 w-6 text-color-primary" />
+            <p className="hidden lg:block"> Help</p>
+          </Link>
+          <Link href={""} className="flex items-center gap-3 p-4 relative rounded-xl transition-all ease-in-out duration-300 hover:bg-color-bg_light">
+            <ArrowLeftOnRectangleIcon className="h-6 w-6 text-color-primary" />
+            <p className="hidden lg:block"> Log out</p>
+          </Link>
+        </div>
+      </div>
+    </aside>
     // <>
     //   <button
     //     data-drawer-target="separator-sidebar"
@@ -278,52 +324,6 @@ const Sidebar = () => {
     //       </ul>
     //     </div>
     //   </aside>
-    <aside className="h-full bg-color-bg_primary-500 ">
-      <div className="m-4 flex w-full flex-col space-y-10 text-base lg:px-7 lg:mt-12 lg:font-medium">
-        <Link href={"/user/receive-sms"} className="flex items-center gap-1">
-          <EnvelopeIcon className=" h-6 w-6 text-color-primary" />
-          <p className="hidden lg:block">Receive SMS</p>
-        </Link>
-        <Link href={"/user/rent"} className="flex items-center gap-1">
-          <DevicePhoneMobileIcon className="h-6 w-6  text-color-primary " />
-          <p className="hidden lg:block"> Rent</p>
-        </Link>
-        <Link href={"/user/profile"} className="flex items-center gap-1">
-          <UserCircleIcon className="h-6 w-6 text-color-primary" />
-          <p className="hidden lg:block"> Profile</p>
-        </Link>
-        <Link href={"/user/payment"} className="flex items-center gap-1">
-          <CreditCardIcon className="h-6 w-6 text-color-primary" />
-          <p className="hidden lg:block">Top up balance</p>
-        </Link>
-        <Link href={"/user/earn"} className="flex items-center gap-1">
-          <HandThumbUpIcon className="h-6 w-4 text-color-primary" />
-          <p className="hidden lg:block">Earn money sms</p>
-        </Link>
-        <Link href={"/user/instructions"} className="flex items-center gap-1">
-          <InformationCircleIcon className="h-6 w-6 text-color-primary" />
-          <p className="hidden lg:block"> Instructions</p>
-        </Link>
-        <Link href={""} className="flex items-center gap-1">
-          <Cog6ToothIcon className="h-6 w-6 text-color-primary" />
-          <p className="hidden lg:block">API connection</p>
-        </Link>
-        <Link href={"/user/feedback"} className="flex items-center gap-1">
-          <PhoneArrowUpRightIcon className="h-6 w-6 text-color-primary" />
-          <p className="hidden lg:block"> Feedback</p>
-        </Link>
-        <div className="flex flex-col  space-y-6">
-          <Link href={"/help"} className="flex items-center gap-1">
-            <InformationCircleIcon className="h-6 w-6 text-color-primary" />
-            <p className="hidden lg:block"> Help</p>
-          </Link>
-          <Link href={""} className="flex items-center gap-1">
-            <ArrowLeftOnRectangleIcon className="h-6 w-6 text-color-primary" />
-            <p className="hidden lg:block"> Log out</p>
-          </Link>
-        </div>
-      </div>
-    </aside>
     // </>
   );
 };
