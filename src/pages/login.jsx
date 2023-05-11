@@ -94,9 +94,11 @@ const Login = () => {
                 placeholder="Enter password"
                 className="w-full rounded-lg border border-color-primary_black  px-4 py-3 text-sm text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
               />
-              <button className="w-full rounded-3xl bg-color-primary py-3 font-bold text-color-white md:text-lg lg:py-4 lg:text-xl">
-                Sign in
-              </button>
+              <Link href={"/user/rent"} className="w-full text-center rounded-3xl bg-color-primary py-3 font-bold text-color-white md:text-lg lg:py-4 lg:text-xl">
+                <button>
+                  Sign in
+                </button>
+              </Link>
               <span>
                 <Link
                   href="/"

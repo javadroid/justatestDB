@@ -6,7 +6,7 @@ import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 
 const Rent = () => {
   return (
-    <div className="bg-color-bg_light w-full h-full">
+    <div className="bg-color-bg_light w-full h-screen">
       <div className="dashboard-instruction max-w-5xl mx-auto px-4 pt-4 pb-8">
         <h1 className="font-extrabold text-center mb-4 md:text-left">Rent new number</h1>
         <div className="dashboard-box shadow-[0px_4px_15px_rgba(37,39,86,0.15)] bg-color-white rounded-3xl px-2 pb-10 lg:px-4">

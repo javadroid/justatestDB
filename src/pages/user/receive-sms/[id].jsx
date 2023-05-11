@@ -5,14 +5,14 @@ import History from "@/Components/History";
 import CountryServices from "@/Components/CountryServices";
 import ServicesComponent from "@/Components/ServicesComponent";
 import { useRouter } from "next/router";
+import Historyy from "@/Components/Historyy";
 
 const ReceiveSms = () => {
   const router = useRouter();
   return (
-    <div className="w-full bg-color-bg_light">
+    <div className="w-full bg-color-bg_light h-auto">
       <div className="w-full px-2 pb-20 pt-8">
         <div>
-          {/* <h2>ID: {router.query.id}</h2> */}
           <h2 className="text-center font-extrabold sm:text-lg md:pl-6 md:text-left md:text-xl">
             New SMS
           </h2>
@@ -33,6 +33,7 @@ const ReceiveSms = () => {
           </div>
         </div>
         <History />
+        {/* <Historyy /> */}
       </div>
     </div>
   );

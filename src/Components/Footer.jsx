@@ -21,28 +21,28 @@ export const Footer = () => {
         </div>
         <div className="max-w-6xl mx-auto px-2">
           <ul className="flex flex-wrap justify-between gap-4 font-bold text-color-primary">
-            <Link href={"/"}>
+            <Link href={"/"} className="hover:underline">
               <li>Receive SMS Online</li>
             </Link>
-            <Link href={"/rent"}>
+            <Link href={"/rent"} className="hover:underline">
               <li>Rent</li>
             </Link>
-            <Link href={"/"}>
+            <Link href={"/"} className="hover:underline">
               <li>API Connection</li>
             </Link>
-            <Link href={"/ref"}>
+            <Link href={"/ref"} className="hover:underline">
               <li>Referal Program</li>
             </Link>
-            <Link href={"/partnership"}>
+            <Link href={"/partnership"} className="hover:underline">
               <li>Partnership</li>
             </Link>
-            <Link href={"/partners"}>
+            <Link href={"/partners"} className="hover:underline">
               <li>Partners</li>
             </Link>
-            <Link href={"/blog"}>
+            <Link href={"/blog"} className="hover:underline">
               <li>Blog</li>
             </Link>
-            <Link href={"/help"}>
+            <Link href={"/help"} className="hover:underline">
               <li>Help</li>
             </Link>
           </ul>
@@ -87,13 +87,13 @@ export const Footer = () => {
       </div>
       <div className="bg-color-bg_light p-6 text-center md:p-4">
         <ul className="flex flex-col items-center w-full space-y-3 text-slate-500/50 md:flex-row md:justify-center md:space-y-0 md:space-x-4 lg:h-16">
-          <Link href={"/privacy"}>
+          <Link href={"/privacy"} className="hover:underline">
             <li>Privacy Policy</li>
           </Link>
-          <Link href={"/terms"} className="border-x border-slate-500/50 px-4">
+          <Link href={"/terms"} className="border-x border-slate-500/50 px-4 hover:underline">
             <li>Terms of Use</li>
           </Link>
-          <Link href={"/payment-policy"}>
+          <Link href={"/payment-policy"} className="hover:underline">
             <li>Payment & Refund</li>
           </Link>
         </ul>
