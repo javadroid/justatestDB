@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useForm } from "react-hook-form";
-import { useSession } from "next-auth/react";
+import { useSession, signIn, signOut } from "next-auth/react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
@@ -14,26 +14,33 @@ const Login = () => {
   const { data: session } = useSession();
   const router = useRouter();
 
-  // useEffect(() => {
-  //   const res = async () => {
-  //     if (session) {
-  //       await axios.post(
-  //         "http://161.35.218.95:3000/api/social_media_sign",
-  //         {
-  //           username: session.user.name,
-  //           email: session.user.email,
-  //           password: session.user.password,
-  //         },
-  //         {
-  //           headers: {
-  //             "Content-Type": "multipart/form-data",
-  //           },
-  //         }
-  //       );
-  //     }
-  //   };
-  //   res();
-  // }, [session]);
+  var instance = axios.create({
+    validateStatus: function (status) {
+      return status >= 200 && status < 300; // default
+    },
+  });
+
+  useEffect(() => {
+    const res = async () => {
+      if (session) {
+        const response = await instance.post(
+          "http://161.35.218.95:3000/api/social_media_sign",
+          {
+            username: session?.user?.name,
+            email: session?.user?.email,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        toast.success(response.data.msg);
+        router.push(`/user/receive-sms/`);
+      }
+    };
+    res();
+  }, [session]);
 
   const {
     register,
@@ -41,11 +48,22 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  var instance = axios.create({
-    validateStatus: function (status) {
-      return status >= 200 && status < 300; // default
+  const providers = [
+    {
+      name: "github",
     },
-  });
+    {
+      name: "twitter",
+    },
+    {
+      name: "google",
+    },
+  ];
+
+  const handleOAuthSignIn = (provider) => () =>
+    signIn(provider, {
+      //callbackUrl: `${window.location.origin}/signup`,
+    });
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -123,39 +141,42 @@ const Login = () => {
               Or log in with your social network
             </p>
             <div className="flex items-center justify-center space-x-4">
-              <Link href="/" className="w-1/4 rounded-md bg-color-black px-4">
+              <div
+                className="w-1/4 cursor-pointer rounded-md bg-color-black px-4"
+                onClick={handleOAuthSignIn(providers[0].name)}
+              >
                 <Icon
                   icon="octicon:mark-github-16"
                   className="coltransition w-full text-5xl text-color-white duration-500 ease-in-out hover:opacity-75"
                 />
-              </Link>
-              <Link
+              </div>
+              <div
                 href="/"
                 className="w-1/4 rounded-md bg-[#4267b2] px-4 py-2"
+                //onClick={signOut}
               >
                 <Icon
                   icon="teenyicons:facebook-solid"
                   className="w-full text-4xl text-color-white transition duration-500 ease-in-out hover:opacity-75"
                 />
-              </Link>
-              <Link
-                href="/"
-                className="w-1/4 rounded-md bg-[#03a9f4] px-4 py-2"
-              >
+              </div>
+              <div className="w-1/4 cursor-pointer rounded-md bg-[#03a9f4] px-4 py-2">
                 <Icon
                   icon="bi:twitter"
                   className=" w-full text-4xl text-color-white transition duration-500 ease-in-out hover:opacity-75"
+                  onClick={handleOAuthSignIn(providers[1].name)}
                 />
-              </Link>
-              <Link
+              </div>
+              <div
                 href="/google"
-                className="w-1/4 rounded-md bg-[#d93025] px-4 py-2"
+                className="w-1/4 cursor-pointer rounded-md bg-[#d93025] px-4 py-2"
+                onClick={handleOAuthSignIn(providers[2].name)}
               >
                 <Icon
                   icon="cib:google"
                   className="w-full text-4xl text-color-white transition duration-500 ease-in-out hover:opacity-75"
                 />
-              </Link>
+              </div>
             </div>
             <div>
               <Link href="/">
@@ -164,6 +185,12 @@ const Login = () => {
                   <span className="md:text-base">Log in with Telegram</span>
                 </button>
               </Link>
+              <button
+                onClick={signOut}
+                className="w-full rounded-3xl bg-color-primary py-3 text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl"
+              >
+                Sign Out
+              </button>
             </div>
           </div>
         </div>

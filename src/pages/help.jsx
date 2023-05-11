@@ -15,15 +15,13 @@ import getSmsCode from "../assets/images/getSmsCode_en.webp";
 import getSmsCode2 from "../assets/images/getSmsCode_2_en.webp";
 import howRent from "../assets/images/howRent_en.webp";
 import howRent2 from "../assets/images/howRent_2_en.webp";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 
 function Help() {
-
   const router = useRouter();
-  
-  
+
   return (
-    <section className="pb-20 mt-8">
+    <section className="mt-8 pb-20">
       <div className="bg-color-bg_light pb-24">
         <div className="mx-0 space-y-4 bg-color-bg_primary-500 px-4 sm:space-y-8 sm:pb-12 lg:pt-14">
           <h1 className="pt-2 text-center text-2xl font-extrabold sm:text-4xl">
@@ -34,31 +32,45 @@ function Help() {
             answers to the most common questions
           </p>
         </div>
-        <div className="width-full mx-auto -mt-24 flex max-w-5xl flex-col md:justify-center text-center md:flex-row md:flex-wrap md:pb-8 md:-mt-16 lg:flex-nowrap">
-          <div className="px-3 mb-8 basis-full md:basis-1/2 lg:basis-1/3 b-0">
-            <Link  onClick={() => {
-              router.push('#one-time')
-          }} href="#one-time" className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl">
+        <div className="width-full mx-auto -mt-24 flex max-w-5xl flex-col text-center md:-mt-16 md:flex-row md:flex-wrap md:justify-center md:pb-8 lg:flex-nowrap">
+          <div className="b-0 mb-8 basis-full px-3 md:basis-1/2 lg:basis-1/3">
+            <Link
+              onClick={() => {
+                router.push("#one-time");
+              }}
+              href="#one-time"
+              className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl"
+            >
               <Image src={fast1} alt="" className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get a number for one-time sign up?
               </h2>
             </Link>
           </div>
-          <div className="px-3 mb-8 basis-full md:basis-1/2 lg:basis-1/3">
-            <Link href="#how-to" onClick={() => {
-            router.push('#how-to')
-          }} className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl">
+          <div className="mb-8 basis-full px-3 md:basis-1/2 lg:basis-1/3">
+            <Link
+              scroll
+              //target="#how-to"
+              href="#how-to"
+              onClick={() => {
+                // router.push("#how-to");
+              }}
+              className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl"
+            >
               <Image src={fast2} alt="" className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get sms to a bought number?
               </h2>
             </Link>
           </div>
-          <div className="px-3 basis-full md:basis-1/2 lg:basis-1/3">
-            <Link href="#long-term" onClick={() => {
-            router.push('#long-term');
-          }}  className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl">
+          <div className="basis-full px-3 md:basis-1/2 lg:basis-1/3">
+            <Link
+              href="#long-term"
+              onClick={() => {
+                router.push("#long-term");
+              }}
+              className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl"
+            >
               <Image src={fast3} alt="" className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get a long-term number?
@@ -166,7 +178,10 @@ function Help() {
               </li>
             </ol>
 
-            <h3 id='one-time' className="my-4 text-center text-xs font-extrabold sm:text-lg md:text-left">
+            <h3
+              id="one-time"
+              className="my-4 text-center text-xs font-extrabold sm:text-lg md:text-left"
+            >
               How do I get a one-time registration number?
             </h3>
             <ol className="list-decimal space-y-4 pl-8 text-[10px] sm:text-sm">
