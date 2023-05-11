@@ -31,6 +31,8 @@ const SignUpForm = () => {
   //   res();
   // }, [session]);
 
+  console.log(session);
+
   const {
     register,
     handleSubmit,
@@ -50,9 +52,17 @@ const SignUpForm = () => {
     {
       name: "twitter",
     },
+    {
+      name: "google",
+    },
   ];
 
-  const handleOAuthSignIn = (provider) => () => signIn(provider);
+  const handleOAuthSignIn = (provider) => () =>
+    signIn(provider, {
+      callbackUrl: `${window.location.origin}/signup`,
+    });
+
+  // console.log(window.location.origin);
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -91,12 +101,14 @@ const SignUpForm = () => {
           <input
             {...register("username", { required: true })}
             type="Username"
+            defaultValue={session?.user?.name || ""}
             placeholder="Enter your Username"
             className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
           />
           <input
             {...register("email", { required: true })}
             type="email"
+            defaultValue={session?.user?.email || ""}
             placeholder="Enter your email"
             className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
           />
@@ -115,11 +127,17 @@ const SignUpForm = () => {
           <button className="w-full rounded-3xl bg-color-primary py-3 text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl">
             Sign up
           </button>
+          <button
+            onClick={signOut}
+            className="w-full rounded-3xl bg-color-primary py-3 text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl"
+          >
+            Sign Out
+          </button>
         </form>
         <p className="my-2 text-center text-sm text-color-text_light sm:my-4 md:text-base">
-          Already have an account?
+          Already have an account?{" "}
           <Link
-            href="/signup"
+            href="/login"
             className="font-bold text-color-primary hover:underline"
           >
             Sign in.
@@ -132,7 +150,7 @@ const SignUpForm = () => {
         </p>
         <div className="flex items-center justify-center space-x-4">
           <div
-            className="w-1/4 rounded-md bg-color-black px-4"
+            className="w-1/4 cursor-pointer rounded-md bg-color-black px-4"
             onClick={handleOAuthSignIn(providers[0].name)}
           >
             <Icon
@@ -140,7 +158,7 @@ const SignUpForm = () => {
               className="coltransition w-full text-5xl text-color-white duration-500 ease-in-out hover:opacity-75"
             />
           </div>
-          <Link
+          <div
             href="/"
             className="w-1/4 rounded-md bg-[#4267b2] px-4 py-2"
             //onClick={signOut}
@@ -149,23 +167,24 @@ const SignUpForm = () => {
               icon="teenyicons:facebook-solid"
               className="w-full text-4xl text-color-white transition duration-500 ease-in-out hover:opacity-75"
             />
-          </Link>
-          <Link href="/" className="w-1/4 rounded-md bg-[#03a9f4] px-4 py-2">
+          </div>
+          <div className="w-1/4 cursor-pointer rounded-md bg-[#03a9f4] px-4 py-2">
             <Icon
               icon="bi:twitter"
               className=" w-full text-4xl text-color-white transition duration-500 ease-in-out hover:opacity-75"
               onClick={handleOAuthSignIn(providers[1].name)}
             />
-          </Link>
-          <Link
+          </div>
+          <div
             href="/google"
-            className="w-1/4 rounded-md bg-[#d93025] px-4 py-2"
+            className="w-1/4 cursor-pointer rounded-md bg-[#d93025] px-4 py-2"
+            onClick={handleOAuthSignIn(providers[2].name)}
           >
             <Icon
               icon="cib:google"
               className="w-full text-4xl text-color-white transition duration-500 ease-in-out hover:opacity-75"
             />
-          </Link>
+          </div>
         </div>
         <div>
           <Link href="/">
