@@ -82,7 +82,7 @@ const Login = () => {
       );
       console.log(response);
       toast.success(response.data.msg);
-      router.push(`/user/receive-sms/${response?.data?.user?.id}`);
+      router.push(`/user/receive-sms/`);
     } catch (error) {
       console.log("Error is", error);
       toast.error(error?.response?.data.msg);
@@ -112,12 +112,13 @@ const Login = () => {
                 placeholder="Enter password"
                 className="w-full rounded-lg border border-color-primary_black  px-4 py-3 text-sm text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
               />
-              <Link href={"/user/receive-sms"} className="w-full text-center rounded-3xl bg-color-primary py-3 font-bold text-color-white md:text-lg lg:py-4 lg:text-xl relative group overflow-hidden">
+              <button className="w-full rounded-3xl bg-color-primary py-3 text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl">
+                Sign in
+              </button>
+              {/* <Link href={"/user/receive-sms"} className="w-full text-center rounded-3xl bg-color-primary py-3 font-bold text-color-white md:text-lg lg:py-4 lg:text-xl relative group overflow-hidden">
                 <span className="absolute left-0 top-0 mt-16 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
-                <button className="relative">
-                  Sign in
-                </button>
-              </Link>
+                
+              </Link> */}
               <span>
                 <Link
                   href="/"

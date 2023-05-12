@@ -12,7 +12,7 @@ export default function App({
   if (getLayout) {
     return getLayout(
       <SessionProvider session={session}>
-        <Toaster position="top-right" />
+        <Toaster position="top-center" />
         <Component {...pageProps} />
       </SessionProvider>
     );
@@ -20,7 +20,7 @@ export default function App({
     return (
       <SessionProvider session={session}>
         <Layout>
-          <Toaster position="top-right" />
+          <Toaster position="top-center" />
           <Component {...pageProps} />
         </Layout>
       </SessionProvider>
