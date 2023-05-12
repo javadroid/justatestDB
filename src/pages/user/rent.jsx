@@ -88,8 +88,9 @@ const Rent = () => {
                     <button className="bg-color-bg_primary-500 mb-4 rounded-xl px-4 py-2 text-sm w-full md:text-base md:w-48 lg:w-full">
                       It will cost $0.06
                     </button>
-                    <button className="px-12 rounded-xl bg-color-primary py-2 text-base font-bold text-white md:text-xl md:px-16 md:32 w-full md:w-48 lg:w-full">
-                      Rent
+                    <button className="px-12 rounded-xl bg-color-primary py-2 text-base font-bold text-white md:text-xl md:px-16 md:32 w-full md:w-48 lg:w-full group relative overflow-hidden">
+                      <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+                      <span className="relative">Rent</span>
                     </button>
                   </div>
                 </div>
