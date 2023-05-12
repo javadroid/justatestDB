@@ -42,9 +42,11 @@ const Connection = () => {
               <p className="my-5 lg:text-2xl">
                 Receive SMS verification in bulk and automate your work
               </p>
-              <button className="flex w-3/5 items-center justify-between rounded-lg border border-white px-2 py-3 lg:border-none">
+              <button className="flex w-3/5 items-center justify-between rounded-lg border border-white px-2 py-3 lg:border-none group">
                 <span className="text-lg font-bold lg:text-xl">Read More...</span>
-                <ChevronRightIcon className="h-6 w-6" />
+                <span className="relative -top-3">
+                  <ChevronRightIcon className="h-6 w-6 absolute group-hover:-ml-4" />
+                </span>
               </button>
             </div>
           </div>

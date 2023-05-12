@@ -15,7 +15,10 @@ const Services2 = () => {
             <span className="ml-auto text-[#aec3f9]">{service.quantity}</span>
             <span className="mx-2 xl:mr-0">{service.price}</span>
           </div>
-          <button className="text-color-white bg-color-primary rounded-xl py-1 lg:px-1 xl:px-2">Buy SMS</button>
+          <button className="text-color-white bg-color-primary rounded-xl py-1 lg:px-1 xl:px-2 relative group overflow-hidden">
+            <span className="absolute left-0 top-0 mt-16 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+            <span className="relative">Buy SMS</span>
+          </button>
         </div>
       </div>
       ))}

@@ -36,12 +36,12 @@ const Rent = () => {
             </p>
             <div className="flex flex-col md:flex-row md:justify-start">
               <span className="before:w-85 relative before:absolute before:block before:bg-[url('../assets/before/arrow_intro-1.svg')]"></span>
-              <Link href={"/login"} className="baseline mb-8 rounded-full bg-white p-3 px-6 pt-3 text-center font-bold text-color-primary_black md:px-12 lg:px-14 xl:px-16 group relative overflow-hidden">
-                <span className="absolute -left-16 top-0 mt-12 h-64 w-60 bg-color-primary transition-all duration-300 ease-out rounded-full group-hover:-mt-4 group-hover:-rotate-180"></span>
+              <Link href={"/user/rent"} className="baseline mb-8 rounded-full bg-white p-3 px-6 pt-3 text-center font-bold text-color-primary_black md:px-12 lg:px-14 xl:px-16 group relative overflow-hidden hover:text-white">
+                <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
                 <button className="relative">Rent number</button>
               </Link>
-              <Link href={"/login"} className="baseline mb-8 rounded-full bg-color-primary_black p-3 px-6 pt-3 text-center font-bold text-white md:ml-4 md:px-16 lg:px-12 xl:px-16 group relative overflow-hidden">
-                <span className="absolute -left-16 top-0 mt-12 h-64 w-60 bg-color-primary transition-all duration-300 ease-out rounded-full group-hover:-mt-4 group-hover:-rotate-180"></span>
+              <Link href={"/user/receive-sms"} className="baseline mb-8 rounded-full bg-color-primary_black p-3 px-6 pt-3 text-center font-bold text-white md:ml-4 md:px-16 lg:px-12 xl:px-16 group relative overflow-hidden hover:text-color-primary_black">
+                <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-bg_light transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
                 <button className="relative">Receive SMS</button>
               </Link>
             </div>
@@ -176,8 +176,9 @@ const Rent = () => {
                     <button className="bg-bgPrimar mb-4 w-48 rounded-sm py-2 text-base md:text-xl">
                       It&apos;ll cost $0.06
                     </button>
-                    <Link href={"/login"} className="w-48  rounded-xl bg-color-primary py-2 text-base font-bold text-center text-white md:text-xl">
-                      <button>
+                    <Link href={"/user/rent"} className="w-48  rounded-xl bg-color-primary py-2 text-base font-bold text-center text-white md:text-xl group relative overflow-hidden">
+                      <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+                      <button className="relative">
                         Rent
                       </button>
                     </Link>
