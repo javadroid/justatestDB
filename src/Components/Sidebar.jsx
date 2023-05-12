@@ -55,7 +55,7 @@ const Sidebar = () => {
             <InformationCircleIcon className="h-6 w-6 text-color-primary" />
             <p className="hidden lg:block"> Help</p>
           </Link>
-          <Link href={""} className="flex items-center gap-3 p-4 relative rounded-xl transition-all ease-in-out duration-300 hover:bg-color-bg_light">
+          <Link href={"/"} className="flex items-center gap-3 p-4 relative rounded-xl transition-all ease-in-out duration-300 hover:bg-color-bg_light">
             <ArrowLeftOnRectangleIcon className="h-6 w-6 text-color-primary" />
             <p className="hidden lg:block"> Log out</p>
           </Link>

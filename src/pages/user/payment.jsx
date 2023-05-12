@@ -60,8 +60,9 @@ const payment = () => {
                   className="mb-5 w-full rounded-md bg-color-bg_primary-500 px-3 py-2 lg:w-96"
                 />
               </div>
-              <button className="rounded-md bg-color-primary px-2 py-2 text-white lg:w-40">
-                pay
+              <button className="rounded-md bg-color-primary px-2 py-2 text-white lg:w-40 group relative overflow-hidden">
+                <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+                <span className="relative">Pay</span>
               </button>
             </div>
           </div>

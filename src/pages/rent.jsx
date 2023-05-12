@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import device from "../assets/hero.png";
+import device from "../assets/images/hero.png";
 import device2 from "../assets/images/pic_en.webp";
 import SignUpSecton from "@/Components/SignUpSecton";
 import About from "@/Components/About";
