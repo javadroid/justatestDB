@@ -39,7 +39,7 @@ function Help() {
                 router.push("#one-time");
               }}
               href="#one-time"
-              className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl"
+              className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl hover:drop-shadow-2xl"
             >
               <Image src={fast1} alt="" className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
@@ -55,7 +55,7 @@ function Help() {
               onClick={() => {
                 // router.push("#how-to");
               }}
-              className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl"
+              className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl hover:drop-shadow-2xl"
             >
               <Image src={fast2} alt="" className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
@@ -69,7 +69,7 @@ function Help() {
               onClick={() => {
                 router.push("#long-term");
               }}
-              className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl"
+              className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl hover:drop-shadow-2xl"
             >
               <Image src={fast3} alt="" className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">

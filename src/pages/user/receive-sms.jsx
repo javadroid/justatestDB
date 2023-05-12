@@ -20,7 +20,7 @@ const ReceiveSms = () => {
         <div className="px-2 py-4">
           <div className="relative mx-auto mb-8 max-w-3xl rounded-3xl bg-color-white pt-6 shadow-[0px_4px_15px_rgba(37,39,86,0.15)]  md:px-6 lg:max-w-4xl">
             <div>
-              <button className="absolute right-9 w-10 cursor-pointer rounded-xl bg-color-primary p-2 text-color-white">
+              <button className="absolute right-9 w-10 cursor-pointer rounded-xl bg-color-primary p-2 text-color-white hover:bg-color-primary_black">
                 <ArrowsUpDownIcon />
               </button>
             </div>

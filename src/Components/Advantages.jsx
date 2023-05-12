@@ -25,9 +25,9 @@ const Advantages = () => {
           <p className="w-4/6 justify-self-center text-center text-sm font-medium mb-1 lg:w-full lg:text-left">
             Any questions? Our manager will help to understand!
           </p>
-          <Link href={"/contact"} className="flex justify-between items-center text-color-primary font-extrabold space-x-5 w-4/5">
-            Ask a Question <span>
-              <ChevronRightIcon width={20} />
+          <Link href={"/contact"} className="flex justify-between items-center text-color-primary font-extrabold space-x-5 w-4/5 group hover:opacity-[0.8]">
+            Ask a Question <span className="relative -top-2">
+              <ChevronRightIcon width={20} className="top-0 group-hover:-ml-2 absolute" />
             </span>
           </Link>
         </div>
@@ -41,9 +41,9 @@ const Advantages = () => {
           <h2 className="mb-5 text-center text-xl font-bold lg:text-left">Telegram bot</h2>
           <p className="w-4/6 justify-self-center text-center text-sm font-medium mb-1 lg:w-full lg:text-left"> Receive SMS through the service directly in Telegram!
           </p>
-          <Link href={"/contact"} className="flex justify-between items-center text-color-primary_darken font-extrabold space-x-5 w-4/5">
-            Connect <span>
-              <ChevronRightIcon width={20} />
+          <Link href={"/contact"} className="flex justify-between items-center text-color-primary_darken font-extrabold space-x-5 w-4/5 group hover:opacity-[0.8]">
+            Connect <span className="relative -top-2">
+              <ChevronRightIcon width={20} className="top-0 group-hover:-ml-2 absolute" />
             </span>
           </Link>
         </div>
@@ -58,9 +58,9 @@ const Advantages = () => {
           <p className="w-4/6 justify-self-center text-center text-sm font-medium mb-1 lg:w-full lg:text-left">
             We&apos;ve created a special Telegrem group chat for users
           </p>
-          <Link href={"/contact"} className="flex justify-between items-center text-color-primary font-extrabold space-x-5 w-4/5">
-            Join <span>
-              <ChevronRightIcon width={20} />
+          <Link href={"/contact"} className="flex justify-between items-center text-color-primary font-extrabold space-x-5 w-4/5 group hover:opacity-[0.8]">
+            Join <span className="relative -top-2">
+              <ChevronRightIcon width={20} className="top-0 group-hover:-ml-2 absolute" />
             </span>
           </Link>
         </div>
@@ -75,9 +75,9 @@ const Advantages = () => {
           <p className="w-4/6 justify-self-center text-center text-sm font-medium mb-1 lg:w-full lg:text-left">
             We made a special solution for those who want to use PC version of Newsems!
           </p>
-          <Link href={"/contact"} className="flex justify-between items-center text-color-primary_darken font-extrabold space-x-5 w-4/5">
-            Download <span>
-              <ChevronRightIcon width={20} />
+          <Link href={"/contact"} className="flex justify-between items-center text-color-primary_darken font-extrabold space-x-5 w-4/5 group hover:opacity-[0.8]">
+            Download <span className="relative -top-2">
+              <ChevronRightIcon width={20} className="top-0 group-hover:-ml-2 absolute" />
             </span>
           </Link>
         </div>
