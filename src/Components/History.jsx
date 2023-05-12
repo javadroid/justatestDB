@@ -85,7 +85,44 @@ const History = () => {
                     </div>
                     <div className="td message">
                         <h6 className="text-color-table_gray font-medium">Message</h6>
-                        <p className="text-color-api-red bg-[rgba(255,67,130,.1)] py-2 rounded-3xl md:rounded-md">SMS not recieved</p>
+                        <p className="text-color-api-red bg-[rgba(255,67,130,.1)] py-2 rounded-3xl md:rounded-md cursor-pointer relative overflow-hidden group">
+                          <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-inherit transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+                          <span className="relative">SMS not recieved</span>
+                        </p>
+                    </div>
+                  </div>
+                  <div className="table-row shadow-[0_0_12px_-10px] rounded-xl pb-4 md:shadow-none md:rounded-none">
+                    <div className="td bought md:py-2">
+                        <h6 className="text-color-table_gray font-medium">Bought</h6>
+                        <p>2025-07-15 12:23:48</p>
+                    </div>
+                    <div className="td service">
+                        <h6 className="text-color-table_gray font-medium">Service</h6>
+                        <p className="flex items-center">
+                          <Image src={vib} alt="" className="mr-1" />
+                          Viber
+                        </p>
+                    </div>
+                    <div className="td country">
+                        <h6 className="text-color-table_gray font-medium">Country</h6>
+                        <p className="flex items-center">
+                          <Image src={rus} alt="" width={20} className="mr-2" />Russia</p>
+                    </div>
+                    <div className="td phone">
+                        <h6 className="text-color-table_gray font-medium">Phone</h6>
+                        <p className="flex items-center">+134346088643
+                        <ClipboardDocumentCheckIcon width={20} className="text-color-primary ml-3" /></p>
+                    </div>
+                    <div className="td price">
+                        <h6 className="text-color-table_gray font-medium">Price</h6>
+                        <p>$0.19</p>
+                    </div>
+                    <div className="td message">
+                      <h6 className="text-color-table_gray font-medium">Message</h6>
+                      <p className="text-color-api-red bg-[rgba(255,67,130,.1)] py-2 rounded-3xl md:rounded-md cursor-pointer relative overflow-hidden group">
+                        <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-inherit transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+                        <span className="relative">SMS not recieved</span>
+                      </p>
                     </div>
                   </div>
                   <div className="table-row shadow-[0_0_12px_-10px] rounded-xl pb-4 md:shadow-none md:rounded-none">
@@ -116,38 +153,10 @@ const History = () => {
                     </div>
                     <div className="td message">
                         <h6 className="text-color-table_gray font-medium">Message</h6>
-                        <p className="text-color-api-red bg-[rgba(255,67,130,.1)] py-2 rounded-3xl md:rounded-md">SMS not recieved</p>
-                    </div>
-                  </div>
-                  <div className="table-row shadow-[0_0_12px_-10px] rounded-xl pb-4 md:shadow-none md:rounded-none">
-                    <div className="td bought md:py-2">
-                        <h6 className="text-color-table_gray font-medium">Bought</h6>
-                        <p>2025-07-15 12:23:48</p>
-                    </div>
-                    <div className="td service">
-                        <h6 className="text-color-table_gray font-medium">Service</h6>
-                        <p className="flex items-center">
-                          <Image src={vib} alt="" className="mr-1" />
-                          Viber
+                        <p className="text-color-api-red bg-[rgba(255,67,130,.1)] py-2 rounded-3xl md:rounded-md cursor-pointer relative overflow-hidden group">
+                          <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-inherit transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+                          <span className="relative">SMS not recieved</span>
                         </p>
-                    </div>
-                    <div className="td country">
-                        <h6 className="text-color-table_gray font-medium">Country</h6>
-                        <p className="flex items-center">
-                          <Image src={rus} alt="" width={20} className="mr-2" />Russia</p>
-                    </div>
-                    <div className="td phone">
-                        <h6 className="text-color-table_gray font-medium">Phone</h6>
-                        <p className="flex items-center">+134346088643
-                        <ClipboardDocumentCheckIcon width={20} className="text-color-primary ml-3" /></p>
-                    </div>
-                    <div className="td price">
-                        <h6 className="text-color-table_gray font-medium">Price</h6>
-                        <p>$0.19</p>
-                    </div>
-                    <div className="td message">
-                        <h6 className="text-color-table_gray font-medium">Message</h6>
-                        <p className="text-color-api-red bg-[rgba(255,67,130,.1)] py-2 rounded-3xl md:rounded-md">SMS not recieved</p>
                     </div>
                   </div>
                 </div>

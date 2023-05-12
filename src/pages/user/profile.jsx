@@ -1,4 +1,5 @@
 import UserDashboardLayout from "@/Components/UserDashboardLayout";
+import { CreditCardIcon } from "@heroicons/react/24/outline";
 import React from "react";
 
 const profile = () => {
@@ -17,8 +18,16 @@ const profile = () => {
                 <p>Balance:</p>
                 <p className="font-semibold">0$</p>
               </div>
-              <button className="mb-3 w-full rounded-md bg-yellow-400 py-2">
-                Top Up
+              <button className="flex items-center justify-center space-x-2 rounded-2xl bg-color-accent px-4 py-2 text-black hover:text-white relative group overflow-hidden">
+              <span className="absolute left-0 top-0 mt-16 h-20 w-full bg-color-decor_orange transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+              <div>
+                <CreditCardIcon className="h-6 w-6 text-black relative group-hover:rotate-45 group-hover:text-color-white" />
+              </div>
+              <div className="flex flex-col items-start relative">
+                <p className="hidden text-sm font-bold lg:inline-block">
+                  Top up
+                </p>
+              </div>
               </button>
               <div className="mb-6 flex justify-between">
                 <p>Hold</p>
@@ -30,8 +39,9 @@ const profile = () => {
                   <p className="text-sm font-semibold">
                     D_druvVi05K3oiJwVNi10cc-ue4ibskZ
                   </p>
-                  <button className="mb-6 mt-2 rounded-md bg-color-primary px-14 py-2 text-white">
-                    Refresh
+                  <button className="mb-6 mt-2 rounded-md bg-color-primary px-14 py-2 text-white group relative overflow-hidden">
+                    <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+                    <span className="relative">Refresh</span>
                   </button>
                 </div>
               </div>
@@ -51,8 +61,9 @@ const profile = () => {
                 placeholder="Repeat Password"
                 className="rounded-md border border-black px-2 py-2"
               />
-              <button className="rounded-md bg-color-primary px-2 py-2 text-white ">
-                Change
+              <button className="rounded-md bg-color-primary px-2 py-2 text-white relative group overflow-hidden">
+                <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+                <span className="relative">Change</span>
               </button>
             </div>
           </div>
