@@ -11,7 +11,7 @@ const ReceiveSms = () => {
   const router = useRouter();
   return (
     <div className="w-full bg-color-bg_light h-auto">
-      <div className="w-full px-2 pb-20 pt-8">
+      <div className="max-w-5xl mx-auto px-2 pb-20 pt-8">
         <div>
           <h2 className="text-center font-extrabold sm:text-lg md:pl-6 md:text-left md:text-xl">
             New SMS

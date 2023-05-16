@@ -21,10 +21,10 @@ function Help() {
   const router = useRouter();
 
   return (
-    <section className="mt-8 pb-20">
+    <section className="mt-14 pb-20">
       <div className="bg-color-bg_light pb-24">
         <div className="mx-0 space-y-4 bg-color-bg_primary-500 px-4 sm:space-y-8 sm:pb-12 lg:pt-14">
-          <h1 className="pt-2 text-center text-2xl font-extrabold sm:text-4xl">
+          <h1 className="pt-24 text-center text-2xl font-extrabold sm:text-4xl">
             Help Section
           </h1>
           <p className="pb-32 text-center text-sm sm:text-xl md:mx-auto md:w-10/12 md:pb-16 md:text-2xl lg:max-w-[70%]">
@@ -32,13 +32,9 @@ function Help() {
             answers to the most common questions
           </p>
         </div>
-        <div className="width-full mx-auto -mt-24 flex max-w-5xl flex-col text-center md:-mt-16 md:flex-row md:flex-wrap md:justify-center md:pb-8 lg:flex-nowrap">
+        <div className="width-full mx-auto -mt-24 flex max-w-5xl flex-col text-center md:-mt-16 md:flex-row md:flex-wrap md:justify-center md:pb-16 lg:flex-nowrap">
           <div className="b-0 mb-8 basis-full px-3 md:basis-1/2 lg:basis-1/3">
-            <Link
-              onClick={() => {
-                router.push("#one-time");
-              }}
-              href="#one-time"
+            <Link href="#one-time"
               className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl hover:drop-shadow-2xl"
             >
               <Image src={fast1} alt="" className="inline" />
@@ -48,14 +44,8 @@ function Help() {
             </Link>
           </div>
           <div className="mb-8 basis-full px-3 md:basis-1/2 lg:basis-1/3">
-            <Link
-              scroll
-              //target="#how-to"
-              href="#how-to"
-              onClick={() => {
-                // router.push("#how-to");
-              }}
-              className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl hover:drop-shadow-2xl"
+            <Link href="#bought"
+            className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl hover:drop-shadow-2xl"
             >
               <Image src={fast2} alt="" className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
@@ -64,11 +54,7 @@ function Help() {
             </Link>
           </div>
           <div className="basis-full px-3 md:basis-1/2 lg:basis-1/3">
-            <Link
-              href="#long-term"
-              onClick={() => {
-                router.push("#long-term");
-              }}
+            <Link href="#long-term"
               className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl hover:drop-shadow-2xl"
             >
               <Image src={fast3} alt="" className="inline" />
@@ -215,7 +201,7 @@ function Help() {
               </li>
             </ol>
 
-            <h3 className="my-4 text-center text-xs font-extrabold sm:text-lg md:text-left">
+            <h3 id="bought" className="my-4 text-center text-xs font-extrabold sm:text-lg md:text-left">
               How do I get an SMS to a purchased number?
             </h3>
             <ol className="list-decimal space-y-4 pl-8 text-[10px] sm:text-sm">
@@ -261,7 +247,7 @@ function Help() {
               </li>
             </ol>
 
-            <h3 className="my-4 text-center text-xs font-extrabold sm:text-lg md:text-left">
+            <h3 id="long-term" className="my-4 text-center text-xs font-extrabold sm:text-lg md:text-left">
               How to rent a number for a very long time?
             </h3>
             <p className="mb-2 text-[10px] sm:text-sm">
