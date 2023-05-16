@@ -51,24 +51,26 @@ const UserDashboardNav = () => {
           <div className="group relative flex items-center justify-between">
             <UserCircleIcon className="h-8 w-8 text-color-primary" />
             <ChevronDownIcon className="h-6 w-6 text-color-primary" />
-            <div className="absolute right-1/2 top-14 z-50 hidden h-32 w-60 cursor-pointer bg-color-white p-4 text-color-black shadow-md group-hover:block">
-              <p className="text-sm text-color-table_gray">
-                aim4greatness@gmail.com
-              </p>
-              <Link
-                href="/user/profile"
-                className="flex items-center justify-start rounded-xl px-4 py-2 hover:bg-color-bg_primary-500"
-              >
-                <UserIcon width={16} className="mr-2 text-color-primary" />{" "}
-                Profile
-              </Link>
-              <Link
-                href="/"
-                className="flex items-center justify-start rounded-xl px-4 py-2 hover:bg-color-bg_primary-500"
-              >
-                <PowerIcon width={16} className="mr-2 text-color-primary" /> Log
-                Out
-              </Link>
+            <div className="hidden absolute right-1/2 group-hover:block pt-32 z-50">
+              <div className="h-32 w-60 mt-20 cursor-pointer bg-color-white p-4 text-color-black shadow-md">
+                <p className="text-sm text-color-table_gray">
+                  aim4greatness@gmail.com
+                </p>
+                <Link
+                  href="/user/profile"
+                  className="flex items-center justify-start rounded-xl px-4 py-2 hover:bg-color-bg_primary-500"
+                >
+                  <UserIcon width={16} className="mr-2 text-color-primary" />{" "}
+                  Profile
+                </Link>
+                <Link
+                  href="/"
+                  className="flex items-center justify-start rounded-xl px-4 py-2 hover:bg-color-bg_primary-500"
+                >
+                  <PowerIcon width={16} className="mr-2 text-color-primary" /> Log
+                  Out
+                </Link>
+              </div>
             </div>
           </div>
         </div>
