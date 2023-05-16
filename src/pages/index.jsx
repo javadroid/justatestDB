@@ -55,6 +55,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex w-full flex-col items-center justify-between space-y-5 pt-24 md:flex-row md:place-items-baseline md:justify-center md:space-y-0 md:space-x-6 md:pt-11">
+                <span className="absolute w-16 h-16 bg-red-500 bottom-48 left-16 bg-[url('/assets/arrows/right-arrow.png')]"></span>
                 <Link href={"/login"}  className="w-full rounded-full bg-white py-2 text-center text-lg font-bold text-color-primary_black group relative overflow-hidden hover:text-white">
                   <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
                   <button className="relative">Receive SMS</button>
