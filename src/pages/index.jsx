@@ -38,29 +38,29 @@ export default function Home() {
           <div className="mx-auto mt-14 flex max-w-6xl flex-col px-4 pt-16 lg:flex-row lg:items-center lg:justify-between">
             <div className="basis-1/2">
               <div>
-                <h1 className="text-center text-color-white text-3xl font-extrabold md:w-full md:text-left md:text-5xl lg:text-4xl">
+                <h1 className="text-center mb-4 text-color-white text-xl font-extrabold md:w-full md:text-left md:text-5xl lg:text-4xl">
                   Receive SMS online
                 </h1>
-                <p className=" text-2xl text-white">
-                  Register on social networks, <br />
+                <p className="text-sm md:text-2xl text-white">
+                  Register on social networks, <br className="hidden" />
                   marketplaces, exchanges and
-                  <br />
+                  <br className="hidden" />
                   online services{" "}
                   <span className="text-yellow-500">
                     without spam{" "}
-                  </span> and <br />
+                  </span> and <br className="hidden" />
                   <span className="text-yellow-500">
                     disclosure of personal data.
                   </span>
                 </p>
               </div>
-              <div className="flex w-full flex-col items-center justify-between space-y-5 pt-24 md:flex-row md:place-items-baseline md:justify-center md:space-y-0 md:space-x-6 md:pt-11">
-                <span className="absolute w-16 h-16 bg-red-500 bottom-48 left-16 bg-[url('/assets/arrows/right-arrow.png')]"></span>
-                <Link href={"/login"}  className="w-full rounded-full bg-white py-2 text-center text-lg font-bold text-color-primary_black group relative overflow-hidden hover:text-white">
+              <div className="flex w-full flex-col items-center justify-between space-y-5 pt-11 md:flex-row md:place-items-baseline md:justify-center md:space-y-0 md:space-x-6">
+                {/* <span className="absolute w-16 h-16 bg-red-500 bottom-48 left-16 bg-[url('/assets/arrows/right-arrow.png')]"></span> */}
+                <Link href={"/login"}  className="w-full rounded-full bg-white py-2 text-center text-sm md:text-lg font-bold text-color-primary_black group relative overflow-hidden hover:text-white">
                   <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
                   <button className="relative">Receive SMS</button>
                 </Link>
-                <Link href={"/login"} className="w-full rounded-full bg-color-primary_black py-2 text-center text-lg font-bold text-white group relative overflow-hidden hover:text-color-primary_black">
+                <Link href={"/login"} className="w-full rounded-full bg-color-primary_black py-2 text-center text-sm md:text-lg font-bold text-white group relative overflow-hidden hover:text-color-primary_black">
                   <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-bg_light transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
                   <button className="relative">
                   Rent number
@@ -82,18 +82,18 @@ export default function Home() {
         <section className="bg-color-bg_light-100 py-20">
           <div className="mx-auto max-w-7xl lg:flex lg:flex-col">
             <div className="px-1">
-              <h2 className="text-center text-2xl font-extrabold text-color-primary_darken">
+              <h2 className="text-center md:text-2xl font-extrabold text-color-primary_darken">
                 Check How it Works
               </h2>
-              <h1 className="text-center text-4xl font-extrabold">
+              <h1 className="text-center mt-4 md:text-4xl font-extrabold">
                 Choose your country and service receive SMS right now
               </h1>
             </div>
             <Table />
           </div>
           <div className="mt-9 flex flex-col items-center">
-            <h1 className="text-center text-3xl font-extrabold">
-              Most Popular Services
+            <h1 className="text-center md:text-3xl font-extrabold">
+              Most popular services today
             </h1>
             <div className="mt-11 flex w-full flex-col">
               <Services />
@@ -102,9 +102,8 @@ export default function Home() {
         </section>
         <section>
           <div className="mx-auto max-w-7xl px-3">
-            <h1 className="mx-auto w-3/4 max-w-7xl text-center text-2xl font-extrabold lg:w-1/2 lg:text-3xl">
-              It&apos;s no secret that almost all online services are selling
-              your personal data.
+            <h1 className="mx-auto mb-8 md:w-3/4 max-w-7xl text-center md:text-2xl font-extrabold lg:w-1/2 lg:text-3xl">
+              It&apos;s no secret that almost all online services are selling your personal data.
             </h1>
             <div className="md:flex md:items-baseline md:justify-center md:space-x-5">
               <div className="lg flex flex-col items-center rounded-3xl bg-color-bg_primary-500 py-5">
@@ -114,10 +113,10 @@ export default function Home() {
                   className="h-80 w-80 object-contain"
                 />
                 <div className="flex flex-col">
-                  <h3 className="w-3/4 self-center text-center text-2xl font-bold">
+                  <h3 className="w-3/4 self-center text-center md:text-2xl font-bold">
                     Have you registered on Facebook?
                   </h3>
-                  <p className="w-3/4 self-center text-left text-base font-medium">
+                  <p className="md:w-3/4 pt-4 px-4 text-xs self-center text-left md:text-base font-medium">
                     You immediately receive an avalanche of targeted
                     advertising.
                   </p>
@@ -130,12 +129,11 @@ export default function Home() {
                   className="h-80 w-80 object-contain"
                 />
                 <div className="flex flex-col">
-                  <h3 className="w-3/4 self-center text-center text-2xl font-bold">
-                    Have you registered on Facebook?
+                  <h3 className="w-3/4 self-center text-center md:text-2xl font-bold">
+                    Post an ad on Craigslist?
                   </h3>
-                  <p className="w-3/4 self-center text-left text-base font-medium">
-                    You immediately receive an avalanche of targeted
-                    advertising.
+                  <p className="md:w-3/4 pt-4 px-4 text-xs self-center text-left md:text-base font-medium">
+                    Expect a lot of spam calls with offers o arange a loan
                   </p>
                 </div>
               </div>
@@ -172,7 +170,7 @@ export default function Home() {
         <SignUpSecton />
         <section className="my-16">
           <div className="mx-auto flex max-w-7xl flex-col items-center px-5">
-            <h1 className="self-center text-center text-2xl font-extrabold md:w-2/5">
+            <h1 className="self-center text-center md:text-2xl font-extrabold md:w-2/5">
               Registration on the sites without SMS to your personal number in 3
               steps
             </h1>
@@ -183,10 +181,10 @@ export default function Home() {
                 className="h-80 w-80 object-contain"
               />
               <div className="flex flex-col items-center">
-                <h1 className="mb-6 w-4/5 self-center text-center text-xl font-bold md:text-left">
+                <h1 className="mb-6 md:w-4/5 self-center text-center md:text-xl font-bold md:text-left">
                   Get your number in your personal cabinet
                 </h1>
-                <p className="w-4/5 text-lg">
+                <p className="md:w-4/5 md:text-lg">
                   To register with Newsems you only need to enter your email
                   address. No ID information or other contacts.
                 </p>
@@ -199,10 +197,10 @@ export default function Home() {
                 className="h-80 w-80 object-contain"
               />
               <div className="flex flex-col items-center">
-                <h1 className="mb-6 w-4/5 self-center text-center text-xl font-bold md:text-left">
+                <h1 className="mb-6 md:w-4/5 self-center text-center md:text-xl font-bold md:text-left">
                   Enter your phone number when signing up online
                 </h1>
-                <p className="w-4/5 text-lg">
+                <p className="md:w-4/5 md:text-lg">
                   We support 1500+ of the most popular social networks, messengers, marketplaces and web sites.
                 </p>
               </div>
@@ -214,10 +212,10 @@ export default function Home() {
                 className="h-80 w-80 object-contain"
               />
               <div className="flex flex-col items-center">
-                <h1 className="mb-6 w-4/5 self-center text-center text-xl font-bold md:text-left">
+                <h1 className="mb-6 md:w-4/5 self-center text-center md:text-xl font-bold md:text-left">
                   You receive an SMS in your personal profile
                 </h1>
-                <p className="w-4/5 text-lg">
+                <p className="md:w-4/5 md:text-lg">
                   You enter the verification code you received on the site. From $0.05 per activation. The number of numbers and activations is unlimited.
                 </p>
               </div>

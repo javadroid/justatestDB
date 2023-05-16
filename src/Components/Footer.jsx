@@ -20,7 +20,7 @@ export const Footer = () => {
           />
         </div>
         <div className="max-w-6xl mx-auto px-2">
-          <ul className="flex flex-wrap justify-between gap-4 font-bold text-color-primary">
+          <ul className="flex flex-wrap justify-center md:justify-between gap-4 font-bold text-color-primary text-xs md:text-base">
             <Link href={"/"} className="hover:underline">
               <li>Receive SMS Online</li>
             </Link>
@@ -86,11 +86,11 @@ export const Footer = () => {
         </div>
       </div>
       <div className="bg-color-bg_light p-6 text-center md:p-4">
-        <ul className="flex flex-col items-center w-full space-y-3 text-slate-500/50 md:flex-row md:justify-center md:space-y-0 md:space-x-4 lg:h-16">
+        <ul className="flex flex-col items-center w-full text-xs text-slate-500/50 md:text-base md:flex-row md:justify-center md:space-y-0 md:space-x-4 lg:h-16">
           <Link href={"/privacy"} className="hover:underline">
             <li>Privacy Policy</li>
           </Link>
-          <Link href={"/terms"} className="border-x border-slate-500/50 px-4 hover:underline">
+          <Link href={"/terms"} className="md:border-x border-slate-500/50 md:px-4 hover:underline">
             <li>Terms of Use</li>
           </Link>
           <Link href={"/payment-policy"} className="hover:underline">
