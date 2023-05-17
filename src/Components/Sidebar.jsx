@@ -17,7 +17,7 @@ import Link from "next/link";
 const Sidebar = () => {
   return (
     <aside className="h-auto w-1/4 bg-color-bg_primary-500 ">
-      <div className="px-2 flex w-full flex-col space-y-2 text-base lg:px-8 lg:mt-12 lg:font-medium">
+      <div className="px-2 flex w-full flex-col space-y-2 text-sm lg:text-sm xl:px-8 lg:mt-12 lg:font-medium">
         <Link href={"/user/receive-sms"} className="flex items-center gap-3 p-4 relative rounded-xl transition-all ease-in-out duration-300 hover:bg-color-bg_light active:bg-color-bg_light">
           <EnvelopeIcon className=" h-6 w-6 text-color-primary" />
           <p className="hidden lg:block">Receive SMS</p>
