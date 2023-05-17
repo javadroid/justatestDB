@@ -1,10 +1,19 @@
 import React from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
+import blank from "../assets/random-shapes/blank.png";
+import scribble from "../assets/random-shapes/scribble1.png";
+import hashtag from "../assets/random-shapes/hashtag2.png";
+import downArrow from "../assets/arrows/down-arrow.png";
+import Image from "next/image";
 
 export default function SignUpSecton() {
   return (
-    <section className="bg-gradient-to-b from-[#0D41D5] to-[#0187FF]">
+    <section className="relative over-flow-hidden bg-gradient-to-b from-[#0D41D5] to-[#0187FF]">
+      <Image src={blank} width={70} alt="blank" className="hidden lg:flex absolute left-7 bottom-10" />
+      <Image src={scribble} width={60} alt="scribble" className="hidden lg:flex absolute top-10 left-14" />
+      <Image src={hashtag} width={60} alt="hashtag" className="hidden lg:flex absolute bottom-20 right-32" />
+      <Image src={downArrow} width={50} alt="blank" className="hidden lg:flex absolute top-16 right-1/4" />
       <div className="mx-auto max-w-full px-4 py-8 lg:py-14">
         <div className="m-auto max-w-sm lg:max-w-4xl xl:max-w-6xl">
           <h3 className="my-4 text-center text-2xl font-bold text-color-white md:text-4xl">

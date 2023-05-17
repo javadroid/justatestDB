@@ -25,9 +25,9 @@ const Advantages = () => {
           <p className="md:w-4/6 justify-self-center text-center text-sm font-medium mb-1 lg:w-full lg:text-left">
             Any questions? Our manager will help to understand!
           </p>
-          <Link href={"/contact"} className="flex justify-center md:justify-between items-center text-color-primary font-extrabold space-x-5 md:w-4/5 group hover:opacity-[0.8]">
-            Ask a Question <span className="relative pl-2 -top-2.5 lg:pl-0">
-              <ChevronRightIcon width={20} className="top-0 group-hover:-ml-2 absolute" />
+          <Link href={"/contact"} className="flex justify-center lg:justify-start items-center text-color-primary font-extrabold md:w-4/5 group hover:opacity-[0.8]">
+            Ask a Question <span className="relative ml-8 -top-2.5">
+              <ChevronRightIcon width={20} className="top-0 group-hover:translate-x-1 absolute" />
             </span>
           </Link>
         </div>
@@ -36,14 +36,13 @@ const Advantages = () => {
             src={Robot}
             width={100}
             alt="LandLine"
-            // className="justify-self-center object-contain"
           />
           <h2 className="mb-5 text-center text-xl font-bold lg:text-left">Telegram bot</h2>
           <p className="md:w-4/6 justify-self-center text-center text-sm font-medium mb-1 lg:w-full lg:text-left"> Receive SMS through the service directly in Telegram!
           </p>
-          <Link href={"/contact"} className="flex justify-center md:justify-between items-center text-color-primary_darken font-extrabold space-x-5 w-4/5 group hover:opacity-[0.8]">
-            Connect <span className="relative pl-2 -top-2.5 lg:pl-0">
-              <ChevronRightIcon width={20} className="top-0 group-hover:-ml-2 absolute" />
+          <Link href={"/contact"} className="flex justify-center lg:justify-start items-center text-color-primary_darken font-extrabold md:w-4/5 group hover:opacity-[0.8]">
+            Connect <span className="relative ml-8 -top-2.5">
+              <ChevronRightIcon width={20} className="top-0 group-hover:translate-x-1 absolute" />
             </span>
           </Link>
         </div>
@@ -58,9 +57,9 @@ const Advantages = () => {
           <p className="md:w-4/6 justify-self-center text-center text-sm font-medium mb-1 lg:w-full lg:text-left">
             We&apos;ve created a special Telegrem group chat for users
           </p>
-          <Link href={"/contact"} className="flex justify-center md:justify-between items-center text-color-primary font-extrabold space-x-5 w-4/5 group hover:opacity-[0.8]">
-            Join <span className="relative -top-2.5 pl-2 lg:pl-0">
-              <ChevronRightIcon width={20} className="top-0 group-hover:-ml-2 absolute" />
+          <Link href={"/contact"} className="flex justify-center lg:justify-start items-center text-color-primary font-extrabold md:w-4/5 group hover:opacity-[0.8]">
+            Join <span className="relative ml-8 -top-2.5">
+              <ChevronRightIcon width={20} className="top-0 group-hover:translate-x-1 absolute" />
             </span>
           </Link>
         </div>
@@ -75,9 +74,9 @@ const Advantages = () => {
           <p className="md:w-4/6 justify-self-center text-center text-sm font-medium mb-1 lg:w-full lg:text-left">
             We made a special solution for those who want to use PC version of Newsems!
           </p>
-          <Link href={"/contact"} className="flex justify-center md:justify-between items-center text-color-primary_darken font-extrabold space-x-5 w-4/5 group hover:opacity-[0.8]">
-            Download <span className="relative -top-2.5 pl-2 md:pl-0">
-              <ChevronRightIcon width={20} className="top-0 group-hover:-ml-2 absolute" />
+          <Link href={"/contact"} className="flex justify-center lg:justify-start items-center text-color-primary_darken font-extrabold md:w-4/5 group hover:opacity-[0.8]">
+            Download <span className="relative ml-8 -top-2.5">
+              <ChevronRightIcon width={20} className="top-0 group-hover:translate-x-1 absolute" />
             </span>
           </Link>
         </div>
