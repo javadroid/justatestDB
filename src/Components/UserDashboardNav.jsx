@@ -11,7 +11,7 @@ const UserDashboardNav = () => {
   return (
     <nav className="top-0 z-50 flex h-16 w-full items-center justify-between bg-color-bg_primary-500 p-4 text-white lg:h-20">
       <div className="flex flex-grow items-center justify-end lg:justify-between">
-        <div className="hidden lg:flex lg:items-center lg:gap-11">
+        <div className="hidden lg:flex lg:items-center lg:gap-24 mr-5">
           <Image src={Logo} alt="Logo Image" className="w-48  object-contain" />
           <button className="group flex items-center space-x-5 rounded-md border border-color-primary bg-white px-9 py-2 text-black">
             <div>

@@ -39,12 +39,12 @@ const Connection = () => {
               <h1 className="text-center text-xl font-extrabold lg:text-left lg:text-2xl">
                 Connect via API
               </h1>
-              <p className="my-5 lg:text-2xl">
+              <p className="my-5 px-2 lg:px-0 lg:text-2xl">
                 Receive SMS verification in bulk and automate your work
               </p>
-              <button className="flex w-3/5 items-center justify-between rounded-lg border border-white px-2 py-3 lg:border-none group">
+              <button className="flex w-[80%] md:w-3/5 mx-auto lg:mx-0 items-center justify-between rounded-lg border border-white px-2 py-3 lg:border-none group">
                 <span className="text-lg font-bold lg:text-xl">Read More...</span>
-                <span className="relative -top-3">
+                <span className="relative right-5 -top-3 lg:right-0">
                   <ChevronRightIcon className="h-6 w-6 absolute group-hover:-ml-4" />
                 </span>
               </button>

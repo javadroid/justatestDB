@@ -87,7 +87,7 @@ const Rent = () => {
       </section>
 
       {/* How it works*/}
-      <section className="bg-color-bg_light-100 md:pt-24">
+      <section className="bg-color-bg_light-100 py-16 md:pt-24">
         {/* container to heading and the steps */}
         <div className="w-4xl mx-auto max-w-6xl px-4 text-center md:pb-32 md:px-8">
           {/* Heading */}
