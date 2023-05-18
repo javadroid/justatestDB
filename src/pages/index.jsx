@@ -38,7 +38,7 @@ export default function Home() {
           <div className="mx-auto mt-14 flex max-w-6xl flex-col px-4 pt-16 lg:flex-row lg:items-center lg:justify-between">
             <div className="basis-1/2">
               <div>
-                <h1 className="text-center text-color-white text-3xl font-extrabold md:w-full md:text-left md:text-5xl lg:text-4xl">
+                <h1 className="text-center text-3xl font-extrabold text-color-white md:w-full md:text-left md:text-5xl lg:text-4xl">
                   Receive SMS online
                 </h1>
                 <p className=" text-2xl text-white">
@@ -54,17 +54,21 @@ export default function Home() {
                   </span>
                 </p>
               </div>
-              <div className="flex w-full flex-col items-center justify-between space-y-5 pt-24 md:flex-row md:place-items-baseline md:justify-center md:space-y-0 md:space-x-6 md:pt-11">
-                <span className="absolute w-16 h-16 bg-red-500 bottom-48 left-16 bg-[url('/assets/arrows/right-arrow.png')]"></span>
-                <Link href={"/login"}  className="w-full rounded-full bg-white py-2 text-center text-lg font-bold text-color-primary_black group relative overflow-hidden hover:text-white">
-                  <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+              <div className="flex w-full flex-col items-center justify-between space-y-5 pt-24 md:flex-row md:place-items-baseline md:justify-center md:space-x-6 md:space-y-0 md:pt-11">
+                <span className="absolute bottom-48 left-16 h-16 w-16 bg-red-500 bg-[url('../assets/next.png')]"></span>
+                <Link
+                  href={"/login"}
+                  className="group relative w-full overflow-hidden rounded-full bg-white py-2 text-center text-lg font-bold text-color-primary_black hover:text-white"
+                >
+                  <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                   <button className="relative">Receive SMS</button>
                 </Link>
-                <Link href={"/login"} className="w-full rounded-full bg-color-primary_black py-2 text-center text-lg font-bold text-white group relative overflow-hidden hover:text-color-primary_black">
-                  <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-bg_light transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
-                  <button className="relative">
-                  Rent number
-                  </button>
+                <Link
+                  href={"/login"}
+                  className="group relative w-full overflow-hidden rounded-full bg-color-primary_black py-2 text-center text-lg font-bold text-white hover:text-color-primary_black"
+                >
+                  <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-color-bg_light transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
+                  <button className="relative">Rent number</button>
                 </Link>
               </div>
             </div>
@@ -203,7 +207,8 @@ export default function Home() {
                   Enter your phone number when signing up online
                 </h1>
                 <p className="w-4/5 text-lg">
-                  We support 1500+ of the most popular social networks, messengers, marketplaces and web sites.
+                  We support 1500+ of the most popular social networks,
+                  messengers, marketplaces and web sites.
                 </p>
               </div>
             </div>
@@ -218,7 +223,9 @@ export default function Home() {
                   You receive an SMS in your personal profile
                 </h1>
                 <p className="w-4/5 text-lg">
-                  You enter the verification code you received on the site. From $0.05 per activation. The number of numbers and activations is unlimited.
+                  You enter the verification code you received on the site. From
+                  $0.05 per activation. The number of numbers and activations is
+                  unlimited.
                 </p>
               </div>
             </div>
