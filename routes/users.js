@@ -554,7 +554,7 @@ router.get("/languages", (rea, res, next) => {
 // Fetching laguages ends here
 
 // Change user api key starts here
-router.put("user//changeapikey", userMiddleware.isLoggedIn, (req, res, next) => {
+router.put("/user/changeapikey", userMiddleware.isLoggedIn, (req, res, next) => {
     const userid = req.params.userid;
     let newAPI = uuid.v4() + userid;
     try {
