@@ -3,13 +3,19 @@ import React from 'react'
 import { Icon } from '@iconify/react';
 import chatting from '../assets/images/chatting.png'
 import Image from 'next/image';
+import stars from "../assets/random-shapes/christmas-stars.png";
+import hashtag from '../assets/random-shapes/hashtag.png';
+import arrow from '../assets/arrows/broken-arrow.png';
 
 
 export default function About() {
   return (
     <section className="bg-color-bg_light">
       <div className="m-auto px-4 py-2">
-        <div className="max-w-2xl mx-auto py-14 text-justify md:text-xl">
+        <div className="relative max-w-2xl mx-auto py-14 text-justify md:text-xl">
+          <Image src={stars} alt="stars" width={100} className="hidden lg:flex absolute bottom-40 -left-40" />
+          <Image src={hashtag} width={70} alt="hashtag" className="hidden lg:flex absolute top-40 -right-40" />
+          <Image src={arrow} width={120} alt="arrow" className="hidden lg:flex absolute -bottom-16 right-1/2" />
           <p className="my-4">
             &quot;Newsems&quot; gives you the opportunity to rent a virtual number to receive SMS. The leased number can be used for registration on almost any platform that requires a mobile number for registration.
           </p>
@@ -41,6 +47,7 @@ export default function About() {
                 </h3>
                 <form className="flex flex-col space-y-4 items-center justify-between">
                   <input type="email" placeholder="Enter your email" className="w-full border border-color-primary_black px-4 py-3 rounded-lg focus:outline-dashed focus:border-color-primary_black text-xs text-color-primary_black md:text-lg" />
+                  <input type="username" placeholder="Enter your username" className="w-full border border-color-primary_black px-4 py-3 rounded-lg focus:outline-dashed focus:border-color-primary_black text-xs text-color-primary_black md:text-lg" />
                   <input type="password" placeholder="Create password" className="w-full border border-color-primary_black px-4  py-3 rounded-lg focus:outline-dashed focus:border-color-primary_black text-xs text-color-primary_black md:text-lg" />
                   <Link href={"/user/receive-sms"} className="w-full text-center rounded-3xl bg-color-primary py-3 text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl relative group overflow-hidden">
                     <span className="absolute left-0 top-0 mt-16 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>

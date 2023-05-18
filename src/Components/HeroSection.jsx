@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const HeroSection = () => {
   return (
-    <div className="my-8 md:px-5">
+    <div className="py-8 md:px-5">
       <div className="flex items-center justify-between gap-12">
         <div className=" hidden lg:block">
           <Image

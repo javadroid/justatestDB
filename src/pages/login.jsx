@@ -110,6 +110,12 @@ const Login = () => {
                 className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
               />
               <input
+                {...register("username", { required: true })}
+                type="username"
+                placeholder="Enter your username"
+                className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
+              />
+              <input
                 {...register("password", { required: true })}
                 type="password"
                 placeholder="Enter password"
