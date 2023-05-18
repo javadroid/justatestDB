@@ -568,11 +568,11 @@ router.put("/user/changeapikey", userMiddleware.isLoggedIn, (req, res, next) => 
                         msg: err
                     });
                 }
-                if (!result.affectedRows) {
-                    return res.status(409).send({
-                        msg: 'You can not change your api key at the moment!'
-                    });
-                }
+                // if (!result.affectedRows) {
+                //     return res.status(409).send({
+                //         msg: 'You can not change your api key at the moment!'
+                //     });
+                // }
                 return res.status(200).send({
                     msg: 'Your api key has been successfully changed!',
                     data: result
