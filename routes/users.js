@@ -555,7 +555,7 @@ router.get("/languages", (rea, res, next) => {
 
 // Change user api key starts here
 router.put("/user/changeapikey", userMiddleware.isLoggedIn, (req, res, next) => {
-    const userid = req.params.userid;
+    const userid = req.query.userid;
     let newAPI = uuid.v4() + userid;
     try {
         db.query(
@@ -568,11 +568,11 @@ router.put("/user/changeapikey", userMiddleware.isLoggedIn, (req, res, next) => 
                         msg: err
                     });
                 }
-                // if (!result.affectedRows) {
-                //     return res.status(409).send({
-                //         msg: 'You can not change your api key at the moment!'
-                //     });
-                // }
+                if (!result.affectedRows) {
+                    return res.status(409).send({
+                        msg: 'You can not change your api key at the moment!'
+                    });
+                }
                 return res.status(200).send({
                     msg: 'Your api key has been successfully changed!',
                     data: result
