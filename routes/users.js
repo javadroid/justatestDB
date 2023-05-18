@@ -590,7 +590,7 @@ router.put("user//changeapikey", userMiddleware.isLoggedIn, (req, res, next) => 
 router.post('/feedback', (req, res, next) => {
     try {
         const { username, email, message } = req.body;
-        if (!username || !email || message) {
+        if (!username || !email || !message) {
             return res.status(409).send({
                 msg: "All fields are required!"
             })
