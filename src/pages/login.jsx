@@ -58,6 +58,9 @@ const Login = () => {
     {
       name: "google",
     },
+    {
+      name: "facebook",
+    },
   ];
 
   const handleOAuthSignIn = (provider) => () =>
@@ -161,7 +164,7 @@ const Login = () => {
               <div
                 href="/"
                 className="w-1/4 rounded-md bg-[#4267b2] px-4 py-2"
-                //onClick={signOut}
+                onClick={handleOAuthSignIn(providers[3].name)}
               >
                 <Icon
                   icon="teenyicons:facebook-solid"

@@ -42,10 +42,10 @@ export default function Home() {
             <div className="basis-1/2 relative">
               <Image src={rightArrow} width={60} alt="right arrow" className="hidden absolute -left-20 top-50 bottom-0 lg:flex" />
               <div>
-                <h1 className="text-center mb-4 text-color-white text-xl font-extrabold md:w-full md:text-left md:text-5xl lg:text-4xl">
+                <h1 className="mb-4 text-center text-xl font-extrabold text-color-white md:w-full md:text-left md:text-5xl lg:text-4xl">
                   Receive SMS online
                 </h1>
-                <p className="text-sm md:text-2xl text-white">
+                <p className="text-sm text-white md:text-2xl">
                   Register on social networks, <br className="hidden" />
                   marketplaces, exchanges and
                   <br className="hidden" />
@@ -64,11 +64,12 @@ export default function Home() {
                   <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
                   <button className="relative">Receive SMS</button>
                 </Link>
-                <Link href={"/login"} className="w-full rounded-full bg-color-primary_black py-2 text-center text-sm md:text-lg font-bold text-white group relative overflow-hidden hover:text-color-primary_black">
-                  <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-bg_light transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
-                  <button className="relative">
-                  Rent number
-                  </button>
+                <Link
+                  href={"/login"}
+                  className="group relative w-full overflow-hidden rounded-full bg-color-primary_black py-2 text-center text-sm font-bold text-white hover:text-color-primary_black md:text-lg"
+                >
+                  <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-color-bg_light transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
+                  <button className="relative">Rent number</button>
                 </Link>
               </div>
             </div>
@@ -96,7 +97,7 @@ export default function Home() {
             <Table />
           </div>
           <div className="mt-9 flex flex-col items-center">
-            <h1 className="text-center md:text-3xl font-extrabold">
+            <h1 className="text-center font-extrabold md:text-3xl">
               Most popular services today
             </h1>
             <div className="mt-11 flex w-full flex-col">
@@ -106,8 +107,9 @@ export default function Home() {
         </section>
         <section className="bg-color-bg_light pt-10">
           <div className="mx-auto max-w-7xl px-3">
-            <h1 className="mx-auto mb-8 md:w-3/4 max-w-7xl text-center md:text-2xl font-extrabold lg:w-1/2 lg:text-3xl">
-              It&apos;s no secret that almost all online services are selling your personal data.
+            <h1 className="mx-auto mb-8 max-w-7xl text-center font-extrabold md:w-3/4 md:text-2xl lg:w-1/2 lg:text-3xl">
+              It&apos;s no secret that almost all online services are selling
+              your personal data.
             </h1>
             <div className="md:flex md:justify-center md:space-x-5">
               <div className="flex flex-col items-center rounded-3xl bg-color-bg_primary-500 py-5">
@@ -189,7 +191,7 @@ export default function Home() {
                 className="h-80 w-80 object-contain"
               />
               <div className="flex flex-col items-center">
-                <h1 className="mb-6 md:w-4/5 self-center text-center md:text-xl font-bold md:text-left">
+                <h1 className="mb-6 self-center text-center font-bold md:w-4/5 md:text-left md:text-xl">
                   Get your number in your personal cabinet
                 </h1>
                 <p className="md:w-4/5 md:text-lg">
@@ -205,11 +207,12 @@ export default function Home() {
                 className="h-80 w-80 object-contain"
               />
               <div className="flex flex-col items-center">
-                <h1 className="mb-6 md:w-4/5 self-center text-center md:text-xl font-bold md:text-left">
+                <h1 className="mb-6 self-center text-center font-bold md:w-4/5 md:text-left md:text-xl">
                   Enter your phone number when signing up online
                 </h1>
                 <p className="md:w-4/5 md:text-lg">
-                  We support 1500+ of the most popular social networks, messengers, marketplaces and web sites.
+                  We support 1500+ of the most popular social networks,
+                  messengers, marketplaces and web sites.
                 </p>
               </div>
             </div>
@@ -220,11 +223,13 @@ export default function Home() {
                 className="h-80 w-80 object-contain"
               />
               <div className="flex flex-col items-center">
-                <h1 className="mb-6 md:w-4/5 self-center text-center md:text-xl font-bold md:text-left">
+                <h1 className="mb-6 self-center text-center font-bold md:w-4/5 md:text-left md:text-xl">
                   You receive an SMS in your personal profile
                 </h1>
                 <p className="md:w-4/5 md:text-lg">
-                  You enter the verification code you received on the site. From $0.05 per activation. The number of numbers and activations is unlimited.
+                  You enter the verification code you received on the site. From
+                  $0.05 per activation. The number of numbers and activations is
+                  unlimited.
                 </p>
               </div>
             </div>

@@ -55,6 +55,9 @@ const SignUpForm = () => {
     {
       name: "google",
     },
+    {
+      name: "facebook",
+    },
   ];
 
   const handleOAuthSignIn = (provider) => () =>
@@ -168,7 +171,7 @@ const SignUpForm = () => {
           <div
             href="/"
             className="w-1/4 rounded-md bg-[#4267b2] px-4 py-2"
-            //onClick={signOut}
+            onClick={handleOAuthSignIn(providers[3].name)}
           >
             <Icon
               icon="teenyicons:facebook-solid"
@@ -183,7 +186,6 @@ const SignUpForm = () => {
             />
           </div>
           <div
-            href="/google"
             className="w-1/4 cursor-pointer rounded-md bg-[#d93025] px-4 py-2"
             onClick={handleOAuthSignIn(providers[2].name)}
           >
