@@ -657,7 +657,7 @@ router.get("/blog/post", (req, res, next) => {
     let postid = req.query.post_id;
     try {
         db.query(
-            `SELECT blog_posts.id AS post_id, blog_posts.content AS content FROM blog_posts WHRE ID='${postid}' JOIN comments ON blog_posts.id=comments.postid`,
+            `SELECT blog_posts.id AS post_id, blog_posts.content AS content FROM blog_posts WHRE blog_posts.id='${postid}' JOIN comments ON blog_posts.id=comments.postid`,
             (err, result) => {
                 // if query error
                 if (err) {
