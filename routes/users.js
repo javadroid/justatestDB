@@ -587,7 +587,7 @@ router.put("user//changeapikey", userMiddleware.isLoggedIn, (req, res, next) => 
 
 // Feedback module start here
 //sending feedback to the admin
-router.post('/feedback', userMiddleware.isLoggedIn, (req, res, next) => {
+router.post('/feedback', (req, res, next) => {
     try {
         const { username, email, message } = req.body;
         if (!username || !email || message) {
@@ -709,7 +709,7 @@ router.post('/comment', userMiddleware.isLoggedIn, (req, res, next) => {
                     });
                 }
                 return res.status(200).send({
-                    msg: 'You have successfully commented!',
+                    msg: 'Your have successfully sent!',
                     data: result
                 });
             }
