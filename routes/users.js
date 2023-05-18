@@ -624,7 +624,7 @@ router.post('/feedback', userMiddleware.isLoggedIn, (req, res, next) => {
 
 // Blog modules
 // fetching all blog posts
-router.get("/blog/posts", (rea, res, next) => {
+router.get("/blog/posts", (req, res, next) => {
     try {
         let st = "Enable";
         db.query(
@@ -653,7 +653,7 @@ router.get("/blog/posts", (rea, res, next) => {
     }
 });
 // fetching single blog post
-router.get("/blog/post", (rea, res, next) => {
+router.get("/blog/post", (req, res, next) => {
     let postid = req.query.post_id;
     try {
         db.query(
