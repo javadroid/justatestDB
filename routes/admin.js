@@ -725,23 +725,45 @@ router.put('/feedback', userMiddleware.isLoggedIn, (req, res, next) => {
 router.post('/create/post', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
         let fb_link = "",
-            twt_link = "",
-            ingt_link = "";
-        const { title, author, description, content } = req.body;
-        // encoding the content input
-        let buff = Buffer.from(content, 'utf8').toString('base64');
-        // decoding the content
-        let DEcontent = Buffer.from(buff, 'base64').toString('utf8');
-        console.log("Encoded: " + buff);
-        console.log("Decoded: " + DEcontent);
-        console.log("Main content: " + content);
-        if (!language) {
+            twit_link = "",
+            ingt_link = "",
+            tele_link = "",
+            pint_link = "",
+            reddit_link = "";
+        const { title, author, description, image, content } = req.body;
+        if (req.body.fb_link) {
+            fb_link = req.body.fb_link;
+        }
+        if (req.body.twit_link) {
+            twit_link = req.body.twit_link;
+        }
+        if (req.body.ingt_link) {
+            ingt_link = req.body.ingt_link;
+        }
+        if (req.body.tele_link) {
+            tele_link = req.body.tele_link;
+        }
+        if (req.body.pint_link) {
+            pint_link = req.body.pint_link;
+        }
+        if (req.body.ingt_link) {
+            reddit_link = req.body.reddit_link;
+        }
+        if (!title || !author || !description || !image || !content) {
             return res.status(401).send({
-                msg: "language is required!"
+                msg: "Title, author, description, image, content field con not be empty!"
             });
         }
+        // encoding the content input
+        let Encoded = Buffer.from(content, 'utf8').toString('base64');
+        // decoding the content
+        let DEcontent = Buffer.from(Encoded, 'base64').toString('utf8');
+        console.log("Encoded: " + Encoded);
+        console.log("Decoded: " + DEcontent);
+        console.log("Main content: " + content);
         db.query(
-            `INSERT INTO languages(language, status, created_date) VALUES ('${language}', '${status}', now())`,
+            `INSERT INTO blog_posts(title, description, content, image, facebook, twitter, instagram, telegram, pinterest, reddit)
+            VALUES ('${title}', '${author}', '${description}', '${Encoded}', '${image}', '${fb_link}', '${twit_link}', '${ingt_link}', '${tele_link}', '${pint_link}', '${reddit_link}')`,
             (err, result) => {
                 if (err) {
                     // throw err;
@@ -750,7 +772,7 @@ router.post('/create/post', userMiddleware.isLoggedIn, (req, res, next) => {
                     });
                 }
                 return res.status(201).send({
-                    msg: language + ' language has been successfully added!',
+                    msg: 'Post has been published successfully!',
                 });
             }
         );
@@ -763,18 +785,139 @@ router.post('/create/post', userMiddleware.isLoggedIn, (req, res, next) => {
 // Deleting blog post
 router.delete('/delete/post', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
+        let postid = req.query.post_id;
+        db.query(
+            `DELETE FROM blog_posts WHERE id='${postid}'`,
+            (err, result) => {
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                if (result.affectedRows) {
+                    return res.status(200).send({
+                        msg: result.affectedRows + ' post has been successfully deleted!',
+                    });
+                } else {
+                    return res.status(404).send({
+                        msg: 'No post exist with such id.',
+                    });
+                }
+            }
+        );
 
     } catch (err) {
-        console.log(err);
+        return res.status(401).send({
+            Error: err
+        })
     }
 });
 // Editing blog post
 router.put('/edit/post', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-
+        let postid = req.query.post_id;
+        let fb_link = "",
+            twit_link = "",
+            ingt_link = "",
+            tele_link = "",
+            pint_link = "",
+            reddit_link = "";
+        const { title, author, description, image, content } = req.body;
+        if (req.body.fb_link) {
+            fb_link = req.body.fb_link;
+        }
+        if (req.body.twit_link) {
+            twit_link = req.body.twit_link;
+        }
+        if (req.body.ingt_link) {
+            ingt_link = req.body.ingt_link;
+        }
+        if (req.body.tele_link) {
+            tele_link = req.body.tele_link;
+        }
+        if (req.body.pint_link) {
+            pint_link = req.body.pint_link;
+        }
+        if (req.body.ingt_link) {
+            reddit_link = req.body.reddit_link;
+        }
+        if (!title || !author || !description || !image || !content) {
+            return res.status(401).send({
+                msg: "Title, author, description, image, content field con not be empty!"
+            });
+        }
+        // encoding the content input
+        let Encoded = Buffer.from(content, 'utf8').toString('base64');
+        // decoding the content
+        let DEcontent = Buffer.from(Encoded, 'base64').toString('utf8');
+        console.log("Encoded: " + Encoded);
+        console.log("Decoded: " + DEcontent);
+        console.log("Main content: " + content);
+        db.query(
+            `UPDATE blog_posts SET title='${title}', author='${author}', description='${description}', content='${Encoded}', image='${image}', facebook='${fb_link}', twitter='${twit_link}', instagram='${ingt_link}', telegram='${tele_link}', pinterest='${pint_link}', reddit='${reddit_link}' WHERE id='${postid}'`,
+            (err, result) => {
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                return res.status(201).send({
+                    msg: 'Post has been successfully updated and published!',
+                });
+            }
+        );
     } catch (err) {
         console.log(err);
     }
 });
+// Enable blog post
+router.put('/enable/post', userMiddleware.isLoggedIn, (req, res, next) => {
+    try {
+        let postid = req.query.post_id;
+        let st = "Enable"
+        db.query(
+            `UPDATE blog_posts SET status='${st}' WHERE id='${postid}'`,
+            (err, result) => {
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                return res.status(201).send({
+                    msg: result.affectedRows + ' Post has been successfully enable',
+                });
+            }
+        );
+    } catch (err) {
+        console.log(err);
+    }
+});
+// Disable blog post
+router.put('/disable/post', userMiddleware.isLoggedIn, (req, res, next) => {
+    try {
+        let postid = req.query.post_id;
+        let st = "Disable"
+        db.query(
+            `UPDATE blog_posts SET status='${st}' WHERE id='${postid}'`,
+            (err, result) => {
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                return res.status(201).send({
+                    msg: result.affectedRows + ' Post has been successfully disable from the public',
+                });
+            }
+        );
+    } catch (err) {
+        console.log(err);
+    }
+});
+
 
 module.exports = router;

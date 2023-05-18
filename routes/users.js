@@ -626,8 +626,9 @@ router.post('/feedback', userMiddleware.isLoggedIn, (req, res, next) => {
 // fetching all blog posts
 router.get("/blog/posts", (rea, res, next) => {
     try {
+        let st = "Enable";
         db.query(
-            `SELECT * FROM blog_posts`,
+            `SELECT * FROM blog_posts WHERE status='${st}' ORDER BY date_created DESC`,
             (err, result) => {
                 // if query error
                 if (err) {
@@ -653,10 +654,10 @@ router.get("/blog/posts", (rea, res, next) => {
 });
 // fetching single blog post
 router.get("/blog/post", (rea, res, next) => {
-    let postid = req.query.postid;
+    let postid = req.query.post_id;
     try {
         db.query(
-            `SELECT * FROM blog_posts WHERE id='${postid}'`,
+            `SELECT blog_posts.id AS post_id, blog_posts.content AS content FROM blog_posts WHRE ID='${postid}' JOIN comments ON blog_posts.id=comments.postid`,
             (err, result) => {
                 // if query error
                 if (err) {
@@ -750,6 +751,32 @@ router.get('/balance', userMiddleware.isLoggedIn, (req, res, next) => {
         console.log(err)
     }
 });
+
+// fetching user details by id
+router.get('/user', userMiddleware.isLoggedIn, (req, res, next) => {
+    try {
+        const q_id = req.query.userid;
+        db.query(
+            `SELECT * FROM users WHERE id = '${q_id}'`,
+            (err, result) => {
+                if (result.length) {
+                    return res.status(200).send({
+                        user: result[0]
+                    });
+                } else {
+                    return res.status(404).send({
+                        msg: 'User not found!'
+                    });
+                }
+            }
+        );
+    } catch (err) {
+        return res.status(401).send({
+            Error: err
+        })
+    }
+});
+
 //To protect a route now, simply include this middleware when calling the route as follows:
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
     console.log(req.userData);
