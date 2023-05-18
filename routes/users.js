@@ -703,7 +703,7 @@ router.post('/comment', userMiddleware.isLoggedIn, (req, res, next) => {
                         msg: err
                     });
                 }
-                if (!result.length) {
+                if (!result) {
                     return res.status(409).send({
                         msg: 'Something went wrong!'
                     });
