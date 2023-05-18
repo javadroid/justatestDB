@@ -688,7 +688,7 @@ router.post('/comment', userMiddleware.isLoggedIn, (req, res, next) => {
         let postid = req.query.postid;
         let user = req.query.userid
         const { comment } = req.body;
-        if (!user || !comment) {
+        if (!user || !comment || !postid) {
             return res.status(409).send({
                 msg: "All fields are required!"
             })
