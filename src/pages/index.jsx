@@ -20,7 +20,7 @@ import Cookies from "@/Components/Cookies";
 import About from "@/Components/About";
 import Link from "next/link";
 import rightArrow from "@/assets/arrows/arrow-right.png";
-import curvedArrow from "@/assets/arrows/curved-arrow.png"
+import curvedArrow from "@/assets/arrows/curved-arrow.png";
 import scribble from "@/assets/random-shapes/scribble.png";
 import zigzag from "@/assets/random-shapes/zigzag.png";
 import arrow from "@/assets/arrows/arrow.png";
