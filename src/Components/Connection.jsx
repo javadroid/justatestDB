@@ -45,7 +45,7 @@ const Connection = () => {
               <button className="flex w-[80%] md:w-3/5 mx-auto lg:mx-0 items-center justify-between rounded-lg border border-white px-2 py-3 lg:border-none group">
                 <span className="text-lg font-bold lg:text-xl">Read More...</span>
                 <span className="relative right-5 -top-3 lg:right-0">
-                  <ChevronRightIcon className="h-6 w-6 absolute group-hover:-ml-4" />
+                  <ChevronRightIcon className="h-6 w-6 absolute group-hover:translate-x-1" />
                 </span>
               </button>
             </div>
