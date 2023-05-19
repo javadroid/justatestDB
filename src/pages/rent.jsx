@@ -60,7 +60,7 @@ const Rent = () => {
       {/* Phone number rental */}
       <section className="bg-color-bg_light py-10">
         <div className="relative mx-auto max-w-7xl items-center justify-center md:flex md:flex-row-reverse">
-          <Image width={200} src={curvedArrow} alt="curved-arrow" className="absolute -bottom-36  right-[40%]" />
+          <Image width={200} src={curvedArrow} alt="curved-arrow" className="absolute -bottom-36 left-20 sm:left-28 md:left-[40%] lg:right-[40%]" />
           <div className="px-4 md:w-full lg:w-1/2">
             <h2 className="mb-4 text-left text-xl font-extrabold text-black md:text-center md:text-3xl lg:mb-12 lg:text-left">
               Newsems - phone number rental to receive SMS
