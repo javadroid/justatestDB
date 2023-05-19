@@ -148,7 +148,7 @@ router.put('/enable/user', userMiddleware.isLoggedIn, (req, res, next) => {
                 (err, result) => {
                     if (result.affectedRows) {
                         return res.status(200).send({
-                            msg: result.affectedRows + " user account has been disabled successfully."
+                            msg: result.affectedRows + " user account has been enabled successfully."
                         });
                     } else {
                         return res.status(404).send({
