@@ -117,24 +117,15 @@ const Login = () => {
                 className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
               />
               <input
-                {...register("username", { required: true })}
-                type="username"
-                placeholder="Enter your username"
-                className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
-              />
-              <input
                 {...register("password", { required: true })}
                 type="password"
                 placeholder="Enter password"
                 className="w-full rounded-lg border border-color-primary_black  px-4 py-3 text-sm text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
               />
-              <button className="w-full rounded-3xl bg-color-primary py-3 text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl">
-                Sign in
+              <button className="w-full rounded-3xl bg-color-primary py-3 text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl relative group overflow-hidden">
+              <span className="absolute left-0 top-0 mt-16 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+                <span className="relative">Sign in</span>
               </button>
-              {/* <Link href={"/user/receive-sms"} className="w-full text-center rounded-3xl bg-color-primary py-3 font-bold text-color-white md:text-lg lg:py-4 lg:text-xl relative group overflow-hidden">
-                <span className="absolute left-0 top-0 mt-16 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
-                
-              </Link> */}
               <span>
                 <Link
                   href="/"
