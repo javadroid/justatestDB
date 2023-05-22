@@ -585,6 +585,54 @@ router.put("/user/changeapikey", userMiddleware.isLoggedIn, (req, res, next) => 
 });
 // Change API key ends here
 
+// Change user password starts here
+router.put("/change/password", userMiddleware.isLoggedIn, (req, res, next) => {
+    const userid = req.query.userid;
+    let newPass = req.body.newPassword;
+    let newPass2 = req.body.repeat_newPassword;
+    try {
+        if (newPass2 != newPass) {
+            return res.status(400).send({
+                msg: "Passwords do not match!"
+            })
+        }
+        bcrypt.hash(newPass, 10, (err, hash) => {
+            if (err) {
+                return res.status(500).send({
+                    msg: err
+                });
+            } else {
+
+                db.query(
+                    `UPDATE users SET password='${hash}' WHERE id = '${userid}'`,
+                    (err, result) => {
+                        // user does not exists
+                        if (err) {
+                            // throw err;
+                            return res.status(400).send({
+                                msg: err
+                            });
+                        }
+                        if (!result.affectedRows) {
+                            return res.status(409).send({
+                                msg: 'User does not exist'
+                            });
+                        }
+                        return res.status(200).send({
+                            msg: 'Your api key has been successfully changed!',
+                            data: result
+                        });
+                    }
+                );
+            }
+
+        })
+    } catch (e) {
+        console.log(e);
+    }
+});
+// change user password module ends here
+
 // Feedback module start here
 //sending feedback to the admin
 router.post('/feedback', (req, res, next) => {
