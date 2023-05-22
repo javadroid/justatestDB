@@ -619,7 +619,7 @@ router.put("/change/password", userMiddleware.isLoggedIn, (req, res, next) => {
                             });
                         }
                         return res.status(200).send({
-                            msg: 'Your api key has been successfully changed!',
+                            msg: 'Your password has been successfully changed!',
                             data: result
                         });
                     }
