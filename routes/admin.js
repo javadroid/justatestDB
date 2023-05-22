@@ -213,6 +213,31 @@ router.get('/user/transactions', userMiddleware.isLoggedIn, (req, res, next) => 
         })
     }
 });
+
+// fetch all users transaction history
+router.get('/users/trxhistory', userMiddleware.isLoggedIn, (req, res, next) => {
+    try {
+        // const idv = req.query.userid;
+        db.query(
+            `SELECT * FROM transactions ORDER BY id DESC`,
+            (err, result) => {
+                if (result.length >= 1) {
+                    return res.status(200).send({
+                        trx_history: { result }
+                    });
+                } else {
+                    return res.status(404).send({
+                        msg: 'There is no transactions yet!'
+                    });
+                }
+
+            });
+    } catch (err) {
+        return res.status(401).send({
+            Error: err
+        })
+    }
+});
 //Login user
 router.post('/login', (req, res, next) => {
     try {
