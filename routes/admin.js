@@ -949,5 +949,43 @@ router.put('/disable/post', userMiddleware.isLoggedIn, (req, res, next) => {
     }
 });
 
-
+//country module starts here
+//Add up country
+router.post('/create/country', userMiddleware.isLoggedIn, (req, res, next) => {
+    try {
+        const country = req.body.country_name;
+        const code = req.body.country_code;
+        const shrt_name = req.body.short_name;
+        let status = "Enable";
+        if (!country || !code || !shrt_name) {
+            return res.status(401).send({
+                msg: "Country name, code, and short_name are required!"
+            });
+        }
+        db.query(
+            `INSERT INTO countries(country_name, country_short_name, country_code, status, created_date) VALUES ('${country}', '${shrt_name}', '${code}', '${status}', now())`,
+            (err, result) => {
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                if (result.affectedRows >= 1) {
+                    return res.status(201).send({
+                        msg: country + ' has been successfully added as a country',
+                    });
+                } else {
+                    return res.status(201).send({
+                        msg: 'Something went wrong, try again later',
+                    });
+                }
+            }
+        );
+    } catch (err) {
+        return res.status(401).send({
+            Error: err
+        })
+    }
+});
 module.exports = router;
