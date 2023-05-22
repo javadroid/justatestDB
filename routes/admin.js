@@ -217,10 +217,15 @@ router.get('/user/transactions', userMiddleware.isLoggedIn, (req, res, next) => 
 // fetch all users transaction history
 router.get('/users/trxhistory', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        // const idv = req.query.userid;
+
         db.query(
-            `SELECT * FROM transactions ORDER BY id DESC`,
+            `SELECT * FROM transactions ORDER BY trx_id DESC`,
             (err, result) => {
+                if (err) {
+                    return res.status(400).send({
+                        msg: err
+                    })
+                }
                 if (result.length >= 1) {
                     return res.status(200).send({
                         trx_history: { result }
