@@ -554,7 +554,7 @@ router.get("/languages", (rea, res, next) => {
 // Fetching laguages ends here
 
 // Fetch available countries
-router.get("/coutries", userMiddleware.isLoggedIn, (rea, res, next) => {
+router.get("/countries", userMiddleware.isLoggedIn, (rea, res, next) => {
     try {
         db.query(
             `SELECT * FROM countries`,
