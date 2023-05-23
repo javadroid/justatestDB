@@ -41,7 +41,7 @@ function Help() {
             <Link href="#one-time"
               className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl hover:drop-shadow-2xl"
             >
-              <Image src={fast1} alt="" className="inline" />
+              <Image src={fast1} width={200} height={200} alt="" className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get a number for one-time sign up?
               </h2>
@@ -51,7 +51,7 @@ function Help() {
             <Link href="#bought"
             className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl hover:drop-shadow-2xl"
             >
-              <Image src={fast2} alt="" className="inline" />
+              <Image src={fast2} alt="" width={200} height={200} className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get sms to a bought number?
               </h2>
@@ -61,7 +61,7 @@ function Help() {
             <Link href="#long-term"
               className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl hover:drop-shadow-2xl"
             >
-              <Image src={fast3} alt="" className="inline" />
+              <Image src={fast3}  width={200} height={200} alt="" className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get a long-term number?
               </h2>
