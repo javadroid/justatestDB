@@ -557,7 +557,7 @@ router.get("/languages", (rea, res, next) => {
 router.get("/countries", userMiddleware.isLoggedIn, (rea, res, next) => {
     try {
         db.query(
-            `SELECT * FROM countries`,
+            `SELECT country_name, country_short_name, country_code FROM countries`,
             (err, result) => {
                 // if query error
                 if (err) {
