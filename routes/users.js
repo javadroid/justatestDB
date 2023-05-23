@@ -720,7 +720,7 @@ router.get("/blog/post", (req, res, next) => {
                         msg: 'This post does not exist!'
                     });
                 }
-                if (resul >= 1) {
+                if (resul) {
                     var total_comments;
                     db.query(
                         `SELECT * FROM comments WHERE postid='${postid}'`,
