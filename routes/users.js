@@ -705,8 +705,8 @@ router.get("/blog/post", (req, res, next) => {
     let postid = req.query.post_id;
     try {
         db.query(
-            `SELECT * FROM blog_posts LEFT JOIN comments ON blog_posts.id=comments.postid AND blog_posts.id='${postid}'`,
-            (err, result) => {
+            `SELECT * FROM blog_posts WHERE id='${postid}'`,
+            (err, resul) => {
                 // if query error
                 if (err) {
                     // throw err;
@@ -715,14 +715,34 @@ router.get("/blog/post", (req, res, next) => {
                     });
                 }
                 // if there is no language available
-                if (!result.length) {
+                if (!resul.length) {
                     return res.status(309).send({
                         msg: 'This post does not exist!'
                     });
                 }
-                return res.status(200).send({
-                    data: result
-                });
+                if (resul >= 1) {
+                    var total_comments;
+                    db.query(
+                        `SELECT * FROM comments WHERE postid='${postid}'`,
+                        (err, result) => {
+                            if (err) { // throw err;
+                                return res.status(400).send({
+                                    msg: err
+                                });
+                            }
+                            if (!result.length) {
+                                total_comments = 0;
+                            }
+                            total_comments = result.length
+                            return res.status(200).send({
+                                post: resul,
+                                comments: result,
+                                total_comments: total_comments
+                            });
+                        }
+                    );
+                }
+
             }
         );
     } catch (err) {
