@@ -553,6 +553,36 @@ router.get("/languages", (rea, res, next) => {
 });
 // Fetching laguages ends here
 
+// Fetch available countries
+router.get("/coutries", userMiddleware.isLoggedIn, (rea, res, next) => {
+    try {
+        db.query(
+            `SELECT * FROM countries`,
+            (err, result) => {
+                // if query error
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                // if there is no language available
+                if (!result.length) {
+                    return res.status(309).send({
+                        msg: 'No country is available yet.'
+                    });
+                }
+                return res.status(200).send({
+                    countries: result
+                });
+            }
+        );
+    } catch (err) {
+        console.log(err)
+    }
+});
+
+
 // Change user api key starts here
 router.put("/user/changeapikey", userMiddleware.isLoggedIn, (req, res, next) => {
     const userid = req.query.userid;
