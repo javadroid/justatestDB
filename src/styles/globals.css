@@ -22,13 +22,7 @@
 }
 
 .roll::-webkit-scrollbar {
-     width: 1px;
-}
-
-.roll::-webkit-scrollbar-thumb{
-    width: 17px;
-    height: 7px;
-    cursor: pointer;
+     width: 3px;
 }
 
 .parent {
