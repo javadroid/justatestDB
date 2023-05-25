@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Axios from "axios";
 import Link from "next/link";
 import fast1 from "@/assets/images/fast1.png";
@@ -7,25 +6,24 @@ import fast3 from "@/assets/images/fast3.png";
 import Image from "next/image";
 import { Icon } from "@iconify/react"
 import UserDashboardLayout from "@/Components/UserDashboardLayout";
+import { toast } from "react-hot-toast";
+import { useForm } from "react-hook-form";
 
 const Feedback = () => {
   const url = "http://161.35.218.95:3000/api/feedback";
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [message, setMessage] = useState("");
-
-  function postData(e) {
-    e.preventDefault();
+  function postData({ email, username, message }) {
     Axios.post(url, {
       email,
       username,
       message
     }).then((res) => {
      res = res.data.msg;
-      alert(res);
+      toast.success(res);
       window.location.reload();
     }).catch((err) => {
+      toast.error(err);
       console.log('Error', err);
     })
   }
@@ -72,7 +70,7 @@ const Feedback = () => {
             </Link>
           </div>
         </div>
-        <div className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-5 md:text-xl">
+        <div className="mx-auto px-4 mt-10 grid max-w-4xl grid-cols-2 gap-5 md:text-xl md:px-0">
           <div className="flex flex-col items-start">
             <p className="font-bold">Chat Support:</p>
             <Link href="" className=" flex items-center justify-center space-x-4 font-bold text-color-tg w-full rounded-md border border-color-tg py-3 text-center group">
@@ -88,38 +86,32 @@ const Feedback = () => {
             </Link>
           </div>
         </div>
-        <form className="mx-auto mt-10 grid max-w-4xl grid-cols-2 gap-5 md:text-xl">
+        <form onSubmit={handleSubmit(postData)} className="mx-auto px-4 mt-10 grid max-w-4xl grid-cols-2 gap-5 md:text-xl md:px-0">
             <input
-              onChange={(e) => setUsername(e.target.value)}
-              value={username}
-              id="username"
+              {...register("username", { required: true })}
               type="text"
-              placeholder="Your username"
+              placeholder="Enter your username"
               className="w-full rounded-md border outline-none placeholder:text-color-primary_darken border-color-primary_darken px-2 py-2 "
             />
             <input
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              id="email"
+              {...register("email", { required: true })}
               type="email"
               placeholder="Your email"
               className="w-full rounded-md border outline-none placeholder:text-color-primary_darken border-color-primary_darken px-2 py-2"
             />
           <div className="col-span-2">
             <textarea
-              onChange={(e) => setMessage(e.target.value)}
-              value={message}
-              id="message"
+              {...register("message", { required: true })}
               type="text"
-              placeholder="Your question"
+              placeholder="Ask a question"
               className="w-full rounded-md border outline-none placeholder:text-color-primary_darken border-color-primary_darken px-2 py-2"
               rows="5"
             />
           </div>
-              <button onClick={postData} className="group relative w-full mx-auto overflow-hidden rounded-3xl bg-color-primary py-3 text-center text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl">
-              <span className="absolute left-0 top-0 mt-20 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
-                <span className="relative">Send</span>
-              </button>
+          <button className="group relative w-full mx-auto overflow-hidden rounded-3xl bg-color-primary py-3 text-center text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl">
+          <span className="absolute left-0 top-0 mt-20 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
+            <span className="relative">Send</span>
+          </button>
         </form>
         <div className="mx-auto mt-10 md:w-11/12">
           <h3 className="text-sm md:text-xl font-bold text-color-text_light text-center lg:text-left">Company Details</h3>
