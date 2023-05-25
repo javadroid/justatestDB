@@ -6,6 +6,10 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
+import stars from "../assets/random-shapes/christmas-stars.png";
+import hashtag from '../assets/random-shapes/hashtag2.png';
+import star from '../assets/random-shapes/shooting-star.png';
+import Image from "next/image";
 
 const SignUpForm = () => {
   const { data: session } = useSession();
@@ -94,7 +98,10 @@ const SignUpForm = () => {
   };
 
   return (
-    <div className=" mx-2 rounded-2xl bg-color-white px-6 pb-12 pt-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:m-auto md:max-w-md md:rounded-3xl lg:max-w-xl">
+    <div className="relative mx-2 rounded-2xl bg-color-white px-6 pb-12 pt-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:m-auto md:max-w-md md:rounded-3xl lg:max-w-xl">
+      <Image src={stars} alt="stars" width={100} className="hidden lg:flex absolute bottom-40 -left-40" />
+      <Image src={hashtag} width={70} alt="hashtag" className="hidden lg:flex absolute top-40 -right-40" />
+      <Image src={star} width={120} alt="shooting-star" className="hidden lg:flex absolute -left-1/2" />
       <div className="m-auto max-w-xs">
         <h3 className="my-4 text-center text-h2Size font-bold">Sign up</h3>
         <form

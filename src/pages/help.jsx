@@ -16,6 +16,8 @@ import getSmsCode2 from "../assets/images/getSmsCode_2_en.webp";
 import howRent from "../assets/images/howRent_en.webp";
 import howRent2 from "../assets/images/howRent_2_en.webp";
 import { useRouter } from "next/router";
+import stars from "../assets/random-shapes/christmas-stars.png";
+import hashtag from '../assets/random-shapes/hashtag.png';
 
 function Help() {
   const router = useRouter();
@@ -23,7 +25,9 @@ function Help() {
   return (
     <section className="mt-14 pb-20">
       <div className="bg-color-bg_light pb-24">
-        <div className="mx-0 space-y-4 bg-color-bg_primary-500 px-4 sm:space-y-8 sm:pb-12 lg:pt-14">
+        <div className="relative mx-0 space-y-4 bg-color-bg_primary-500 px-4 sm:space-y-8 sm:pb-12 lg:pt-0">
+          <Image src={stars} alt="stars" width={80} className="hidden absolute right-1/4 top-10 lg:flex" />
+          <Image src={hashtag} width={50} alt="hashtag" className="hidden absolute left-28 top-28 lg:flex" />
           <h1 className="pt-24 text-center text-2xl font-extrabold sm:text-4xl">
             Help Section
           </h1>
@@ -37,7 +41,7 @@ function Help() {
             <Link href="#one-time"
               className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl hover:drop-shadow-2xl"
             >
-              <Image src={fast1} alt="" className="inline" />
+              <Image src={fast1} width={200} height={200} alt="" className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get a number for one-time sign up?
               </h2>
@@ -47,7 +51,7 @@ function Help() {
             <Link href="#bought"
             className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl hover:drop-shadow-2xl"
             >
-              <Image src={fast2} alt="" className="inline" />
+              <Image src={fast2} alt="" width={200} height={200} className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get sms to a bought number?
               </h2>
@@ -57,7 +61,7 @@ function Help() {
             <Link href="#long-term"
               className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl hover:drop-shadow-2xl"
             >
-              <Image src={fast3} alt="" className="inline" />
+              <Image src={fast3}  width={200} height={200} alt="" className="inline" />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get a long-term number?
               </h2>

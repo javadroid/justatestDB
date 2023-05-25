@@ -10,6 +10,8 @@ import Connection from "@/Components/Connection";
 import Country from "@/Components/countries/country";
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import rightArrow from "../assets/arrows/arrow-right.png";
+import curvedArrow from "../assets/arrows/curved-arrow.png";
 
 const Rent = () => {
   return (
@@ -20,9 +22,10 @@ const Rent = () => {
         className="text-2.2rem bg-gradient-to-b from-[#0d41d5] to-[#0187FF] text-color-white"
       >
         {/* Flex container */}
-        <div className="container mx-auto flex max-w-7xl flex-col items-center space-y-6 overflow-hidden px-6 py-20 md:justify-start lg:flex-row lg:justify-between lg:pt-32 ">
+        <div className="container mx-auto flex max-w-7xl flex-col items-center space-y-6 px-6 py-20 md:justify-start lg:flex-row lg:justify-between lg:pt-32 ">
           {/* Left hero */}
-          <div className="mb-30 flex-1 space-y-12 md:w-full md:px-2">
+          <div className="relative mb-30 flex-1 space-y-12 md:w-full md:px-2">
+          <Image src={rightArrow} width={50} alt="right arrow" className="hidden absolute bottom-10 -left-12 lg:flex" />
             <h1 className="text-center text-3xl font-extrabold md:w-full md:text-left md:text-5xl lg:text-4xl">
               Receive SMS online
             </h1>
@@ -30,12 +33,11 @@ const Rent = () => {
               Register on social networks, marketplaces, exchanges and online
               services
               <span className="text-color-accent"> without spam</span> and 
-              <span className="text-color-accent">
-                disclosure of personal data.
+              <span className="text-color-accent"> disclosure of personal data.
               </span>
             </p>
             <div className="flex flex-col md:flex-row md:justify-start">
-              <span className="before:w-85 relative before:absolute before:block before:bg-[url('../assets/before/arrow_intro-1.svg')]"></span>
+              {/* <span className="before:w-80 before:h-80 relative before:absolute before:block before:bg-red"></span> */}
               <Link href={"/user/rent"} className="baseline mb-8 rounded-full bg-white p-3 px-6 pt-3 text-center font-bold text-color-primary_black md:px-12 lg:px-14 xl:px-16 group relative overflow-hidden hover:text-white">
                 <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
                 <button className="relative">Rent number</button>
@@ -57,7 +59,8 @@ const Rent = () => {
 
       {/* Phone number rental */}
       <section className="bg-color-bg_light py-10">
-        <div className=" mx-auto max-w-7xl items-center justify-center md:flex md:flex-row-reverse">
+        <div className="relative mx-auto max-w-7xl items-center justify-center md:flex md:flex-row-reverse">
+          <Image width={200} src={curvedArrow} alt="curved-arrow" className="absolute -bottom-36 left-20 sm:left-28 md:left-[40%] lg:right-[40%]" />
           <div className="px-4 md:w-full lg:w-1/2">
             <h2 className="mb-4 text-left text-xl font-extrabold text-black md:text-center md:text-3xl lg:mb-12 lg:text-left">
               Newsems - phone number rental to receive SMS
