@@ -1,8 +1,102 @@
 import UserDashboardLayout from "@/Components/UserDashboardLayout";
 import { CreditCardIcon } from "@heroicons/react/24/outline";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 
 const profile = () => {
+  var instance = axios.create({
+    validateStatus: function (status) {
+      return status >= 200 && status < 300; // default
+    },
+  });
+
+  useEffect(() => {
+    const getBalance = async () => {
+      const response = await Promise.all([
+        instance.get("http://161.35.218.95:3000/api/balance", {
+          params: {
+            userid: sessionStorage.getItem("id"),
+          },
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        }),
+        instance.get("http://161.35.218.95:3000/api/user", {
+          params: {
+            userid: sessionStorage.getItem("id"),
+          },
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        }),
+      ]);
+      setBalance(response[0].data?.data[0]?.balance);
+      setUserData(response[1].data?.user);
+    };
+    getBalance();
+  }, []);
+
+  const [balance, setBalance] = useState(0);
+  const [userData, setUserData] = useState({});
+  //console.log(userData);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data) => {
+    console.log(data);
+    try {
+      const password = await instance.put(
+        "http://161.35.218.95:3000/api/change/password",
+        {
+          newPassword: data.newPassword,
+          repeat_newPassword: data.repeat_newPassword,
+        },
+        {
+          params: {
+            userid: sessionStorage.getItem("id"),
+          },
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        }
+      );
+      console.log("password change", password);
+      toast.success(password.data.msg);
+    } catch (error) {
+      console.log("Error is", error);
+      toast.error(error?.response?.data.msg || "No response from the server.");
+    }
+  };
+
+  const handleApiKeyChange = async () => {
+    try {
+      const apiChange = await instance.put(
+        "http://161.35.218.95:3000/api/user/changeapikey",
+        {},
+        {
+          params: {
+            userid: sessionStorage.getItem("id"),
+          },
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        }
+      );
+      console.log("api change", apiChange);
+      toast.success(apiChange.data.msg);
+      window.location.reload();
+    } catch (error) {
+      console.log("Error is", error);
+      toast.error(error?.response?.data.msg || "No response from the server.");
+    }
+  };
+
   return (
     <section>
       <div className="pl-10 pr-5 pt-10 lg:pl-4 lg:pr-2">
@@ -12,22 +106,22 @@ const profile = () => {
             <div className="flex flex-grow flex-col">
               <div className="mb-5 flex justify-between">
                 <p>Email:</p>
-                <p className="font-bold">tereti7605@fitzola.com</p>
+                <p className="font-bold">{userData.email}</p>
               </div>
               <div className="mb-3 flex justify-between">
                 <p>Balance:</p>
-                <p className="font-semibold">0$</p>
+                <p className="font-semibold">${balance}</p>
               </div>
-              <button className="flex items-center justify-center space-x-2 rounded-2xl bg-color-accent px-4 py-2 text-black hover:text-white relative group overflow-hidden">
-              <span className="absolute left-0 top-0 mt-16 h-20 w-full bg-color-decor_orange transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
-              <div>
-                <CreditCardIcon className="h-6 w-6 text-black relative group-hover:rotate-45 group-hover:text-color-white" />
-              </div>
-              <div className="flex flex-col items-start relative">
-                <p className="hidden text-sm font-bold lg:inline-block">
-                  Top up
-                </p>
-              </div>
+              <button className="group relative flex items-center justify-center space-x-2 overflow-hidden rounded-2xl bg-color-accent px-4 py-2 text-black hover:text-white">
+                <span className="absolute left-0 top-0 mt-16 h-20 w-full rounded-3xl bg-color-decor_orange transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
+                <div>
+                  <CreditCardIcon className="relative h-6 w-6 text-black group-hover:rotate-45 group-hover:text-color-white" />
+                </div>
+                <div className="relative flex flex-col items-start">
+                  <p className="hidden text-sm font-bold lg:inline-block">
+                    Top up
+                  </p>
+                </div>
               </button>
               <div className="mb-6 flex justify-between">
                 <p>Hold</p>
@@ -36,11 +130,12 @@ const profile = () => {
               <div>
                 <p>API Key</p>
                 <div>
-                  <p className="text-sm font-semibold">
-                    D_druvVi05K3oiJwVNi10cc-ue4ibskZ
-                  </p>
-                  <button className="mb-6 mt-2 rounded-md bg-color-primary px-14 py-2 text-white group relative overflow-hidden">
-                    <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+                  <p className="text-sm font-semibold">{userData.apikey}</p>
+                  <button
+                    className="group relative mb-6 mt-2 overflow-hidden rounded-md bg-color-primary px-14 py-2 text-white"
+                    onClick={handleApiKeyChange}
+                  >
+                    <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                     <span className="relative">Refresh</span>
                   </button>
                 </div>
@@ -51,20 +146,27 @@ const profile = () => {
               <h2 className="text-center text-2xl font-bold">
                 Change Password
               </h2>
-              <input
-                type="text"
-                placeholder="Password"
-                className="rounded-md border border-black px-2 py-2"
-              />
-              <input
-                type="text"
-                placeholder="Repeat Password"
-                className="rounded-md border border-black px-2 py-2"
-              />
-              <button className="rounded-md bg-color-primary px-2 py-2 text-white relative group overflow-hidden">
-                <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
-                <span className="relative">Change</span>
-              </button>
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col gap-y-5"
+              >
+                <input
+                  {...register("newPassword", { required: true })}
+                  type="text"
+                  placeholder="Password"
+                  className="rounded-md border border-black px-2 py-2"
+                />
+                <input
+                  {...register("repeat_newPassword", { required: true })}
+                  type="text"
+                  placeholder="Repeat Password"
+                  className="rounded-md border border-black px-2 py-2"
+                />
+                <button className="group relative overflow-hidden rounded-md bg-color-primary px-2 py-2 text-white">
+                  <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
+                  <span className="relative">Change</span>
+                </button>
+              </form>
             </div>
           </div>
           <div className="px-5 py-10">

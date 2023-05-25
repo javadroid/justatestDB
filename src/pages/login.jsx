@@ -84,11 +84,13 @@ const Login = () => {
         }
       );
       console.log(response);
+      sessionStorage.setItem("id", response?.data?.user?.id);
+      sessionStorage.setItem("authToken", response?.data?.token);
       toast.success(response.data.msg);
       router.push(`/user/receive-sms/`);
     } catch (error) {
       console.log("Error is", error);
-      toast.error(error?.response?.data.msg);
+      toast.error(error?.response?.data.msg || "No response from the server.");
     }
     // router.push("/user/receive-sms");
   };
@@ -109,12 +111,12 @@ const Login = () => {
                 placeholder="Enter email"
                 className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
               />
-              <input
+              {/* <input
                 {...register("username", { required: true })}
                 type="username"
                 placeholder="Enter your username"
                 className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
-              />
+              /> */}
               <input
                 {...register("password", { required: true })}
                 type="password"
