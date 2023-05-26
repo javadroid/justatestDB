@@ -33,6 +33,29 @@ router.get('/all_users', userMiddleware.isLoggedIn, (req, res, next) => {
         })
     }
 });
+router.get('/users_num', userMiddleware.isLoggedIn, (req, res, next) => {
+    try {
+        db.query(
+            `SELECT * FROM users`,
+            (err, result) => {
+                if (result.length > 0) {
+                    return res.status(200).send({
+                        NumOfUsers: result.length
+                    });
+                } else {
+                    return res.status(404).send({
+                        NumOfUsers: 0
+                    });
+                }
+
+            });
+    } catch (err) {
+        return res.status(401).send({
+            Error: err
+        })
+    }
+});
+
 // fetch user by id
 router.get('/user', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
