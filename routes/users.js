@@ -390,14 +390,24 @@ router.get('/referral/history', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
         const refCode = req.query.refCode;
         db.query(
-            `SELECT users.username AS referral, referrals.reg_date AS signup_date, referrals.first_deposit AS deposit, referrals.bonus AS earn FROM users JOIN referrals      ON users.referrer= '${refCode}' AND referrals.referrer='${refCode}'`,
+            `SELECT username as referal FROM users WHERE referrer= '${refCode}'`,
             (err, result) => {
                 if (result.length) {
-                    // const data = JSON.parse(result);
-                    //console.log(data.bonus);
-                    return res.status(200).send({
-                        referrals: { result }
-                    });
+                    db.query(`SELECT reg_date as signup_date, first_deposit as first_topup_amount, bonus as Your_earn, status as earn_status FROM referals WHERE referrer= '${refCode}'`,
+                            (err, resul) => {
+                                if (err) {
+                                    return res.status(402).send({
+                                        Error: err
+                                    })
+                                }
+                                return res.status(200).send({
+                                    username: result,
+                                    data: resul
+                                });
+                            })
+                        // const data = JSON.parse(result);
+                        //console.log(data.bonus);
+
                 } else {
                     return res.status(302).send({
                         msg: "You haven't refer a user yet!"
@@ -874,6 +884,10 @@ router.get('/user', userMiddleware.isLoggedIn, (req, res, next) => {
         })
     }
 });
+// Number renting module starts here
+router.get('/rentnum', userMiddleware.isLoggedIn, (req, res, next) => {
+    // Everything wil be here
+})
 
 //To protect a route now, simply include this middleware when calling the route as follows:
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
