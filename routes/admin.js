@@ -403,7 +403,7 @@ router.get('/paymethods', userMiddleware.isLoggedIn, (req, res, next) => {
                     });
                 }
                 return res.status(200).send({
-                    languages: result
+                    payment_methods: result
                 });
             }
         );
@@ -490,7 +490,7 @@ router.put('/disablemethod', userMiddleware.isLoggedIn, (req, res, next) => {
 router.put('/enablemethod', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
         let status = 'Enable';
-        const method = req.query.method;
+        const method = req.query.id;
         if (!method) {
             return res.status(403).send({
                 msg: 'Please ensure you pass the ID of payment method you want to enable as a parameter!'
