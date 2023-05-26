@@ -12,8 +12,8 @@ const UsersCountry = () => {
   }
 
   return (
-    <div className="dashboard px-2">
-      <div className={`boxes roll flex flex-col justify-between px-2 space-y-2 overflow-hidden scrollbar-thin scrollbar-thumb-color-bg_primary-500 md:grid md:grid-cols-2 md:flex-wrap md:space-y-0 md:gap-5 md:px-4 ${showMore ? 'max-h-80 overflow-y-auto' : 'h-40'}`}>
+    <div className="dashboard mx-1">
+      <div className={`boxes roll flex flex-col justify-between mx-1 space-y-2 overflow-hidden scrollbar-thin scrollbar-thumb-color-bg_primary-500 md:grid md:grid-cols-2 md:flex-wrap md:space-y-0 md:gap-5 md:px-4 ${showMore ? 'max-h-80 overflow-y-auto' : 'h-40'}`}>
         {countries.map((country, index) => (
           <div key={index} className="mb-1 flex bg-color-bg_primary-500 border border-color-primary rounded-lg">
           <div className="flex items-center p-4 text-xs sm:justify-between w-full md:text-base">

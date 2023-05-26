@@ -6,11 +6,11 @@ import UserDashboardNav from "./UserDashboardNav";
 
 const UserDashboardLayout = ({ children }) => {
   return (
-    <div className="flex flex-grow flex-col justify-betweenn w-full">
+    <div className="flex flex-grow flex-col justify-between w-full">
       <div className="w-full">
         <UserDashboardNav />
       </div>
-      <div className="flex w-full">
+      <div className="flex w-full ">
         <Sidebar />
         <main className="h-full w-full">{children}</main>
       </div>
