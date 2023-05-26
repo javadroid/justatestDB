@@ -454,7 +454,9 @@ router.put('/disablemethod', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
         let status = 'Disable';
         const method = req.query.id;
-        return method;
+        return res.status(403).send({
+            msg: "Payment ID:" + method
+        });
         if (!method) {
             return res.status(403).send({
                 msg: 'Please ensure you pass the ID of payment method you want to disable as a parameter!'
