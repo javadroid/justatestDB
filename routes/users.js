@@ -397,7 +397,7 @@ router.get('/referral/history', userMiddleware.isLoggedIn, (req, res, next) => {
                         Error: err
                     })
                 }
-                if (result.length) {
+                if (result.length >= 1) {
                     db.query(`SELECT reg_date as signup_date, first_deposit as first_topup_amount, bonus as Your_earn, status as earn_status FROM referals WHERE referrer= '${refCode}'`,
                             (err, resul) => {
                                 if (err) {
