@@ -8,7 +8,7 @@ import Services2 from "./services/Services2";
 
 const ServicesComponent = ({title}) => {
   return (
-    <div className="service flex flex-col px-2 py-4">
+    <div className="service flex flex-col py-4">
       <div className="flex flex-col items-start px-4 md:flex-row md:items-center md:space-x-8">
         <div className="flex items-center justify-start space-x-2">
           <Image src={star} alt="" className="-mt-1" />
