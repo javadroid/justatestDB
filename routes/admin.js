@@ -460,7 +460,7 @@ router.put('/disablemethod', userMiddleware.isLoggedIn, (req, res, next) => {
             });
         }
         db.query(
-            `UPDATE pay_methods SET status='${status}' WHERE method='${method}'`,
+            `UPDATE pay_methods SET status='${status}' WHERE id='${method}'`,
             (err, result) => {
                 if (err) {
                     // throw err;
@@ -497,7 +497,7 @@ router.put('/enablemethod', userMiddleware.isLoggedIn, (req, res, next) => {
             });
         }
         db.query(
-            `UPDATE pay_methods SET status='${status}' WHERE method='${method}'`,
+            `UPDATE pay_methods SET status='${status}' WHERE id='${method}'`,
             (err, result) => {
                 if (err) {
                     // throw err;
