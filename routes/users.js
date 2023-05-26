@@ -390,8 +390,13 @@ router.get('/referral/history', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
         const refCode = req.query.refCode;
         db.query(
-            `SELECT username as referal FROM users WHERE referrer= '${refCode}'`,
+            `SELECT username as referal FROM users WHERE referrer = '${refCode}'`,
             (err, result) => {
+                if (err) {
+                    return res.status(402).send({
+                        Error: err
+                    })
+                }
                 if (result.length) {
                     db.query(`SELECT reg_date as signup_date, first_deposit as first_topup_amount, bonus as Your_earn, status as earn_status FROM referals WHERE referrer= '${refCode}'`,
                             (err, resul) => {
