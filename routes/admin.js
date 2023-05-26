@@ -1016,7 +1016,6 @@ router.post('/create/country', userMiddleware.isLoggedIn, (req, res, next) => {
 // Fetch users available wallet balance
 router.get('/users/balance', userMiddleware.isLoggedIn, (req, res, next) => {
     try {
-        const refCode = req.query.refCode;
         db.query(
             `SELECT users.username AS user, wallets.user_id AS userId, wallets.balance AS topUpBalance, wallets.ref_bonus AS totalEarn FROM users JOIN wallets ON users.id= wallets.user_id`,
             (err, result) => {
@@ -1038,6 +1037,37 @@ router.get('/users/balance', userMiddleware.isLoggedIn, (req, res, next) => {
                 }
             }
         )
+    } catch (err) {
+        console.log(err);
+    }
+});
+// Reset user topup balance
+router.put('/set/balance', userMiddleware.isLoggedIn, (req, res, next) => {
+    try {
+        let userid = req.query.userid;
+        const newBalance = req.body.newBalance;
+        const newBonus = req.body.newEarn;
+        var query = '';
+        if (newBalance) {
+            query = `UPDATE wallets SET balance='${newBalance}' WHERE user_id='${userid}'`
+        }
+        if (newBonus) {
+            query = `UPDATE wallets SET ref_bonus='${newBonus}' WHERE user_id='${userid}'`
+        }
+        db.query(
+            query,
+            (err, result) => {
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                return res.status(201).send({
+                    msg: result.affectedRows + ' user  balance has been successfully reset',
+                });
+            }
+        );
     } catch (err) {
         console.log(err);
     }
