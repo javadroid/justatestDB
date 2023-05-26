@@ -1011,4 +1011,37 @@ router.post('/create/country', userMiddleware.isLoggedIn, (req, res, next) => {
         })
     }
 });
+
+// Wallet module
+// Fetch users available wallet balance
+router.get('/users/balance', userMiddleware.isLoggedIn, (req, res, next) => {
+    try {
+        const refCode = req.query.refCode;
+        db.query(
+            `SELECT users.username AS user, wallets.user_id AS userId, wallets.balance AS topUpBalance, wallets.ref_bonus AS totalEarn FROM users JOIN wallets ON users.id= wallets.user_id`,
+            (err, result) => {
+                if (err) {
+                    return res.status(401).send({
+                        Error: err
+                    })
+                }
+                if (result.length >= 1) {
+                    // const data = JSON.parse(result);
+                    //console.log(data.bonus);
+                    return res.status(200).send({
+                        wallet: result
+                    });
+                } else {
+                    return res.status(302).send({
+                        msg: "No wallet balance available!"
+                    });
+                }
+            }
+        )
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+
 module.exports = router;
