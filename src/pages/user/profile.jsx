@@ -1,11 +1,13 @@
 import UserDashboardLayout from "@/Components/UserDashboardLayout";
 import { CreditCardIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { useEffect } from "react";
+import useForm from "react-hook-form";
 
-const profile = () => {
+const Profile = () => {
   var instance = axios.create({
     validateStatus: function (status) {
-      return status >= 200 && status < 300; // default
+      return status >= 200 && status < 300;
     },
   });
 
@@ -33,7 +35,7 @@ const profile = () => {
       setUserData(response[1].data?.user);
     };
     getBalance();
-  }, []);
+  }, )
 
   const [balance, setBalance] = useState(0);
   const [userData, setUserData] = useState({});
@@ -193,8 +195,8 @@ const profile = () => {
   );
 };
 
-export default profile;
+export default Profile;
 
-profile.getLayout = function getLayout(page) {
+Profile.getLayout = function getLayout(page) {
   return <UserDashboardLayout>{page}</UserDashboardLayout>;
 };
