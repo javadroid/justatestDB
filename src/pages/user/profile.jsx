@@ -1,8 +1,9 @@
 import UserDashboardLayout from "@/Components/UserDashboardLayout";
 import { CreditCardIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useForm from "react-hook-form";
+import axios from "axios";
 
 const Profile = () => {
   var instance = axios.create({

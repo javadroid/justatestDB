@@ -45,7 +45,7 @@ const ReceiveSms = () => {
             </div>
           </div>
         </div>
-        {/* <History /> */}
+        <History />
         {/* <Historiess /> */}
         {/* <Historyy /> */}
       </div>
