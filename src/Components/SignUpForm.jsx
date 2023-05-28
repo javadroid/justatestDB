@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -14,26 +14,6 @@ import Image from "next/image";
 const SignUpForm = () => {
   const { data: session } = useSession();
   const router = useRouter();
-
-  // useEffect(() => {
-  //   const res = async () => {
-  //     if (session) {
-  //       await axios.post(
-  //         "http://161.35.218.95:3000/api/social_media_sign",
-  //         {
-  //           username: session.user.name,
-  //           email: session.user.email,
-  //         },
-  //         {
-  //           headers: {
-  //             "Content-Type": "application/json",
-  //           },
-  //         }
-  //       );
-  //     }
-  //   };
-  //   res();
-  // }, [session]);
 
   console.log(session);
 
@@ -69,8 +49,6 @@ const SignUpForm = () => {
       callbackUrl: `${window.location.origin}/signup`,
     });
 
-  // console.log(window.location.origin);
-
   const onSubmit = async (data) => {
     console.log(data);
     try {
@@ -93,9 +71,9 @@ const SignUpForm = () => {
     } catch (error) {
       console.log("Error is", error);
       toast.error(error.response.data.msg);
-    }
-    // router.push("/user/receive-sms");
-  };
+      // router.push("/user/receive-sms");
+    };
+  }
 
   return (
     <div className="relative mx-2 rounded-2xl bg-color-white px-6 pb-12 pt-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:m-auto md:max-w-md md:rounded-3xl lg:max-w-xl">
@@ -176,7 +154,6 @@ const SignUpForm = () => {
             />
           </div>
           <div
-            href="/"
             className="w-1/4 rounded-md bg-[#4267b2] px-4 py-2"
             onClick={handleOAuthSignIn(providers[3].name)}
           >
