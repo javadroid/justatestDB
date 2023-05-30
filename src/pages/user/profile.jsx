@@ -2,7 +2,7 @@ import UserDashboardLayout from "@/Components/UserDashboardLayout";
 import { CreditCardIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import useForm from "react-hook-form";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 
 const Profile = () => {
@@ -40,7 +40,6 @@ const Profile = () => {
 
   const [balance, setBalance] = useState(0);
   const [userData, setUserData] = useState({});
-  //console.log(userData);
 
   const {
     register,
