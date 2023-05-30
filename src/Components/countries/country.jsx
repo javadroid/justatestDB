@@ -10,6 +10,7 @@ const Country = () => {
           <tr
             key={index}
             className="cursor-pointer rounded-2xl bg-color-white hover:bg-color-bg_primary-500  active:bg-color-bg_primary-500"
+            onClick={() => console.log(country.name)}
           >
             <td className="flex w-full items-center justify-start py-1">
               <span>
