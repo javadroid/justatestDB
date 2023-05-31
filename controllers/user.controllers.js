@@ -877,7 +877,7 @@ const rentNumber = (req, res, next) => {
 }
 const getRentNumber = (req, res, next) => {
     // Everything wil be here
-    const userid = requery.userid;
+    const userid = req.query.userid;
     try {
         db.query(
             `SELECT * FROM rents WHERE userid='${userid}'`,
