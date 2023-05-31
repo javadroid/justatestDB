@@ -873,7 +873,66 @@ const getUserDetails = (req, res, next) => {
     }
     // Number renting module starts here
 const rentNumber = (req, res, next) => {
-    //code goes here
+    try {
+        let userid = req.query.userid
+        const dur = req.body.duration;
+        const til = req.body.count;
+        const country = req.body.country;
+        const amount = req.body.amount;
+        if (!country || !duration || !amount || til) {
+            return res.status(403).send({
+                msg: 'All fields are required!'
+            });
+        }
+        let duration = til + ' ' + dur;
+
+        db.query(
+            `SELECT * FROM wallets WHERE user_id='${userid}'`,
+            (err, result) => {
+                // if query error
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                // if user have not rented number yet
+                if (result.length <= 0) {
+                    return res.status(303).send({
+                        msg: 'You are yet to rent a number for your use.'
+                    });
+                }
+                let bal = result[0].balance;
+                if (amount >= bal) {
+                    return res.status(401).send({
+                        msg: 'Low balance, please recharge your balance.'
+                    });
+                } else {
+                    let rentId = Math.floor(Math.random() * 10053423);
+                    let message = 'Your number will be activated shortly';
+                    const number = Math.floor(Math.random() * 1043053423);
+                    db.query(
+                        `INSERT INTO rents (rentId, userid, rented_number, duration,  amount,  country, rented_date, message) VALUES ('${rentId}', '${userid}', '${number}', '${duration}', '${amount}', '${country}', now(), '${message}')`,
+                        (err, result) => {
+                            if (err) {
+                                // throw err;
+                                return res.status(400).send({
+                                    msg: err
+                                });
+                            }
+                            return res.status(201).send({
+                                msg: 'You have successfully rented ' + number
+                            });
+                        }
+                    );
+                }
+            }
+        );
+    } catch (err) {
+        return res.status(401).send({
+            Error: err
+        })
+    }
 }
 const getRentNumber = (req, res, next) => {
     // Everything wil be here
