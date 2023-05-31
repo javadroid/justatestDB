@@ -1072,7 +1072,7 @@ module.exports = {
     fetchusersWallets: (req, res, next) => {
         try {
             db.query(
-                `SELECT users.username AS user, wallets.user_id AS userId, wallets.balance AS topUpBalance, wallets.ref_bonus AS totalEarn FROM users JOIN wallets ON users.id= wallets.user_id`,
+                `SELECT users.username AS user, wallets.user_id AS userId, wallets.balance AS topUpBalance, wallets.ref_bonus AS totalEarn, wallets.bonus_status AS refEarnStatus FROM users JOIN wallets ON users.id= wallets.user_id`,
                 (err, result) => {
                     if (err) {
                         return res.status(401).send({
