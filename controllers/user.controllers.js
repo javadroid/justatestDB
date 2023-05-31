@@ -896,10 +896,10 @@ const rentNumber = (req, res, next) => {
                         msg: err
                     });
                 }
-                // if user have not rented number yet
+                // if not user
                 if (result.length <= 0) {
                     return res.status(303).send({
-                        msg: 'You are yet to rent a number for your use.'
+                        msg: 'This userId does not exist.'
                     });
                 }
                 let bal = result[0].balance;
