@@ -1010,7 +1010,7 @@ module.exports = {
             const refCode = req.query.ref_code;
             var q
             if (refCode) {
-                q = `SELECT referral as userId, first_deposit as first_topup_amount, reg_date as date_registered, bonus as referer_earn FROM referrals WHERE referer=${refCode} ORDER BY id DESC`
+                q = `SELECT referral as userId, first_deposit as first_topup_amount, reg_date as date_registered, bonus as referer_earn FROM referrals WHERE referrer=${refCode} ORDER BY id DESC`
             } else {
                 q = `SELECT username, ref_code, num_refer FROM users ORDER BY id`
             }
