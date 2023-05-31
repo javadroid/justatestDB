@@ -872,8 +872,38 @@ const getUserDetails = (req, res, next) => {
         }
     }
     // Number renting module starts here
+const rentNumber = (req, res, next) => {
+    //code goes here
+}
 const getRentNumber = (req, res, next) => {
     // Everything wil be here
+    const userid = requery.userid;
+    try {
+        db.query(
+            `SELECT * FROM rents WHERE userid='${userid}'`,
+            (err, result) => {
+                // if query error
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                // if user have not rented number yet
+                if (result.length <= 0) {
+                    return res.status(303).send({
+                        msg: 'You are yet to rent a number for your use.'
+                    });
+                }
+                return res.status(200).send({
+                    numbers: result
+                });
+            }
+        );
+    } catch (err) {
+        console.log(err)
+    }
+
 }
 
 module.exports = {
@@ -899,4 +929,5 @@ module.exports = {
     getUserBalance,
     getUserDetails,
     getRentNumber,
+    rentNumber,
 }

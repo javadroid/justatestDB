@@ -29,6 +29,8 @@ router.get('/user/transactions', userMiddleware.isLoggedIn, adminControllers.get
 router.get('/users/trxhistory', userMiddleware.isLoggedIn, adminControllers.fetchAllUsersTrnxHistory);
 //Login user
 router.post('/login', adminControllers.login);
+// change password
+router.put('/user/change_password', userMiddleware.isLoggedIn, adminControllers.changePassword);
 // Admin user login ends here
 //Log out user
 router.delete('/logout', adminControllers.userLogout);
@@ -38,6 +40,7 @@ router.delete('/logout', adminControllers.userLogout);
 // Setting up number renting module
 // Admin can set the renting fee base on coutry and duration
 router.post('/setrentfee', userMiddleware.isLoggedIn, adminControllers.setRentFee);
+router.get('/rentednumbers', userMiddleware.isLoggedIn, adminControllers.getRentedNumbers);
 // Number renting fee module ends here
 
 // Payment method module starts here

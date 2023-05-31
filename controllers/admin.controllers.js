@@ -368,7 +368,36 @@ module.exports = {
             })
         }
     },
+    getRentedNumbers: (req, res, next) => {
+        try {
+
+            db.query(
+                `SELECT * FROM rents ORDER BY id DESC`,
+                (err, result) => {
+                    if (err) {
+                        return res.status(400).send({
+                            msg: err
+                        })
+                    }
+                    if (result.length >= 1) {
+                        return res.status(200).send({
+                            RentedNumbes: result
+                        });
+                    } else {
+                        return res.status(404).send({
+                            msg: 'Users have not rent any number yet.'
+                        });
+                    }
+
+                });
+        } catch (err) {
+            return res.status(401).send({
+                Error: err
+            })
+        }
+    },
     // Number renting fee module ends here
+
 
     // Payment method module starts here
     // Set up payment method
@@ -972,6 +1001,7 @@ module.exports = {
             const country = req.body.country_name;
             const code = req.body.country_code;
             const shrt_name = req.body.short_name;
+            const flag = req.body.country_flag;
             let status = "Enable";
             if (!country || !code || !shrt_name) {
                 return res.status(401).send({
@@ -1120,7 +1150,7 @@ module.exports = {
                             });
                         }
                         return res.status(201).send({
-                            msg: "Main system notification email has been succeccfully change."
+                            msg: "Main system notification email has been succeccfully changed."
                         });
                     }
                 );
@@ -1142,6 +1172,53 @@ module.exports = {
                 );
             }
 
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    changePassword: (req, res, next) => {
+        try {
+            const id = req.body.userid;
+            const newPassword = req.body.new_password;
+            const confirmPass = req.body.confirm_new_password;
+            if (!id) {
+                return res.status(401).send({
+                    msg: "User Id must be passed as a requery parameter!"
+                });
+            }
+            if (newPassword.length < 6) {
+                return res.status(401).send({
+                    msg: "Password length must not be less than 6 charaters!"
+                });
+            }
+            if (!newPassword || !confirmPass) {
+                return res.status(401).send({
+                    msg: "Both password and confirm password fields are required!"
+                });
+            }
+            if (confirmPass != newPassword) {
+                return res.status(401).send({
+                    msg: "Both passwords must match!"
+                });
+            }
+
+            if (id && newPassword) {
+                q = `UPDATE admins SET password='${newPassword}' WHERE id='${id}'`;
+                db.query(
+                    q,
+                    (err, result) => {
+                        if (err) {
+                            // throw err;
+                            return res.status(400).send({
+                                msg: err
+                            });
+                        }
+                        return res.status(201).send({
+                            msg: "Your password has been successfully changed."
+                        });
+                    }
+                );
+            }
         } catch (err) {
             console.log(err);
         }
