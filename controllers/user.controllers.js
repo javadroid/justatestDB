@@ -897,7 +897,7 @@ const rentNumber = (req, res, next) => {
                     });
                 }
                 // if not user
-                if (result.length <= 0) {
+                if (!result) {
                     return res.status(303).send({
                         msg: 'This userId does not exist.'
                     });
