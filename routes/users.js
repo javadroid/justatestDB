@@ -73,7 +73,6 @@ router.get("/blog/post", userControllers.getSingleBlogPost);
 
 // Comment on a post
 router.post('/comment', userMiddleware.isLoggedIn, userControllers.sendComment);
-
 //  blog posts module ends here
 
 // fetching user avialable balance

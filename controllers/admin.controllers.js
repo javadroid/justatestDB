@@ -1004,7 +1004,39 @@ module.exports = {
             })
         }
     },
-
+    // Referaal Programme
+    referrals: (req, res, next) => {
+        try {
+            const refCode = req.query.ref_code;
+            var q
+            if (refCode) {
+                q = `SELECT referral as userId, first_deposit as first_topup_amount, reg_date as date_registered, bonus as referer_earn FROM referrals WHERE referer=${refCode} ORDER BY id DESC`
+            } else {
+                q = `SELECT username, ref_code, num_refer FROM users ORDER BY id`
+            }
+            db.query(
+                q,
+                (err, result) => {
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: err
+                        });
+                    }
+                    if (!result.length) {
+                        return res.status(404).send({
+                            msg: 'No referral yet!',
+                        });
+                    }
+                    return res.status(200).send({
+                        data: result
+                    });
+                }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    },
     // Wallet module
     // Fetch users available wallet balance
     fetchusersWallets: (req, res, next) => {
@@ -1040,12 +1072,17 @@ module.exports = {
             let userid = req.query.userid;
             const newBalance = req.body.newBalance;
             const newBonus = req.body.newEarnBalance;
+            const bonusStatus = req.body.ref_bonus_status
             var query = '';
             if (newBalance) {
                 query = `UPDATE wallets SET balance='${newBalance}' WHERE user_id='${userid}'`
             }
             if (newBonus) {
                 query = `UPDATE wallets SET ref_bonus='${newBonus}' WHERE user_id='${userid}'`
+            }
+            if (bonusStatus) {
+                let nrb = 0;
+                query = `UPDATE wallets SET bonus_status='${bonusStatus}', ref_bonus=${nrb}  WHERE user_id='${userid}'`
             }
             db.query(
                 query,
@@ -1058,6 +1095,35 @@ module.exports = {
                     }
                     return res.status(201).send({
                         msg: result.affectedRows + ' user  balance has been successfully reset',
+                    });
+                }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    // set notification email
+    systemNotificationEmail: (req, res, next) => {
+        const newEmail = req.body.new_email;
+        var q;
+        let id = 1;
+        try {
+            if (newEmail) {
+                q = `UPDATE notification_email SET email='${newEmail}' WHERE id='${id}`;
+            } else {
+                q = `SELECT email AS system_notification_email FROM notification_email`;
+            }
+            db.query(
+                q,
+                (err, result) => {
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: err
+                        });
+                    }
+                    return res.status(201).send({
+                        MainEmail: result
                     });
                 }
             );

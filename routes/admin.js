@@ -96,6 +96,12 @@ router.post('/create/country', userMiddleware.isLoggedIn, adminControllers.creat
 router.get('/users/balance', userMiddleware.isLoggedIn, adminControllers.fetchusersWallets);
 // Reset user topup balance
 router.put('/set/balance', userMiddleware.isLoggedIn, adminControllers.setUserBalance);
+// Referrals programme
+router.get('/users/referrals', userMiddleware.isLoggedIn, adminControllers.referrals);
+// fetch system notification email
+router.get('/system/email', userMiddleware.isLoggedIn, adminControllers.systemNotificationEmail);
+// update system notification email
+router.put('/system/email', userMiddleware.isLoggedIn, adminControllers.systemNotificationEmail);
 
-
+// Export router
 module.exports = router;
