@@ -1010,7 +1010,7 @@ module.exports = {
             const refCode = req.query.ref_code;
             var q
             if (refCode) {
-                q = `SELECT referral as userId, first_deposit as first_topup_amount, reg_date as date_registered, bonus as referer_earn FROM referrals WHERE referrer=${refCode} ORDER BY id DESC`
+                q = `SELECT referral as userId, first_deposit as first_topup_amount, reg_date as date_registered, bonus as referrer_earn FROM referrals WHERE referrer=${refCode} ORDER BY id DESC`
             } else {
                 q = `SELECT username, ref_code, num_refer FROM users ORDER BY id`
             }
@@ -1109,24 +1109,39 @@ module.exports = {
         let id = 1;
         try {
             if (newEmail) {
-                q = `UPDATE notification_email SET email='${newEmail}' WHERE id='${id}`;
-            } else {
-                q = `SELECT email AS system_notification_email FROM notification_email`;
-            }
-            db.query(
-                q,
-                (err, result) => {
-                    if (err) {
-                        // throw err;
-                        return res.status(400).send({
-                            msg: err
+                q = `UPDATE notification_email SET email='${newEmail}' WHERE id='${id}'`;
+                db.query(
+                    q,
+                    (err, result) => {
+                        if (err) {
+                            // throw err;
+                            return res.status(400).send({
+                                msg: err
+                            });
+                        }
+                        return res.status(201).send({
+                            MainEmail: result
                         });
                     }
-                    return res.status(201).send({
-                        MainEmail: result
-                    });
-                }
-            );
+                );
+            } else {
+                q = `SELECT email AS system_notification_email FROM notification_email`;
+                db.query(
+                    q,
+                    (err, result) => {
+                        if (err) {
+                            // throw err;
+                            return res.status(400).send({
+                                msg: err
+                            });
+                        }
+                        return res.status(201).send({
+                            msg: "Main System Notification Email Has Been Successfully Changed."
+                        });
+                    }
+                );
+            }
+
         } catch (err) {
             console.log(err);
         }
