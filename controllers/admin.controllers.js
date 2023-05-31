@@ -1120,7 +1120,7 @@ module.exports = {
                             });
                         }
                         return res.status(201).send({
-                            MainEmail: result
+                            msg: "Main system notification email has been succeccfully change."
                         });
                     }
                 );
@@ -1136,7 +1136,7 @@ module.exports = {
                             });
                         }
                         return res.status(201).send({
-                            msg: "Main System Notification Email Has Been Successfully Changed."
+                            MainEmain: result
                         });
                     }
                 );
