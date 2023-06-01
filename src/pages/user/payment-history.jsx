@@ -1,22 +1,22 @@
 import UserDashboardLayout from "@/Components/UserDashboardLayout";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import ReferralList from "@/Components/ReferralList";
+import TopUp from "@/Components/TopUpHistory";
 
  
-const ReferralHistory = () => {
-const url = 'http://161.35.218.95:3000/api/referral/history?refCode=123456'
-  const [referralHistory, setReferralHistory] = useState([]);
+const TopUpHistory = () => {
+const url = 'http://161.35.218.95:3000/api/user/payment?userid=719pr'
+  const [topUpHistory, setTopUpHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchReferralHistory = async () => {
+  const fetchTopUpHistory = async () => {
     try {
       const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
         },
       });
-      setReferralHistory(response.data.referrals.result);
+      setTopUpHistory(response.data.user_topups.result);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -24,28 +24,29 @@ const url = 'http://161.35.218.95:3000/api/referral/history?refCode=123456'
   };
 
   useEffect(() => {
-    fetchReferralHistory();
+    fetchTopUpHistory();
   }, []);
 
-  const colNames = [ "Date", "Name", "Deposit", "Earn"];
+    const headings = ["Date", "Amount", "Status"]
 
-   return (
+  return (
     <div className=" bg-color-bg_light h-[100vh] w-full md:px-4">
-    <h1 className="md:text-2xl pt-4 text-center font-bold mb-4 md:text-left">Referral History</h1>
+    <h1 className="md:text-2xl pt-4 text-center font-bold mb-4 md:text-left">History of Balance</h1>
       <div className="max-w-6xl mx-auto w-[90%] bg-color-white px-3 py-8 rounded-2xl shadow-lg">
         {isLoading ? (
-          <p className="p-4">Loading referral history...</p>
-         ) : (
-            <ReferralList list={referralHistory} colNames={colNames} />
+          <p className="p-4">Loading history of balance...</p>
+        ) : (
+            <TopUp list={topUpHistory}
+            colNames={headings} />
           )}
       </div>
     </div>
    )
  }
  
- export default ReferralHistory
+ export default TopUpHistory
 
- ReferralHistory.getLayout = function getLayout(page) {
+ TopUpHistory.getLayout = function getLayout(page) {
   return <UserDashboardLayout>{page}</UserDashboardLayout>;
 };
  

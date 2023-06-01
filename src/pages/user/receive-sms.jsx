@@ -1,11 +1,11 @@
 import UserDashboardLayout from "@/Components/UserDashboardLayout";
 import { ArrowsUpDownIcon } from "@heroicons/react/24/solid";
-import History from "@/Components/History";
+import History from "@/Components/TransactionHistory";
 import CountryServices from "@/Components/CountryServices";
 import ServicesComponent from "@/Components/ServicesComponent";
 import { useRouter } from "next/router";
 import { useState } from "react";
-// import Historiess from "@/Components/a component test/Table2";
+// import Historiess from "@/Components/a-component-test/Table2";
 
 const ReceiveSms = () => {
   const [ switched, setSwitched ] = useState(false);

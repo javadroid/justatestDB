@@ -2,7 +2,7 @@ import UserDashboardLayout from "@/Components/UserDashboardLayout";
 import { CreditCardIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import useForm from "react-hook-form";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 
 const Profile = () => {
@@ -40,7 +40,6 @@ const Profile = () => {
 
   const [balance, setBalance] = useState(0);
   const [userData, setUserData] = useState({});
-  //console.log(userData);
 
   const {
     register,
@@ -140,7 +139,7 @@ const Profile = () => {
                   </button>
                 </div>
               </div>
-              <p className="text-color-primary">Payment History</p>
+              <Link href="/user/payment-history" className="text-color-primary">Payment History</Link>
             </div>
             <div className="mt-8 flex flex-grow flex-col gap-y-3 px-4 md:px-0">
               <h2 className="text-center md:text-2xl font-bold">

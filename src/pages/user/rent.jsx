@@ -3,7 +3,6 @@ import UserDashboardLayout from "@/Components/UserDashboardLayout";
 import Country from '@/Components/countries/country';
 import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 
-
 const Rent = () => {
   return (
     <div className="bg-color-bg_light w-full h-screen">
