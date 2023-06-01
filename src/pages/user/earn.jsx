@@ -1,5 +1,5 @@
 import UserDashboardLayout from "@/Components/UserDashboardLayout";
-import ReferralHistory from "@/Components/a-component-test/ReferralHistory";
+import ReferralHistory from "@/Components/ReferralHistory";
 import Link from "next/link";
 import React from "react";
 

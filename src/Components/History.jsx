@@ -3,42 +3,50 @@ import Image from 'next/image'
 import React from 'react'
 import rus from '../assets/flags/Russia.svg'
 import vib from '../assets/socials/Viber.svg'
-
-
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 const History = () => {
   const histories = [
     {
       title: "Bought",
-      time: "2025-07-15 12:23:48"
     },
     {
-      title: "Service",
-      icon: (<>
-          <Image src={vib} alt="" className="mr-1" />Viber
-      </>)
+      title: "Service"
     },
     {
-      title: "Country",
-      icon: (<>
-          <Image src={rus} alt="" width={20} className="mr-2" />Russia
-        </>)
+      title: "Country"
     },
     {
-      title: "Phone",
-      icon: (<>
-        +134346088643<ClipboardDocumentCheckIcon width={20} className="text-color-primary ml-3" />
-        </>)
+      title: "Phone"
     },
     {
-      title: "Price",
-      price: "0.19$"
+      title: "Price"
     },
     {
-      title: "Message",
-      message: "SMS not received",
-      style: "text-color-api-red bg-[rgba(255,67,130,.1)] py-2 rounded-3xl md:rounded-md"
+      title: "Message"
     }
   ]
+
+  const url = "http://161.35.218.95:3000/api/rent/numbers?userid=3456fe"
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const fetchData = async () => {
+    try {const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+      },
+    });
+    setData(response.data.numbers);
+    setIsLoading(false);}
+    catch (error) {
+      console.log(error);
+    }
+  } 
+  
+  useEffect(() => {
+    fetchData()
+  }, []);
+
   return (
     <div>
       <div>
@@ -57,108 +65,52 @@ const History = () => {
                   ))}
                 </div>
                 <div className="table-body lg:text-xs">
-                  <div className="table-row shadow-[0_0_12px_-10px] rounded-xl pb-4 md:shadow-none md:rounded-none">
-                    <div className="td bought md:py-2">
-                        <h6 className="text-color-table_gray font-medium">Bought</h6>
-                        <p>2025-07-15 12:23:48</p>
-                    </div>
-                    <div className="td service">
-                        <h6 className="text-color-table_gray font-medium">Service</h6>
-                        <p className="flex items-center">
-                          <Image src={vib} alt="" className="mr-1" />
-                          Viber
-                        </p>
-                    </div>
-                    <div className="td country">
-                        <h6 className="text-color-table_gray font-medium">Country</h6>
-                        <p className="flex items-center">
-                          <Image src={rus} alt="" width={20} className="mr-2" />Russia</p>
-                    </div>
-                    <div className="td phone">
-                        <h6 className="text-color-table_gray font-medium">Phone</h6>
-                        <p className="flex items-center">+134346088643
-                        <ClipboardDocumentCheckIcon width={20} className="text-color-primary ml-3" /></p>
-                    </div>
-                    <div className="td price">
-                        <h6 className="text-color-table_gray font-medium">Price</h6>
-                        <p>$0.19</p>
-                    </div>
-                    <div className="td message">
-                        <h6 className="text-color-table_gray font-medium">Message</h6>
-                        <p className="text-color-api-red bg-[rgba(255,67,130,.1)] py-2 rounded-3xl md:rounded-md cursor-pointer relative overflow-hidden group">
-                          <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-inherit transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
-                          <span className="relative">SMS not recieved</span>
-                        </p>
-                    </div>
-                  </div>
-                  <div className="table-row shadow-[0_0_12px_-10px] rounded-xl pb-4 md:shadow-none md:rounded-none">
-                    <div className="td bought md:py-2">
-                        <h6 className="text-color-table_gray font-medium">Bought</h6>
-                        <p>2025-07-15 12:23:48</p>
-                    </div>
-                    <div className="td service">
-                        <h6 className="text-color-table_gray font-medium">Service</h6>
-                        <p className="flex items-center">
-                          <Image src={vib} alt="" className="mr-1" />
-                          Viber
-                        </p>
-                    </div>
-                    <div className="td country">
-                        <h6 className="text-color-table_gray font-medium">Country</h6>
-                        <p className="flex items-center">
-                          <Image src={rus} alt="" width={20} className="mr-2" />Russia</p>
-                    </div>
-                    <div className="td phone">
-                        <h6 className="text-color-table_gray font-medium">Phone</h6>
-                        <p className="flex items-center">+134346088643
-                        <ClipboardDocumentCheckIcon width={20} className="text-color-primary ml-3" /></p>
-                    </div>
-                    <div className="td price">
-                        <h6 className="text-color-table_gray font-medium">Price</h6>
-                        <p>$0.19</p>
-                    </div>
-                    <div className="td message">
-                      <h6 className="text-color-table_gray font-medium">Message</h6>
-                      <p className="text-color-api-red bg-[rgba(255,67,130,.1)] py-2 rounded-3xl md:rounded-md cursor-pointer relative overflow-hidden group">
-                        <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-inherit transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
-                        <span className="relative">SMS not recieved</span>
-                      </p>
-                    </div>
-                  </div>
-                  <div className="table-row shadow-[0_0_12px_-10px] rounded-xl pb-4 md:shadow-none md:rounded-none">
-                    <div className="td bought md:py-2">
-                        <h6 className="text-color-table_gray font-medium">Bought</h6>
-                        <p>2025-07-15 12:23:48</p>
-                    </div>
-                    <div className="td service">
-                        <h6 className="text-color-table_gray font-medium">Service</h6>
-                        <p className="flex items-center">
-                          <Image src={vib} alt="" className="mr-1" />
-                          Viber
-                        </p>
-                    </div>
-                    <div className="td country">
-                        <h6 className="text-color-table_gray font-medium">Country</h6>
-                        <p className="flex items-center">
-                          <Image src={rus} alt="" width={20} className="mr-2" />Russia</p>
-                    </div>
-                    <div className="td phone">
-                        <h6 className="text-color-table_gray font-medium">Phone</h6>
-                        <p className="flex items-center">+134346088643
-                        <ClipboardDocumentCheckIcon width={20} className="text-color-primary ml-3" /></p>
-                    </div>
-                    <div className="td price">
-                        <h6 className="text-color-table_gray font-medium">Price</h6>
-                        <p>$0.19</p>
-                    </div>
-                    <div className="td message">
-                        <h6 className="text-color-table_gray font-medium">Message</h6>
-                        <p className="text-color-api-red bg-[rgba(255,67,130,.1)] py-2 rounded-3xl md:rounded-md cursor-pointer relative overflow-hidden group">
-                          <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-inherit transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
-                          <span className="relative">SMS not recieved</span>
-                        </p>
-                    </div>
-                  </div>
+                  {
+                    isLoading ? (<p>Loading...</p>) : (
+                      <>
+                      {data.map((data, index) => (
+                        <div className="table-row shadow-[0_0_12px_-10px] rounded-xl pb-4 md:shadow-none md:rounded-none" key={index}>
+                          <div className="td bought md:py-2">
+                            <h6 className="text-color-table_gray font-medium">Bought</h6>
+                            <p>{data.rented_date}</p>
+                          </div>
+                          <div className="td service">
+                            <h6 className="text-color-table_gray font-medium">Service</h6>
+                            <p className="flex items-center">
+                              <Image src={vib} alt="" className="mr-1" />
+                              {data.userid}
+                            </p>
+                          </div>
+                          <div className="td country">
+                            <h6 className="text-color-table_gray font-medium">Country</h6>
+                            <p className="flex items-center">
+                              <Image src={rus} alt="" width={20} className="mr-2" />
+                              {data.country}
+                            </p>
+                          </div>
+                          <div className="td phone">
+                            <h6 className="text-color-table_gray font-medium">Phone</h6>
+                            <p className="flex items-center">
+                              {data.rented_number}
+                              <ClipboardDocumentCheckIcon width={20} className="text-color-primary ml-3" />
+                            </p>
+                          </div>
+                          <div className="td price">
+                            <h6 className="text-color-table_gray font-medium">Price</h6>
+                            <p>{data.amount}</p>
+                          </div>
+                          <div className="td message">
+                            <h6 className="text-color-table_gray font-medium">Message</h6>
+                            <p className="text-color-api-red bg-[rgba(255,67,130,.1)] py-2 rounded-3xl md:rounded-md cursor-pointer relative overflow-hidden group">
+                              <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-inherit transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+                              <span className="relative">{data.status}</span>
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                      </>
+                    )
+                  }
                 </div>
               </div>
             </div>
