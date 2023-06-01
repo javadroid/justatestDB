@@ -16,7 +16,6 @@ const url = 'http://161.35.218.95:3000/api/user/payment?userid=719pr'
           Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
         },
       });
-      console.log(response.data.user_topups.result)
       setTopUpHistory(response.data.user_topups.result);
       setIsLoading(false);
     } catch (error) {
@@ -28,22 +27,17 @@ const url = 'http://161.35.218.95:3000/api/user/payment?userid=719pr'
     fetchTopUpHistory();
   }, []);
 
+    const headings = ["Date", "Amount", "Status"]
 
-   return (
+  return (
     <div className=" bg-color-bg_light h-[100vh] w-full md:px-4">
     <h1 className="md:text-2xl pt-4 text-center font-bold mb-4 md:text-left">History of Balance</h1>
-      <div className="max-w-6xl mx-auto w-[90%] bg-color-white py-8 rounded-2xl shadow-lg">
+      <div className="max-w-6xl mx-auto w-[90%] bg-color-white px-3 py-8 rounded-2xl shadow-lg">
         {isLoading ? (
           <p className="p-4">Loading history of balance...</p>
         ) : (
-          <div className="space-y-2 list-decimal">
-            {topUpHistory.map((topup,index) => (
-            <TopUp key={index}
-            date={topup.date}
-            amount={topup.amount}
-            status={topup.status} />
-            ))}        
-          </div>
+            <TopUp list={topUpHistory}
+            colNames={headings} />
           )}
       </div>
     </div>
