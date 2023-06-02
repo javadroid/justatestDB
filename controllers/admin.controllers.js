@@ -294,22 +294,23 @@ module.exports = {
                                         msg: 'Something went wrong, please try a moment later.'
                                     });
                                 }
+                                const token = jwt.sign({
+                                        username: result[0].user,
+                                        userId: result[0].id,
+                                        role: result[0].role
+                                    },
+                                    'SECRETKEY', {
+                                        expiresIn: '7d'
+                                    }
+                                );
+                                return res.status(200).send({
+                                    msg: 'Logged in!',
+                                    token,
+                                    user: result[0]
+                                });
                             }
                         );
-                        const token = jwt.sign({
-                                username: result[0].user,
-                                userId: result[0].id,
-                                role: result[0].role
-                            },
-                            'SECRETKEY', {
-                                expiresIn: '7d'
-                            }
-                        );
-                        return res.status(200).send({
-                            msg: 'Logged in!',
-                            token,
-                            user: result[0]
-                        });
+
                     } else {
                         // wrong password
                         return res.status(401).send({
@@ -1328,7 +1329,7 @@ module.exports = {
             console.log(err);
         }
     },
-    loginAndLogout:(req, res, next)=>{
+    loginAndLogout: (req, res, next) => {
         try {
             db.query(
                 `SELECT * FROM logging_login_and_logout ORDER BY time DESC`,
