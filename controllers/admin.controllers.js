@@ -350,14 +350,15 @@ module.exports = {
                         const us = result[0]['user'];
                         db.query(
                             `INSERT INTO logging_login_and_logout (logged, user) VALUES ('${func}', '${us}')`,
-                            (err, result) => {
+                            (err, resul) => {
                                 if (err) {
                                     // throw err;
                                     return res.status(400).send({
                                         msg: err
                                     });
                                 }
-                                if (result.affectedRow >= 1) {
+                                console.log(us)
+                                if (resul) {
                                     return res.status(200).send({
                                         msg: 'You are logged out!'
                                     })
