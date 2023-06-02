@@ -287,7 +287,7 @@ module.exports = {
                         const us = result[0]['user'];
                         db.query(
                             `INSERT INTO logging_login_and_logout (function, user, time) VALUES ('${func}', '${us}', now())`,
-                            (err, result) => {
+                            (err, resul) => {
                                 if (err) {
                                     // throw err;
                                     return res.status(400).send({
@@ -1324,6 +1324,33 @@ module.exports = {
                     }
                 );
             }
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    loginAndLogout:(req, res, next)=>{
+        try {
+            db.query(
+                `SELECT * FROM logging_login_and_logout ORDER BY time DESC`,
+                (err, result) => {
+                    if (err) {
+                        return res.status(401).send({
+                            Error: err
+                        })
+                    }
+                    if (result.length >= 1) {
+                        // const data = JSON.parse(result);
+                        //console.log(data.bonus);
+                        return res.status(200).send({
+                            logs: result
+                        });
+                    } else {
+                        return res.status(302).send({
+                            msg: "No logs yet!"
+                        });
+                    }
+                }
+            )
         } catch (err) {
             console.log(err);
         }
