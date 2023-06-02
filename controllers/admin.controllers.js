@@ -342,19 +342,19 @@ module.exports = {
                     }
                     if (!result.length) {
                         return res.status(401).send({
-                            msg: 'Email or password is incorrect!'
+                            msg: 'Incorrect userId was passed!'
                         });
                         // check password
                     } else {
                         const func = "logout";
                         const us = result[0]['user'];
                         db.query(
-                            `INSERT INTO logging_login_and_logout (function, user, time) VALUES ('${func}', '${us}', now())`,
+                            `INSERT INTO logging_login_and_logout (logged, user, time) VALUES ('${func}', '${us}', now())`,
                             (err, result) => {
                                 if (err) {
                                     // throw err;
                                     return res.status(400).send({
-                                        msg: 'Something went wrong, please try a moment later.'
+                                        msg: err
                                     });
                                 }
                                 if (result.affectedRow >= 1) {
