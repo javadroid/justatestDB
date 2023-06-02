@@ -291,7 +291,7 @@ module.exports = {
                                 if (err) {
                                     // throw err;
                                     return res.status(400).send({
-                                        msg: 'Something went wrong, please try a moment later.'
+                                        msg: err
                                     });
                                 }
                                 const token = jwt.sign({
