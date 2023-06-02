@@ -1473,5 +1473,34 @@ module.exports = {
             console.log(err);
         }
     },
+    changeUserApiKey: (req, res, next) => {
+        const userid = req.query.userid;
+        let newAPI = uuid.v4() + userid;
+        try {
+            db.query(
+                `UPDATE users SET apikey='${newAPI}' WHERE id = '${userid}'`,
+                (err, result) => {
+                    // user does not exists
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: err
+                        });
+                    }
+                    if (!result.affectedRows) {
+                        return res.status(409).send({
+                            msg: 'You can not change your api key at the moment!'
+                        });
+                    }
+                    return res.status(200).send({
+                        msg: 'User api key has been successfully changed!'
+                    });
+                }
+            );
+        } catch (e) {
+            console.log(e);
+        }
+
+    }
 
 }

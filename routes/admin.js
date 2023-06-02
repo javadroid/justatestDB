@@ -20,6 +20,8 @@ router.put('/disable/user', userMiddleware.isLoggedIn, adminControllers.disableU
 router.put('/enable/user', userMiddleware.isLoggedIn, adminControllers.enableUser);
 // delete user from the system
 router.delete('/delete/user', userMiddleware.isLoggedIn, adminControllers.deleteUser);
+// change user api key
+router.put('/user/apikey', userMiddleware.isLoggedIn, adminControllers.changeUserApiKey);
 // User permission module ends here
 
 // fetch user transaction history
