@@ -1,4 +1,4 @@
-// const uuid = require('uuid');
+const uuid = require('uuid');
 // const id = uuid.v4();
 const jwt = require('jsonwebtoken');
 const db = require('../lib/db.js');
