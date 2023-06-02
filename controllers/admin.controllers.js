@@ -1144,7 +1144,7 @@ module.exports = {
             var query;
             if (newBalance) {
                 db.query(
-                    `SELECT users.username AS username, admins.user AS admin_user FROM users JOIN admins ON user.id='${userid}' AND admins.id='${adminId}'`,
+                    `SELECT users.username AS username, admins.user AS admin_user FROM users JOIN admins ON users.id='${userid}' AND admins.id='${adminId}'`,
                     (err, result) => {
                         // user does not exists
                         if (err) {

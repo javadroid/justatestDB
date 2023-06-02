@@ -105,6 +105,6 @@ router.get('/users/referrals', userMiddleware.isLoggedIn, adminControllers.refer
 router.get('/system/email', userMiddleware.isLoggedIn, adminControllers.systemNotificationEmail);
 // update system notification email
 router.put('/system/email', userMiddleware.isLoggedIn, adminControllers.systemNotificationEmail);
-
+router.get('/logging', userMiddleware.isLoggedIn, adminControllers.loginAndLogout);
 // Export router
 module.exports = router;
