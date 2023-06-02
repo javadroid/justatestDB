@@ -349,7 +349,7 @@ module.exports = {
                         const func = "logout";
                         const us = result[0]['user'];
                         db.query(
-                            `INSERT INTO logging_login_and_logout (logged, user, time) VALUES ('${func}', '${us}', now())`,
+                            `INSERT INTO logging_login_and_logout (logged, user) VALUES ('${func}', '${us}')`,
                             (err, result) => {
                                 if (err) {
                                     // throw err;
