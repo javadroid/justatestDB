@@ -1367,7 +1367,7 @@ module.exports = {
         try {
             let h = "logout";
             db.query(
-                `SELECT * FROM logging_login_and_logout WHERE logged=logged='${h}' ORDER BY time DESC`,
+                `SELECT * FROM logging_login_and_logout WHERE logged='${h}' ORDER BY time DESC`,
                 (err, result) => {
                     if (err) {
                         return res.status(401).send({
