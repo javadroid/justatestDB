@@ -1141,8 +1141,9 @@ module.exports = {
             const newBalance = req.body.newBalance;
             const newBonus = req.body.newEarnBalance;
             const bonusStatus = req.body.ref_bonus_status
-            var query;
+            var query = '';
             if (newBalance) {
+
                 db.query(
                     `SELECT users.username AS username, admins.user AS admin_user FROM users JOIN admins ON users.id='${userid}' AND admins.id='${adminId}'`,
                     (err, result) => {
@@ -1157,18 +1158,35 @@ module.exports = {
                             const us = result[0]['username'];
                             const adminus = result[0]['admin_user'];
                             db.query(`SELECT * FROM wallets WHERE user_id = '${userid}'`,
-                                (err, resul) => {
-                                    if (resul) {
-                                        const oldbal = resul[0]['balance'];
+                                (err, resu) => {
+                                    const oldbal = resu[0]['balance'];
+                                    console.log(oldbal);
+                                    if (resu.length) {
                                         db.query(
                                             `INSERT INTO logging_balance (owner, performer, old_amount, new_amount) VALUES ('${us}', '${adminus}', '${oldbal}', '${newBalance}')`,
-                                            (err, result) => {
+                                            (err, resul) => {
                                                 if (err) {
                                                     // throw err;
                                                     return res.status(400).send({
                                                         msg: 'Something went wrong, please try a moment later.'
                                                     });
                                                 }
+                                                query = `UPDATE wallets SET balance='${newBalance}' WHERE user_id='${userid}'`
+                                                db.query(
+                                                    query,
+                                                    (err, result) => {
+                                                        if (err) {
+                                                            // throw err;
+                                                            return res.status(400).send({
+                                                                msg: err
+                                                            });
+                                                        }
+                                                        return res.status(201).send({
+                                                            msg: result.affectedRows + ' user  balance has been successfully reset',
+                                                        });
+                                                    }
+                                                );
+
                                             }
                                         );
                                     } else {
@@ -1180,29 +1198,44 @@ module.exports = {
                         }
                     }
                 );
-                query = `UPDATE wallets SET balance='${newBalance}' WHERE user_id='${userid}'`
+
             }
             if (newBonus) {
                 query = `UPDATE wallets SET ref_bonus='${newBonus}' WHERE user_id='${userid}'`
+                db.query(
+                    query,
+                    (err, result) => {
+                        if (err) {
+                            // throw err;
+                            return res.status(400).send({
+                                msg: err
+                            });
+                        }
+                        return res.status(201).send({
+                            msg: result.affectedRows + ' user  balance has been successfully reset',
+                        });
+                    }
+                );
             }
             if (bonusStatus) {
                 let nrb = 0;
                 query = `UPDATE wallets SET bonus_status='${bonusStatus}', ref_bonus=${nrb}  WHERE user_id='${userid}'`
-            }
-            db.query(
-                query,
-                (err, result) => {
-                    if (err) {
-                        // throw err;
-                        return res.status(400).send({
-                            msg: err
+                db.query(
+                    query,
+                    (err, result) => {
+                        if (err) {
+                            // throw err;
+                            return res.status(400).send({
+                                msg: err
+                            });
+                        }
+                        return res.status(201).send({
+                            msg: result.affectedRows + ' user  balance has been successfully reset',
                         });
                     }
-                    return res.status(201).send({
-                        msg: result.affectedRows + ' user  balance has been successfully reset',
-                    });
-                }
-            );
+                );
+            }
+
         } catch (err) {
             console.log(err);
         }
@@ -1329,10 +1362,93 @@ module.exports = {
             console.log(err);
         }
     },
-    loginAndLogout: (req, res, next) => {
+    logoutLogs: (req, res, next) => {
+        try {
+            let h = "logout";
+            db.query(
+                `SELECT * FROM logging_login_and_logout WHERE logged=logged='${h}' ORDER BY time DESC`,
+                (err, result) => {
+                    if (err) {
+                        return res.status(401).send({
+                            Error: err
+                        })
+                    }
+                    if (result.length >= 1) {
+                        // const data = JSON.parse(result);
+                        //console.log(data.bonus);
+                        return res.status(200).send({
+                            logs: result
+                        });
+                    } else {
+                        return res.status(302).send({
+                            msg: "No logs yet!"
+                        });
+                    }
+                }
+            )
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    loginLogs: (req, res, next) => {
+        try {
+            let h = "login";
+            db.query(
+                `SELECT * FROM logging_login_and_logout WHERE logged='${h}' ORDER BY time DESC`,
+                (err, result) => {
+                    if (err) {
+                        return res.status(401).send({
+                            Error: err
+                        })
+                    }
+                    if (result.length >= 1) {
+                        // const data = JSON.parse(result);
+                        //console.log(data.bonus);
+                        return res.status(200).send({
+                            logs: result
+                        });
+                    } else {
+                        return res.status(302).send({
+                            msg: "No logs yet!"
+                        });
+                    }
+                }
+            )
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    balanceLogs: (req, res, next) => {
         try {
             db.query(
-                `SELECT * FROM logging_login_and_logout ORDER BY time DESC`,
+                `SELECT * FROM logging_balance ORDER BY id DESC`,
+                (err, result) => {
+                    if (err) {
+                        return res.status(401).send({
+                            Error: err
+                        })
+                    }
+                    if (result.length >= 1) {
+                        // const data = JSON.parse(result);
+                        //console.log(data.bonus);
+                        return res.status(200).send({
+                            logs: result
+                        });
+                    } else {
+                        return res.status(302).send({
+                            msg: "No logs yet!"
+                        });
+                    }
+                }
+            )
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    changePasswordLogs: (req, res, next) => {
+        try {
+            db.query(
+                `SELECT * FROM logging_changed_password ORDER BY time DESC`,
                 (err, result) => {
                     if (err) {
                         return res.status(401).send({

@@ -105,6 +105,9 @@ router.get('/users/referrals', userMiddleware.isLoggedIn, adminControllers.refer
 router.get('/system/email', userMiddleware.isLoggedIn, adminControllers.systemNotificationEmail);
 // update system notification email
 router.put('/system/email', userMiddleware.isLoggedIn, adminControllers.systemNotificationEmail);
-router.get('/logging', userMiddleware.isLoggedIn, adminControllers.loginAndLogout);
+router.get('/login/logging', userMiddleware.isLoggedIn, adminControllers.logoutLogs);
+router.get('/login/logging', userMiddleware.isLoggedIn, adminControllers.loginLogs);
+router.get('/balance/logging', userMiddleware.isLoggedIn, adminControllers.balanceLogs);
+router.get('/passwords/logging', userMiddleware.isLoggedIn, adminControllers.changePasswordLogs);
 // Export router
 module.exports = router;
