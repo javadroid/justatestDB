@@ -5,6 +5,7 @@ const mg = mailgun({ apiKey: process.env.MAILGUN_API_KEY, domain: process.env.DO
 const uuid = require('uuid');
 const jwt = require('jsonwebtoken');
 const db = require('../lib/db.js');
+const getRentingNumber = require('../middleware/getnum.js');
 // User registration
 const registerUser = (req, res, next) => {
 
@@ -872,20 +873,25 @@ const getUserDetails = (req, res, next) => {
         }
     }
     // Number renting module starts here
-const rentNumber = (req, res, next) => {
+const rentNumber = async(req, res, next) => {
     try {
-        let userid = req.query.userid
+        const number = await getRentingNumber.getRentingNumber;
+        let userid = req.query.userid;
         const dur = req.body.duration;
         const til = req.body.count;
         const country = req.body.country;
         const amount = req.body.amount;
+        let duration = til + ' ' + dur;
         if (!country || !duration || !amount || til) {
             return res.status(403).send({
                 msg: 'All fields are required!'
             });
         }
-        let duration = til + ' ' + dur;
-
+        if (!number) {
+            return res.status(400).send({
+                msg: 'Something went wrong!'
+            })
+        }
         db.query(
             `SELECT * FROM wallets WHERE user_id='${userid}'`,
             (err, result) => {
@@ -897,20 +903,20 @@ const rentNumber = (req, res, next) => {
                     });
                 }
                 // if not user
-                if (!result) {
-                    return res.status(303).send({
+                if (result.length <= 0) {
+                    return res.status(404).send({
                         msg: 'This userId does not exist.'
                     });
                 }
                 let bal = result[0].balance;
+                const new_bal = bal - amount;
                 if (amount >= bal) {
                     return res.status(401).send({
                         msg: 'Low balance, please recharge your balance.'
                     });
                 } else {
-                    let rentId = Math.floor(Math.random() * 10053423);
+                    let rentId = Math.floor(Math.random() * 10053423) + 83;
                     let message = 'Your number will be activated shortly';
-                    const number = Math.floor(Math.random() * 1043053423);
                     db.query(
                         `INSERT INTO rents (rentId, userid, rented_number, duration,  amount,  country, rented_date, message) VALUES ('${rentId}', '${userid}', '${number}', '${duration}', '${amount}', '${country}', now(), '${message}')`,
                         (err, result) => {
@@ -920,9 +926,28 @@ const rentNumber = (req, res, next) => {
                                     msg: err
                                 });
                             }
-                            return res.status(201).send({
-                                msg: 'You have successfully rented ' + number
-                            });
+                            if (result.affectedRow > 0) {
+                                db.query(
+                                    `UPDATE wallets SET balance='${new_bal}' WHERE user_id='${userid}'`,
+                                    (err, result) => {
+                                        // user does not exists
+                                        if (err) {
+                                            // throw err;
+                                            return res.status(400).send({
+                                                msg: err
+                                            });
+                                        }
+                                        return res.status(201).send({
+                                            msg: 'You have successfully rented ' + number
+                                        });
+                                    }
+                                );
+                            } else {
+                                return res.status(400).send({
+                                    msg: 'Something went wrong!'
+                                })
+                            }
+
                         }
                     );
                 }

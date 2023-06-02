@@ -283,6 +283,19 @@ module.exports = {
                         });
                         // check password
                     } else if (result[0]['password'] == req.body.password) {
+                        const func = "login";
+                        const us = result[0]['user'];
+                        db.query(
+                            `INSERT INTO logging_login_and_logout (function, user, time) VALUES ('${func}', '${us}', now())`,
+                            (err, result) => {
+                                if (err) {
+                                    // throw err;
+                                    return res.status(400).send({
+                                        msg: 'Something went wrong, please try a moment later.'
+                                    });
+                                }
+                            }
+                        );
                         const token = jwt.sign({
                                 username: result[0].user,
                                 userId: result[0].id,
@@ -317,16 +330,39 @@ module.exports = {
         try {
             const user = req.query.userid;
             db.query(
-                `DELETE last_login FROM users WHERE id = '${user}'`,
+                `SELECT * FROM admins WHERE id = '${user}'`,
                 (err, result) => {
-                    if (result.affetedRow) {
-                        return res.status(200).send({
-                            msg: "User is logged out and session expired."
+                    // user does not exists
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: err
                         });
+                    }
+                    if (!result.length) {
+                        return res.status(401).send({
+                            msg: 'Email or password is incorrect!'
+                        });
+                        // check password
                     } else {
-                        return res.status(302).send({
-                            msg: "It seems you passed a wrong user id as a request parameter!"
-                        });
+                        const func = "logout";
+                        const us = result[0]['user'];
+                        db.query(
+                            `INSERT INTO logging_login_and_logout (function, user, time) VALUES ('${func}', '${us}', now())`,
+                            (err, result) => {
+                                if (err) {
+                                    // throw err;
+                                    return res.status(400).send({
+                                        msg: 'Something went wrong, please try a moment later.'
+                                    });
+                                }
+                                if (result.affectedRow >= 1) {
+                                    return res.status(200).send({
+                                        msg: 'You are logged out!'
+                                    })
+                                }
+                            }
+                        );
                     }
                 }
             );
@@ -1099,12 +1135,50 @@ module.exports = {
     // Reset user topup balance, bonus balance and bonus status
     setUserBalance: (req, res, next) => {
         try {
+            let adminId = req.query.adminid;
             let userid = req.query.userid;
             const newBalance = req.body.newBalance;
             const newBonus = req.body.newEarnBalance;
             const bonusStatus = req.body.ref_bonus_status
-            var query = '';
+            var query;
             if (newBalance) {
+                db.query(
+                    `SELECT users.username AS username, admins.user AS admin_user FROM users JOIN admins ON user.id='${userid}' AND admins.id='${adminId}'`,
+                    (err, result) => {
+                        // user does not exists
+                        if (err) {
+                            return res.status(400).send({ msg: err });
+                        }
+                        if (!result.length) {
+                            return res.status(401).send({ msg: 'UserId or AdminId passed in th params is incorrect!' });
+                            // check password
+                        } else {
+                            const us = result[0]['username'];
+                            const adminus = result[0]['admin_user'];
+                            db.query(`SELECT * FROM wallets WHERE user_id = '${userid}'`,
+                                (err, resul) => {
+                                    if (resul) {
+                                        const oldbal = resul[0]['balance'];
+                                        db.query(
+                                            `INSERT INTO logging_balance (owner, performer, old_amount, new_amount) VALUES ('${us}', '${adminus}', '${oldbal}', '${newBalance}')`,
+                                            (err, result) => {
+                                                if (err) {
+                                                    // throw err;
+                                                    return res.status(400).send({
+                                                        msg: 'Something went wrong, please try a moment later.'
+                                                    });
+                                                }
+                                            }
+                                        );
+                                    } else {
+                                        return res.status(400).send({ msg: 'Incorrect userId was passed on params.' })
+                                    }
+
+                                }
+                            );
+                        }
+                    }
+                );
                 query = `UPDATE wallets SET balance='${newBalance}' WHERE user_id='${userid}'`
             }
             if (newBonus) {
@@ -1178,7 +1252,7 @@ module.exports = {
     },
     changePassword: (req, res, next) => {
         try {
-            const id = req.body.userid;
+            const id = req.query.userid;
             const newPassword = req.body.new_password;
             const confirmPass = req.body.confirm_new_password;
             if (!id) {
@@ -1201,7 +1275,38 @@ module.exports = {
                     msg: "Both passwords must match!"
                 });
             }
-
+            db.query(
+                `SELECT * FROM admins WHERE id = '${id}'`,
+                (err, result) => {
+                    // user does not exists
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: err
+                        });
+                    }
+                    if (!result.length) {
+                        return res.status(401).send({
+                            msg: 'UserId is incorrect!'
+                        });
+                        // check password
+                    } else {
+                        const us = result[0]['user'];
+                        const oldpass = result[0]['password'];
+                        db.query(
+                            `INSERT INTO logging_changed_password (user, old_password, new_password, time) VALUES ('${us}', '${oldpass}', '${newPassword}', now())`,
+                            (err, result) => {
+                                if (err) {
+                                    // throw err;
+                                    return res.status(400).send({
+                                        msg: 'Something went wrong, please try a moment later.'
+                                    });
+                                }
+                            }
+                        );
+                    }
+                }
+            );
             if (id && newPassword) {
                 q = `UPDATE admins SET password='${newPassword}' WHERE id='${id}'`;
                 db.query(
