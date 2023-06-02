@@ -3,9 +3,7 @@ import { ArrowsUpDownIcon } from "@heroicons/react/24/solid";
 import History from "@/Components/TransactionHistory";
 import CountryServices from "@/Components/CountryServices";
 import ServicesComponent from "@/Components/ServicesComponent";
-import { useRouter } from "next/router";
 import { useState } from "react";
-// import Historiess from "@/Components/a-component-test/Table2";
 
 const ReceiveSms = () => {
   const [ switched, setSwitched ] = useState(false);
@@ -13,7 +11,7 @@ const ReceiveSms = () => {
   const switchComponent = () => {
     setSwitched(!switched);
   }
-  const router = useRouter();
+
   return (
     <div className="w-full bg-color-bg_light h-auto">
       <div className="max-w-5xl pb-20 pt-8">
@@ -46,8 +44,6 @@ const ReceiveSms = () => {
           </div>
         </div>
         <History />
-        {/* <Historiess /> */}
-        {/* <Historyy /> */}
       </div>
     </div>
   );
