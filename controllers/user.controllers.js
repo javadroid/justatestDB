@@ -876,101 +876,101 @@ const getUserDetails = (req, res, next) => {
 const rentNumber = async(req, res, next) => {
     try {
         https.get('http://207.154.223.33:7014/gateway/routeXapi/backend/xapi/Wws/Numbers/available?country_id=1&application_id=1&type_id=1', (response) => {
-            let data = '';
-            response.on('data', (chunk) => {
-                data += chunk;
-            });
-            response.on('end', () => {
-                let number = JSON.parse(data);
-                return number;
-            })
+                let data = '';
+                response.on('data', (chunk) => {
+                    data += chunk;
+                });
+                response.on('end', () => {
+                    let number = JSON.parse(data);
+                    return number;
+                })
 
-        }).on('error', (err) => {
-            return res.status(502).send({
-                msg: err.message
+            }).on('error', (err) => {
+                return res.status(502).send({
+                    msg: err.message
+                })
             })
-        })
-        const number = await getRentingNumber.getRentingNumber;
-        return res.status(200).send({
-            nu: number
-        });
-        let userid = req.query.userid;
-        const dur = req.body.duration;
-        const til = req.body.count;
-        const country = req.body.country;
-        const amount = req.body.amount;
-        let duration = til + ' ' + dur;
-        if (!country || !duration || !amount || til) {
-            return res.status(403).send({
-                msg: 'All fields are required!'
-            });
-        }
-        if (!number) {
-            return res.status(400).send({
-                msg: 'Something went wrong!'
-            })
-        }
-        db.query(
-            `SELECT * FROM wallets WHERE user_id='${userid}'`,
-            (err, result) => {
-                // if query error
-                if (err) {
-                    // throw err;
-                    return res.status(400).send({
-                        msg: err
-                    });
-                }
-                // if not user
-                if (result.length <= 0) {
-                    return res.status(404).send({
-                        msg: 'This userId does not exist.'
-                    });
-                }
-                let bal = result[0].balance;
-                const new_bal = bal - amount;
-                if (amount >= bal) {
-                    return res.status(401).send({
-                        msg: 'Low balance, please recharge your balance.'
-                    });
-                } else {
-                    let rentId = Math.floor(Math.random() * 10053423) + 83;
-                    let message = 'Your number will be activated shortly';
-                    db.query(
-                        `INSERT INTO rents (rentId, userid, rented_number, duration,  amount,  country, rented_date, message) VALUES ('${rentId}', '${userid}', '${number}', '${duration}', '${amount}', '${country}', now(), '${message}')`,
-                        (err, result) => {
-                            if (err) {
-                                // throw err;
-                                return res.status(400).send({
-                                    msg: err
-                                });
-                            }
-                            if (result.affectedRow > 0) {
-                                db.query(
-                                    `UPDATE wallets SET balance='${new_bal}' WHERE user_id='${userid}'`,
-                                    (err, result) => {
-                                        // user does not exists
-                                        if (err) {
-                                            // throw err;
-                                            return res.status(400).send({
-                                                msg: err
-                                            });
-                                        }
-                                        return res.status(201).send({
-                                            msg: 'You have successfully rented ' + number
-                                        });
-                                    }
-                                );
-                            } else {
-                                return res.status(400).send({
-                                    msg: 'Something went wrong!'
-                                })
-                            }
+            // const number = await getRentingNumber.getRentingNumber;
+            // return res.status(200).send({
+            //     nu: number
+            // });
+            // let userid = req.query.userid;
+            // const dur = req.body.duration;
+            // const til = req.body.count;
+            // const country = req.body.country;
+            // const amount = req.body.amount;
+            // let duration = til + ' ' + dur;
+            // if (!country || !duration || !amount || til) {
+            //     return res.status(403).send({
+            //         msg: 'All fields are required!'
+            //     });
+            // }
+            // if (!number) {
+            //     return res.status(400).send({
+            //         msg: 'Something went wrong!'
+            //     })
+            // }
+            // db.query(
+            //     `SELECT * FROM wallets WHERE user_id='${userid}'`,
+            //     (err, result) => {
+            //         // if query error
+            //         if (err) {
+            //             // throw err;
+            //             return res.status(400).send({
+            //                 msg: err
+            //             });
+            //         }
+            //         // if not user
+            //         if (result.length <= 0) {
+            //             return res.status(404).send({
+            //                 msg: 'This userId does not exist.'
+            //             });
+            //         }
+            //         let bal = result[0].balance;
+            //         const new_bal = bal - amount;
+            //         if (amount >= bal) {
+            //             return res.status(401).send({
+            //                 msg: 'Low balance, please recharge your balance.'
+            //             });
+            //         } else {
+            //             let rentId = Math.floor(Math.random() * 10053423) + 83;
+            //             let message = 'Your number will be activated shortly';
+            //             db.query(
+            //                 `INSERT INTO rents (rentId, userid, rented_number, duration,  amount,  country, rented_date, message) VALUES ('${rentId}', '${userid}', '${number}', '${duration}', '${amount}', '${country}', now(), '${message}')`,
+            //                 (err, result) => {
+            //                     if (err) {
+            //                         // throw err;
+            //                         return res.status(400).send({
+            //                             msg: err
+            //                         });
+            //                     }
+            //                     if (result.affectedRow > 0) {
+            //                         db.query(
+            //                             `UPDATE wallets SET balance='${new_bal}' WHERE user_id='${userid}'`,
+            //                             (err, result) => {
+            //                                 // user does not exists
+            //                                 if (err) {
+            //                                     // throw err;
+            //                                     return res.status(400).send({
+            //                                         msg: err
+            //                                     });
+            //                                 }
+            //                                 return res.status(201).send({
+            //                                     msg: 'You have successfully rented ' + number
+            //                                 });
+            //                             }
+            //                         );
+            //                     } else {
+            //                         return res.status(400).send({
+            //                             msg: 'Something went wrong!'
+            //                         })
+            //                     }
 
-                        }
-                    );
-                }
-            }
-        );
+        //                 }
+        //             );
+        //         }
+        //     }
+        // );
     } catch (err) {
         return res.status(401).send({
             Error: err
