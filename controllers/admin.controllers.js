@@ -1533,11 +1533,11 @@ module.exports = {
             }
             db.query(
                 `INSERT INTO applications (application_id, name price, country, logo) VALUES ('${appId}', '${appName}', '${price}', '${country}', '${logo}')`,
-                (err, result) => {
-                    if (err) {
+                (e, result) => {
+                    if (e) {
                         // throw err;
                         return res.status(400).send({
-                            msg: err
+                            msg: e
                         });
                     }
                     if (result.affectedRows >= 1) {
