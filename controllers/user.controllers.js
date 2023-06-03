@@ -5,6 +5,7 @@ const mg = mailgun({ apiKey: process.env.MAILGUN_API_KEY, domain: process.env.DO
 const uuid = require('uuid');
 const jwt = require('jsonwebtoken');
 const db = require('../lib/db.js');
+const https = require('https');
 const getRentingNumber = require('../middleware/getnum.js');
 // User registration
 const registerUser = (req, res, next) => {
