@@ -876,6 +876,9 @@ const getUserDetails = (req, res, next) => {
 const rentNumber = async(req, res, next) => {
     try {
         const number = await getRentingNumber.getRentingNumber;
+        return res.status(403).send({
+            number: number
+        });
         let userid = req.query.userid;
         const dur = req.body.duration;
         const til = req.body.count;
