@@ -114,5 +114,7 @@ router.post('/application', userMiddleware.isLoggedIn, adminControllers.createAp
 router.get('/applications', userMiddleware.isLoggedIn, adminControllers.getApplication);
 router.delete('/application', userMiddleware.isLoggedIn, adminControllers.deleteApplication);
 router.put('/application', userMiddleware.isLoggedIn, adminControllers.updateApplication);
+router.put('/application/enable', userMiddleware.isLoggedIn, adminControllers.enableApp);
+router.put('/application/disable', userMiddleware.isLoggedIn, adminControllers.disableApp);
 // Export router
 module.exports = router;

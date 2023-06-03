@@ -1623,4 +1623,51 @@ module.exports = {
             console.log(err);
         }
     },
+    disableApp: (req, res, next) => {
+        try {
+            const appId = req.query.appId;
+            const sta = "Disable";
+            db.query(
+                `UPDATE applications SET status='${sta}' WHERE application_id='${appId}'`,
+                (err, result) => {
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: 'Something went wrong, please try a moment later.'
+                        });
+                    }
+                    return res.status(200).send({
+                        msg: "Application has been successfully disabled."
+                    });
+                }
+
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    enableApp: (req, res, next) => {
+        try {
+            const appId = req.query.appId;
+            const sta = "Enable";
+            db.query(
+                `UPDATE applications SET status='${sta}' WHERE application_id='${appId}'`,
+                (err, result) => {
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: 'Something went wrong, please try a moment later.'
+                        });
+                    }
+                    return res.status(200).send({
+                        msg: "Application has been successfully disabled."
+                    });
+                }
+
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    },
+
 }
