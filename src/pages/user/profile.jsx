@@ -40,7 +40,6 @@ const Profile = () => {
 
   const [balance, setBalance] = useState(0);
   const [userData, setUserData] = useState({});
-  //console.log(userData);
 
   const {
     register,
@@ -140,7 +139,7 @@ const Profile = () => {
                   </button>
                 </div>
               </div>
-              <p className="text-color-primary">Payment History</p>
+              <Link href="/user/payment-history" className="text-color-primary">Payment History</Link>
             </div>
             <div className="mt-8 flex flex-grow flex-col gap-y-3 px-4 md:px-0">
               <h2 className="text-center font-bold md:text-2xl">

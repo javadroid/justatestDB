@@ -4,7 +4,6 @@ import UK from '../../assets/flags/UK.svg'
 import axios from "axios";
 
 const url = "http://161.35.218.95:3000/api/countries";
-// const url2 = "http://161.35.218.95:3000/api/referral/history?refCode=123456"
 
 const Country = () => {
 const [data, setData] = useState([]);
