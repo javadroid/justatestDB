@@ -1517,6 +1517,38 @@ module.exports = {
             console.log(e);
         }
 
-    }
+    },
+    createApplication: (req, res, next) => {
+        try {
+
+            const appId = req.body.application_id;
+            const appName = req.body.application_name;
+            const country = req.body.country;
+            const price = req.body.price;
+            const appLogo = req.body.logo;
+            if (!appId || !appName || !country || !price || !appLogo) {
+                return res.status(401).send({
+                    msg: "Application ID, name, price, logo, and country are required!"
+                });
+            }
+            db.query(
+                `INSERT INTO applications (application_id, name, price, country, logo) VALUES ('${appId}', '${appName}', '${price}', '${country}', '${logo}')`,
+                (err, result) => {
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: 'Something went wrong, please try a moment later.'
+                        });
+                    }
+                    return res.status(201).send({
+                        msg: 'Application has been successfully created.'
+                    });
+                }
+
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    },
 
 }

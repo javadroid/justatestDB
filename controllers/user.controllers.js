@@ -1008,7 +1008,42 @@ const getRentNumber = (req, res, next) => {
     }
 
 }
+const getApplications = (req, res, next) => {
+    try {
+        country = req.query.country;
+        appId = req.query.app_id;
+        appName = req.query.app_name;
+        var q;
+        if (country) {
+            q = `SELECT * FROM applications WHERE country='${country}' ORDER BY country`
+        }
+        if (appId) {
+            q = `SELECT * FROM applications WHERE application_id='${appId}' ORDER BY application_id`
+        }
+        if (appName) {
+            q = `SELECT * FROM applications WHERE name='${appName}' ORDER BY name`
+        } else {
+            q = `SELECT * FROM applications ORDER BY created_date`
+        }
+        db.query(
+            q,
+            (err, result) => {
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: 'Something went wrong, please try a moment later.'
+                    });
+                }
+                return res.status(200).send({
+                    applications: result
+                });
+            }
 
+        );
+    } catch (err) {
+        console.log(err);
+    }
+}
 module.exports = {
     registerUser,
     socialLogin,
@@ -1033,4 +1068,5 @@ module.exports = {
     getUserDetails,
     getRentNumber,
     rentNumber,
+    getApplications
 }
