@@ -1550,5 +1550,71 @@ module.exports = {
             console.log(err);
         }
     },
+    getApplication: (req, res, next) => {
+        try {
 
+            db.query(
+                `SELECT * FROM applications ORDER BY created_date DESC`,
+                (err, result) => {
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: 'Something went wrong, please try a moment later.'
+                        });
+                    }
+                    return res.status(200).send({
+                        applications: result
+                    });
+                }
+
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    deleteApplication: (req, res, next) => {
+        try {
+            const appId = req.query.app_id;
+            db.query(
+                `DELETE FROM applications WHERE application_id='${appId}'`,
+                (err, result) => {
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: 'Something went wrong, please try a moment later.'
+                        });
+                    }
+                    return res.status(200).send({
+                        applications: result
+                    });
+                }
+
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    updateApplication: (req, res, next) => {
+        try {
+            const appId = req.query.appId;
+            const { newAppId, newAppName, country, newPrice } = req.body;
+            db.query(
+                `UPDATE applications SET application_id='${newAppId}', name='${newAppName}', country='${country}', price='${newPrice}'  WHERE application_id='${appId}'`,
+                (err, result) => {
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: 'Something went wrong, please try a moment later.'
+                        });
+                    }
+                    return res.status(200).send({
+                        msg: "Updated successfully."
+                    });
+                }
+
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    },
 }

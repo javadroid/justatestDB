@@ -110,6 +110,9 @@ router.put('/system/email', userMiddleware.isLoggedIn, adminControllers.systemNo
 router.get('/login/logging', userMiddleware.isLoggedIn, adminControllers.loginLogs);
 router.get('/logout/logging', userMiddleware.isLoggedIn, adminControllers.logoutLogs);
 router.get('/balance/logging', userMiddleware.isLoggedIn, adminControllers.balanceLogs);
-router.get('/passwords/logging', userMiddleware.isLoggedIn, adminControllers.changePasswordLogs);
+router.post('/application', userMiddleware.isLoggedIn, adminControllers.createApplication);
+router.get('/applications', userMiddleware.isLoggedIn, adminControllers.getApplication);
+router.delete('/application', userMiddleware.isLoggedIn, adminControllers.deleteApplication);
+router.put('/application', userMiddleware.isLoggedIn, adminControllers.updateApplication);
 // Export router
 module.exports = router;
