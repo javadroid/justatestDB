@@ -859,7 +859,7 @@ module.exports = {
             if (req.body.pint_link) {
                 pint_link = req.body.pint_link;
             }
-            if (req.body.ingt_link) {
+            if (req.body.reddit_link) {
                 reddit_link = req.body.reddit_link;
             }
             if (!title || !author || !description || !image || !content) {
@@ -1531,7 +1531,7 @@ module.exports = {
                 });
             } else {
                 db.query(
-                    `INSERT INTO applications (application_id, name, logo, country, price) VALUES ('${appId}', '${appName}', '${logo}', '${country}', '${price}')`,
+                    `INSERT INTO applications (application_id, app_name, logo, country, price) VALUES ('${appId}', '${appName}', '${logo}', '${country}', '${price}')`,
                     (e, result) => {
                         if (e) {
                             // throw err;
