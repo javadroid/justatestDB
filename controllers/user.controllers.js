@@ -877,7 +877,7 @@ const rentNumber = async(req, res, next) => {
     try {
         const number = await getRentingNumber.getRentingNumber;
         return res.status(200).send({
-            number: number
+            nu: number
         });
         let userid = req.query.userid;
         const dur = req.body.duration;
