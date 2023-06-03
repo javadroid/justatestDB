@@ -1532,7 +1532,7 @@ module.exports = {
                 });
             }
             db.query(
-                `INSERT INTO applications (application_id, name, price, country, logo) VALUES ('${appId}', '${appName}', '${price}', '${country}', '${logo}')`,
+                `INSERT INTO applications (application_id, name price, country, logo) VALUES ('${appId}', '${appName}', '${price}', '${country}', '${logo}')`,
                 (err, result) => {
                     if (err) {
                         // throw err;
