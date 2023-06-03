@@ -1520,9 +1520,6 @@ module.exports = {
     },
     createApplication: (req, res, next) => {
         try {
-            return res.status(401).send({
-                msg: "Application ID, name, price, logo, and country are required!"
-            });
 
             const appId = req.body.application_id;
             const appName = req.body.application_name;
