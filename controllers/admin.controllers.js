@@ -1660,7 +1660,7 @@ module.exports = {
                         });
                     }
                     return res.status(200).send({
-                        msg: "Application has been successfully disabled."
+                        msg: "Application has been successfully enabled."
                     });
                 }
 
