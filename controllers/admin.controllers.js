@@ -1137,6 +1137,7 @@ module.exports = {
     // Reset user topup balance, bonus balance and bonus status
     setUserBalance: (req, res, next) => {
         try {
+            let balanc = req.query.available_balance;
             let adminId = req.query.adminid;
             let userid = req.query.userid;
             const newBalance = req.body.newBalance;
@@ -1230,9 +1231,24 @@ module.exports = {
                                 msg: err
                             });
                         }
-                        return res.status(201).send({
-                            msg: result.affectedRows + ' user  balance has been successfully reset',
-                        });
+                        let typ = "Bonus Earn"
+                        const tr = Math.floor(Math.random() * 3473) + '3ref'
+                            //add to trasactions history
+                        db.query(
+                            `INSERT INTO transactions (trx_id, user_id, amount, type, status) VALUES ('${tr}', '${userid}', '${balanc}', '${typ}', '${bonusStatus}')`,
+                            (err, resul) => {
+                                if (err) {
+                                    // throw err;
+                                    return res.status(400).send({
+                                        msg: 'Something went wrong, please try a moment later.'
+                                    });
+                                }
+                                return res.status(201).send({
+                                    msg: result.affectedRows + ' user  balance has been successfully reset',
+                                });
+
+                            }
+                        );
                     }
                 );
             }
