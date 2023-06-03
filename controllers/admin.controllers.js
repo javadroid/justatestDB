@@ -1530,25 +1530,26 @@ module.exports = {
                 return res.status(401).send({
                     msg: "Application ID, name, price, logo, and country are required!"
                 });
-            }
-            db.query(
-                `INSERT INTO applications (application_id, name price, country, logo) VALUES ('${appId}', '${appName}', '${price}', '${country}', '${logo}')`,
-                (e, result) => {
-                    if (e) {
-                        // throw err;
-                        return res.status(400).send({
-                            msg: e
-                        });
+            } else {
+                db.query(
+                    `INSERT INTO applications (application_id, name price, country, logo) VALUES ('${appId}', '${appName}', '${price}', '${country}', '${logo}')`,
+                    (e, result) => {
+                        if (e) {
+                            // throw err;
+                            return res.status(400).send({
+                                msg: e
+                            });
+                        }
+                        if (result.affectedRows >= 1) {
+                            return res.status(201).send({
+                                msg: 'Application has been successfully created.'
+                            });
+                        } else return res.status(409).send({ msg: "Something went wrong." })
+
                     }
-                    if (result.affectedRows >= 1) {
-                        return res.status(201).send({
-                            msg: 'Application has been successfully created.'
-                        });
-                    } else return res.status(409).send({ msg: "Something went wrong." })
 
-                }
-
-            );
+                );
+            }
         } catch (err) {
             console.log(err);
             return res.status(400).send({
