@@ -1520,7 +1520,6 @@ module.exports = {
     },
     createApplication: (req, res, next) => {
         try {
-
             const appId = req.body.application_id;
             const appName = req.body.application_name;
             const country = req.body.country;
@@ -1532,7 +1531,7 @@ module.exports = {
                 });
             } else {
                 db.query(
-                    `INSERT INTO applications (application_id, name price, country, logo) VALUES ('${appId}', '${appName}', '${price}', '${country}', '${logo}')`,
+                    `INSERT INTO applications (application_id, name, logo, country, price) VALUES ('${appId}', '${appName}', '${logo}', '${country}', '${price}')`,
                     (e, result) => {
                         if (e) {
                             // throw err;
