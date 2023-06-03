@@ -4,7 +4,7 @@ import country from "../../assets/flags/Croatia.svg"
 
 const CountryQty = () => {
   return (
-<div className="m-4 mt-10 rounded-t-2xl shadow-xl bg-color-bg_light px-7 py-4 lg:mx-0">
+    <div className="m-4 mt-10 rounded-t-2xl shadow-xl bg-color-bg_light px-7 py-4 lg:mx-0">
         <div>
           <h1 className="md:text-xl font-extrabold ">1. Select Country</h1>
           <div className="flex w-full items-center space-x-1 border-b border-blue-300 text-color-primary">
