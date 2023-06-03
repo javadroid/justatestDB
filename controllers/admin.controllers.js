@@ -1531,7 +1531,7 @@ module.exports = {
                 });
             } else {
                 db.query(
-                    `INSERT INTO applications (application_id, app_name, logo, country, price) VALUES ('${appId}', '${appName}', '${logo}', '${country}', '${price}')`,
+                    `INSERT INTO applications (application_id, app_name, logo, country, price) VALUES ('${appId}', '${appName}', '${appLogo}', '${country}', '${price}')`,
                     (e, result) => {
                         if (e) {
                             // throw err;
