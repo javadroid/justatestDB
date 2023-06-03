@@ -1537,12 +1537,15 @@ module.exports = {
                     if (err) {
                         // throw err;
                         return res.status(400).send({
-                            msg: 'Something went wrong, please try a moment later.'
+                            msg: err
                         });
                     }
-                    return res.status(201).send({
-                        msg: 'Application has been successfully created.'
-                    });
+                    if (result.affectedRows >= 1) {
+                        return res.status(201).send({
+                            msg: 'Application has been successfully created.'
+                        });
+                    } else return res.status(409).send({ msg: "Something went wrong." })
+
                 }
 
             );
@@ -1585,7 +1588,7 @@ module.exports = {
                         });
                     }
                     return res.status(200).send({
-                        applications: result
+                        msg: "Application has been successfully delrted."
                     });
                 }
 
