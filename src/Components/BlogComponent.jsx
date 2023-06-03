@@ -7,8 +7,13 @@ import {
 } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { Icon } from "@iconify/react";
+import { useRouter } from "next/router";
 
-const BlogComponent = ({ title, description, Author, date }) => {
+const BlogComponent = ({ title, description, Author, date, id }) => {
+  const router = useRouter();
+  const readMore = () => {
+    router.push(`/blog/${id}`);
+  };
   return (
     <div className="mt-10 border-b border-gray-400/20 pt-4 md:flex md:items-start md:gap-10">
       <div>
@@ -73,7 +78,12 @@ const BlogComponent = ({ title, description, Author, date }) => {
             />
           </button>
         </div>
-        <div className="mb-7 mt-5 flex w-[140px] items-center space-x-2 border border-color-primary_darken px-3 py-2 text-color-primary_darken">
+        <div
+          className="mb-7 mt-5 flex w-[140px] items-center space-x-2 border border-color-primary_darken px-3 py-2 text-color-primary_darken"
+          onClick={() => {
+            readMore();
+          }}
+        >
           <button>Read More</button>
           <ArrowRightIcon className="h-4 w-4" />
         </div>
