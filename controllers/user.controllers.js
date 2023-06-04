@@ -1034,7 +1034,7 @@ const cancelNumber = (req, res, next) => {
 
         let userid = req.query.userid;
         const rentedNum = req.query.rented_number;
-        const amount = req.body.rented_amount;
+        const amount = req.query.rented_amount;
         if (!userid || !rentedNum || !amount) { return res.status(403).send({ msg: 'user Id, rented number and the rented amount are required as parameters.' }); }
         db.query(
             `SELECT * FROM wallets WHERE user_id='${userid}'`,
