@@ -1069,7 +1069,7 @@ const cancelNumber = (req, res, next) => {
                         }
                         if (resul.affectedRows > 0) {
                             db.query(
-                                `UPDATE rents SET status='${sta}' WHERE number='${rentedNum}'`,
+                                `UPDATE rents SET status='${sta}' WHERE rented_number='${rentedNum}'`,
                                 (err, result) => {
                                     // user does not exists
                                     if (err) {
