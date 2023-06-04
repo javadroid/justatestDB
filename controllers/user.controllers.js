@@ -1029,6 +1029,77 @@ const getApplications = (req, res, next) => {
         console.log(err);
     }
 }
+const cancelNumber = (req, res, next) => {
+    try {
+
+        let userid = req.query.userid;
+        const rentedNum = req.query.rented_number;
+        const amount = req.body.rented_amount;
+        if (!userid || !rentedNum || !amount) { return res.status(403).send({ msg: 'user Id, rented number and the rented amount are required as parameters.' }); }
+        db.query(
+            `SELECT * FROM wallets WHERE user_id='${userid}'`,
+            async(err, result) => {
+                // if query error
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                // if not user
+                if (result.length <= 0) {
+                    return res.status(404).send({
+                        msg: 'This userId does not exist.'
+                    });
+                }
+                let bal = await result[0].balance;
+                console.log(result);
+                console.log(bal);
+                const new_bal = bal + amount;
+                console.log(new_bal);
+                let sta = 'Cancelled';
+                db.query(
+                    `UPDATE wallets SET balance='${new_bal}' WHERE user_id='${userid}'`,
+                    (err, resul) => {
+                        if (err) {
+                            // throw err;
+                            return res.status(400).send({
+                                msg: err
+                            });
+                        }
+                        if (resul.affectedRows > 0) {
+                            db.query(
+                                `UPDATE rents SET status='${sta}' WHERE number='${rentedNum}'`,
+                                (err, result) => {
+                                    // user does not exists
+                                    if (err) {
+                                        // throw err;
+                                        return res.status(400).send({
+                                            msg: err
+                                        });
+                                    }
+                                    return res.status(201).send({
+                                        msg: 'Cancellation was successfully.'
+                                    });
+                                }
+                            );
+                        } else {
+                            return res.status(400).send({
+                                msg: 'Something went wrong!'
+                            })
+                        }
+
+                    }
+                );
+            }
+
+        );
+    } catch (err) {
+        return res.status(401).send({
+            Error: err
+        })
+    }
+}
 module.exports = {
     registerUser,
     socialLogin,
@@ -1053,5 +1124,6 @@ module.exports = {
     getUserDetails,
     getRentNumber,
     rentNumber,
-    getApplications
+    getApplications,
+    cancelNumber,
 }
