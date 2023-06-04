@@ -886,11 +886,7 @@ const rentNumber = async(req, res, next) => {
         const country = req.body.country;
         const amount = req.body.amount;
         let duration = til + ' ' + dur;
-        if (!country || !duration || !amount || til) {
-            return res.status(403).send({
-                msg: 'All fields are required!'
-            });
-        }
+        if (!country || !dur || !amount || !til) { return res.status(403).send({ msg: 'All fields are required!' }); }
         var number;
         if (response.data.hasOwnProperty("number")) {
             number = response.data.number;
@@ -899,7 +895,7 @@ const rentNumber = async(req, res, next) => {
         console.log("Reponse: " + number);
         db.query(
             `SELECT * FROM wallets WHERE user_id='${userid}'`,
-            (err, result) => {
+            async(err, result) => {
                 // if query error
                 if (err) {
                     // throw err;
@@ -913,8 +909,11 @@ const rentNumber = async(req, res, next) => {
                         msg: 'This userId does not exist.'
                     });
                 }
-                let bal = result[0].balance;
+                let bal = await result[0].balance;
+                console.log(result);
+                console.log(bal);
                 const new_bal = bal - amount;
+                console.log(new_bal);
                 if (amount >= bal) {
                     return res.status(401).send({
                         msg: 'Low balance, please recharge your balance.'
@@ -924,14 +923,14 @@ const rentNumber = async(req, res, next) => {
                     let message = 'Your number will be activated shortly';
                     db.query(
                         `INSERT INTO rents (rentId, userid, rented_number, duration,  amount,  country, rented_date, message) VALUES ('${rentId}', '${userid}', '${number}', '${duration}', '${amount}', '${country}', now(), '${message}')`,
-                        (err, result) => {
+                        (err, resul) => {
                             if (err) {
                                 // throw err;
                                 return res.status(400).send({
                                     msg: err
                                 });
                             }
-                            if (result.affectedRows > 0) {
+                            if (resul.affectedRows > 0) {
                                 db.query(
                                     `UPDATE wallets SET balance='${new_bal}' WHERE user_id='${userid}'`,
                                     (err, result) => {
