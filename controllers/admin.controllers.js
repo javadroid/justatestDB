@@ -667,7 +667,6 @@ module.exports = {
         }
     },
 
-
     // deleting a language from the system
     deleteLanguage: (req, res, next) => {
         try {

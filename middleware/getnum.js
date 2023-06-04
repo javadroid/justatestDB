@@ -4,13 +4,16 @@ const getRentingNumber = async() => {
         let data = '';
         response.on('data', (chunk) => {
             data += chunk;
+            console.log("Data: " + data)
         });
         response.on('end', () => {
             let number = JSON.parse(data);
+            console.log("Number: " + number)
             return number;
         })
 
     }).on('error', (err) => {
+        console.log("Error: " + err)
         return res.status(502).send({
             msg: err.message
         })
