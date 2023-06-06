@@ -37,7 +37,6 @@ const ReceiveSms = () => {
                 <CountryServices title="1. Select country" />
                 <ServicesComponent title="2. Select a service" />
                 </>
-                 
                  }
               </div>
             </div>

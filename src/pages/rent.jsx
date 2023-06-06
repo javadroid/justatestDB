@@ -8,7 +8,6 @@ import Advantages from "@/Components/Advantages";
 import PromoInformation from "@/Components/PromoInformation";
 import Connection from "@/Components/Connection";
 import { countries } from "../Components/countries/countriesData";
-//import Country from "@/Components/countries/country";
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import rightArrow from "../assets/arrows/arrow-right.png";
