@@ -39,6 +39,7 @@ const blog = () => {
                 description={blog.description}
                 Author={blog.author}
                 date={date.toDateString(blog.date_created)}
+                id={blog.id}
               />
             );
           })}

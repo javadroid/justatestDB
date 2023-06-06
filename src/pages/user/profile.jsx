@@ -36,7 +36,7 @@ const Profile = () => {
       setUserData(response[1].data?.user);
     };
     getBalance();
-  }, )
+  });
 
   const [balance, setBalance] = useState(0);
   const [userData, setUserData] = useState({});
@@ -100,9 +100,9 @@ const Profile = () => {
     <section>
       <div className="bg-color-bg_light pb-8 pt-10 lg:pl-4 lg:pr-2">
         <h1 className="mb-5 text-center text-2xl font-bold">Profile</h1>
-        <div className="h-full mx-2 rounded-xl bg-white shadow-lg lg:w-full xl:w-[80vw]">
+        <div className="mx-2 h-full rounded-xl bg-white shadow-lg lg:w-full xl:w-[80vw]">
           <div className="flex flex-col lg:flex-row lg:items-baseline lg:gap-72">
-            <div className="flex px-2 flex-grow flex-col">
+            <div className="flex flex-grow flex-col px-2">
               <div className="my-5 flex justify-between">
                 <p>Email:</p>
                 <p className="font-bold">{userData.email}</p>
@@ -142,7 +142,7 @@ const Profile = () => {
               <Link href="/user/payment-history" className="text-color-primary">Payment History</Link>
             </div>
             <div className="mt-8 flex flex-grow flex-col gap-y-3 px-4 md:px-0">
-              <h2 className="text-center md:text-2xl font-bold">
+              <h2 className="text-center font-bold md:text-2xl">
                 Change Password
               </h2>
               <form
@@ -170,16 +170,28 @@ const Profile = () => {
           </div>
           <div className="px-2 py-10">
             <div className="rounded-md bg-color-bg_primary-500 px-2 py-4">
-              <h2 className="mb-5 font-bold text-center md:text-xl">Referal Program</h2>
-              <div className="flex flex-col gap-y-8 lg:flex-row lg:justify-between text-xs md:text-base">
+              <h2 className="mb-5 text-center font-bold md:text-xl">
+                Referal Program
+              </h2>
+              <div className="flex flex-col gap-y-8 text-xs md:text-base lg:flex-row lg:justify-between">
                 <div>
-                  <p className="w-full text-xs font-extrabold md:text-base">Recommend the service and earn money</p>
+                  <p className="w-full text-xs font-extrabold md:text-base">
+                    Recommend the service and earn money
+                  </p>
                   <p className="text-color-primary">Read more...</p>
                 </div>
                 <div>
                   <div className="flex items-center gap-x-2">
                     <p>Your Balance:</p>
-                    <p>0.00$ <Link href="/user/referral-history" className="text-color-primary">History of balance</Link></p>
+                    <p>
+                      0.00${" "}
+                      <Link
+                        href="/user/referral-history"
+                        className="text-color-primary"
+                      >
+                        History of balance
+                      </Link>
+                    </p>
                   </div>
                   <div className="flex items-center justify-between">
                     <p>Your REF code</p>

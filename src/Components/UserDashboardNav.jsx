@@ -37,12 +37,14 @@ const UserDashboardNav = () => {
       ]);
       setBalance(response[0].data?.data[0]?.balance);
       setUserData(response[1].data?.user);
+      console.log(response);
     };
     getBalance();
   }, []);
 
   const [balance, setBalance] = useState(0);
   const [userData, setUserData] = useState({});
+  console.log(balance);
 
   return (
     <nav className="top-0 z-50 flex h-16 w-full items-center justify-between bg-color-bg_primary-500 p-4 text-white lg:h-20">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ArticleImage from "@/assets/ArticleImage.jpg";
 import { useForm } from "react-hook-form";
@@ -13,8 +13,35 @@ const BlogPage = () => {
     },
   });
 
-  const { query } = useRouter();
-  console.log(query.id);
+  const router = useRouter();
+  console.log(router.query.id);
+
+  // const id = Number(query.id);
+  // console.log(id);
+  // console.log(typeof id);
+
+  useEffect(() => {
+    const getComments = async () => {
+      const data = await instance.get(
+        "http://161.35.218.95:3000/api/blog/post",
+        {
+          params: {
+            post_id: router?.query?.id || 1,
+          },
+        }
+      );
+      console.log(data?.data?.comments);
+      setComments(data?.data?.comments);
+      // setBlogData(data?.data);
+    };
+    const timer = setTimeout(() => {
+      getComments();
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [router?.query?.id]);
+
+  const [comments, setComments] = useState([]);
 
   const makeComment = async (data) => {
     console.log(data);
@@ -132,6 +159,7 @@ const BlogPage = () => {
           regions and a thousand different online services for which they can be
           used to register.
         </p>
+        <h1 className="mt-5 text-2xl font-medium">Leave a comment</h1>
         <form onSubmit={handleSubmit(makeComment)}>
           <textarea
             {...register("post")}
@@ -143,6 +171,18 @@ const BlogPage = () => {
             Submit
           </button>
         </form>
+        <div className="flex items-baseline gap-x-3">
+          <h1 className="mt-5 text-3xl font-medium">Comments</h1>
+          <p className="text-2xl font-medium">({comments.length})</p>
+        </div>
+
+        {comments.map((comment) => {
+          return (
+            <ul className="list-disc px-3 text-lg">
+              <li>{comment?.comment}</li>
+            </ul>
+          );
+        })}
       </div>
     </section>
   );

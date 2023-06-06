@@ -5,8 +5,15 @@ import Logo from "../../assets/Logo.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { navlists } from "./navlists";
+import axios from "axios";
 
 const Navbar = () => {
+  var instance = axios.create({
+    validateStatus: function (status) {
+      return status >= 200 && status < 300; // default
+    },
+  });
+
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,6 +30,20 @@ const Navbar = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    const getLanguages = async () => {
+      const data = await instance.get(
+        "http://161.35.218.95:3000/api/languages"
+      );
+      console.log(data);
+      setLanguages(data?.data?.languages);
+    };
+    getLanguages();
+  }, []);
+
+  const [languages, setLanguages] = useState([]);
+  console.log(languages);
 
   return (
     <nav
@@ -76,8 +97,15 @@ const Navbar = () => {
           </button>
         </div>
         <div className="hidden lg:inline-block">
-          <Link href="#">漢字</Link>/<Link href="#">RU</Link>/
-          <Link href="#">EN</Link>
+          {languages.map((language) => {
+            return (
+              <Link className="" key={language.id} href="#">
+                {language.language}/
+              </Link>
+            );
+          })}
+          {/* <Link href="#">漢字</Link>/<Link href="#">RU</Link>/
+          <Link href="#">EN</Link> */}
         </div>
         <div className="lg:hidden">
           <Bars3Icon
