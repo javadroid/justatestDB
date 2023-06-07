@@ -8,12 +8,7 @@ import axios from 'axios'
 const CountryPrice = () => {
 
   const url = "http://161.35.218.95:3000/api/countries";
-  const [showMore, setShowMore] = useState(false)
   const maxNameLength = 11;
-  const toggleMore = () => {
-    setShowMore(!showMore);
-  }
-
   const [data, setData] = useState([]);
   const fetchData = async () => {
     try {
@@ -60,7 +55,7 @@ const CountryPrice = () => {
         ))}
       </ul>
       <div className="w-full flex justify-between items-baseline">
-        <p className="mb-4 mt-8 pt-4 md:text-lg lg:mb-0 text-color-text_light">
+        <p className="mb-4 mt-8 pt-4 text-color-text_light md:text-lg lg:mb-0">
           Available countries- 4312
         </p>
         <Link href={"/user/receive-sms"} className="rounded-xl text-sm md:text-base bg-color-primary px-11 py-2 font-medium text-center text-white group relative overflow-hidden">

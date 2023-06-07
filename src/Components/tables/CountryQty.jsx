@@ -7,12 +7,7 @@ import axios from 'axios';
 const CountryQty = () => {
 
   const url = "http://161.35.218.95:3000/api/countries";
-  const [showMore, setShowMore] = useState(false)
   const maxNameLength = 11;
-  const toggleMore = () => {
-    setShowMore(!showMore);
-  }
-
   const [data, setData] = useState([]);
   const fetchData = async () => {
     try {
@@ -35,7 +30,7 @@ const CountryQty = () => {
     <div className="m-4 mt-10 rounded-t-2xl shadow-xl bg-color-bg_light px-7 py-4 lg:mx-0">
         <div>
           <h1 className="md:text-xl font-extrabold ">1. Select Country</h1>
-          <div className="flex w-full items-center space-x-1 border-b border-blue-300 text-color-primary">
+          <div className="flex w-full items-center space-x-1 border-b border-blue-300 mb-4 text-color-primary">
             <MagnifyingGlassIcon className="h-6 w-6" />
             <input
               type="text"
@@ -54,7 +49,7 @@ const CountryQty = () => {
               </li>
             ))}
           </ul>
-          <p className="pt-4 text-lg font-normal text-color-text_light">
+          <p className="mt-4 pt-4 text-lg font-normal text-color-text_light">
             Available Countries- 128
           </p>
         </div>

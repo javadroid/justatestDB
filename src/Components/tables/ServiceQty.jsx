@@ -7,13 +7,7 @@ import axios from 'axios'
 const ServiceQty = () => {
   const url = "http://161.35.218.95:3000/api/applications"
   const [services, setServices] = useState([]);
-  const [showMore, setShowMore] = useState(false)
-
   const maxNameLength = 11;
-  const toggleMore = () => {
-    setShowMore(!showMore);
-  }
-
   const fetchServices = async () => { 
     try {
       const response = await axios.get(url, {
@@ -32,7 +26,7 @@ const ServiceQty = () => {
   })
 
   return (
-<div className="m-4 mt-10 rounded-t-2xl shadow-xl bg-color-bg_light px-7 py-4 lg:mx-0">
+      <div className="m-4 mt-10 rounded-t-2xl shadow-xl bg-color-bg_light px-7 py-4 lg:mx-0">
         <div>
           <h1 className="md:text-xl font-extrabold ">1. Select service</h1>
           <div className="flex w-full items-center space-x-1 border-b border-blue-300 text-color-primary">
@@ -40,7 +34,7 @@ const ServiceQty = () => {
             <input
               type="text"
               placeholder="Search"
-              className="bg-transparent py-1 text-sm md:text-lg font-medium italic placeholder:text-color-primary outline-none"
+              className="bg-transparent py-1 text-sm md:text-lg font-medium italic mb-4 placeholder:text-color-primary outline-none"
             />
           </div>
           <ul className="pt-2 width-full height-10">
@@ -54,7 +48,7 @@ const ServiceQty = () => {
               </li>
             ))}
           </ul>
-          <p className="pt-4 text-lg font-normal text-color-text_light">
+          <p className="mt-4 pt-4 text-lg font-normal text-color-text_light">
             Available Services- 300
           </p>
         </div>
