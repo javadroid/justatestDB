@@ -8,6 +8,7 @@ import axios from 'axios'
 const ServicePrice = () => {
   const url = "http://161.35.218.95:3000/api/applications"
   const [services, setServices] = useState([]);
+  const maxNameLength = 11;
   const fetchServices = async () => { 
     try {
       const response = await axios.get(url, {

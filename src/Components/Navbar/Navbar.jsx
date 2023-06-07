@@ -36,14 +36,14 @@ const Navbar = () => {
       const data = await instance.get(
         "http://161.35.218.95:3000/api/languages"
       );
-      console.log(data);
+      // console.log(data);
       setLanguages(data?.data?.languages);
     };
     getLanguages();
   }, []);
 
   const [languages, setLanguages] = useState([]);
-  console.log(languages);
+  // console.log(languages);
 
   return (
     <nav
