@@ -1,9 +1,37 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import Link from 'next/link'
-import service from "../../assets/socials/Amazon.svg"
+import serviceimg from "../../assets/socials/Amazon.svg"
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const ServicePrice = () => {
+  const url = "http://161.35.218.95:3000/api/applications"
+  const [services, setServices] = useState([]);
+  const [showMore, setShowMore] = useState(false)
+
+  const maxNameLength = 11;
+  const toggleMore = () => {
+    setShowMore(!showMore);
+  }
+
+  const fetchServices = async () => { 
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+        },
+      });
+      setServices(response.data.applications);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    fetchServices();
+  })
+
   return (
     <div className="m-4 mt-10 bg-white px-2 md:px-7 py-2 drop-shadow-xl lg:mx-0 lg:w-full">
     <div className=" ">
@@ -21,23 +49,16 @@ const ServicePrice = () => {
         </div>
       </div>
       <ul className="pt-2">
-      <li className="p-2 flex justify-between text-xs items-center md:text-lg">
-          <div className="flex items-center space-x-2">
-            <Image className="h-6 w-6" src={service} alt="service" />
-            <span>Amazon</span>
-          </div>
-          <span className="lg:text-sm">$10.14</span>
-        </li>
-        <li className="p-2">📸 Fake service</li>
-        <li className="p-2">📸 Fake service</li>
-        <li className="p-2">📸 Fake service</li>
-        <li className="p-2">📸 Fake service</li>
-        <li className="p-2">📸 Fake service</li>
-        <li className="p-2">📸 Fake service</li>
-        <li className="p-2">📸 Fake service</li>
-        <li className="p-2">📸 Fake service</li>
-        <li className="p-2">📸 Fake service</li>
-        <li className="p-2">📸 Fake service</li>
+        {/* {services.slice(0, showMore ? services.length : 10).map((service) => (something))} */}
+        {services.map((service, index) => (
+          <li key={index} className="p-2 flex justify-between text-xs items-center md:text-lg">
+              <div className="flex items-center space-x-2">
+                <Image className="h-6 w-6" src={serviceimg} alt="service" />
+                <span className="lg:text-base">{service.app_name.length > maxNameLength ? `${service.app_name.substring(0, maxNameLength)}...` : service.app_name}</span>
+              </div>
+              <span className="lg:text-sm">{service.price}</span>
+          </li>
+        ))}
       </ul>
       <div className="w-full flex items-baseline md:space-x-10 lg:justify-between">
         <p className="pt-4 md:text-lg text-color-text_light">

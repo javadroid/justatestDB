@@ -1,5 +1,4 @@
 import Image from 'next/image';
-// import { allServices } from './allServices';
 import star from '../../assets/images/star.svg';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import { useState, useEffect } from 'react';

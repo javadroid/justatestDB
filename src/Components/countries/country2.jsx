@@ -5,9 +5,8 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline"
 import { useEffect, useState } from "react"
 import axios from "axios";
 
-
-const url = "http://161.35.218.95:3000/api/countries";
 const UsersCountry = () => {
+  const url = "http://161.35.218.95:3000/api/countries";
   const [showMore, setShowMore] = useState(false)
   const maxNameLength = 11;
   const toggleMore = () => {
