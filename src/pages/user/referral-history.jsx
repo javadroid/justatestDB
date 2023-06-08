@@ -3,9 +3,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReferralList from "@/Components/ReferralList";
 
- 
-const ReferralHistory = () => {
-const url = 'http://161.35.218.95:3000/api/referral/history?refCode=123456'
+  const ReferralHistory = () => {
+  const url = 'http://161.35.218.95:3000/api/referral/history?refCode=123456'
   const [referralHistory, setReferralHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -17,6 +16,8 @@ const url = 'http://161.35.218.95:3000/api/referral/history?refCode=123456'
         },
       });
       setReferralHistory(response.data.referrals.result);
+      // setReferralHistory(response.data.msg);
+      // console.log(response);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
