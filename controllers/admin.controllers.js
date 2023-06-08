@@ -1645,6 +1645,52 @@ module.exports = {
             console.log(err);
         }
     },
+    enableUserAPIKEY: (req, res, next) => {
+        try {
+            const userId = req.query.userId;
+            const sta = "Enable";
+            db.query(
+                `UPDATE users SET apikey_status='${sta}' WHERE id='${userId}'`,
+                (err, result) => {
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: 'Something went wrong, please try a moment later.'
+                        });
+                    }
+                    return res.status(200).send({
+                        msg: "User API key has been successfully enabled."
+                    });
+                }
+
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    },
+    disableUserAPIKEY: (req, res, next) => {
+        try {
+            const userId = req.query.userId;
+            const sta = "Disable";
+            db.query(
+                `UPDATE users SET apikey_status='${sta}' WHERE id='${userId}'`,
+                (err, result) => {
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: 'Something went wrong, please try a moment later.'
+                        });
+                    }
+                    return res.status(200).send({
+                        msg: "User API key has been successfully enabled."
+                    });
+                }
+
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    },
     enableApp: (req, res, next) => {
         try {
             const appId = req.query.appId;
@@ -1668,5 +1714,6 @@ module.exports = {
             console.log(err);
         }
     },
+
 
 }
