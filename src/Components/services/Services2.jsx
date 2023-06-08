@@ -89,11 +89,14 @@ const Services2 = ({ searchTerm }) => {
           ))}
         {searchTerm !== "" &&
           services.filter((service) => {
-            service.app_name.toLowerCase().includes(searchTerm.toLowerCase())
-              .length === 0 && (
-              <div className="flex items-center justify-between p-2 text-xs md:text-lg text-color-primary">No results found</div>
-            );
-          })}
+            return service.app_name
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase());
+          }).length === 0 && (
+            <div className="flex items-center justify-between p-2 text-xs md:text-lg">
+              No results found
+            </div>
+          )}
       </div>
       <div
         className="ml-8 mt-4 flex space-x-2 text-xs text-color-primary md:text-lg"

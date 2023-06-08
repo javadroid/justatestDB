@@ -27,14 +27,14 @@ const ServiceQty = () => {
   });
 
   if (services.length === 0) {
-    return <div>Please wait...</div>
-  };
+    return <div>Please wait...</div>;
+  }
 
   return (
     <div className="m-4 mt-10 rounded-t-2xl bg-color-bg_light px-7 py-4 shadow-xl lg:mx-0">
       <div>
         <h1 className="font-extrabold md:text-xl ">1. Select service</h1>
-        <div className="flex w-full items-center space-x-1 border-b border-blue-300 text-color-primary mb-4">
+        <div className="mb-4 flex w-full items-center space-x-1 border-b border-blue-300 text-color-primary">
           <MagnifyingGlassIcon className="h-6 w-6" />
           <input
             type="text"
@@ -49,7 +49,9 @@ const ServiceQty = () => {
               if (searchTerm == "") {
                 return service;
               } else if (
-                service.app_name.toLowerCase().includes(searchTerm.toLowerCase())
+                service.app_name
+                  .toLowerCase()
+                  .includes(searchTerm.toLowerCase())
               ) {
                 return service;
               } else {
@@ -76,16 +78,14 @@ const ServiceQty = () => {
             ))}
           {searchTerm !== "" &&
             services.filter((service) => {
-              return (
-                service.app_name
-                  .toLowerCase()
-                  .includes(searchTerm.toLowerCase()).length === 0 && (
-                  <li className="flex items-center justify-center p-2 text-xs md:text-lg">
-                    <div>No results found</div>
-                  </li>
-                )
-              );
-            })}
+              return service.app_name
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase());
+            }).length === 0 && (
+              <li className="flex items-center justify-center p-2 text-xs md:text-lg">
+                <div>No results found</div>
+              </li>
+            )}
         </ul>
         <p className="mt-4 pt-4 text-lg font-normal text-color-text_light">
           Available Services- 300
