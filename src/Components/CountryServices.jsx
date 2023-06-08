@@ -2,32 +2,10 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import star from "../assets/images/star.svg";
 import UsersCountry from "./countries/country2";
-// import { useState } from "react";
-// import axios from "axios";
+import { useState } from "react";
 
 const CountryServices = ({ title }) => {
-  // const [input, setInput] = useState("");
-  // const url = "http://161.35.218.95:3000/api/countries";
-  // const fetchData = async (value) => {
-  // await axios.get(url, {
-  //       headers: {
-  //         Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-  //       },
-  //     })
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //       const results = json.filter((country) => {
-  //         return country && country.country_name && country.country_name.toLowerCase().includes(value)
-  //       }); 
-  //       console.log(results);
-  //     });
-  // }
-
-  // const handleChange = (value) => {
-  //   setInput(value);
-  //   fetchData(value);
-  // };
-
+const [ searchTerms, setSearchTerms ] = useState("");
   return (
     <div className="country flex flex-col py-4">
       <div className="flex flex-col items-start md:flex-row md:items-center md:space-x-8">
@@ -40,14 +18,13 @@ const CountryServices = ({ title }) => {
           <input
             type="text"
             placeholder="Search by country"
-            // value={input}
-            // onChange={(e) => handleChange(e.target.value)}
+            onChange={(e) => setSearchTerms(e.target.value)}
             className="text-xs italic text-[#aec3f9] placeholder:text-[#aec3f9] focus:outline-none sm:text-base"
           />
         </div>
       </div>
       <div className="country body">
-        <UsersCountry />
+        <UsersCountry  searchTerm={searchTerms} />
       </div>
     </div>
   );

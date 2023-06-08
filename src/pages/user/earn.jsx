@@ -1,5 +1,4 @@
 import UserDashboardLayout from "@/Components/UserDashboardLayout";
-import ReferralHistory from "@/Components/ReferralHistory";
 import Link from "next/link";
 
 const earn = () => {
@@ -67,7 +66,6 @@ const earn = () => {
             </div>
           </div>
         </div>
-        <ReferralHistory />
       </div>
     </section>
   );

@@ -31,10 +31,10 @@ const url = 'http://161.35.218.95:3000/api/user/payment?userid=719pr'
 
   return (
     <div className=" bg-color-bg_light h-[100vh] w-full md:px-4">
-    <h1 className="md:text-2xl pt-4 text-center font-bold mb-4 md:text-left">History of Balance</h1>
+    <h1 className="md:text-2xl pt-4 text-center font-bold mb-4 md:text-left">History of Payment</h1>
       <div className="max-w-6xl mx-auto w-[90%] bg-color-white px-3 py-8 rounded-2xl shadow-lg">
         {isLoading ? (
-          <p className="p-4">Loading history of balance...</p>
+          <p className="p-4">Loading history of payment...</p>
         ) : (
             <TopUp list={topUpHistory}
             colNames={headings} />
