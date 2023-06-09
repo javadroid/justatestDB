@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React from "react";
 import Landline from "@/assets/247-support.png";
 import Hand from "@/assets/group-chat.png";
 import Robot from "@/assets/telegram-bot.png";
