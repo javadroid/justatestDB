@@ -9,7 +9,7 @@ export const navlists = [
   },
   {
     title: "API Connection",
-    href: "#"
+    href: "/api-connection"
   },
   {
     title: "Blog",
