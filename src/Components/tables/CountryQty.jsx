@@ -78,18 +78,16 @@ const CountryQty = () => {
                 </span>
               </li>
             ))}
-          {searchTerm != "" &&
+          {searchTerm !== "" &&
             data.filter((country) => {
-              return (
-                country.country_name
-                  .toLowerCase()
-                  .includes(searchTerm.toLowerCase()).length === 0 && (
-                  <li className="flex items-center justify-between p-2 text-xs md:text-lg">
-                    No results found
-                  </li>
-                )
-              );
-            })}
+              return country.country_name
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase());
+            }).length === 0 && (
+              <li className="flex items-center justify-between p-2 text-xs md:text-lg">
+                No results found
+              </li>
+            )}
         </ul>
         <p className="mt-4 pt-4 text-lg font-normal text-color-text_light">
           Available Countries- 128

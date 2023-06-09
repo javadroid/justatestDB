@@ -28,8 +28,8 @@ const CountryPrice = () => {
   }, []);
 
   if (data.length === 0) {
-    return <div>Please wait...</div>
-  };
+    return <div>Please wait...</div>;
+  }
 
   return (
     <div className="m-4 mt-10 bg-white px-2 py-2 drop-shadow-xl md:px-7 lg:mx-0 lg:w-full">
@@ -56,7 +56,9 @@ const CountryPrice = () => {
               if (searchTerm == "") {
                 return country;
               } else if (
-                country.country_name.toLowerCase().includes(searchTerm.toLowerCase())
+                country.country_name
+                  .toLowerCase()
+                  .includes(searchTerm.toLowerCase())
               ) {
                 return country;
               } else {

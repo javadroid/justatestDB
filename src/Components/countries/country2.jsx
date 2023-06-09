@@ -79,14 +79,12 @@ const UsersCountry = ({ searchTerm }) => {
           ))}
         {searchTerm !== "" &&
           data.filter((country) => {
-            return (
-              country.country_name
-                .toLowerCase()
-                .includes(searchTerm.toLowerCase()).length === 0 && (
-                <div className="text-center">No results found</div>
-              )
-            );
-          })}
+            return country.country_name
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase());
+          }).length === 0 && (
+            <div className="text-center">No results found</div>
+          )}
       </div>
       <div
         className="ml-8 mt-4 flex space-x-2 text-xs text-color-primary md:text-lg"
