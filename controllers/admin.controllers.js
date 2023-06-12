@@ -835,37 +835,45 @@ module.exports = {
 
     // Blog posts module starts here
     createPost: (req, res, next) => {
+        social_media_links = {};
+        // [{
+        //     "Test1": {
+        //       "Val1": "37",
+        //       "Val2": "25"
+        //     }
+        //   }, {
+        //     "Test2": {
+        //       "Val1": "25",
+        //       "Val2": "27"
+        //     }
+        //   }]
         try {
-            let fb_link = "",
-                twit_link = "",
-                ingt_link = "",
-                tele_link = "",
-                pint_link = "",
-                reddit_link = "";
             const { title, author, description, image, content } = req.body;
-            if (req.body.fb_link) {
-                fb_link = req.body.fb_link;
+            if (req.body.facebook_link) {
+                social_media_links.facebook_link = req.body.facebook_link;
             }
-            if (req.body.twit_link) {
-                twit_link = req.body.twit_link;
+            if (req.body.twitter_link) {
+                social_media_links.twitter_link = req.body.twitter_link;
             }
-            if (req.body.ingt_link) {
-                ingt_link = req.body.ingt_link;
+            if (req.body.ingstagram_link) {
+                social_media_links.ingstagram_link = req.body.ingstagram_link;
             }
-            if (req.body.tele_link) {
-                tele_link = req.body.tele_link;
+            if (req.body.telegram_link) {
+                social_media_links.telegram_link = req.body.telegram_link;
             }
             if (req.body.pint_link) {
-                pint_link = req.body.pint_link;
+                social_media_links.pint_link = req.body.pint_link;
             }
             if (req.body.reddit_link) {
-                reddit_link = req.body.reddit_link;
+                social_media_links.reddit_link = req.body.reddit_link;
             }
+
             if (!title || !author || !description || !image || !content) {
                 return res.status(401).send({
                     msg: "Title, author, description, image, content field con not be empty!"
                 });
             }
+            return res.send(social_media_links);
             // encoding the content input
             let Encoded = Buffer.from(content, 'utf8').toString('base64');
             // decoding the content
