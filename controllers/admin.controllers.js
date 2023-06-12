@@ -891,7 +891,7 @@ module.exports = {
                     msg: "Title, author, description, image, content field con not be empty!"
                 });
             }
-            return res.send(social_media_links);
+            return res.send({ social_media_links });
             // encoding the content input
             let Encoded = Buffer.from(content, 'utf8').toString('base64');
             // decoding the content
