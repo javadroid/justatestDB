@@ -868,7 +868,7 @@ module.exports = {
                 social_media_links.reddit = req.body.reddit_link;
             }
 
-            let sml = [social_media_links];
+            let sml = [{ links: social_media_links }];
             if (!title || !author || !description || !image || !content) {
                 return res.status(401).send({
                     msg: "Title, author, description, image, content field con not be empty!"
