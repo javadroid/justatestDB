@@ -835,7 +835,7 @@ module.exports = {
 
     // Blog posts module starts here
     createPost: (req, res, next) => {
-        social_media_links = {};
+        social_media_links = [];
         // [{
         //     "Test1": {
         //       "Val1": "37",
@@ -850,22 +850,40 @@ module.exports = {
         try {
             const { title, author, description, image, content } = req.body;
             if (req.body.facebook_link) {
-                social_media_links.facebook_link = req.body.facebook_link;
+                social_media_links[0] = {
+                    name: facebook,
+                    link: req.body.facebook_link
+                };
             }
             if (req.body.twitter_link) {
-                social_media_links.twitter_link = req.body.twitter_link;
+                social_media_links[1] = {
+                    name: twitter_link,
+                    link: req.body.twitter_link
+                };
             }
-            if (req.body.ingstagram_link) {
-                social_media_links.ingstagram_link = req.body.ingstagram_link;
+            if (req.body.instagram_link) {
+                social_media_links[2] = {
+                    name: instagram_link,
+                    link: req.body.instagram_link
+                };
             }
             if (req.body.telegram_link) {
-                social_media_links.telegram_link = req.body.telegram_link;
+                social_media_links[3] = {
+                    name: telegram_link,
+                    link: req.body.req.body.telegram_link
+                };
             }
             if (req.body.pint_link) {
-                social_media_links.pint_link = req.body.pint_link;
+                social_media_links[4] = {
+                    name: pint_link,
+                    link: req.body.pint_link
+                };
             }
             if (req.body.reddit_link) {
-                social_media_links.reddit_link = req.body.reddit_link;
+                social_media_links[5] = {
+                    name: reddit_link,
+                    link: req.body.reddit_link
+                };
             }
 
             if (!title || !author || !description || !image || !content) {
