@@ -869,6 +869,7 @@ module.exports = {
             }
 
             let sml = [{ links: social_media_links }];
+            console.log(sml);
             if (!title || !author || !description || !image || !content) {
                 return res.status(401).send({
                     msg: "Title, author, description, image, content field con not be empty!"
