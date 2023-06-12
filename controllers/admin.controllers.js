@@ -1464,7 +1464,7 @@ module.exports = {
     changePasswordLogs: (req, res, next) => {
         try {
             db.query(
-                `SELECT * FROM logging_changed_password ORDER BY time DESC`,
+                `SELECT * FROM logging_changed_password ORDER BY time`,
                 (err, result) => {
                     if (err) {
                         return res.status(401).send({
