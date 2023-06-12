@@ -110,7 +110,7 @@ router.get('/system/email', userMiddleware.isLoggedIn, adminControllers.systemNo
 router.put('/system/email', userMiddleware.isLoggedIn, adminControllers.systemNotificationEmail);
 router.get('/login/logging', userMiddleware.isLoggedIn, adminControllers.loginLogs);
 router.get('/logout/logging', userMiddleware.isLoggedIn, adminControllers.logoutLogs);
-router.get('/passwords/logging', userMiddleware.isLoggedIn, adminControllers.changePassword);
+router.get('/passwords/logging', userMiddleware.isLoggedIn, adminControllers.changePasswordLogs);
 router.get('/balance/logging', userMiddleware.isLoggedIn, adminControllers.balanceLogs);
 router.post('/application', userMiddleware.isLoggedIn, adminControllers.createApplication);
 router.get('/applications', userMiddleware.isLoggedIn, adminControllers.getApplication);
