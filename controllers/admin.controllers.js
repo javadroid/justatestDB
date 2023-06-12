@@ -873,8 +873,9 @@ module.exports = {
             console.log("Encoded: " + Encoded);
             console.log("Decoded: " + DEcontent);
             console.log("Main content: " + content);
+
             db.query(
-                `INSERT INTO blog_posts(title, description, content, image, facebook, twitter, instagram, telegram, pinterest, reddit)
+                `INSERT INTO blog_posts(title, author, description, content, image, facebook, twitter, instagram, telegram, pinterest, reddit)
             VALUES ('${title}', '${author}', '${description}', '${Encoded}', '${image}', '${fb_link}', '${twit_link}', '${ingt_link}', '${tele_link}', '${pint_link}', '${reddit_link}')`,
                 (err, result) => {
                     if (err) {
