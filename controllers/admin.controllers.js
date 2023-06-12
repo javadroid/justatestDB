@@ -835,7 +835,7 @@ module.exports = {
 
     // Blog posts module starts here
     createPost: (req, res, next) => {
-        social_media_links = [];
+        const social_media_links = {};
         // [{
         //     "Test1": {
         //       "Val1": "37",
@@ -850,48 +850,31 @@ module.exports = {
         try {
             const { title, author, description, image, content } = req.body;
             if (req.body.facebook_link) {
-                social_media_links[0] = {
-                    name: facebook,
-                    link: req.body.facebook_link
-                };
+                social_media_links.facebook = req.body.facebook_link;
             }
             if (req.body.twitter_link) {
-                social_media_links[1] = {
-                    name: twitter_link,
-                    link: req.body.twitter_link
-                };
+                social_media_links.twitter = req.body.twitter_link;
             }
             if (req.body.instagram_link) {
-                social_media_links[2] = {
-                    name: instagram_link,
-                    link: req.body.instagram_link
-                };
+                social_media_links.instagram = req.body.instagram_link;
             }
             if (req.body.telegram_link) {
-                social_media_links[3] = {
-                    name: telegram_link,
-                    link: req.body.req.body.telegram_link
-                };
+                social_media_links.telegram = req.body.req.body.telegram_link;
             }
             if (req.body.pint_link) {
-                social_media_links[4] = {
-                    name: pint_link,
-                    link: req.body.pint_link
-                };
+                social_media_links.pint = req.body.pint_link;
             }
             if (req.body.reddit_link) {
-                social_media_links[5] = {
-                    name: reddit_link,
-                    link: req.body.reddit_link
-                };
+                social_media_links.reddit = req.body.reddit_link;
             }
 
+            let sml = [social_media_links];
             if (!title || !author || !description || !image || !content) {
                 return res.status(401).send({
                     msg: "Title, author, description, image, content field con not be empty!"
                 });
             }
-            return res.send({ social_media_links });
+            // return res.send(sml);
             // encoding the content input
             let Encoded = Buffer.from(content, 'utf8').toString('base64');
             // decoding the content
@@ -901,8 +884,8 @@ module.exports = {
             console.log("Main content: " + content);
 
             db.query(
-                `INSERT INTO blog_posts(title, author, description, content, image, facebook, twitter, instagram, telegram, pinterest, reddit)
-            VALUES ('${title}', '${author}', '${description}', '${Encoded}', '${image}', '${fb_link}', '${twit_link}', '${ingt_link}', '${tele_link}', '${pint_link}', '${reddit_link}')`,
+                `INSERT INTO blog_posts(title, author, description, content, image, social_media_link)
+            VALUES ('${title}', '${author}', '${description}', '${Encoded}', '${image}', '${sml}')`,
                 (err, result) => {
                     if (err) {
                         // throw err;
