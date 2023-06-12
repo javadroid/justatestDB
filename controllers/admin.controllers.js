@@ -1604,7 +1604,7 @@ module.exports = {
             const appId = req.query.appId;
             const { newAppId, newAppName, country, newPrice } = req.body;
             db.query(
-                `UPDATE applications SET application_id='${newAppId}', name='${newAppName}', country='${country}', price='${newPrice}'  WHERE application_id='${appId}'`,
+                `UPDATE applications SET application_id='${newAppId}', app_name='${newAppName}', country='${country}', price='${newPrice}'  WHERE application_id='${appId}'`,
                 (err, result) => {
                     if (err) {
                         // throw err;
