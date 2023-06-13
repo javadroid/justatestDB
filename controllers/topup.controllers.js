@@ -2,7 +2,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const coinbase = require('coinbase-commerce-node');
 // Coinbase setup
 const Client = coinbase.Client;
-Client.init(process.env.API_KEY);
+Client.init(process.env.COINBASE_API_KEY);
 const Charge = coinbase.resources.Charge;
 
 const stripeTopup = async(req, res) => {
@@ -66,7 +66,7 @@ const coinbaseTopup = async(req, res, next) => {
         }
     });
 }
-module.export = {
+module.exports = {
     stripeTopup,
     coinbaseTopup,
 }

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userMiddleware = require('../middleware/users.js');
 const userControllers = require('../controllers/user.controllers.js');
-const topupControllers = require('../controllesr/topup.controllers.js');
+const topupControllers = require('../controllers/topup.controllers.js');
 // User registration
 router.post('/signup', userMiddleware.validateRegister, userControllers.registerUser);
 router.post('/social_media_sign', userControllers.socialLogin);
