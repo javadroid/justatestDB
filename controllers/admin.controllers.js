@@ -868,7 +868,7 @@ module.exports = {
                 social_media_links.reddit = req.body.reddit_link;
             }
 
-            let sml = [{ links: social_media_links }];
+            let sml = { links: social_media_links };
             console.log(sml);
             if (!title || !author || !description || !image || !content) {
                 return res.status(401).send({
@@ -886,7 +886,7 @@ module.exports = {
 
             db.query(
                 `INSERT INTO blog_posts(title, author, description, content, image, social_media_link)
-            VALUES ('${title}', '${author}', '${description}', '${Encoded}', '${image}', '${sml}')`,
+            VALUES ('${title}', '${author}', '${description}', '${Encoded}', '${image}', '${[sml]}')`,
                 (err, result) => {
                     if (err) {
                         // throw err;

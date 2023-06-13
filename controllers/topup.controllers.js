@@ -1,4 +1,4 @@
-const stripe = require(stripe)(process.env.STRIPE_SECRET_KEY);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const coinbase = require('coinbase-commerce-node');
 // Coinbase setup
 const Client = coinbase.Client;
@@ -6,24 +6,25 @@ Client.init(process.env.API_KEY);
 const Charge = coinbase.resources.Charge;
 
 const stripeTopup = async(req, res) => {
-    const { product } = req.body;
+    const user = req.params.userId;
+    const amount = req.body.amount;
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [{
             price_data: {
-                currency: "inr",
+                currency: "usd",
                 product_data: {
-                    name: product.name,
+                    name: "Account Refill - Diginums",
                 },
-                unit_amount: product.price * 100,
+                unit_amount: amount * 100,
             },
-            quantity: product.quantity,
+            quantity: 1,
         }, ],
         mode: "payment",
-        success_url: "http://localhost:3000/success",
-        cancel_url: "http://localhost:3000/cancel",
+        success_url: `${process.env.CLIENT_URL}/success`,
+        cancel_url: `${process.env.CLIENT_URL}/user/payment`,
     });
-    res.json({ id: session.id });
+    res.json({ url: session.url });
 }
 const coinbaseTopup = async(req, res, next) => {
 
