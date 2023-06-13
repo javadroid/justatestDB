@@ -12,17 +12,44 @@
     font-family: "Montserrat", sans-serif;
   }
 }
+@media only screen and (max-width: 767px) {
+  .api-box {
+    min-width: 100% !important;
+    padding: 5px;
+    font-size: 0.6rem !important;
+  }
+  
+  .api-table {
+    min-width: 100% !important;
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .api-box {
+    width: 100%;
+    max-width: calc(100vw - 30px);
+    overflow-x: auto;
+  }
+}
+
+.api-box {
+  padding: 10px;
+}
 
 .navbar-scroll {
   height: 60px;
+}
+
+.sticky-top {
+  top: calc(60px + 1em);
 }
 
 .customShadow {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
 }
 
-.roll::-webkit-scrollbar { 
-     width: 3px;
+.roll::-webkit-scrollbar {
+  width: 3px;
 }
 
 .parent {
@@ -31,7 +58,7 @@
   /* grouip */
 }
 
-.after{
+.after {
   position: absolute;
   left: 0;
   top: 0;
@@ -60,18 +87,18 @@
   display: grid;
   column-gap: 10px;
   row-gap: 25px;
-  grid-template-areas: 
-      "a  b"
-      "c  c"
-      "d  e"
-      "f  f";
+  grid-template-areas:
+    "a  b"
+    "c  c"
+    "d  e"
+    "f  f";
   margin-bottom: 50px;
 }
 .table-row:nth-of-type(2n) {
   background: #e3f0ff;
 }
 
-.table-row:nth-of-type(2n+1){
+.table-row:nth-of-type(2n + 1) {
   background: #fff;
 }
 .bought {
@@ -99,23 +126,23 @@
 
 @media only screen and (min-width: 991.99px) {
   .header-row {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 4fr 3fr 4fr 4fr 1fr 4fr;
-      column-gap: 10px;
-      align-items: stretch;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 4fr 3fr 4fr 4fr 1fr 4fr;
+    column-gap: 10px;
+    align-items: stretch;
   }
   .table-row {
-      width: 100%;
-      display: grid;
-      grid-template-columns: 4fr 3fr 4fr 4fr 1fr 4fr;
-      column-gap: 10px;
-      row-gap: 0;
-      align-items: stretch;
-      margin-bottom: 0;
-      grid-template-areas: "a b c d e f";
+    width: 100%;
+    display: grid;
+    grid-template-columns: 4fr 3fr 4fr 4fr 1fr 4fr;
+    column-gap: 10px;
+    row-gap: 0;
+    align-items: stretch;
+    margin-bottom: 0;
+    grid-template-areas: "a b c d e f";
   }
- .table h6 {
-      display: none;
+  .table h6 {
+    display: none;
   }
 }

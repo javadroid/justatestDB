@@ -32,6 +32,7 @@ module.exports = {
         "color-decor_blue": "#2aabee",
         "color-tg": "#29a9ea",
         "color-yt": "#c4302b",
+        "color-border_light": "#aec3f940"
       },
       dropShadow: {
         "3xl": "0px 4px 15px rgba(37,39,86,0.15)",

@@ -15,12 +15,10 @@ import getSmsCode from "../assets/images/getSmsCode_en.webp";
 import getSmsCode2 from "../assets/images/getSmsCode_2_en.webp";
 import howRent from "../assets/images/howRent_en.webp";
 import howRent2 from "../assets/images/howRent_2_en.webp";
-import { useRouter } from "next/router";
 import stars from "../assets/random-shapes/christmas-stars.png";
 import hashtag from "../assets/random-shapes/hashtag.png";
 
 function Help() {
-  const router = useRouter();
 
   return (
     <section className="mt-14 pb-20">
@@ -115,37 +113,37 @@ function Help() {
           </h2>
         </div>
         <div className="flex max-w-6xl items-start justify-between md:mx-auto md:px-8">
-          <aside className="sticky top-20 hidden max-w-[20rem] flex-1 md:block">
-            <ul className="space-y-2">
+          <aside className="hidden max-w-[20rem] flex-1 md:block">
+            <ul className="sticky sticky-top space-y-2">
               <li>
-                <Link href="" className="text-sm text-color-primary">
+                <Link href="#signup" className="text-sm text-color-primary">
                   Sign Up
                 </Link>
               </li>
               <li>
-                <Link href="" className="text-sm text-color-primary">
+                <Link href="#topup" className="text-sm text-color-primary">
                   How do I top up my balance?
                 </Link>
               </li>
               <li>
-                <Link href="" className="text-sm text-color-primary">
+                <Link href="#one-time" className="text-sm text-color-primary">
                   Getting a registration number
                 </Link>
               </li>
               <li>
-                <Link href="" className="text-sm text-color-primary">
+                <Link href="#bought" className="text-sm text-color-primary">
                   How do I get an SMS to a purchased number?
                 </Link>
               </li>
               <li>
-                <Link href="" className="text-sm text-color-primary">
+                <Link href="#long-term" className="text-sm text-color-primary">
                   How to rent a number for a long time?
                 </Link>
               </li>
             </ul>
           </aside>
           <div className="md:flex-1">
-            <h3 className="text-center text-xs font-extrabold sm:text-lg md:text-left">
+            <h3 id="signup" className="text-center text-xs font-extrabold sm:text-lg md:text-left">
               How do I register on the site?
             </h3>
             <p className="my-2 text-[10px] sm:text-sm">
@@ -156,7 +154,7 @@ function Help() {
               and fill in the required fields by entering your valid email
               address or use a quick registration via social networks.
             </p>
-            <h3 className="mb-2 text-center text-xs font-extrabold sm:text-lg md:text-left">
+            <h3 id="topup" className="mb-2 text-center text-xs font-extrabold sm:text-lg md:text-left">
               How do I top up my balance?
             </h3>
             <ol
