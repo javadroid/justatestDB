@@ -39,7 +39,7 @@ const History = () => {
     setData(response.data.numbers);
     setIsLoading(false);}
     catch (error) {
-      console.log(error);
+      return <div>{error}</div>
     }
   } 
   

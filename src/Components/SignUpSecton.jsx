@@ -9,7 +9,7 @@ import Image from "next/image";
 
 export default function SignUpSecton() {
   return (
-    <section className="relative over-flow-hidden bg-gradient-to-b from-[#0D41D5] to-[#0187FF]">
+    <section className="relative over-flow-hidden bg-gradient-to-b from-color-primary_darken to-color-primary_black ">
       <Image src={blank} width={70} alt="blank" className="hidden lg:flex absolute left-7 bottom-10" />
       <Image src={scribble} width={60} alt="scribble" className="hidden lg:flex absolute top-10 left-14" />
       <Image src={hashtag} width={60} alt="hashtag" className="hidden lg:flex absolute bottom-20 right-32" />

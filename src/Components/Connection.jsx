@@ -6,7 +6,7 @@ import Link from "@/assets/link.png";
 
 const Connection = () => {
   return (
-    <section className="bg-gradient-to-b from-[#0d41d5] to-[#0187FF] py-10">
+    <section className="bg-gradient-to-b from-color-primary_darken to-color-primary_black py-10">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col items-center px-5 lg:flex-row lg:items-center">
           <div className="basis-1/3">

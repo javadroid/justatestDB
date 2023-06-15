@@ -70,8 +70,11 @@ export default function About() {
       toast.success(response.data.msg);
       router.push("/");
     } catch (error) {
-      console.log("Error is", error);
-      toast.error(error.response.data.msg);
+      // console.log("Error is", error);
+        toast.error(error.response.data.msg);
+      return (<div>
+        {error}
+      </div>);
     }
     // router.push("/user/receive-sms");
   };

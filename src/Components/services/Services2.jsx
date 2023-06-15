@@ -23,7 +23,9 @@ const Services2 = ({ searchTerm }) => {
       });
       setServices(response.data.applications);
     } catch (error) {
-      console.log(error);
+     return (<div>
+        {error}
+      </div>);
     }
   };
 
@@ -62,7 +64,6 @@ const Services2 = ({ searchTerm }) => {
               <div className="flex flex-col space-y-3 p-2 text-xs font-medium lg:flex-row lg:justify-between lg:space-y-0 lg:text-sm">
                 <div className="flex items-center lg:w-3/4">
                   <Image src={star} alt="" className="-mt-1" />
-                  {/* <Image src={service.logo} width={20} height={20} alt="" className="mx-1" /> */}
                   <Image
                     src={star}
                     width={20}

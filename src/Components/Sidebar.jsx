@@ -52,7 +52,7 @@ const router = useRouter();
     },
     {
       name: "API connection",
-      path: "",
+      path: "/api-connection",
       icon: <Cog6ToothIcon className=" h-6 w-6 text-color-primary" />,
     },
     {
