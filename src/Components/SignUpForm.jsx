@@ -16,7 +16,7 @@ const SignUpForm = () => {
   const { data: session } = useSession();
   const router = useRouter();
 
-  console.log(session);
+  // console.log(session);
 
   const {
     register,
@@ -70,8 +70,11 @@ const SignUpForm = () => {
       toast.success(response.data.msg);
       router.push("/");
     } catch (error) {
-      console.log("Error is", error);
       toast.error(error.response.data.msg);
+      return (<div>
+        {error}
+      </div>);
+      // console.log("Error is", error);
       // router.push("/user/receive-sms");
     }
   };

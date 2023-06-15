@@ -19,7 +19,9 @@ const ServicePrice = () => {
       });
       setServices(response.data.applications);
     } catch (error) {
-      console.log(error);
+      return (<div>
+        {error}
+      </div>);
     }
   };
 

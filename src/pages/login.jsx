@@ -89,8 +89,11 @@ const Login = () => {
       toast.success(response.data.msg);
       router.push(`/user/receive-sms/`);
     } catch (error) {
-      console.log("Error is", error);
+      // console.log("Error is", error);
       toast.error(error?.response?.data.msg || "No response from the server.");
+      return (<div>
+        {error}
+      </div>);
     }
   };
 

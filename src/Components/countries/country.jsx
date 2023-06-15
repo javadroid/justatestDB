@@ -17,7 +17,10 @@ let maxNameLength = 11;
       });
       setData(response.data.countries);
     } catch (error) {
-      console.log(error)
+      // console.log(error)
+      return (<div>
+        {error}
+      </div>);
     }
   }
   

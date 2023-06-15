@@ -24,7 +24,10 @@ const Contact = () => {
       toast.success(res);
       window.location.reload();
     }).catch((err) => {
-      console.log('Error', err);
+      // console.log('Error', err);
+      return (<div>
+        {err}
+      </div>);
     })
   }
 

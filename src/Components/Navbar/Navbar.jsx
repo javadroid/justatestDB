@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import Logo from "../../assets/Logo.png";
+import Logo from "../../assets/logo-white.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { navlists } from "./navlists";
@@ -70,11 +70,11 @@ const Navbar = () => {
                   className={
                     isActive
                       ? "border-b border-color-white py-2"
-                      : "group relative overflow-hidden border-b-0 py-2"
+                      : "border-b-0 py-2"
                   }
                 >
                   <span className="duration-850 absolute bottom-0 left-0 w-0 bg-color-white transition-all ease-out group-hover:h-px group-hover:w-full"></span>
-                  <li className="relative">{lists.title}</li>
+                  <li>{lists.title}</li>
                 </Link>
               );
             })}

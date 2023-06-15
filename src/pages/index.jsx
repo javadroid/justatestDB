@@ -27,6 +27,7 @@ import arrow from "@/assets/arrows/arrow.png";
 import next from "@/assets/arrows/next.png";
 
 export default function Home() {
+
   return (
     <>
       <Head>
@@ -35,28 +36,21 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <main className="">
-        <section className="w-full bg-gradient-to-b from-[#0d41d5] to-[#0187FF]">
+        <section className="w-full bg-gradient-to-b from-color-primary_darken to-color-primary_black">
+        {/* <section className="w-full bg-gradient-to-b from-[#0d41d5] to-[#0187FF]"> */}
           <div className="relative mx-auto mt-14 flex max-w-6xl flex-col px-4 pt-16 lg:flex-row lg:items-center lg:justify-between">
               <Image width={200} src={curvedArrow} alt="curved-arrow" className="absolute -bottom-24 right-10 sm:right-20  md:right-[40%]" />
             <div className="basis-1/2 relative">
               <Image src={rightArrow} width={60} alt="right arrow" className="hidden absolute -left-20 top-50 bottom-0 lg:flex" />
               <div>
-                <h1 className="mb-4 text-center text-xl font-extrabold text-color-white md:w-full md:text-left md:text-5xl lg:text-4xl">
-                  Receive SMS online
-                </h1>
                 <p className="text-sm text-white md:text-2xl">
-                  Register on social networks, <br className="hidden" />
-                  marketplaces, exchanges and
-                  <br className="hidden" />
-                  online services{" "}
-                  <span className="text-yellow-500">
-                    without spam{" "}
-                  </span> and <br className="hidden" />
-                  <span className="text-yellow-500">
-                    disclosure of personal data.
-                  </span>
+                 with us you can
                 </p>
+                <h1 className="mb-4 text-center text-xl font-extrabold text-color-white md:w-full md:text-left md:text-5xl lg:text-4xl">
+                  Send an SMS from anywhere
+                </h1>
               </div>
               <div className="flex w-full flex-col items-center justify-between space-y-5 pt-11 md:flex-row md:place-items-baseline md:justify-center md:space-y-0 md:space-x-6">
                 

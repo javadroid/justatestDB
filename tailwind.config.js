@@ -13,9 +13,13 @@ module.exports = {
     },
     extend: {
       colors: {
-        "color-primary": "#0187ff",
-        "color-primary_darken": "#0d41d5",
-        "color-primary_black": "#1f45a3",
+        "color-primary": "#79d2f5",
+        "color-primary_darken": "#1c1548",
+        // "color-primary_darken": "#12afed",
+        "color-primary_black": "#8380ff",
+        // "color-primary": "#0187ff",
+        // "color-primary_darken": "#0d41d5",
+        // "color-primary_black": "#1f45a3",
         "color-text_light": "#8fa2d1",
         "color-accent": "#ffc727",
         "color-bg_light": "#f1f7fe",
@@ -32,6 +36,7 @@ module.exports = {
         "color-decor_blue": "#2aabee",
         "color-tg": "#29a9ea",
         "color-yt": "#c4302b",
+        "color-border_light": "#aec3f940"
       },
       dropShadow: {
         "3xl": "0px 4px 15px rgba(37,39,86,0.15)",

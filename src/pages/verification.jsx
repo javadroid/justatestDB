@@ -1,4 +1,3 @@
-import React from "react";
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 
 const Verification = () => {

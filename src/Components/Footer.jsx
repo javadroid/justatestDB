@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import Logo from "../assets/Logo.png";
+import Logo from "../assets/BlueLogo.png";
 import FooterIcon from "../assets/footer.png";
 import FaceBook from "../assets/socials/Facebook.svg";
 import Gmail from "../assets/socials/Gmail.svg";
@@ -16,7 +16,7 @@ export const Footer = () => {
           <Image
             src={Logo}
             alt="Logo Image"
-            className="h-20 w-36 bg-blue-400 object-contain "
+            className="h-20 w-36 object-contain "
           />
         </div>
         <div className="max-w-6xl mx-auto px-2">

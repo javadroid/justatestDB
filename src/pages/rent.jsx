@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import device from "../assets/images/hero.png";
 import device2 from "../assets/images/pic_en.webp";
@@ -47,8 +47,12 @@ const Rent = () => {
       {/*Hero section*/}
       <section
         id="hero"
-        className="text-2.2rem bg-gradient-to-b from-[#0d41d5] to-[#0187FF] text-color-white"
+        className="text-2.2rem bg-gradient-to-b from-color-primary_darken to-color-primary_black text-color-white"
       >
+      {/* <section
+        id="hero"
+        className="text-2.2rem bg-gradient-to-b from-[#0d41d5] to-[#0187FF] text-color-white"
+      > */}
         {/* Flex container */}
         <div className="container mx-auto flex max-w-7xl flex-col items-center space-y-6 px-6 py-20 md:justify-start lg:flex-row lg:justify-between lg:pt-32 ">
           {/* Left hero */}
