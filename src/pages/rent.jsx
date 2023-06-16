@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import device from "../assets/images/hero.png";
 import device2 from "../assets/images/pic_en.webp";
@@ -7,13 +7,12 @@ import About from "@/Components/About";
 import Advantages from "@/Components/Advantages";
 import PromoInformation from "@/Components/PromoInformation";
 import Connection from "@/Components/Connection";
-import { countries } from "../Components/countries/countriesData";
-//import Country from "@/Components/countries/country";
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import rightArrow from "../assets/arrows/arrow-right.png";
 import curvedArrow from "../assets/arrows/curved-arrow.png";
 import axios from "axios";
+import Country from "@/Components/countries/country";
 
 const Rent = () => {
   const [country, setCountry] = useState("");
@@ -32,14 +31,14 @@ const Rent = () => {
           },
         }
       );
-      console.log(response?.data?.data[0]?.amount);
+      // console.log(response?.data?.data[0]?.amount);
       setFee(response?.data?.data[0]?.amount);
     };
     getRentFee();
   }, [country, time]);
 
-  console.log("This is the rent country", country);
-  console.log("This is the rent time", time);
+  // console.log("This is the rent country", country);
+  // console.log("This is the rent time", time);
 
   const rentFee = fee * count;
 
@@ -48,8 +47,12 @@ const Rent = () => {
       {/*Hero section*/}
       <section
         id="hero"
-        className="text-2.2rem bg-gradient-to-b from-[#0d41d5] to-[#0187FF] text-color-white"
+        className="text-2.2rem bg-gradient-to-b from-color-primary_darken to-color-primary_black text-color-white"
       >
+      {/* <section
+        id="hero"
+        className="text-2.2rem bg-gradient-to-b from-[#0d41d5] to-[#0187FF] text-color-white"
+      > */}
         {/* Flex container */}
         <div className="container mx-auto flex max-w-7xl flex-col items-center space-y-6 px-6 py-20 md:justify-start lg:flex-row lg:justify-between lg:pt-32 ">
           {/* Left hero */}
@@ -163,35 +166,7 @@ const Rent = () => {
                   <div className="country mb-4">
                     <div className="roll h-32 w-full overflow-hidden overflow-y-scroll scrollbar-thin scrollbar-track-[#0187ff1a] scrollbar-thumb-color-decor_blue">
                       <div className="h-32 w-full px-2">
-                        <table className="ml-0 w-full pl-4">
-                          <tbody>
-                            {countries.map((country, index) => (
-                              <tr
-                                key={index}
-                                className="cursor-pointer rounded-2xl bg-color-white hover:bg-color-bg_primary-500  active:bg-color-bg_primary-500"
-                                onClick={() => setCountry(country.name)}
-                              >
-                                <td className="flex w-full items-center justify-start py-1">
-                                  <span>
-                                    <Image
-                                      src={country.flag}
-                                      alt=""
-                                      className="ml-4 mr-2 flex w-8 items-center"
-                                    />
-                                  </span>
-                                  <span className="text-xs font-medium md:text-base">
-                                    {country.name}
-                                  </span>
-                                </td>
-                                <td>
-                                  <span className="text-xs text-gray-500">
-                                    {country.value}
-                                  </span>
-                                </td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
+                        <Country />
                       </div>
                     </div>
                   </div>

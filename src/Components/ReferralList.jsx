@@ -1,4 +1,7 @@
 const ReferralList = ({list, colNames}) => {
+  if (list.length === 0) {
+    return <p className="p-4">No referral history</p>
+  } 
   return (
     <div className="w-full">
       {list.length > 0 && (

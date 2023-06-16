@@ -1,29 +1,33 @@
-import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
-import Image from 'next/image'
-import star from '../assets/images/star.svg'
-import UsersCountry from './countries/country2'
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
+import star from "../assets/images/star.svg";
+import UsersCountry from "./countries/country2";
+import { useState } from "react";
 
-
-const CountryServices = ({title}) => {
+const CountryServices = ({ title }) => {
+const [ searchTerms, setSearchTerms ] = useState("");
   return (
-    <div className="country py-4 flex flex-col">
+    <div className="country flex flex-col py-4">
       <div className="flex flex-col items-start md:flex-row md:items-center md:space-x-8">
-        <div className="flex justify-start items-center space-x-2 ml-1 md:ml-0">
+        <div className="ml-1 flex items-center justify-start space-x-2 md:ml-0">
           <Image src={star} alt="" className="-mt-1" />
-          <h3 className="font-extrabold text-xs sm:text-base">{title}</h3>
+          <h3 className="text-xs font-extrabold sm:text-base">{title}</h3>
         </div>
-        <form className="flex items-center ml-2 text-[#aec3f9] mb-4 space-x-2 border-b-2 border-[#aec3f9] pb-1 mt-2 md:ml-0">
-          <button>
-            <MagnifyingGlassIcon className="w-5" />
-          </button>
-          <input type="text" placeholder="Search by country" className="italic text-xs focus:outline-none text-[#aec3f9] placeholder:text-[#aec3f9] sm:text-base" /> 
-        </form>
+        <div className="mb-4 ml-2 mt-2 flex items-center space-x-2 border-b-2 border-[#aec3f9] pb-1 text-[#aec3f9] md:ml-0">
+          <MagnifyingGlassIcon className="w-5" />
+          <input
+            type="text"
+            placeholder="Search by country"
+            onChange={(e) => setSearchTerms(e.target.value)}
+            className="text-xs italic text-[#aec3f9] placeholder:text-[#aec3f9] focus:outline-none sm:text-base"
+          />
+        </div>
       </div>
       <div className="country body">
-          <UsersCountry />
+        <UsersCountry  searchTerm={searchTerms} />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CountryServices
+export default CountryServices;

@@ -185,7 +185,7 @@ const Profile = () => {
                 </div>
                 <div>
                   <div className="flex items-center gap-x-2">
-                    <p>Your Balance:</p>
+                    <p>Your referral balance:</p>
                     <p>
                       0.00${" "}
                       <Link

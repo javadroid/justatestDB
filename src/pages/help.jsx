@@ -15,19 +15,27 @@ import getSmsCode from "../assets/images/getSmsCode_en.webp";
 import getSmsCode2 from "../assets/images/getSmsCode_2_en.webp";
 import howRent from "../assets/images/howRent_en.webp";
 import howRent2 from "../assets/images/howRent_2_en.webp";
-import { useRouter } from "next/router";
 import stars from "../assets/random-shapes/christmas-stars.png";
-import hashtag from '../assets/random-shapes/hashtag.png';
+import hashtag from "../assets/random-shapes/hashtag.png";
 
 function Help() {
-  const router = useRouter();
 
   return (
     <section className="mt-14 pb-20">
       <div className="bg-color-bg_light pb-24">
         <div className="relative mx-0 space-y-4 bg-color-bg_primary-500 px-4 sm:space-y-8 sm:pb-12 lg:pt-0">
-          <Image src={stars} alt="stars" width={80} className="hidden absolute right-1/4 top-10 lg:flex" />
-          <Image src={hashtag} width={50} alt="hashtag" className="hidden absolute left-28 top-28 lg:flex" />
+          <Image
+            src={stars}
+            alt="stars"
+            width={80}
+            className="absolute right-1/4 top-10 hidden lg:flex"
+          />
+          <Image
+            src={hashtag}
+            width={50}
+            alt="hashtag"
+            className="absolute left-28 top-28 hidden lg:flex"
+          />
           <h1 className="pt-24 text-center text-2xl font-extrabold sm:text-4xl">
             Help Section
           </h1>
@@ -38,30 +46,51 @@ function Help() {
         </div>
         <div className="width-full mx-auto -mt-24 flex max-w-5xl flex-col text-center md:-mt-16 md:flex-row md:flex-wrap md:justify-center md:pb-16 lg:flex-nowrap">
           <div className="b-0 mb-8 basis-full px-3 md:basis-1/2 lg:basis-1/3">
-            <Link href="#one-time"
+            <Link
+              href="#one-time"
               className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl hover:drop-shadow-2xl"
             >
-              <Image src={fast1} width={200} height={200} alt="" className="inline" />
+              <Image
+                src={fast1}
+                width={200}
+                height={200}
+                alt=""
+                className="inline"
+              />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get a number for one-time sign up?
               </h2>
             </Link>
           </div>
           <div className="mb-8 basis-full px-3 md:basis-1/2 lg:basis-1/3">
-            <Link href="#bought"
-            className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl hover:drop-shadow-2xl"
+            <Link
+              href="#bought"
+              className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl hover:drop-shadow-2xl"
             >
-              <Image src={fast2} alt="" width={200} height={200} className="inline" />
+              <Image
+                src={fast2}
+                alt=""
+                width={200}
+                height={200}
+                className="inline"
+              />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get sms to a bought number?
               </h2>
             </Link>
           </div>
           <div className="basis-full px-3 md:basis-1/2 lg:basis-1/3">
-            <Link href="#long-term"
+            <Link
+              href="#long-term"
               className="block rounded-3xl bg-color-bg_light p-8 drop-shadow-3xl hover:drop-shadow-2xl"
             >
-              <Image src={fast3}  width={200} height={200} alt="" className="inline" />
+              <Image
+                src={fast3}
+                width={200}
+                height={200}
+                alt=""
+                className="inline"
+              />
               <h2 className="text-xs font-extrabold text-color-primary sm:text-lg">
                 How to get a long-term number?
               </h2>
@@ -84,37 +113,37 @@ function Help() {
           </h2>
         </div>
         <div className="flex max-w-6xl items-start justify-between md:mx-auto md:px-8">
-          <aside className="sticky top-20 hidden max-w-[20rem] flex-1 md:block">
-            <ul className="space-y-2">
+          <aside className="hidden max-w-[20rem] flex-1 md:block">
+            <ul className="sticky sticky-top space-y-2">
               <li>
-                <Link href="" className="text-sm text-color-primary">
+                <Link href="#signup" className="text-sm text-color-primary">
                   Sign Up
                 </Link>
               </li>
               <li>
-                <Link href="" className="text-sm text-color-primary">
+                <Link href="#topup" className="text-sm text-color-primary">
                   How do I top up my balance?
                 </Link>
               </li>
               <li>
-                <Link href="" className="text-sm text-color-primary">
+                <Link href="#one-time" className="text-sm text-color-primary">
                   Getting a registration number
                 </Link>
               </li>
               <li>
-                <Link href="" className="text-sm text-color-primary">
+                <Link href="#bought" className="text-sm text-color-primary">
                   How do I get an SMS to a purchased number?
                 </Link>
               </li>
               <li>
-                <Link href="" className="text-sm text-color-primary">
+                <Link href="#long-term" className="text-sm text-color-primary">
                   How to rent a number for a long time?
                 </Link>
               </li>
             </ul>
           </aside>
           <div className="md:flex-1">
-            <h3 className="text-center text-xs font-extrabold sm:text-lg md:text-left">
+            <h3 id="signup" className="text-center text-xs font-extrabold sm:text-lg md:text-left">
               How do I register on the site?
             </h3>
             <p className="my-2 text-[10px] sm:text-sm">
@@ -125,7 +154,7 @@ function Help() {
               and fill in the required fields by entering your valid email
               address or use a quick registration via social networks.
             </p>
-            <h3 className="mb-2 text-center text-xs font-extrabold sm:text-lg md:text-left">
+            <h3 id="topup" className="mb-2 text-center text-xs font-extrabold sm:text-lg md:text-left">
               How do I top up my balance?
             </h3>
             <ol
@@ -205,7 +234,10 @@ function Help() {
               </li>
             </ol>
 
-            <h3 id="bought" className="my-4 text-center text-xs font-extrabold sm:text-lg md:text-left">
+            <h3
+              id="bought"
+              className="my-4 text-center text-xs font-extrabold sm:text-lg md:text-left"
+            >
               How do I get an SMS to a purchased number?
             </h3>
             <ol className="list-decimal space-y-4 pl-8 text-[10px] sm:text-sm">
@@ -251,7 +283,10 @@ function Help() {
               </li>
             </ol>
 
-            <h3 id="long-term" className="my-4 text-center text-xs font-extrabold sm:text-lg md:text-left">
+            <h3
+              id="long-term"
+              className="my-4 text-center text-xs font-extrabold sm:text-lg md:text-left"
+            >
               How to rent a number for a very long time?
             </h3>
             <p className="mb-2 text-[10px] sm:text-sm">

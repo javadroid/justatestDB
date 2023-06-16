@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -7,15 +7,16 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
 import stars from "../assets/random-shapes/christmas-stars.png";
-import hashtag from '../assets/random-shapes/hashtag2.png';
-import star from '../assets/random-shapes/shooting-star.png';
+import hashtag from "../assets/random-shapes/hashtag2.png";
+import star from "../assets/random-shapes/shooting-star.png";
 import Image from "next/image";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const SignUpForm = () => {
   const { data: session } = useSession();
   const router = useRouter();
 
-  console.log(session);
+  // console.log(session);
 
   const {
     register,
@@ -69,17 +70,40 @@ const SignUpForm = () => {
       toast.success(response.data.msg);
       router.push("/");
     } catch (error) {
-      console.log("Error is", error);
       toast.error(error.response.data.msg);
+      return (<div>
+        {error}
+      </div>);
+      // console.log("Error is", error);
       // router.push("/user/receive-sms");
-    };
+    }
+  };
+
+  const [isVerified, setIsVerified] = useState(false);
+  function onChange() {
+    setIsVerified(!isVerified);
   }
 
   return (
     <div className="relative mx-2 rounded-2xl bg-color-white px-6 pb-12 pt-4 shadow-[0px_4px_15px_rgba(37,39,86,0.15)] md:m-auto md:max-w-md md:rounded-3xl lg:max-w-xl">
-      <Image src={stars} alt="stars" width={100} className="hidden lg:flex absolute bottom-40 -left-40" />
-      <Image src={hashtag} width={70} alt="hashtag" className="hidden lg:flex absolute top-40 -right-40" />
-      <Image src={star} width={120} alt="shooting-star" className="hidden lg:flex absolute -left-1/2" />
+      <Image
+        src={stars}
+        alt="stars"
+        width={100}
+        className="absolute -left-40 bottom-40 hidden lg:flex"
+      />
+      <Image
+        src={hashtag}
+        width={70}
+        alt="hashtag"
+        className="absolute -right-40 top-40 hidden lg:flex"
+      />
+      <Image
+        src={star}
+        width={120}
+        alt="shooting-star"
+        className="absolute -left-1/2 hidden lg:flex"
+      />
       <div className="m-auto max-w-xs">
         <h3 className="my-4 text-center text-h2Size font-bold">Sign up</h3>
         <form
@@ -89,6 +113,7 @@ const SignUpForm = () => {
           <input
             {...register("username", { required: true })}
             type="Username"
+            required
             defaultValue={session?.user?.name || ""}
             placeholder="Enter your Username"
             className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
@@ -96,6 +121,7 @@ const SignUpForm = () => {
           <input
             {...register("email", { required: true })}
             type="email"
+            required
             defaultValue={session?.user?.email || ""}
             placeholder="Enter your email"
             className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
@@ -103,16 +129,25 @@ const SignUpForm = () => {
           <input
             {...register("password", { required: true })}
             type="password"
+            required
             placeholder="Create password"
             className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
           />
           <input
             {...register("confirmPassword", { required: true })}
             type="password"
+            required
             placeholder="Confirm password"
             className="w-full rounded-lg border border-color-primary_black px-4 py-3 text-xs text-color-primary_black focus:border-color-primary_black focus:outline-dashed sm:text-lg"
           />
-          <button className="w-full rounded-3xl bg-color-primary py-3 text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl">
+          <ReCAPTCHA
+            sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+            onChange={onChange}
+          />
+          <button
+            disabled={!isVerified}
+            className="w-full rounded-3xl bg-color-primary py-3 text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl"
+          >
             Sign up
           </button>
           {/* <div
