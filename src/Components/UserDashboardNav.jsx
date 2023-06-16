@@ -11,11 +11,14 @@ import axios from "axios";
 const UserDashboardNav = () => {
   var instance = axios.create({
     validateStatus: function (status) {
-      return status >= 200 && status < 300; // default
+      return status >= 200 && status < 405; // default
     },
   });
 
   useEffect(() => {
+    if (!sessionStorage.getItem("id")) {
+      return;
+    }
     const getBalance = async () => {
       const response = await Promise.all([
         instance.get("http://161.35.218.95:3000/api/balance", {

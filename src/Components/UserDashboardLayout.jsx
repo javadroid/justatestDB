@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "./Navbar/Navbar";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
 import UserDashboardNav from "./UserDashboardNav";
+import { useRouter } from "next/router";
 
 const UserDashboardLayout = ({ children }) => {
+  const router = useRouter();
+  useEffect(() => {
+    if (!sessionStorage.getItem("id")) {
+      router.replace("/");
+    }
+  }, []);
+
   return (
-    <div className="flex flex-grow flex-col justify-between w-full">
+    <div className="flex w-full flex-grow flex-col justify-between">
       <div className="w-full">
         <UserDashboardNav />
       </div>

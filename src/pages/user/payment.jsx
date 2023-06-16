@@ -1,10 +1,70 @@
 import UserDashboardLayout from "@/Components/UserDashboardLayout";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import Visa from "@/assets/visa.png";
 import PiggyBank from "@/assets/piggy-bank.svg";
+import { useRouter } from "next/router";
+import axios from "axios";
+import Coinbase from "@/assets/coinbase.png";
+import Usdt from "@/assets/usdt.png";
+import { toast } from "react-hot-toast";
 
 const payment = () => {
+  const [amount, setAmount] = useState(10);
+  const [active, setActive] = useState(false);
+  const router = useRouter();
+
+  const [method, setMethod] = useState("stripe");
+
+  const handleCheckOut = async () => {
+    try {
+      const response = await axios.post(
+        "http://161.35.218.95:3000/api/stripe/checkout",
+        {
+          amount: amount,
+        },
+        {
+          params: {
+            userId: sessionStorage.getItem("id"),
+          },
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        }
+      );
+      router.push(response?.data?.url);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCoinbaseCheckOut = async () => {
+    console.log("coinbase");
+    toast.success("coinbase");
+    // try {
+    //   const response = await axios.post(
+    //     "http://161.35.218.95:3000/api/stripe/checkout",
+    //     {
+    //       amount: amount,
+    //     },
+    //     {
+    //       params: {
+    //         userId: sessionStorage.getItem("id"),
+    //       },
+    //       headers: {
+    //         Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+    //       },
+    //     }
+    //   );
+    //   router.push(response?.data?.url);
+    //   console.log(response);
+    // } catch (error) {
+    //   console.log(error);
+    // }
+  };
+  console.log(amount);
+
   return (
     <section>
       <h1 className="ml-3 mt-6 text-xl font-bold">Top up your balance</h1>
@@ -17,16 +77,43 @@ const payment = () => {
                   1. Choose a payment method
                 </h1>
                 <div className=" grid grid-cols-2 justify-items-center gap-4 px-10 lg:grid-cols-5">
-                  <div className="flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg">
+                  <div
+                    className={`flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg ${
+                      method === "stripe"
+                        ? "rounded-md border-4 border-blue-500"
+                        : "border-0"
+                    }`}
+                    onClick={() => {
+                      setMethod("stripe");
+                    }}
+                  >
                     <Image src={Visa} alt="Payment" className="" />
                   </div>
-                  <div className="flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg">
-                    <Image src={Visa} alt="Payment" className="" />
+                  <div
+                    className={`flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg ${
+                      method === "coinbase"
+                        ? "rounded-md border-4 border-blue-500"
+                        : "border-0"
+                    }`}
+                    onClick={() => {
+                      setMethod("coinbase");
+                    }}
+                  >
+                    <Image src={Coinbase} alt="Payment" className="" />
                   </div>
-                  <div className="flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg">
-                    <Image src={Visa} alt="Payment" className="" />
+                  <div
+                    className={`flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg ${
+                      method === "usdt"
+                        ? "rounded-md border-4 border-blue-500"
+                        : "border-0"
+                    }`}
+                    onClick={() => {
+                      setMethod("usdt");
+                    }}
+                  >
+                    <Image src={Usdt} alt="Payment" className="" />
                   </div>
-                  <div className="flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg">
+                  {/* <div className="flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg">
                     <Image src={Visa} alt="Payment" className="" />
                   </div>
                   <div className="flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg">
@@ -37,7 +124,7 @@ const payment = () => {
                   </div>
                   <div className="col-span-2 flex h-20 w-32 flex-col items-center justify-center justify-self-center bg-white shadow-lg lg:justify-self-start">
                     <Image src={Visa} alt="Payment" className="" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div>
@@ -45,23 +132,44 @@ const payment = () => {
                   2. Specify top up amount
                 </h1>
                 <div className=" mb-5 grid grid-cols-2 gap-4 lg:grid-cols-3">
-                  <button className="rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md">
+                  <div
+                    onClick={() => setAmount(10)}
+                    className="rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md"
+                  >
                     $10
-                  </button>
-                  <button className="rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md">
+                  </div>
+                  <div
+                    onClick={() => setAmount(50)}
+                    className="rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md"
+                  >
                     $50
-                  </button>
-                  <button className="rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md">
+                  </div>
+                  <div
+                    className="rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md"
+                    onClick={() => setAmount(100)}
+                  >
                     $100
-                  </button>
+                  </div>
                 </div>
                 <input
                   placeholder="Other amount"
                   className="mb-5 w-full rounded-md bg-color-bg_primary-500 px-3 py-2 lg:w-96"
                 />
               </div>
-              <button className="rounded-md bg-color-primary px-2 py-2 text-white lg:w-40 group relative overflow-hidden">
-                <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+              <button
+                className="group relative overflow-hidden rounded-md bg-color-primary px-2 py-2 text-white lg:w-40"
+                onClick={() => {
+                  if (method === "stripe") {
+                    handleCheckOut();
+                  }
+                  if (method === "coinbase") {
+                    handleCoinbaseCheckOut();
+                  } else {
+                    console.log("nothing");
+                  }
+                }}
+              >
+                <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                 <span className="relative">Pay</span>
               </button>
             </div>

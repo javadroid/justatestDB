@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const Profile = () => {
   var instance = axios.create({
@@ -139,7 +140,9 @@ const Profile = () => {
                   </button>
                 </div>
               </div>
-              <Link href="/user/payment-history" className="text-color-primary">Payment History</Link>
+              <Link href="/user/payment-history" className="text-color-primary">
+                Payment History
+              </Link>
             </div>
             <div className="mt-8 flex flex-grow flex-col gap-y-3 px-4 md:px-0">
               <h2 className="text-center font-bold md:text-2xl">

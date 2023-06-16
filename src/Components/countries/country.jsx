@@ -1,13 +1,13 @@
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import UK from '../../assets/flags/UK.svg'
+import UK from "../../assets/flags/UK.svg";
 import axios from "axios";
 
 const url = "http://161.35.218.95:3000/api/countries";
 
 const Country = () => {
-const [data, setData] = useState([]);
-let maxNameLength = 11;
+  const [data, setData] = useState([]);
+  let maxNameLength = 11;
   const fetchData = async () => {
     try {
       const response = await axios.get(url, {
@@ -17,17 +17,17 @@ let maxNameLength = 11;
       });
       setData(response.data.countries);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-  
+  };
+
   useEffect(() => {
     fetchData();
-  }, [])
+  }, []);
 
   if (data.length === 0) {
-    return <div>Loading...</div>
-  };
+    return <div>Loading...</div>;
+  }
 
   return (
     <table className="ml-0 w-full pl-4">
@@ -36,7 +36,7 @@ let maxNameLength = 11;
           <tr
             key={country.id}
             className="cursor-pointer rounded-2xl bg-color-white hover:bg-color-bg_primary-500  active:bg-color-bg_primary-500"
-            onClick={() => console.log(country.name)}
+            onClick={() => console.log(country?.country_name)}
           >
             <td className="flex w-full items-center justify-start py-1">
               <span>
@@ -47,11 +47,15 @@ let maxNameLength = 11;
                 />
               </span>
               <span className="text-xs font-medium md:text-base">
-                {country.country_name.length > maxNameLength ? `${country.country_name.substring(0, maxNameLength)}...` : country.country_name}
+                {country.country_name.length > maxNameLength
+                  ? `${country.country_name.substring(0, maxNameLength)}...`
+                  : country.country_name}
               </span>
             </td>
             <td>
-              <span className="text-xs text-gray-500">{country.country_code}</span>
+              <span className="text-xs text-gray-500">
+                {country.country_code}
+              </span>
             </td>
           </tr>
         ))}
