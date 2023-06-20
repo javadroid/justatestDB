@@ -1,4 +1,6 @@
 const express = require('express');
+const bodyParser = require('body-parser')
+const path = require('path');
 require('dotenv').config();
 const cors = require('cors');
 // const swaggerUI = require("swagger-ui-express");
@@ -7,8 +9,18 @@ const app = express();
 
 // set up port
 const PORT = process.env.PORT || 3000;
-
-app.use(express.json());
+app.use(bodyParser.urlencoded({
+    extended: true,
+}));
+app.use(express.static(`${__dirname}/public`))
+app.use(express.json({
+    verify: (req, res, buf) => {
+        const url = req.originalUrl;
+        if (url.startsWith('/webhook')) {
+            req.rawBody = buf.toString()
+        }
+    }
+}));
 app.use(cors());
 
 // adding routes

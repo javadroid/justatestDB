@@ -2,6 +2,28 @@ const uuid = require('uuid');
 // const id = uuid.v4();
 const jwt = require('jsonwebtoken');
 const db = require('../lib/db.js');
+const multer = require('multer');
+const multerStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "public/ploads");
+    },
+    filename: (req, file, cb) => {
+        const ext = file.mimetype.split("/")[1];
+        cb(null, `files/post-${file.fieldname}-${Date.now()}.${ext}`);
+    },
+});
+// Multer Filter
+const multerFilter = (req, file, cb) => {
+    if (file.mimetype.split("/")[1] === "png") {
+        cb(null, true);
+    } else {
+        cb(new Error("Not a PNG File!!"), false);
+    }
+};
+const upload = multer({
+    storage: multerStorage,
+    fileFilter: multerFilter,
+});
 module.exports = {
     // fetch all users
     getAllUsers: (req, res, next) => {
@@ -834,21 +856,11 @@ module.exports = {
     // feedback module ends here
 
     // Blog posts module starts here
-    createPost: (req, res, next) => {
+    createPost: async(req, res, next) => {
         const social_media_links = {};
-        // [{
-        //     "Test1": {
-        //       "Val1": "37",
-        //       "Val2": "25"
-        //     }
-        //   }, {
-        //     "Test2": {
-        //       "Val1": "25",
-        //       "Val2": "27"
-        //     }
-        //   }]
         try {
-            const { title, author, description, image, content } = req.body;
+            const { title, author, description, content } = req.body;
+            const image = req.file
             if (req.body.facebook_link) {
                 social_media_links.facebook = req.body.facebook_link;
             }
@@ -868,7 +880,7 @@ module.exports = {
                 social_media_links.reddit = req.body.reddit_link;
             }
 
-            let sml = { links: social_media_links };
+
             console.log(sml);
             if (!title || !author || !description || !image || !content) {
                 return res.status(401).send({
@@ -877,6 +889,7 @@ module.exports = {
             }
             // return res.send(sml);
             // encoding the content input
+            await upload.single(image);
             let Encoded = Buffer.from(content, 'utf8').toString('base64');
             // decoding the content
             let DEcontent = Buffer.from(Encoded, 'base64').toString('utf8');
@@ -886,7 +899,7 @@ module.exports = {
 
             db.query(
                 `INSERT INTO blog_posts(title, author, description, content, image, social_media_link)
-            VALUES ('${title}', '${author}', '${description}', '${Encoded}', '${image}', '${[sml]}')`,
+            VALUES ('${title}', '${author}', '${description}', '${Encoded}', '${image}', '[${social_media_links}]')`,
                 (err, result) => {
                     if (err) {
                         // throw err;
