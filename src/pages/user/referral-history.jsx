@@ -16,11 +16,9 @@ import ReferralList from "@/Components/ReferralList";
         },
       });
       setReferralHistory(response.data.referrals.result);
-      // setReferralHistory(response.data.msg);
-      // console.log(response);
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
+      return <div>{error}</div>
     }
   };
 

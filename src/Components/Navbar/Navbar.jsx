@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Logo from "../../assets/logo-white.png";
@@ -53,7 +53,7 @@ const Navbar = () => {
           <Image
             src={Logo}
             alt="Logo Image"
-            className="h-20 w-20 object-contain"
+            className="h-auto w-20"
           />
         </div>
         <div className="hidden w-1/3 lg:inline-block">

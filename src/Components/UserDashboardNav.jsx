@@ -40,20 +40,18 @@ const UserDashboardNav = () => {
       ]);
       setBalance(response[0].data?.data[0]?.balance);
       setUserData(response[1].data?.user);
-      // console.log(response);
     };
     getBalance();
   }, []);
 
   const [balance, setBalance] = useState(0);
   const [userData, setUserData] = useState({});
-  // console.log(balance);
 
   return (
     <nav className="top-0 z-50 flex h-16 w-full items-center justify-between bg-color-bg_primary-500 p-4 text-white lg:h-20">
       <div className="flex flex-grow items-center justify-end lg:justify-between">
         <div className="mr-5 hidden lg:flex lg:items-center lg:gap-24 lg:py-8">
-          <Image src={Logo} alt="diginums" className="w-[12%]" />
+          <Image src={Logo} alt="diginums" className="w-[12%] h-auto" />
           <button className="group flex items-center space-x-5 rounded-md border border-color-primary bg-white px-9 py-2 text-black">
             <div>
               <Icon

@@ -1,4 +1,6 @@
+import CopyToClipboard from "@/Components/Copy";
 import UserDashboardLayout from "@/Components/UserDashboardLayout";
+import { ClipboardDocumentCheckIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 const earn = () => {
@@ -13,8 +15,14 @@ const earn = () => {
                 Get money for attracted users!
               </h2>
               <p className="mb-3">Your referral link</p>
-              <p className="mb-3 italic text-red-500">
-                https://sms-man.com/?ref=J1sM-q3NGej6
+              <p className="mb-3 flex items-center italic text-red-500">
+                <span>https://sms-man.com/?ref=J1sM-q3NGej6</span>
+                <CopyToClipboard textToCopy="https://sms-man.com/?ref=J1sM-q3NGej6">
+                  <ClipboardDocumentCheckIcon
+                    width={20}
+                    className="ml-2 cursor-pointer text-color-primary"
+                  />
+                </CopyToClipboard>
               </p>
               <p className="mb-2 text-xs font-bold sm:text-lg md:mb-6">
                 Detailed conditions of the affiliate program:

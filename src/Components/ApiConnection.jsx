@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CopyToClipboard from "@/Components/Copy";
+import { ClipboardDocumentCheckIcon } from "@heroicons/react/24/outline";
 
 const ApiConnection = () => {
   return (
@@ -83,7 +84,7 @@ const ApiConnection = () => {
             >
               Balance request
             </h3>
-            <p className="space-x-4">
+            <p className="flex space-x-2">
               <Link
                 href="/"
                 className="text-sm text-color-api-red md:text-base"
@@ -91,7 +92,10 @@ const ApiConnection = () => {
                 http://api.sms-man.com/control/get-balance?token=$token
               </Link>
               <CopyToClipboard textToCopy="http://api.sms-man.com/control/get-balance?token=$token">
-                <button>Copy</button>
+                <ClipboardDocumentCheckIcon
+                  width={20}
+                  className="text-color-primary cursor-pointer"
+                />
               </CopyToClipboard>
             </p>
             <h4 className="text-center font-extrabold md:text-left">
