@@ -1079,14 +1079,15 @@ const cancelNumber = (req, res, next) => {
                                         });
                                     }
                                     return res.status(201).send({
-                                        msg: 'Cancellation was successfully.'
+                                        msg: 'Cancellation was successfully.',
+                                        Balance: new_bal
                                     });
                                 }
                             );
                         } else {
                             return res.status(400).send({
-                                msg: 'Something went wrong!',
-                                Balance: new_bal
+                                msg: 'Something went wrong!'
+
                             })
                         }
 
