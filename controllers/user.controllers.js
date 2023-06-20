@@ -1035,6 +1035,7 @@ const cancelNumber = (req, res, next) => {
         let userid = req.query.userid;
         const rentedNum = req.query.rented_number;
         const amount = req.query.rented_amount;
+        console.log(userid, rentedNum, amount);
         if (!userid || !rentedNum || !amount) { return res.status(403).send({ msg: 'user Id, rented number and the rented amount are required as parameters.' }); }
         db.query(
             `SELECT * FROM wallets WHERE user_id='${userid}'`,
@@ -1052,47 +1053,51 @@ const cancelNumber = (req, res, next) => {
                         msg: 'This userId does not exist.'
                     });
                 }
-                let bal = await result[0].balance;
-                console.log(result);
-                console.log(bal);
-                const new_bal = bal + amount;
-                console.log(new_bal);
-                let sta = 'Cancelled';
-                db.query(
-                    `UPDATE wallets SET balance='${new_bal}' WHERE user_id='${userid}'`,
-                    (err, resul) => {
-                        if (err) {
-                            // throw err;
-                            return res.status(400).send({
-                                msg: err
-                            });
-                        }
-                        if (resul.affectedRows > 0) {
-                            db.query(
-                                `UPDATE rents SET status='${sta}' WHERE rented_number='${rentedNum}'`,
-                                (err, result) => {
-                                    // user does not exists
-                                    if (err) {
-                                        // throw err;
-                                        return res.status(400).send({
-                                            msg: err
+                if (result.length > 0) {
+                    let bal = await result[0].balance;
+                    console.log(result);
+                    console.log(bal);
+                    let r = await parseFloat(bal);
+                    let k = await parseFloat(amount);
+                    const new_bal = r + k;
+                    console.log(new_bal);
+                    let sta = 'Cancelled';
+                    db.query(
+                        `UPDATE wallets SET balance='${new_bal}' WHERE user_id='${userid}'`,
+                        (err, resul) => {
+                            if (err) {
+                                // throw err;
+                                return res.status(400).send({
+                                    msg: err
+                                });
+                            }
+                            if (resul.affectedRows > 0) {
+                                db.query(
+                                    `UPDATE rents SET status='${sta}' WHERE rented_number='${rentedNum}'`,
+                                    (err, result) => {
+                                        // user does not exists
+                                        if (err) {
+                                            // throw err;
+                                            return res.status(400).send({
+                                                msg: err
+                                            });
+                                        }
+                                        return res.status(201).send({
+                                            msg: 'Cancellation was successfully.',
+                                            Balance: new_bal
                                         });
                                     }
-                                    return res.status(201).send({
-                                        msg: 'Cancellation was successfully.',
-                                        Balance: new_bal
-                                    });
-                                }
-                            );
-                        } else {
-                            return res.status(400).send({
-                                msg: 'Something went wrong!'
+                                );
+                            } else {
+                                return res.status(400).send({
+                                    msg: 'Something went wrong!'
 
-                            })
+                                })
+                            }
+
                         }
-
-                    }
-                );
+                    );
+                }
             }
 
         );
