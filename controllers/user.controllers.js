@@ -1057,7 +1057,6 @@ const cancelNumber = (req, res, next) => {
                 console.log(bal);
                 const new_bal = bal + amount;
                 console.log(new_bal);
-                return res.status(200).send({ Balance: new_bal });
                 let sta = 'Cancelled';
                 db.query(
                     `UPDATE wallets SET balance='${new_bal}' WHERE user_id='${userid}'`,
@@ -1086,7 +1085,8 @@ const cancelNumber = (req, res, next) => {
                             );
                         } else {
                             return res.status(400).send({
-                                msg: 'Something went wrong!'
+                                msg: 'Something went wrong!',
+                                Balance: new_bal
                             })
                         }
 
