@@ -1,4 +1,3 @@
-import React from "react";
 import Tablet from "@/assets/list-pic.png";
 import Image from "next/image";
 

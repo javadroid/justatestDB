@@ -36,15 +36,12 @@ const Navbar = () => {
       const data = await instance.get(
         "http://161.35.218.95:3000/api/languages"
       );
-      // console.log(data);
       setLanguages(data?.data?.languages);
     };
     getLanguages();
   }, []);
 
   const [languages, setLanguages] = useState([]);
-  // console.log(languages);
-
   return (
     <nav
       className={`fixed top-0 z-50 flex h-20 w-full items-center justify-between bg-color-primary_darken p-4 text-white transition-all duration-500 ease-in-out ${
@@ -104,8 +101,6 @@ const Navbar = () => {
               </Link>
             );
           })}
-          {/* <Link href="#">漢字</Link>/<Link href="#">RU</Link>/
-          <Link href="#">EN</Link> */}
         </div>
         <div className="lg:hidden">
           <Bars3Icon

@@ -1,11 +1,8 @@
-import React from "react";
-import Navbar from "./Navbar/Navbar";
 import Footer from "./Footer";
 import LoadingImage from "./LoadingImage";
 import Sidebar from "./Sidebar";
 import UserDashboardNav from "./UserDashboardNav";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 
 const UserDashboardLayout = ({ children }) => {
   const [loading, setLoading] = useState(true);

@@ -37,9 +37,6 @@ const Rent = () => {
     getRentFee();
   }, [country, time]);
 
-  // console.log("This is the rent country", country);
-  // console.log("This is the rent time", time);
-
   const rentFee = fee * count;
 
   return (

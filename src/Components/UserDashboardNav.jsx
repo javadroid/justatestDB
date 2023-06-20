@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Bars3Icon, PowerIcon, UserIcon } from "@heroicons/react/24/outline";
+import { PowerIcon, UserIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Logo from "../assets/BlueLogo.png";
 import { Icon } from "@iconify/react";
