@@ -6,7 +6,6 @@ import { useState } from "react";
 const Api = () => {
 
   const [cases, setCases] = useState("api-connection");
-  
   const links = [
     { route: "compatible-api", name: "Compatible API" },
     { route: "api-connection", name: "API 2.0" },

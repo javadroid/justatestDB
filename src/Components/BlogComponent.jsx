@@ -1,4 +1,3 @@
-import React from "react";
 import Media from "@/assets/Media.png";
 import {
   UserCircleIcon,

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import React from "react";
 import Logo from "../assets/BlueLogo.png";
 import FooterIcon from "../assets/footer.png";
 import FaceBook from "../assets/socials/Facebook.svg";

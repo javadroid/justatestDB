@@ -1,5 +1,3 @@
-import React from "react";
-
 const Cookies = () => {
   return (
     <div className="absolute bottom-6 mx-4 hidden rounded-lg bg-white p-8 shadow-2xl">
