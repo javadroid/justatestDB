@@ -24,7 +24,6 @@ const Feedback = () => {
       window.location.reload();
     }).catch((err) => {
       toast.error(err);
-      console.log('Error', err);
     })
   }
   return (

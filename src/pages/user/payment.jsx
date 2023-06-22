@@ -33,9 +33,8 @@ const payment = () => {
         }
       );
       router.push(response?.data?.url);
-      console.log(response);
     } catch (error) {
-      console.log(error);
+      return <div>{error}</div>;
     }
   };
 
@@ -63,7 +62,6 @@ const payment = () => {
     //   console.log(error);
     // }
   };
-  console.log(amount);
 
   return (
     <section>

@@ -12,7 +12,7 @@ import { toast } from "react-hot-toast";
 
 const Contact = () => {
   const url = "http://161.35.218.95:3000/api/feedback";
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit } = useForm();
 
   function postData({ email, username, message }) {
     Axios.post(url, {
@@ -24,7 +24,6 @@ const Contact = () => {
       toast.success(res);
       window.location.reload();
     }).catch((err) => {
-      // console.log('Error', err);
       return (<div>
         {err}
       </div>);

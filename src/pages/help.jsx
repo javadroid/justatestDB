@@ -148,7 +148,7 @@ function Help() {
             </h3>
             <p className="my-2 text-[10px] sm:text-sm">
               To register for the service - go to the{" "}
-              <Link href="" className="text-color-primary underline">
+              <Link href="/signup" className="text-color-primary underline">
                 <span>registration page</span>
               </Link>{" "}
               and fill in the required fields by entering your valid email
