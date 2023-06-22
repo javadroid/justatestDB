@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { PowerIcon, UserIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Logo from "../assets/BlueLogo.png";
@@ -68,23 +68,23 @@ const UserDashboardNav = () => {
           </button>
         </div>
         <div className=" flex items-center justify-evenly gap-x-9">
-          <div className="flex items-center space-x-12 rounded-lg border border-color-accent bg-white px-5 py-1 lg:py-2">
-            <div>
+          <div className="w-full flex items-center justify-between gap-10 rounded-lg border border-color-accent bg-white px-5 py-1 lg:py-2">
+            <div className="w-1/3">
               <p className="hidden text-xs text-black lg:inline-block">
                 Balance:
               </p>
               <p className="font-bold text-black">{balance}</p>
             </div>
-            <button className="group relative flex items-center space-x-2 overflow-hidden rounded-2xl bg-color-accent px-4 py-2 text-black hover:text-white">
+            <button className="group w-2/3 relative flex items-center space-x-2 overflow-hidden rounded-2xl bg-color-accent px-2 py-2 text-black hover:text-white">
               <span className="absolute left-0 top-0 mt-16 h-20 w-full rounded-3xl bg-color-decor_orange transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
               <div>
                 <CreditCardIcon className="relative h-6 w-6 text-black group-hover:rotate-45 group-hover:text-color-white" />
               </div>
-              <div className="relative flex flex-col items-start">
-                <p className="hidden text-sm font-bold lg:inline-block">
+              {/* <div className=" flex flex-col items-start"> */}
+                <p className="relative hidden text-sm font-bold lg:block">
                   Top up
                 </p>
-              </div>
+              {/* </div> */}
             </button>
           </div>
           <div className="group relative flex items-center justify-between">

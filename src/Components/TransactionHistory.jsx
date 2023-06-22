@@ -41,11 +41,10 @@ const History = () => {
           userid: sessionStorage.getItem("id"),
         },
       });
-      console.log(response);
       setData(response.data.numbers);
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
 
