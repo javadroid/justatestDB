@@ -875,22 +875,112 @@ const getUserDetails = (req, res, next) => {
     }
     // Number renting module starts here
 const rentNumber = async(req, res, next) => {
+        try {
+            const response = await axios({
+                url: 'http://207.154.223.33:7014/gateway/routeXapi/backend/xapi/Wws/Numbers/available?country_id=1&application_id=1&type_id=1',
+                method: 'get'
+            });
+            let userid = req.query.userid;
+            const dur = req.body.duration;
+            const til = req.body.count;
+            const country = req.body.country;
+            const amount = req.body.amount;
+            let duration = til + ' ' + dur;
+            if (!country || !dur || !amount || !til) { return res.status(403).send({ msg: 'All fields are required!' }); }
+            var number;
+            if (response.data.hasOwnProperty("number")) {
+                number = response.data.number;
+            } else { return res.status(500).send({ msg: "Somethingwent wrong, try a moment later" }) }
+
+            console.log("Reponse: " + number);
+            db.query(
+                `SELECT * FROM wallets WHERE user_id='${userid}'`,
+                async(err, result) => {
+                    // if query error
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: err
+                        });
+                    }
+                    // if not user
+                    if (result.length <= 0) {
+                        return res.status(404).send({
+                            msg: 'This userId does not exist.'
+                        });
+                    }
+                    let bal = await result[0].balance;
+                    console.log(result);
+                    console.log(bal);
+                    const new_bal = bal - amount;
+                    console.log(new_bal);
+                    if (amount >= bal) {
+                        return res.status(401).send({
+                            msg: 'Low balance, please recharge your balance.'
+                        });
+                    } else {
+                        let rentId = Math.floor(Math.random() * 10053423) + 83;
+                        let message = 'Your number will be activated shortly';
+                        db.query(
+                            `INSERT INTO rents (rentId, userid, rented_number, duration,  amount,  country, rented_date, message) VALUES ('${rentId}', '${userid}', '${number}', '${duration}', '${amount}', '${country}', now(), '${message}')`,
+                            (err, resul) => {
+                                if (err) {
+                                    // throw err;
+                                    return res.status(400).send({
+                                        msg: err
+                                    });
+                                }
+                                if (resul.affectedRows > 0) {
+                                    db.query(
+                                        `UPDATE wallets SET balance='${new_bal}' WHERE user_id='${userid}'`,
+                                        (err, result) => {
+                                            // user does not exists
+                                            if (err) {
+                                                // throw err;
+                                                return res.status(400).send({
+                                                    msg: err
+                                                });
+                                            }
+                                            return res.status(201).send({
+                                                msg: 'You have successfully rented ' + number
+                                            });
+                                        }
+                                    );
+                                } else {
+                                    return res.status(400).send({
+                                        msg: 'Something went wrong!'
+                                    })
+                                }
+
+                            }
+                        );
+                    }
+                }
+            );
+        } catch (err) {
+            return res.status(401).send({
+                Error: err
+            })
+        }
+    }
+    // Number renting module ends here
+    // Buy application/service module starts here
+const buyService = async() => {
     try {
+        const userid = req.query.userId;
+        const apiKey = req.body.userApiKey
+        const application_id = req.body.appId;
+        const country = req.body.country;
+        const price = req.body.price;
         const response = await axios({
             url: 'http://207.154.223.33:7014/gateway/routeXapi/backend/xapi/Wws/Numbers/available?country_id=1&application_id=1&type_id=1',
             method: 'get'
         });
-        let userid = req.query.userid;
-        const dur = req.body.duration;
-        const til = req.body.count;
-        const country = req.body.country;
-        const amount = req.body.amount;
-        let duration = til + ' ' + dur;
-        if (!country || !dur || !amount || !til) { return res.status(403).send({ msg: 'All fields are required!' }); }
+        if (!country || !application_id || !price) { return res.status(403).send({ msg: 'All fields are required!' }); }
         var number;
         if (response.data.hasOwnProperty("number")) {
             number = response.data.number;
-        } else { return res.status(500).send({ msg: "Somethingwent wrong, try a moment later" }) }
+        } else { return res.status(500).send({ msg: "Direct the user to telegram bot." }) }
 
         console.log("Reponse: " + number);
         db.query(
@@ -912,17 +1002,17 @@ const rentNumber = async(req, res, next) => {
                 let bal = await result[0].balance;
                 console.log(result);
                 console.log(bal);
-                const new_bal = bal - amount;
-                console.log(new_bal);
-                if (amount >= bal) {
+                // const new_bal = bal - amount;
+                // console.log(new_bal);
+                if (price >= bal) {
                     return res.status(401).send({
                         msg: 'Low balance, please recharge your balance.'
                     });
                 } else {
-                    let rentId = Math.floor(Math.random() * 10053423) + 83;
-                    let message = 'Your number will be activated shortly';
+                    // let rentId = Math.floor(Math.random() * 10053423) + 83;
+                    // let message = 'Your number will be activated shortly';
                     db.query(
-                        `INSERT INTO rents (rentId, userid, rented_number, duration,  amount,  country, rented_date, message) VALUES ('${rentId}', '${userid}', '${number}', '${duration}', '${amount}', '${country}', now(), '${message}')`,
+                        `INSERT INTO purchached_apps (user_id, user_api_key, application_id, country, price,  phone_number) VALUES ('${userid}', '${apiKey}', '${application_id}', '${country}', '${price}', '${number}')`,
                         (err, resul) => {
                             if (err) {
                                 // throw err;
@@ -931,24 +1021,13 @@ const rentNumber = async(req, res, next) => {
                                 });
                             }
                             if (resul.affectedRows > 0) {
-                                db.query(
-                                    `UPDATE wallets SET balance='${new_bal}' WHERE user_id='${userid}'`,
-                                    (err, result) => {
-                                        // user does not exists
-                                        if (err) {
-                                            // throw err;
-                                            return res.status(400).send({
-                                                msg: err
-                                            });
-                                        }
-                                        return res.status(201).send({
-                                            msg: 'You have successfully rented ' + number
-                                        });
-                                    }
-                                );
+                                return res.status(201).send({
+                                    msg: 'Service successfully bought.',
+                                    phone_number: number
+                                });
                             } else {
                                 return res.status(400).send({
-                                    msg: 'Something went wrong!'
+                                    msg: 'Something went wrong. Try a moment later ore contact the support team.'
                                 })
                             }
 
@@ -1133,4 +1212,5 @@ module.exports = {
     rentNumber,
     getApplications,
     cancelNumber,
+    buyService,
 }

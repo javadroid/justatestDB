@@ -86,6 +86,7 @@ router.get('/rent/numbers', userMiddleware.isLoggedIn, userControllers.getRentNu
 router.post('/rent/number', userMiddleware.isLoggedIn, userControllers.rentNumber);
 router.get('/applications', userControllers.getApplications);
 router.put('/number/cancel', userMiddleware.isLoggedIn, userControllers.cancelNumber);
+router.post('/buy_service', userMiddleware.isLoggedIn, userControllers.buyService)
 router.post('/stripe/checkout', userMiddleware.isLoggedIn, topupControllers.stripeTopup);
 //To protect a route now, simply include this middleware when calling the route as follows:
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
