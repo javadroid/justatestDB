@@ -3,16 +3,18 @@ const bodyParser = require('body-parser')
 const path = require('path');
 require('dotenv').config();
 const cors = require('cors');
-// const swaggerUI = require("swagger-ui-express");
-// const docs = require('./documentation');
+const corOptions = {
+    origin: "http://localhost:3000"
+};
 const app = express();
+global.__basedir = __dirname
 
 // set up port
 const PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({
     extended: true,
 }));
-app.use(express.static(`${__dirname}/public`))
+app.use(express.static(`public`))
 app.use(express.json({
     verify: (req, res, buf) => {
         const url = req.originalUrl;
@@ -21,7 +23,7 @@ app.use(express.json({
         }
     }
 }));
-app.use(cors());
+app.use(cors(corOptions));
 
 // adding routes
 const users = require('./routes/users.js');

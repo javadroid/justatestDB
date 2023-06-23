@@ -2,28 +2,8 @@ const uuid = require('uuid');
 // const id = uuid.v4();
 const jwt = require('jsonwebtoken');
 const db = require('../lib/db.js');
-const multer = require('multer');
-const multerStorage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, "public/ploads");
-    },
-    filename: (req, file, cb) => {
-        const ext = file.mimetype.split("/")[1];
-        cb(null, `files/post-${file.fieldname}-${Date.now()}.${ext}`);
-    },
-});
-// Multer Filter
-const multerFilter = (req, file, cb) => {
-    if (file.mimetype.split("/")[1] === "png") {
-        cb(null, true);
-    } else {
-        cb(new Error("Not a PNG File!!"), false);
-    }
-};
-const upload = multer({
-    storage: multerStorage,
-    fileFilter: multerFilter,
-});
+const uploadImage = require('../middleware/upload.js');
+const uploadFlag = require('../middleware/upload.js');
 module.exports = {
     // fetch all users
     getAllUsers: (req, res, next) => {
@@ -858,9 +838,10 @@ module.exports = {
     // Blog posts module starts here
     createPost: async(req, res, next) => {
         const social_media_links = {};
+        let baseURL = "http://localhost:3000";
         try {
             const { title, author, description, content } = req.body;
-            const image = req.file
+            // console.log(title, author, description, content);
             if (req.body.facebook_link) {
                 social_media_links.facebook = req.body.facebook_link;
             }
@@ -871,7 +852,7 @@ module.exports = {
                 social_media_links.instagram = req.body.instagram_link;
             }
             if (req.body.telegram_link) {
-                social_media_links.telegram = req.body.req.body.telegram_link;
+                social_media_links.telegram = req.body.telegram_link;
             }
             if (req.body.pint_link) {
                 social_media_links.pint = req.body.pint_link;
@@ -880,20 +861,25 @@ module.exports = {
                 social_media_links.reddit = req.body.reddit_link;
             }
 
-
-            console.log(sml);
-            if (!title || !author || !description || !image || !content) {
+            console.log(social_media_links);
+            if (!title || !author || !description || !content) {
                 return res.status(401).send({
-                    msg: "Title, author, description, image, content field con not be empty!"
+                    msg: "Title, author, description, content field con not be empty!"
                 });
             }
-            // return res.send(sml);
+
             // encoding the content input
-            await upload.single(image);
+            await uploadImage(req, res);
+            if (req.file == undefined) {
+                return res.status(400).send({ msg: "Please upload an image!" });
+            }
+            const imag = req.file.originalname;
+            let image = baseURL + `/uploads/${imag}`;
+            // return res.send({ image });
             let Encoded = Buffer.from(content, 'utf8').toString('base64');
             // decoding the content
             let DEcontent = Buffer.from(Encoded, 'base64').toString('utf8');
-            console.log("Encoded: " + Encoded);
+            console.log("Encoded: " + Encoxded);
             console.log("Decoded: " + DEcontent);
             console.log("Main content: " + content);
 
@@ -913,7 +899,7 @@ module.exports = {
                 }
             );
         } catch (err) {
-            return res.status(401).send({
+            return res.status(500).send({
                 Error: err
             })
         }
@@ -951,34 +937,32 @@ module.exports = {
     },
     // Editing blog post
     updatePost: (req, res, next) => {
+        const social_media_links = {};
+
         try {
             let postid = req.query.post_id;
-            let fb_link = "",
-                twit_link = "",
-                ingt_link = "",
-                tele_link = "",
-                pint_link = "",
-                reddit_link = "";
-            const { title, author, description, image, content } = req.body;
-            if (req.body.fb_link) {
-                fb_link = req.body.fb_link;
+            const { title, author, description, content } = req.body;
+            // console.log(title, author, description, content);
+            if (req.body.facebook_link) {
+                social_media_links.facebook = req.body.facebook_link;
             }
-            if (req.body.twit_link) {
-                twit_link = req.body.twit_link;
+            if (req.body.twitter_link) {
+                social_media_links.twitter = req.body.twitter_link;
             }
-            if (req.body.ingt_link) {
-                ingt_link = req.body.ingt_link;
+            if (req.body.instagram_link) {
+                social_media_links.instagram = req.body.instagram_link;
             }
-            if (req.body.tele_link) {
-                tele_link = req.body.tele_link;
+            if (req.body.telegram_link) {
+                social_media_links.telegram = req.body.telegram_link;
             }
             if (req.body.pint_link) {
-                pint_link = req.body.pint_link;
+                social_media_links.pint = req.body.pint_link;
             }
-            if (req.body.ingt_link) {
-                reddit_link = req.body.reddit_link;
+            if (req.body.reddit_link) {
+                social_media_links.reddit = req.body.reddit_link;
             }
-            if (!title || !author || !description || !image || !content) {
+
+            if (!title || !author || !description || !content) {
                 return res.status(401).send({
                     msg: "Title, author, description, image, content field con not be empty!"
                 });
@@ -991,7 +975,7 @@ module.exports = {
             console.log("Decoded: " + DEcontent);
             console.log("Main content: " + content);
             db.query(
-                `UPDATE blog_posts SET title='${title}', author='${author}', description='${description}', content='${Encoded}', image='${image}', facebook='${fb_link}', twitter='${twit_link}', instagram='${ingt_link}', telegram='${tele_link}', pinterest='${pint_link}', reddit='${reddit_link}' WHERE id='${postid}'`,
+                `UPDATE blog_posts SET title='${title}', author='${author}', description='${description}', content='${Encoded}', social_media_link='[${social_media_links}]' WHERE id='${postid}'`,
                 (err, result) => {
                     if (err) {
                         // throw err;
@@ -1057,20 +1041,25 @@ module.exports = {
 
     //country module starts here
     //Add up country
-    createCountry: (req, res, next) => {
+    createCountry: async(req, res, next) => {
         try {
             const country = req.body.country_name;
             const code = req.body.country_code;
             const shrt_name = req.body.short_name;
-            const flag = req.body.country_flag;
             let status = "Enable";
             if (!country || !code || !shrt_name) {
                 return res.status(401).send({
                     msg: "Country name, code, and short_name are required!"
                 });
             }
+            await uploadFlag(req, res);
+            if (req.file == undefined) {
+                return res.status(400).send({ msg: "Please upload country flag!" });
+            }
+            const flg = req.file.originalname;
+            let flag = baseURL + `/uploads/${flg}`;
             db.query(
-                `INSERT INTO countries(country_name, country_short_name, country_code, status, created_date) VALUES ('${country}', '${shrt_name}', '${code}', '${status}', now())`,
+                `INSERT INTO countries(country_name, country_short_name, country_code, country_flag, status, created_date) VALUES ('${country}', '${shrt_name}', '${code}', '${flag}', '${status}', now())`,
                 (err, result) => {
                     if (err) {
                         // throw err;
