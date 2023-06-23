@@ -722,7 +722,7 @@ const getAllBlogPosts = (req, res, next) => {
                         });
                     }
                     return res.status(200).send({
-                        posts: result
+                        posts: result.toJson()
                     });
                 }
             );
