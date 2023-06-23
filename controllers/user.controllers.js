@@ -721,8 +721,15 @@ const getAllBlogPosts = (req, res, next) => {
                             msg: 'There is no post available yet.'
                         });
                     }
+                    var media_links;
+                    for (const key in result) {
+                        media_links = JSON.parse(Buffer.from(result[key].social_media_link, 'base64').toString('utf8'))
+                        result[key].social_media_links = media_links
+                        console.log({ post: result });
+
+                    }
                     return res.status(200).send({
-                        posts: JSON.parse(result)
+                        post: result
                     });
                 }
             );
@@ -752,6 +759,7 @@ const getSingleBlogPost = (req, res, next) => {
                 }
                 if (resul) {
                     var total_comments;
+
                     db.query(
                         `SELECT * FROM comments WHERE postid='${postid}'`,
                         (err, result) => {
@@ -764,6 +772,16 @@ const getSingleBlogPost = (req, res, next) => {
                                 total_comments = 0;
                             }
                             total_comments = result.length
+                            var media_links;
+                            var blogcon;
+                            for (const key in resul) {
+                                media_links = JSON.parse(Buffer.from(resul[key].social_media_link, 'base64').toString('utf8'))
+                                blogcon = Buffer.from(resul[key].content, 'base64').toString('utf8')
+                                resul[key].social_media_links = media_links;
+                                resul[key].blog_content = blogcon;
+                                console.log({ post: resul });
+
+                            }
                             return res.status(200).send({
                                 post: resul,
                                 comments: result,

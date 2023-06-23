@@ -51,7 +51,6 @@ module.exports = {
             })
         }
     },
-
     // fetch user by id
     getUserById: (req, res, next) => {
         try {
@@ -876,17 +875,12 @@ module.exports = {
             }
             const imag = req.file.originalname;
             let image = baseURL + `/uploads/${imag}`;
-            // return res.send({ image });
-            let Encoded = Buffer.from(content, 'utf8').toString('base64');
-            // decoding the content
-            let DEcontent = Buffer.from(Encoded, 'base64').toString('utf8');
-            console.log("Encoded: " + Encoxded);
-            console.log("Decoded: " + DEcontent);
-            console.log("Main content: " + content);
-
+            const Encoded = Buffer.from(content, 'utf8').toString('base64');
+            let ss = JSON.stringify(social_media_links)
+            const social = Buffer.from(ss, 'utf8').toString('base64');
             db.query(
                 `INSERT INTO blog_posts(title, author, description, content, image, social_media_link)
-            VALUES ('${title}', '${author}', '${description}', '${Encoded}', '${image}', '[${social_media_links}]')`,
+            VALUES ('${title}', '${author}', '${description}', '${Encoded}', '${image}', '${social}')`,
                 (err, result) => {
                     if (err) {
                         // throw err;
