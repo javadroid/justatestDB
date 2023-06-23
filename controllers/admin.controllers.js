@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const db = require('../lib/db.js');
 const uploadImage = require('../middleware/upload.js');
 const uploadFlag = require('../middleware/upload.js');
+const uploadAppLogo = require('../middleware/upload.js');
 module.exports = {
     // fetch all users
     getAllUsers: (req, res, next) => {
@@ -1038,7 +1039,6 @@ module.exports = {
             console.log(err);
         }
     },
-
     //country module starts here
     //Add up country
     createCountry: async(req, res, next) => {
@@ -1530,16 +1530,20 @@ module.exports = {
         }
 
     },
-    createApplication: (req, res, next) => {
+    createApplication: async(req, res, next) => {
         try {
             const appId = req.body.application_id;
             const appName = req.body.application_name;
             const country = req.body.country;
             const price = req.body.price;
-            const appLogo = req.body.logo;
-            if (!appId || !appName || !country || !price || !appLogo) {
+            await uploadAppLogo(req, res);
+            if (req.file == undefined) {
+                return res.status(400).send({ msg: "Please upload country flag!" });
+            }
+            const appLogo = req.file.originalname;
+            if (!appId || !appName || !country || !price) {
                 return res.status(401).send({
-                    msg: "Application ID, name, price, logo, and country are required!"
+                    msg: "Application ID, name, price, and country are required!"
                 });
             } else {
                 db.query(

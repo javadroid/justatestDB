@@ -30,8 +30,13 @@ const uploadFlag = multer({
     // fileFilter: multerFilter,
     limits: { fileSize: flagMaxSize },
 }).single("flag");
-
+const uploadAppLogo = multer({
+    storage: multerStorage,
+    // fileFilter: multerFilter,
+    limits: { fileSize: maxSize },
+}).single("logo");
 let uploadMiddleware = util.promisify(uploadImage);
 let uploadFlagMiddleware = util.promisify(uploadFlag);
+let uploadAppLogoMiddleware = util.promisify(uploadAppLogo);
 
-module.exports = { uploadMiddleware, uploadFlagMiddleware };
+module.exports = { uploadMiddleware, uploadFlagMiddleware, uploadAppLogoMiddleware };
