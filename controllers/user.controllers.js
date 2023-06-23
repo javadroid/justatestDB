@@ -965,7 +965,7 @@ const rentNumber = async(req, res, next) => {
     }
     // Number renting module ends here
     // Buy application/service module starts here
-const buyService = async() => {
+const buyService = async(req, res, next) => {
     try {
         const userid = req.query.userId;
         const apiKey = req.body.userApiKey
@@ -982,7 +982,7 @@ const buyService = async() => {
             number = response.data.number;
         } else { return res.status(500).send({ msg: "Direct the user to telegram bot." }) }
 
-        console.log("Reponse: " + number);
+        // console.log("Reponse: " + number);
         db.query(
             `SELECT * FROM wallets WHERE user_id='${userid}'`,
             async(err, result) => {
@@ -1000,8 +1000,8 @@ const buyService = async() => {
                     });
                 }
                 let bal = await result[0].balance;
-                console.log(result);
-                console.log(bal);
+                // console.log(result);
+                // console.log(bal);
                 // const new_bal = bal - amount;
                 // console.log(new_bal);
                 if (price >= bal) {
