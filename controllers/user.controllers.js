@@ -1101,7 +1101,7 @@ const getApplications = (req, res, next) => {
             q = `SELECT * FROM applications WHERE country='${country}' ORDER BY application_id`
         }
         if (appId) {
-            q = `SELECT * FROM applications WHERE application_id='${appId}' ORDER BY app_name`
+            q = `SELECT * FROM applications WHERE application_id='${appId}'`
         }
         if (appName) {
             q = `SELECT * FROM applications WHERE app_name='${appName}' ORDER BY application_id`
