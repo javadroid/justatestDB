@@ -1103,7 +1103,7 @@ const getApplications = (req, res, next) => {
             q = `SELECT * FROM applications WHERE application_id='${appId}' ORDER BY application_id`
         }
         if (appName) {
-            q = `SELECT * FROM applications WHERE name='${appName}' ORDER BY name`
+            q = `SELECT * FROM applications WHERE app_name='${appName}' ORDER BY name`
         } else {
             q = `SELECT * FROM applications ORDER BY created_date`
         }
