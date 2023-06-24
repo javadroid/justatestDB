@@ -1094,7 +1094,7 @@ const getBoughtServices = (req, res, next) => {
 const cancelBoughtService = (req, res, next) => {
     try {
 
-        const appId = req.query.app_id;
+        const appId = req.query.appId;
         const sta = "Cancel"
         if (!appId) { return res.status(403).send({ msg: 'application/service Id is required as parameter.' }); }
         db.query(
