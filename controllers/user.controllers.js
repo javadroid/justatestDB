@@ -1113,7 +1113,7 @@ const getApplications = (req, res, next) => {
                 if (err) {
                     // throw err;
                     return res.status(400).send({
-                        msg: 'Something went wrong, please try a moment later.'
+                        msg: `Something went wrong, ${err}.`
                     });
                 }
                 return res.status(200).send({
