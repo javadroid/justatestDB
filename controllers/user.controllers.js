@@ -1097,13 +1097,11 @@ const getApplications = (req, res, next) => {
         const appName = req.query.app_name;
         var q;
         if (country) {
-            return res.send({ country });
+            // return res.send({ country });
             q = `SELECT * FROM applications WHERE country='${country}' ORDER BY application_id`
-        }
-        if (appId) {
-            q = `SELECT * FROM applications WHERE application_id='${appId}'`
-        }
-        if (appName) {
+        } else if (appId) {
+            q = `SELECT * FROM applications WHERE application_id='${appId}' ORDER BY app_name`
+        } else if (appName) {
             q = `SELECT * FROM applications WHERE app_name='${appName}' ORDER BY application_id`
         } else {
             q = `SELECT * FROM applications ORDER BY created_date`
