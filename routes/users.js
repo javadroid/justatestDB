@@ -88,6 +88,9 @@ router.get('/applications', userControllers.getApplications);
 router.put('/number/cancel', userMiddleware.isLoggedIn, userControllers.cancelNumber);
 router.post('/buy_service', userMiddleware.isLoggedIn, userControllers.buyService)
 router.post('/stripe/checkout', userMiddleware.isLoggedIn, topupControllers.stripeTopup);
+router.get('/bought_apps', userMiddleware.isLoggedIn, userControllers.getBoughtServices);
+router.put('/cancel_bougth_app', userMiddleware.isLoggedIn, userControllers.cancelBoughtService);
+
 //To protect a route now, simply include this middleware when calling the route as follows:
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
     console.log(req.userData);

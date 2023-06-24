@@ -1060,12 +1060,13 @@ const buyService = async(req, res, next) => {
         })
     }
 }
-const getRentNumber = (req, res, next) => {
+
+const getBoughtServices = (req, res, next) => {
     // Everything wil be here
-    const userid = req.query.userid;
+    const userid = req.query.userId;
     try {
         db.query(
-            `SELECT * FROM rents WHERE userid='${userid}'`,
+            `SELECT * FROM purchached_apps WHERE user_id='${userid}'`,
             (err, result) => {
                 // if query error
                 if (err) {
@@ -1077,11 +1078,11 @@ const getRentNumber = (req, res, next) => {
                 // if user have not rented number yet
                 if (result.length <= 0) {
                     return res.status(303).send({
-                        msg: 'You are yet to rent a number for your use.'
+                        msg: 'You are yet to buy a service.'
                     });
                 }
                 return res.status(200).send({
-                    numbers: result
+                    bougth_services: result
                 });
             }
         );
@@ -1090,6 +1091,34 @@ const getRentNumber = (req, res, next) => {
     }
 
 }
+const cancelBoughtService = (req, res, next) => {
+    try {
+
+        const appId = req.query.app_id;
+        const sta = "Cancel"
+        if (!appId) { return res.status(403).send({ msg: 'application/service Id is required as parameter.' }); }
+        db.query(
+            `UPDATE purchached_apps SET status='${sta}' WHERE application_id='${appId}'`,
+            (err, result) => {
+                // user does not exists
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                return res.status(202).send({
+                    msg: 'Service has been successfully cancelled.'
+                });
+            }
+        );
+    } catch (err) {
+        return res.status(401).send({
+            Error: err
+        })
+    }
+}
+
 const getApplications = (req, res, next) => {
     try {
         const country = req.query.country;
@@ -1125,6 +1154,37 @@ const getApplications = (req, res, next) => {
         console.log(err);
     }
 }
+const getRentNumber = (req, res, next) => {
+    // Everything wil be here
+    const userid = req.query.userid;
+    try {
+        db.query(
+            `SELECT * FROM rents WHERE userid='${userid}'`,
+            (err, result) => {
+                // if query error
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                // if user have not rented number yet
+                if (result.length <= 0) {
+                    return res.status(303).send({
+                        msg: 'You are yet to rent a number for your use.'
+                    });
+                }
+                return res.status(200).send({
+                    numbers: result
+                });
+            }
+        );
+    } catch (err) {
+        console.log(err)
+    }
+
+}
+
 const cancelNumber = (req, res, next) => {
     try {
 
@@ -1203,6 +1263,7 @@ const cancelNumber = (req, res, next) => {
         })
     }
 }
+
 module.exports = {
     registerUser,
     socialLogin,
@@ -1230,4 +1291,6 @@ module.exports = {
     getApplications,
     cancelNumber,
     buyService,
+    getBoughtServices,
+    cancelBoughtService,
 }
