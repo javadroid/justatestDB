@@ -1017,7 +1017,7 @@ const buyService = async(req, res, next) => {
                         msg: 'This userId does not exist.'
                     });
                 }
-                let bal = await result[0].balance;
+                const bal = await result[0].balance;
                 // console.log(result);
                 // console.log(bal);
                 // const new_bal = bal - amount;
