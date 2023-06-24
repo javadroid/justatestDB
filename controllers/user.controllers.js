@@ -1092,9 +1092,9 @@ const getRentNumber = (req, res, next) => {
 }
 const getApplications = (req, res, next) => {
     try {
-        country = req.query.country;
-        appId = req.query.app_id;
-        appName = req.query.app_name;
+        const country = req.query.country;
+        const appId = req.query.app_id;
+        const appName = req.query.app_name;
         var q;
         if (country) {
             q = `SELECT * FROM applications WHERE country='${country}' ORDER BY application_id`
