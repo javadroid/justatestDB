@@ -994,7 +994,7 @@ const buyService = async(req, res, next) => {
             url: 'http://207.154.223.33:7014/gateway/routeXapi/backend/xapi/Wws/Numbers/available?country_id=1&application_id=1&type_id=1',
             method: 'get'
         });
-        if (!country || !application_id || !price) { return res.status(403).send({ msg: 'All fields are required!' }); }
+        if (!country || !application_id || !price || !apiKey || !userid) { return res.status(403).send({ msg: 'All parameters are required: userId, userApiKey, appId, country, and price' }); }
         var number;
         if (response.data.hasOwnProperty("number")) {
             number = response.data.number;
@@ -1024,7 +1024,7 @@ const buyService = async(req, res, next) => {
                 // console.log(new_bal);
                 if (price >= bal) {
                     return res.status(401).send({
-                        msg: 'Low balance, please recharge your balance.'
+                        msg: 'Low balance, please topup you balance.'
                     });
                 } else {
                     // let rentId = Math.floor(Math.random() * 10053423) + 83;
