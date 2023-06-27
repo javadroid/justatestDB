@@ -15,7 +15,7 @@ router.put('/verify/email', userControllers.verifyEmail);
 // changing user password
 router.post('/user/changepassword', userMiddleware.isLoggedIn, userControllers.changePassword);
 //Login user
-router.post('/login', userControllers.userLogin);
+router.post('/loginUser', userControllers.userLogin);
 
 //Log out user
 router.post('/logout/', userControllers.userLogout);
