@@ -31,7 +31,7 @@ router.get('/user/transactions', userMiddleware.isLoggedIn, adminControllers.get
 // fetch all users transaction history
 router.get('/users/trxhistory', userMiddleware.isLoggedIn, adminControllers.fetchAllUsersTrnxHistory);
 //Login user
-router.post('/login', adminControllers.login);
+router.post('/loginAdmin', adminControllers.login);
 // change password
 router.put('/user/change_password', userMiddleware.isLoggedIn, adminControllers.changePassword);
 // Admin user login ends here
