@@ -16,7 +16,7 @@ const Profile = () => {
   useEffect(() => {
     const getBalance = async () => {
       const response = await Promise.all([
-        instance.get("http://161.35.218.95:3000/api/balance", {
+        instance.get(process.env.NEXT_PUBLIC_BASE_URL + "/balance", {
           params: {
             userid: sessionStorage.getItem("id"),
           },
@@ -24,7 +24,7 @@ const Profile = () => {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
           },
         }),
-        instance.get("http://161.35.218.95:3000/api/user", {
+        instance.get(process.env.NEXT_PUBLIC_BASE_URL + "/user", {
           params: {
             userid: sessionStorage.getItem("id"),
           },
@@ -51,7 +51,7 @@ const Profile = () => {
   const onSubmit = async (data) => {
     try {
       const password = await instance.put(
-        "http://161.35.218.95:3000/api/change/password",
+        process.env.NEXT_PUBLIC_BASE_URL + "/change/password",
         {
           newPassword: data.newPassword,
           repeat_newPassword: data.repeat_newPassword,
@@ -74,7 +74,7 @@ const Profile = () => {
   const handleApiKeyChange = async () => {
     try {
       const apiChange = await instance.put(
-        "http://161.35.218.95:3000/api/user/changeapikey",
+        process.env.NEXT_PUBLIC_BASE_URL + "/user/changeapikey",
         {},
         {
           params: {

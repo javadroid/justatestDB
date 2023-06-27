@@ -34,7 +34,7 @@ const Navbar = () => {
   useEffect(() => {
     const getLanguages = async () => {
       const data = await instance.get(
-        "http://161.35.218.95:3000/api/languages"
+        process.env.NEXT_PUBLIC_BASE_URL + "/languages"
       );
       setLanguages(data?.data?.languages);
     };

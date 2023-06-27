@@ -21,7 +21,7 @@ const UserDashboardNav = () => {
     }
     const getBalance = async () => {
       const response = await Promise.all([
-        instance.get("http://161.35.218.95:3000/api/balance", {
+        instance.get(process.env.NEXT_PUBLIC_BASE_URL + "/balance", {
           params: {
             userid: sessionStorage.getItem("id"),
           },
@@ -29,7 +29,7 @@ const UserDashboardNav = () => {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
           },
         }),
-        instance.get("http://161.35.218.95:3000/api/user", {
+        instance.get(process.env.NEXT_PUBLIC_BASE_URL + "/user", {
           params: {
             userid: sessionStorage.getItem("id"),
           },

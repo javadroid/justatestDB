@@ -19,7 +19,7 @@ const payment = () => {
   const handleCheckOut = async () => {
     try {
       const response = await axios.post(
-        "http://161.35.218.95:3000/api/stripe/checkout",
+        process.env.NEXT_PUBLIC_BASE_URL + "/api/stripe/checkout",
         {
           amount: amount,
         },
@@ -43,7 +43,7 @@ const payment = () => {
     toast.success("coinbase");
     // try {
     //   const response = await axios.post(
-    //     "http://161.35.218.95:3000/api/stripe/checkout",
+    //     process.env.NEXT_PUBLIC_BASE_URL + "/api/stripe/checkout",
     //     {
     //       amount: amount,
     //     },

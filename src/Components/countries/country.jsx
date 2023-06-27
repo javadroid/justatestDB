@@ -3,7 +3,7 @@ import Image from "next/image";
 import UK from "../../assets/flags/UK.svg";
 import axios from "axios";
 
-const url = "http://161.35.218.95:3000/api/countries";
+const url = process.env.NEXT_PUBLIC_BASE_URL + "/countries";
 
 const Country = () => {
   const [data, setData] = useState([]);

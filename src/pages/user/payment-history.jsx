@@ -5,7 +5,7 @@ import TopUp from "@/Components/TopUpHistory";
 
  
 const TopUpHistory = () => {
-const url = 'http://161.35.218.95:3000/api/user/payment?userid=719pr'
+const url = process.env.NEXT_PUBLIC_BASE_URL + '/api/user/payment?userid=719pr'
   const [topUpHistory, setTopUpHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 

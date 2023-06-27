@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 
 const Popup = ({ isVisible, onClose }) => {
   if (!isVisible) return null;
-  const url = "http://161.35.218.95:3000/api/user";
+  const url = process.env.NEXT_PUBLIC_BASE_URL + "/user";
   const [data, setData] = useState([]);
+  // const [userApiKey, setUserApiKey] = useState=("");
   const fetchData = async () => {
     try {
       const response = await axios.get(url, {
@@ -20,7 +21,7 @@ const Popup = ({ isVisible, onClose }) => {
       return error;
     }
   };
-
+  
   useEffect(() => {
     fetchData();
   }, []);

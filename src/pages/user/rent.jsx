@@ -10,7 +10,7 @@ import { toast } from "react-hot-toast";
 import RentedNumberHistory from "@/Components/RentedNumberHistory";
 
 const Rent = () => {
-  const url = "http://161.35.218.95:3000/api/countries";
+  const url = process.env.NEXT_PUBLIC_BASE_URL + "/countries";
   const [data, setData] = useState([]);
   let maxNameLength = 11;
   const fetchData = async () => {
@@ -34,7 +34,7 @@ const Rent = () => {
 
   const getRentFee = async () => {
     const response = await axios.get(
-      "http://161.35.218.95:3000/api/rentfees/country/duration",
+      process.env.NEXT_PUBLIC_BASE_URL + "/rentfees/country/duration",
       {
         params: {
           country: country || "nigeria",
@@ -59,7 +59,7 @@ const Rent = () => {
 
   const RentNumber = async () => {
     const response = await axios.post(
-      "http://161.35.218.95:3000/api/rent/number",
+      process.env.NEXT_PUBLIC_BASE_URL + "/rent/number",
       {
         country: country,
         count: count,

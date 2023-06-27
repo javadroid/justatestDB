@@ -4,12 +4,15 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Popup from "./popup";
+// import { countryName } from "../countries/country2";
 
 const Services2 = ({ searchTerm }) => {
-  const url = "http://161.35.218.95:3000/api/applications";
+  const url = process.env.NEXT_PUBLIC_BASE_URL + "/applications";
+  const apiKeyUrl = process.env.NEXT_PUBLIC_BASE_URL + "/user";
+  const postUrl = process.env.NEXT_PUBLIC_BASE_URL + "/buy_service";
+  const [userKey, setUserKey] = useState([]);
   const [services, setServices] = useState([]);
   const [showMore, setShowMore] = useState(false);
-
   const [modalVisible, setModalVisible] = useState(false);
   const maxNameLength = 11;
   const toggleMore = () => {
@@ -25,15 +28,57 @@ const Services2 = ({ searchTerm }) => {
       });
       setServices(response.data.applications);
     } catch (error) {
-     return (<div>
-        {error}
-      </div>);
+      return <div>{error}</div>;
+    }
+  };
+
+  const fetchUserApi = async () => {
+    try {
+      const response = await axios.get(apiKeyUrl, {
+        params: {
+          userid: sessionStorage.getItem("id"),
+        },
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+        },
+      });
+      setUserKey(response.data.user.apikey);
+    } catch (error) {
+      return error;
+    }
+  };
+  if (typeof window !== "undefined") {
+    // Perform localStorage action
+    var getCountry = localStorage.getItem("countryName");
+    // const item = localStorage.getItem('key')
+    // console.log(getCountry);
+  }
+  const postServices = async (service) => {
+    try {
+      const response = await axios.post(postUrl, {
+        params: {
+          userid: sessionStorage.getItem("id"),
+        },
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+        },
+        body: {
+          appId: service.application_id,
+          price: service.price,
+          country: getCountry,
+          userApiKey: userKey,
+        },
+      });
+      console.log(response);
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
   useEffect(() => {
     fetchServices();
-  });
+    fetchUserApi();
+  }, []);
 
   if (services.length === 0) {
     return <div>Please wait...</div>;
@@ -83,7 +128,13 @@ const Services2 = ({ searchTerm }) => {
                   </span>
                   <span className="mx-2 xl:mr-0">{service.price}</span>
                 </div>
-                <button onClick={() => setModalVisible(true)} className="group relative overflow-hidden rounded-xl bg-color-primary py-1 text-color-white lg:px-1 xl:px-2">
+                <button
+                  onClick={() => {
+                    postServices(service);
+                    // setModalVisible(true)
+                  }}
+                  className="group relative overflow-hidden rounded-xl bg-color-primary py-1 text-color-white lg:px-1 xl:px-2"
+                >
                   <span className="absolute left-0 top-0 mt-16 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                   <span className="relative">Buy SMS</span>
                 </button>
@@ -93,8 +144,8 @@ const Services2 = ({ searchTerm }) => {
         {searchTerm !== "" &&
           services.filter((service) => {
             return service.app_name
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase());
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase());
           }).length === 0 && (
             <div className="flex items-center justify-between p-2 text-xs md:text-lg">
               No results found
@@ -117,7 +168,7 @@ const Services2 = ({ searchTerm }) => {
           </>
         )}
       </div>
-<Popup isVisible={modalVisible} onClose={() => setModalVisible(false)} />
+      <Popup isVisible={modalVisible} onClose={() => setModalVisible(false)} />
     </div>
   );
 };

@@ -22,7 +22,7 @@ const RentedNumberHistory = () => {
     },
   ];
 
-  const url = "http://161.35.218.95:3000/api/rent/numbers";
+  const url = process.env.NEXT_PUBLIC_BASE_URL + "/rent/numbers";
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hidden, setHidden] = useState(false);
@@ -61,7 +61,7 @@ const RentedNumberHistory = () => {
   const CancelRent = async (number, amount) => {
     try {
       const Cancel = await axios.put(
-        "http://161.35.218.95:3000/api/number/cancel",
+        process.env.NEXT_PUBLIC_BASE_URL + "/number/cancel",
         {},
         {
           params: {

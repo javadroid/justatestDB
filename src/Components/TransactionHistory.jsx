@@ -28,7 +28,7 @@ const History = () => {
     },
   ];
 
-  const url = "http://161.35.218.95:3000/api/rent/numbers";
+  const url = process.env.NEXT_PUBLIC_BASE_URL + "/rent/numbers";
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const fetchData = async () => {

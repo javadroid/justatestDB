@@ -6,9 +6,19 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const UsersCountry = ({ searchTerm }) => {
-  const url = "http://161.35.218.95:3000/api/countries";
   const [showMore, setShowMore] = useState(false);
   const maxNameLength = 11;
+  const [activeIndex, setActiveIndex] = useState(0);
+  const url = process.env.NEXT_PUBLIC_BASE_URL + "/countries";
+  const handleGetCountryName= (name) => {
+    localStorage.setItem("countryName", name)
+    console.log(countryName);
+  }
+
+  function handleClick(index) {
+    setActiveIndex(index === activeIndex ? -1 : index);
+  }
+
   const toggleMore = () => {
     setShowMore(!showMore);
   };
@@ -58,10 +68,12 @@ const UsersCountry = ({ searchTerm }) => {
               return null;
             }
           })
-          .map((country) => (
+          .map((country, index) => (
             <div
               key={country.id}
-              className="mb-1 flex rounded-lg border border-color-primary bg-color-bg_primary-500"
+              onClick={() => {handleClick(index)
+              handleGetCountryName(country.country_name)}}
+              className={activeIndex === index ? "mb-1 flex rounded-lg border border-color-primary bg-color-bg_primary-500 cursor-pointer" : "mb-1 flex rounded-lg bg-color-bg_primary-500 cursor-pointer"}
             >
               <div className="flex w-full items-center p-4 text-xs sm:justify-between md:text-base">
                 <Image src={star} alt="" className="-mt-1" />
@@ -107,5 +119,4 @@ const UsersCountry = ({ searchTerm }) => {
     </div>
   );
 };
-
 export default UsersCountry;

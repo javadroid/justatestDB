@@ -4,7 +4,7 @@ import axios from 'axios';
 import ReferralList from "@/Components/ReferralList";
 
   const ReferralHistory = () => {
-  const url = 'http://161.35.218.95:3000/api/referral/history?refCode=123456'
+  const url = process.env.NEXT_PUBLIC_BASE_URL + '/referral/history?refCode=123456'
   const [referralHistory, setReferralHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 

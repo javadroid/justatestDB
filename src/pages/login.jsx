@@ -26,7 +26,7 @@ const Login = () => {
     const res = async () => {
       if (session) {
         const response = await instance.post(
-          "http://161.35.218.95:3000/api/social_media_sign",
+          process.env.NEXT_PUBLIC_BASE_URL + "/social_media_sign",
           {
             username: session?.user?.name,
             email: session?.user?.email,
@@ -73,7 +73,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const response = await instance.post(
-        "http://161.35.218.95:3000/api/login",
+        process.env.NEXT_PUBLIC_BASE_URL + "/login",
         {
           email: data.email,
           password: data.password,
@@ -89,11 +89,8 @@ const Login = () => {
       toast.success(response.data.msg);
       router.push(`/user/receive-sms/`);
     } catch (error) {
-      // console.log("Error is", error);
+      console.log("Error is", error);
       toast.error(error?.response?.data.msg || "No response from the server.");
-      return (<div>
-        {error}
-      </div>);
     }
   };
 
@@ -150,7 +147,7 @@ const Login = () => {
               />
               <button
                 disabled={!isVerified}
-                className="group relative w-full overflow-hidden rounded-3xl bg-color-primary py-3 text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl"
+                className={isVerified ? "group relative w-full overflow-hidden rounded-3xl bg-color-primary py-3 text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl" : "relative w-full overflow-hidden rounded-3xl bg-color-primary py-3 text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl opacity-50 cursor-not-allowed"}
               >
                 <span className="absolute left-0 top-0 mt-16 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                 <span className="relative">Sign in</span>

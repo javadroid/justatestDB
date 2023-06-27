@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const CountryQty = () => {
-  const url = "http://161.35.218.95:3000/api/countries";
+  const url = process.env.NEXT_PUBLIC_BASE_URL + "/countries";
   const [searchTerm, setSearchTerm] = useState("");
   const maxNameLength = 11;
   const [data, setData] = useState([]);

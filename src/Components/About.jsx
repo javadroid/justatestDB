@@ -52,7 +52,7 @@ export default function About() {
   const onSubmit = async (data) => {
     try {
       const response = await instance.post(
-        "http://161.35.218.95:3000/api/signup",
+        process.env.NEXT_PUBLIC_BASE_URL + "/signup",
         {
           username: data.username,
           email: data.email,

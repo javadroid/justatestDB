@@ -13,7 +13,7 @@ const blog = () => {
   useEffect(() => {
     const getBlogs = async () => {
       const data = await instance.get(
-        "http://161.35.218.95:3000/api/blog/posts"
+        process.env.NEXT_PUBLIC_BASE_URL + "/blog/posts"
       );
       console.log(data);
       setBlogData(data?.data);
