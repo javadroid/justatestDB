@@ -84,7 +84,7 @@ router.put('/feedback', userMiddleware.isLoggedIn, adminControllers.markFeedback
 // feedback module ends here
 
 // Blog posts module starts here
-router.post('/create/post', userMiddleware.isLoggedIn, adminControllers.createPost);
+router.post('/blog_post', userMiddleware.isLoggedIn, adminControllers.createPost);
 // Deleting blog post
 router.delete('/delete/post', userMiddleware.isLoggedIn, adminControllers.deletePostById);
 // Editing blog post
@@ -96,7 +96,7 @@ router.put('/disable/post', userMiddleware.isLoggedIn, adminControllers.disableP
 
 //country module starts here
 //Add up country
-router.post('/create/country', userMiddleware.isLoggedIn, adminControllers.createCountry);
+router.post('/country', userMiddleware.isLoggedIn, adminControllers.createCountry);
 // Wallet module
 // Fetch users available wallet balance
 router.get('/users/balance', userMiddleware.isLoggedIn, adminControllers.fetchusersWallets);
