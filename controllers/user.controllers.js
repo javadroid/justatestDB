@@ -1025,8 +1025,8 @@ const buyService = async(req, res, next) => {
                     });
                 }
                 const bal = await result[0].balance;
-                let r = await parseFloat(bal);
-                let k = await parseFloat(price);
+                const r = parseFloat(bal);
+                const k = parseFloat(price);
                 if (k >= r) {
                     return res.status(401).send({
                         msg: 'Low balance, please topup you balance.'
