@@ -1039,21 +1039,21 @@ module.exports = {
         try {
             const country = req.body.country_name;
             const code = req.body.country_code;
-            const shrt_name = req.body.short_name;
+            const country_id = req.body.country_id;
             let status = "Enable";
             if (!country || !code || !shrt_name) {
                 return res.status(401).send({
                     msg: "Country name, code, and short_name are required!"
                 });
             }
-            await uploadFlag(req, res);
-            if (req.file == undefined) {
-                return res.status(400).send({ msg: "Please upload country flag!" });
-            }
+            // await uploadFlag(req, res);
+            // if (req.file == undefined) {
+            //     return res.status(400).send({ msg: "Please upload country flag!" });
+            // }
             const flg = req.file.originalname;
             let flag = baseURL + `/uploads/${flg}`;
             db.query(
-                `INSERT INTO countries(country_name, country_short_name, country_code, country_flag, status, created_date) VALUES ('${country}', '${shrt_name}', '${code}', '${flag}', '${status}', now())`,
+                `INSERT INTO countries(country_name, country_id, country_code, status, created_date) VALUES ('${country}', '${country_id}',  '${code}', '${flag}', '${status}', now())`,
                 (err, result) => {
                     if (err) {
                         // throw err;
@@ -1530,18 +1530,18 @@ module.exports = {
             const appName = req.body.application_name;
             const country = req.body.country;
             const price = req.body.price;
-            await uploadAppLogo(req, res);
-            if (req.file == undefined) {
-                return res.status(400).send({ msg: "Please upload country flag!" });
-            }
-            const appLogo = req.file.originalname;
+            // await uploadAppLogo(req, res);
+            // if (req.file == undefined) {
+            //     return res.status(400).send({ msg: "Please upload country flag!" });
+            // }
+            // const appLogo = req.file.originalname;
             if (!appId || !appName || !country || !price) {
                 return res.status(401).send({
                     msg: "Application ID, name, price, and country are required!"
                 });
             } else {
                 db.query(
-                    `INSERT INTO applications (application_id, app_name, logo, country, price) VALUES ('${appId}', '${appName}', '${appLogo}', '${country}', '${price}')`,
+                    `INSERT INTO applications (application_id, app_name, country, price) VALUES ('${appId}', '${appName}', '${country}', '${price}')`,
                     (e, result) => {
                         if (e) {
                             // throw err;
