@@ -11,9 +11,12 @@ global.__basedir = __dirname
 
 // set up port
 const PORT = process.env.PORT || 3000;
+app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({
+    // limit: '100mb',
     extended: true,
 }));
+// app.use(bodyParser({ limit: '50mb' }));
 app.use(express.static(`public`))
 app.use(express.json({
     verify: (req, res, buf) => {

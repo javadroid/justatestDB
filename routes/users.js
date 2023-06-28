@@ -96,4 +96,15 @@ router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
     console.log(req.userData);
     res.send('This is the secret content. Only logged in users can see that!');
 });
+router.post('/testing', async(req, res, next) => {
+    const content = req.body.content;
+    let Encoded = await Buffer.from(content, 'utf8').toString('base64');
+    // decoding the content
+    let DEcontent = await Buffer.from(Encoded, 'base64').toString('utf8');
+    console.log("Encoded: " + Encoded);
+    console.log("Decoded: " + DEcontent);
+    console.log("Main content: " + content);
+    return res.send({ Encoded })
+
+})
 module.exports = router;
