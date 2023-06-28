@@ -838,7 +838,7 @@ module.exports = {
     // Blog posts module starts here
     createPost: async(req, res, next) => {
         const social_media_links = {};
-        let baseURL = "http://localhost:3000";
+        let baseURL = "http://161.35.218.95:3000";
         try {
             const { title, author, description, content } = req.body;
             // console.log(title, author, description, content);
