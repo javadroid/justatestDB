@@ -930,9 +930,11 @@ const rentNumber = async(req, res, next) => {
                     let bal = await result[0].balance;
                     console.log(result);
                     console.log(bal);
-                    const new_bal = bal - amount;
+                    let r = await parseFloat(bal);
+                    let k = await parseFloat(amount);
+                    const new_bal = r - k;
                     console.log(new_bal);
-                    if (amount >= bal) {
+                    if (k >= r) {
                         return res.status(401).send({
                             msg: 'Low balance, please recharge your balance.'
                         });
@@ -994,7 +996,12 @@ const buyService = async(req, res, next) => {
             url: 'http://207.154.223.33:7014/gateway/routeXapi/backend/xapi/Wws/Numbers/available?country_id=1&application_id=1&type_id=1',
             method: 'get'
         });
-        if (!country || !application_id || !price || !apiKey || !userid) { return res.status(403).send({ msg: 'All parameters are required: userId, userApiKey, appId, country, and price' }); }
+        if (!userid) { return res.status(403).send({ msg: 'All parameters are required: userId is missing.' }); }
+        if (!country) { return res.status(403).send({ msg: 'All parameters are required: country is missing.' }); }
+        if (!application_id) { return res.status(403).send({ msg: 'All parameters are required: appId is missing.' }); }
+        if (!apiKey) { return res.status(403).send({ msg: 'All parameters are required: userApiKey is missing.' }); }
+        if (!price) { return res.status(403).send({ msg: 'All parameters are required: price is missing.' }); }
+
         var number;
         if (response.data.hasOwnProperty("number")) {
             number = response.data.number;
@@ -1018,11 +1025,9 @@ const buyService = async(req, res, next) => {
                     });
                 }
                 const bal = await result[0].balance;
-                // console.log(result);
-                // console.log(bal);
-                // const new_bal = bal - amount;
-                // console.log(new_bal);
-                if (price >= bal) {
+                let r = await parseFloat(bal);
+                let k = await parseFloat(price);
+                if (k >= r) {
                     return res.status(401).send({
                         msg: 'Low balance, please topup you balance.'
                     });
