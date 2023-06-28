@@ -17,9 +17,8 @@ const Country = () => {
       });
       setData(response.data.countries);
     } catch (error) {
-      return (<div>
-        {error}
-      </div>);
+      console.log(error)
+
     }
   };
 

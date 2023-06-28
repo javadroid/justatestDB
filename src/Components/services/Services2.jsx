@@ -4,17 +4,24 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Popup from "./popup";
-// import { countryName } from "../countries/country2";
 
 const Services2 = ({ searchTerm }) => {
+  const instance = axios.create({
+    validateStatus: function (status) {
+      return status >= 200 && status < 300; // default
+    },
+  });
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/applications";
   const apiKeyUrl = process.env.NEXT_PUBLIC_BASE_URL + "/user";
   const postUrl = process.env.NEXT_PUBLIC_BASE_URL + "/buy_service";
-  const [userKey, setUserKey] = useState([]);
+  const [userKey, setUserKey] = useState("");
   const [services, setServices] = useState([]);
   const [showMore, setShowMore] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const maxNameLength = 11;
+  // const clickedCountry = localStorage.getItem("selectedCountry");
+  // console.log(clickedCountry);
+
   const toggleMore = () => {
     setShowMore(!showMore);
   };
@@ -28,13 +35,13 @@ const Services2 = ({ searchTerm }) => {
       });
       setServices(response.data.applications);
     } catch (error) {
-      return <div>{error}</div>;
+      console.log(error);
     }
   };
 
   const fetchUserApi = async () => {
     try {
-      const response = await axios.get(apiKeyUrl, {
+      const response = await instance.get(apiKeyUrl, {
         params: {
           userid: sessionStorage.getItem("id"),
         },
@@ -44,33 +51,41 @@ const Services2 = ({ searchTerm }) => {
       });
       setUserKey(response.data.user.apikey);
     } catch (error) {
-      return error;
+      console.log(error.message);
     }
   };
-  if (typeof window !== "undefined") {
-    // Perform localStorage action
-    var getCountry = localStorage.getItem("countryName");
-    // const item = localStorage.getItem('key')
-    // console.log(getCountry);
-  }
+
   const postServices = async (service) => {
+    const clickedCountry = localStorage.getItem("selectedCountry");
+    console.log(clickedCountry);
     try {
-      const response = await axios.post(postUrl, {
-        params: {
-          userid: sessionStorage.getItem("id"),
-        },
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-        body: {
-          appId: service.application_id,
-          price: service.price,
-          country: getCountry,
+      const response = await instance.post(
+        postUrl,
+        {
+          userId: sessionStorage.getItem("id"),
           userApiKey: userKey,
+          appId: service.application_id,
+          country: clickedCountry,
+          price: service.price,
         },
-      });
+        {
+          // params: {
+          // },
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+            // "Content-Type": "application/json",
+          },
+        }
+      );
       console.log(response);
+      toast.success(response.data.msg);
     } catch (error) {
+      const clickedCountry = localStorage.getItem("selectedCountry");
+      console.log(sessionStorage.getItem("id"));
+      console.log(userKey);
+      console.log(service.application_id);
+      console.log(clickedCountry);
+      console.log(service.price);
       console.log(error.message);
     }
   };
@@ -131,6 +146,7 @@ const Services2 = ({ searchTerm }) => {
                 <button
                   onClick={() => {
                     postServices(service);
+                    fetchUserApi();
                     // setModalVisible(true)
                   }}
                   className="group relative overflow-hidden rounded-xl bg-color-primary py-1 text-color-white lg:px-1 xl:px-2"
@@ -163,7 +179,7 @@ const Services2 = ({ searchTerm }) => {
           </>
         ) : (
           <>
-            <span>Available services - 2312</span>
+            <span>Available services - {services.length}</span>
             <ChevronDownIcon width={16} />
           </>
         )}

@@ -5,7 +5,6 @@ const Popup = ({ isVisible, onClose }) => {
   if (!isVisible) return null;
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/user";
   const [data, setData] = useState([]);
-  // const [userApiKey, setUserApiKey] = useState=("");
   const fetchData = async () => {
     try {
       const response = await axios.get(url, {
@@ -18,7 +17,7 @@ const Popup = ({ isVisible, onClose }) => {
       });
       setData(response.data.user.apikey);
     } catch (error) {
-      return error;
+      console.log(error)
     }
   };
   

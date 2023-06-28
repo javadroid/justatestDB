@@ -10,20 +10,20 @@ const UsersCountry = ({ searchTerm }) => {
   const maxNameLength = 11;
   const [activeIndex, setActiveIndex] = useState(0);
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/countries";
-  const handleGetCountryName= (name) => {
-    localStorage.setItem("countryName", name)
-    console.log(countryName);
-  }
+  const [data, setData] = useState([]);
 
   function handleClick(index) {
     setActiveIndex(index === activeIndex ? -1 : index);
   }
+  const handleCountryClick = (countryName) => {
+    localStorage.setItem("selectedCountry", countryName);
+    // console.log(countryName)
+  };
 
   const toggleMore = () => {
     setShowMore(!showMore);
   };
 
-  const [data, setData] = useState([]);
   const fetchData = async () => {
     try {
       const response = await axios.get(url, {
@@ -33,15 +33,14 @@ const UsersCountry = ({ searchTerm }) => {
       });
       setData(response.data.countries);
     } catch (error) {
-      return (<div>
-        {error}
-      </div>);
+      console.log(error)
+
     }
   };
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   if (data.length === 0) {
     return <div>Please wait...</div>;
@@ -72,7 +71,7 @@ const UsersCountry = ({ searchTerm }) => {
             <div
               key={country.id}
               onClick={() => {handleClick(index)
-              handleGetCountryName(country.country_name)}}
+                handleCountryClick(country.country_name)}}
               className={activeIndex === index ? "mb-1 flex rounded-lg border border-color-primary bg-color-bg_primary-500 cursor-pointer" : "mb-1 flex rounded-lg bg-color-bg_primary-500 cursor-pointer"}
             >
               <div className="flex w-full items-center p-4 text-xs sm:justify-between md:text-base">
@@ -111,7 +110,7 @@ const UsersCountry = ({ searchTerm }) => {
           </>
         ) : (
           <>
-            <span>Available countries - 182</span>
+            <span>Available countries - {data.length}</span>
             <ChevronDownIcon width={16} />
           </>
         )}

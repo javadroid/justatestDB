@@ -68,10 +68,8 @@ export default function About() {
       toast.success(response.data.msg);
       router.push("/");
     } catch (error) {
-        toast.error(error.response.data.msg);
-      return (<div>
-        {error}
-      </div>);
+      toast.error(error.response.data.msg);
+      console.log(error);
     }
   };
 

@@ -27,13 +27,13 @@ const CountryServices = ({ title }) => {
       });
       setData(response.data.countries);
     } catch (error) {
-      return <div>{error}</div>;
+      console.log(error)
     }
   };
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   if (data.length === 0) {
     return <div>Please wait...</div>;

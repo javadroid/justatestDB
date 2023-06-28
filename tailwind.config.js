@@ -9,7 +9,7 @@ module.exports = {
       sm: "375px",
       md: "768px",
       lg: "1024px",
-      xl: "1440px"
+      xl: "1440px",
     },
     extend: {
       colors: {
@@ -36,13 +36,13 @@ module.exports = {
         "color-decor_blue": "#2aabee",
         "color-tg": "#29a9ea",
         "color-yt": "#c4302b",
-        "color-border_light": "#aec3f940"
+        "color-border_light": "#aec3f940",
       },
       dropShadow: {
         "3xl": "0px 4px 15px rgba(37,39,86,0.15)",
       },
       maxWidth: {
-        '1/2': '50%',
+        "1/2": "50%",
       },
       fontSize: {
         h1Size: "3.6rem",
@@ -54,7 +54,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('tailwind-scrollbar'),
-  ],
+  plugins: [require("tailwind-scrollbar")],
 };

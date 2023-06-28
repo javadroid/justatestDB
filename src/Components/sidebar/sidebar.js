@@ -21,8 +21,4 @@ export const sidelists = [
     title:"Top up balance",
     icon:<><CreditCardIcon className="h-6 w-6 text-color-primary" /></>,
   },
-  {},
-  {},
-  {},
-  {},
 ]

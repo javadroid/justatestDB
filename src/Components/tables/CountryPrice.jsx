@@ -19,9 +19,7 @@ const CountryPrice = () => {
       });
       setData(response.data.countries);
     } catch (error) {
-      return (<div>
-        {error}
-      </div>);
+      console.log(error);
     }
   };
 
@@ -30,7 +28,7 @@ const CountryPrice = () => {
   }, []);
 
   if (data.length === 0) {
-    return <div>Please wait...</div>;
+    return <div>No data</div>;
   }
 
   return (

@@ -28,20 +28,26 @@ const History = () => {
     },
   ];
 
-  const url = process.env.NEXT_PUBLIC_BASE_URL + "/rent/numbers";
+  const url = process.env.NEXT_PUBLIC_BASE_URL + "/bought_apps?userId=719pr";
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const instance = axios.create({
+    validateStatus: function (status) {
+      return status >= 200 && status < 300;
+    },
+  });
+
   const fetchData = async () => {
     try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
+      const response = await instance.get(url, {
         params: {
           userid: sessionStorage.getItem("id"),
         },
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+        },
       });
-      setData(response.data.numbers);
+      setData(response.data.bougth_services);
       setIsLoading(false);
     } catch (error) {
       return error;
@@ -51,6 +57,19 @@ const History = () => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  if (data.length == 0) {
+    return (
+      <div>
+        <h2 className="text-center font-extrabold md:pl-8 md:text-left md:text-xl">
+          History
+        </h2>
+        <div className="flex items-center justify-center">
+          No transaction history yet
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -73,19 +92,19 @@ const History = () => {
                 </div>
                 <div className="table-body lg:text-xs">
                   {isLoading ? (
-                    <p>Loading...</p>
+                    <p className="text-center text-xl">Loading...</p>
                   ) : (
-                    <>
+                    <div className="roll h-full max-h-[700px] w-full overflow-hidden overflow-y-auto scrollbar-thin scrollbar-track-[#0188ff2a] scrollbar-thumb-color-decor_blue">
                       {data.map((data, index) => (
                         <div
-                          className="table-row rounded-xl pb-4 shadow-[0_0_12px_-10px] md:rounded-none md:shadow-none"
+                          className="table-row rounded-xl pb-4 shadow shadow-color-border_light md:rounded-none md:shadow-none"
                           key={index}
                         >
                           <div className="td bought md:py-2">
                             <h6 className="font-medium text-color-table_gray">
                               Bought
                             </h6>
-                            <p>{data.rented_date}</p>
+                            <p>{data.purchased_date}</p>
                           </div>
                           <div className="td service">
                             <h6 className="font-medium text-color-table_gray">
@@ -93,7 +112,7 @@ const History = () => {
                             </h6>
                             <p className="flex items-center">
                               <Image src={vib} alt="" className="mr-1" />
-                              {data.userid}
+                              {data.user_id}
                             </p>
                           </div>
                           <div className="td country">
@@ -115,11 +134,11 @@ const History = () => {
                               Phone
                             </h6>
                             <p className="flex items-center">
-                              {data.rented_number}
-                              <CopyToClipboard textToCopy={data.rented_number}>
+                              {data.phone_number}
+                              <CopyToClipboard textToCopy={data.phone_number}>
                                 <ClipboardDocumentCheckIcon
                                   width={20}
-                                  className="ml-3 text-color-primary cursor-pointer"
+                                  className="ml-3 cursor-pointer text-color-primary"
                                 />
                               </CopyToClipboard>
                             </p>
@@ -128,7 +147,7 @@ const History = () => {
                             <h6 className="font-medium text-color-table_gray">
                               Price
                             </h6>
-                            <p>{data.amount}</p>
+                            <p className="lg:text-center">{data.price}</p>
                           </div>
                           <div className="td message">
                             <h6 className="font-medium text-color-table_gray">
@@ -136,12 +155,12 @@ const History = () => {
                             </h6>
                             <p className="group relative cursor-pointer overflow-hidden rounded-3xl bg-[rgba(255,67,130,.1)] py-2 text-color-api-red md:rounded-md">
                               <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-inherit transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
-                              <span className="relative">{data.status}</span>
+                              <span className="relative">{data.message}</span>
                             </p>
                           </div>
                         </div>
                       ))}
-                    </>
+                    </div>
                   )}
                 </div>
               </div>

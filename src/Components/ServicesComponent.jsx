@@ -33,13 +33,13 @@ const ServicesComponent = ({ title }) => {
       });
       setServices(response.data.applications);
     } catch (error) {
-      return <div>{error}</div>;
+      console.log(error);
     }
   };
 
   useEffect(() => {
     fetchServices();
-  });
+  }, []);
 
   if (services.length === 0) {
     return <div>Please wait...</div>;
