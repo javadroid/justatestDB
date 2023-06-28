@@ -67,15 +67,14 @@ const Services2 = ({ searchTerm }) => {
         },
       });
       setBalance(response.data.data[0].balance);
-      // console.log(response.data.data[0].balance);
     } catch (error) {
       console.log(error.message || error);
     }
-    // setUserData(response[1].data?.user);
   };
 
   const postServices = async (service) => {
     const clickedCountry = localStorage.getItem("selectedCountry");
+    console.log(clickedCountry);
     try {
       const response = await instance.post(
         postUrl,
@@ -98,12 +97,6 @@ const Services2 = ({ searchTerm }) => {
       toast.success(response.data.msg);
     } catch (error) {
       console.log(error.message);
-      // const clickedCountry = localStorage.getItem("selectedCountry");
-      // console.log(sessionStorage.getItem("id"));
-      // console.log(userKey);
-      // console.log(service.application_id);
-      // console.log(clickedCountry);
-      // console.log(service.price);
     }
   };
 
