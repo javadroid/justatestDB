@@ -4,6 +4,7 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Popup from "./popup";
+import { toast } from "react-hot-toast";
 
 const Services2 = ({ searchTerm }) => {
   const instance = axios.create({
@@ -14,13 +15,13 @@ const Services2 = ({ searchTerm }) => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/applications";
   const apiKeyUrl = process.env.NEXT_PUBLIC_BASE_URL + "/user";
   const postUrl = process.env.NEXT_PUBLIC_BASE_URL + "/buy_service";
+  const balanceUrl = process.env.NEXT_PUBLIC_BASE_URL + "/balance";
   const [userKey, setUserKey] = useState("");
   const [services, setServices] = useState([]);
   const [showMore, setShowMore] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [balance, setBalance] = useState(0);
   const maxNameLength = 11;
-  // const clickedCountry = localStorage.getItem("selectedCountry");
-  // console.log(clickedCountry);
 
   const toggleMore = () => {
     setShowMore(!showMore);
@@ -55,44 +56,61 @@ const Services2 = ({ searchTerm }) => {
     }
   };
 
+  const getBalance = async () => {
+    try {
+      const response = await instance.get(balanceUrl, {
+        params: {
+          userid: sessionStorage.getItem("id"),
+        },
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+        },
+      });
+      setBalance(response.data.data[0].balance);
+      // console.log(response.data.data[0].balance);
+    } catch (error) {
+      console.log(error.message || error);
+    }
+    // setUserData(response[1].data?.user);
+  };
+
   const postServices = async (service) => {
     const clickedCountry = localStorage.getItem("selectedCountry");
-    console.log(clickedCountry);
     try {
       const response = await instance.post(
         postUrl,
         {
-          userId: sessionStorage.getItem("id"),
           userApiKey: userKey,
           appId: service.application_id,
           country: clickedCountry,
           price: service.price,
         },
         {
-          // params: {
-          // },
+          params: {
+            userId: sessionStorage.getItem("id"),
+          },
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-            // "Content-Type": "application/json",
           },
         }
       );
       console.log(response);
       toast.success(response.data.msg);
     } catch (error) {
-      const clickedCountry = localStorage.getItem("selectedCountry");
-      console.log(sessionStorage.getItem("id"));
-      console.log(userKey);
-      console.log(service.application_id);
-      console.log(clickedCountry);
-      console.log(service.price);
       console.log(error.message);
+      // const clickedCountry = localStorage.getItem("selectedCountry");
+      // console.log(sessionStorage.getItem("id"));
+      // console.log(userKey);
+      // console.log(service.application_id);
+      // console.log(clickedCountry);
+      // console.log(service.price);
     }
   };
 
   useEffect(() => {
     fetchServices();
     fetchUserApi();
+    getBalance();
   }, []);
 
   if (services.length === 0) {
@@ -145,7 +163,12 @@ const Services2 = ({ searchTerm }) => {
                 </div>
                 <button
                   onClick={() => {
-                    postServices(service);
+                    if (balance < service.price) {
+                      toast.error("Low balance, please topup your balance.");
+                      return;
+                    } else {
+                      postServices(service);
+                    }
                     fetchUserApi();
                     // setModalVisible(true)
                   }}
