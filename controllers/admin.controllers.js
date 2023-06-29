@@ -1052,7 +1052,7 @@ module.exports = {
             // if (req.file == undefined) {
             //     return res.status(400).send({ msg: "Please upload country flag!" });
             // }
-            const flg = req.file.originalname;
+            // const flg = req.file.originalname;
             let flag = baseURL + `/uploads/${flg}`;
             db.query(
                 `INSERT INTO countries(country_name, country_id, country_code, status, created_date) VALUES ('${country}', '${country_id}',  '${code}', '${flag}', '${status}', now())`,
