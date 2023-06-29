@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const adminControllers = require('../controllers/admin.controllers.js');
 const userMiddleware = require('../middleware/users.js');
+const multer = require('multer')();
 // fetch all users
 router.get('/all_users', userMiddleware.isLoggedIn, adminControllers.getAllUsers);
 
@@ -84,7 +85,7 @@ router.put('/feedback', userMiddleware.isLoggedIn, adminControllers.markFeedback
 // feedback module ends here
 
 // Blog posts module starts here
-router.post('/blog_post', userMiddleware.isLoggedIn, adminControllers.createPost);
+router.post('/blog_post', userMiddleware.isLoggedIn, multer.any(), adminControllers.createPost);
 // Deleting blog post
 router.delete('/delete/post', userMiddleware.isLoggedIn, adminControllers.deletePostById);
 // Editing blog post

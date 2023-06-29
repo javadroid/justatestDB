@@ -863,14 +863,15 @@ module.exports = {
             }
 
             console.log(social_media_links);
-            if (!title || !author || !description || !content) {
-                return res.status(401).send({
-                    msg: "Title, author, description, content field con not be empty!"
-                });
-            }
+            // if (!title || !author || !description || !content) {
+            //     return res.status(401).send({
+            //         msg: "Title, author, description, content field con not be empty!"
+            //     });
+            // }
 
             // encoding the content input
             await uploadImage(req, res);
+            console.log(req.file);
             if (req.file == undefined) {
                 return res.status(400).send({ msg: "Please upload an image!" });
             }
@@ -1042,9 +1043,9 @@ module.exports = {
             const code = req.body.country_code;
             const country_id = req.body.country_id;
             let status = "Enable";
-            if (!country || !code || !shrt_name) {
+            if (!country || !code || !country_id) {
                 return res.status(401).send({
-                    msg: "Country name, code, and short_name are required!"
+                    msg: "Country name, code, and country Id  are required!"
                 });
             }
             // await uploadFlag(req, res);
