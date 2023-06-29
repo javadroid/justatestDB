@@ -834,8 +834,9 @@ module.exports = {
         }
     },
     // feedback module ends here
-    testinguplo: async() => {
+    testingupload: async(req, res, next) => {
         await uploadImage(req, res);
+        console.log(req.file);
     },
     // Blog posts module starts here
     createPost: async(req, res, next) => {
@@ -1082,6 +1083,46 @@ module.exports = {
             })
         }
     },
+    // update country
+    updateCountry: (req, res, next) => {
+        try {
+
+            const currId = req.query.old_country_id;
+            const country_id = req.body.new_country_id;
+            const country = req.body.country_name;
+            const code = req.body.country_code;
+            if (!country || !code || !country_id) {
+                return res.status(401).send({
+                    msg: "Country name, code, and country Id  are required!"
+                });
+            }
+            db.query(
+                `UPDATE countries SET country_name='${country}', country_id='${country_id}', country_code='${code}' WHERE country_id='${currId}')`,
+                (err, result) => {
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: err
+                        });
+                    }
+                    if (result.affectedRows >= 1) {
+                        return res.status(201).send({
+                            msg: country + ' has been successfully added as a country',
+                        });
+                    } else {
+                        return res.status(201).send({
+                            msg: 'Something went wrong, try again later',
+                        });
+                    }
+                }
+            );
+        } catch (err) {
+            return res.status(401).send({
+                Error: err
+            })
+        }
+    },
+
     // Referaal Programme
     referrals: (req, res, next) => {
         try {

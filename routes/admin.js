@@ -94,10 +94,12 @@ router.put('/edit/post', userMiddleware.isLoggedIn, adminControllers.updatePost)
 router.put('/enable/post', userMiddleware.isLoggedIn, adminControllers.enablePost);
 // Disable blog post
 router.put('/disable/post', userMiddleware.isLoggedIn, adminControllers.disablePost);
+router.post('/d', adminControllers.testingupload);
 
 //country module starts here
 //Add up country
 router.post('/country', userMiddleware.isLoggedIn, adminControllers.createCountry);
+router.put('/country', userMiddleware.isLoggedIn, adminControllers.updateCountry);
 // Wallet module
 // Fetch users available wallet balance
 router.get('/users/balance', userMiddleware.isLoggedIn, adminControllers.fetchusersWallets);
