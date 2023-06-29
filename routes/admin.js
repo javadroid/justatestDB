@@ -100,6 +100,8 @@ router.post('/d', adminControllers.testingupload);
 //Add up country
 router.post('/country', userMiddleware.isLoggedIn, adminControllers.createCountry);
 router.put('/country', userMiddleware.isLoggedIn, adminControllers.updateCountry);
+router.put('/enable_country', userMiddleware.isLoggedIn, adminControllers.enableCountry);
+router.put('/disable_country', userMiddleware.isLoggedIn, adminControllers.disableCountry);
 // Wallet module
 // Fetch users available wallet balance
 router.get('/users/balance', userMiddleware.isLoggedIn, adminControllers.fetchusersWallets);

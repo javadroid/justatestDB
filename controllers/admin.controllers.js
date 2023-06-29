@@ -1107,7 +1107,7 @@ module.exports = {
                     }
                     if (result.affectedRows >= 1) {
                         return res.status(201).send({
-                            msg: country + ' has been successfully added as a country',
+                            msg: country + ' has been successfully updated',
                         });
                     } else {
                         return res.status(201).send({
@@ -1122,7 +1122,66 @@ module.exports = {
             })
         }
     },
-
+    enableCountry: (req, res, next) => {
+        try {
+            const id = req.query.country_id
+            const status = "Enable";
+            db.query(
+                `UPDATE countries SET status='${status}' WHERE country_id='${id}')`,
+                (err, result) => {
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: err
+                        });
+                    }
+                    if (result.affectedRows >= 1) {
+                        return res.status(201).send({
+                            msg: "Successfully enable.",
+                        });
+                    } else {
+                        return res.status(201).send({
+                            msg: 'Something went wrong, try again later',
+                        });
+                    }
+                }
+            );
+        } catch (err) {
+            return res.status(401).send({
+                Error: err
+            })
+        }
+    },
+    disableCountry: (req, res, next) => {
+        try {
+            const id = req.query.country_id
+            const status = "Disable";
+            db.query(
+                `UPDATE countries SET status='${status}' WHERE country_id='${id}')`,
+                (err, result) => {
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: err
+                        });
+                    }
+                    if (result.affectedRows >= 1) {
+                        return res.status(201).send({
+                            msg: "Successfully enable.",
+                        });
+                    } else {
+                        return res.status(201).send({
+                            msg: 'Something went wrong, try again later',
+                        });
+                    }
+                }
+            );
+        } catch (err) {
+            return res.status(401).send({
+                Error: err
+            })
+        }
+    },
     // Referaal Programme
     referrals: (req, res, next) => {
         try {
