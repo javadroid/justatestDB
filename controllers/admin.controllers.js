@@ -834,7 +834,9 @@ module.exports = {
         }
     },
     // feedback module ends here
-
+    testinguplo: async() => {
+        await uploadImage(req, res);
+    },
     // Blog posts module starts here
     createPost: async(req, res, next) => {
         const social_media_links = {};

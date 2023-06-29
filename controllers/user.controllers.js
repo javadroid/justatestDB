@@ -557,7 +557,7 @@ const getLanguages = (rea, res, next) => {
 const getCountries = (rea, res, next) => {
     try {
         db.query(
-            `SELECT id, country_name, country_id, country_code, apps_pieces FROM countries`,
+            `SELECT id, country_name, country_id, country_code, apps_pieces, status FROM countries`,
             (err, result) => {
                 // if query error
                 if (err) {
