@@ -841,7 +841,8 @@ module.exports = {
         let baseURL = "http://161.35.218.95:3000";
         try {
             const { title, author, description, content } = req.body;
-            // console.log(title, author, description, content);
+
+            console.log(title, author, description, content);
             if (req.body.facebook_link) {
                 social_media_links.facebook = req.body.facebook_link;
             }
