@@ -1128,7 +1128,7 @@ module.exports = {
             const status = "Enable";
             // return res.send(id);
             db.query(
-                `UPDATE countries SET status='${status}' WHERE country_id='${id}'`,
+                `UPDATE countries SET status='${status}' WHERE id='${id}'`,
                 (err, result) => {
                     if (err) {
                         // throw err;
@@ -1136,8 +1136,8 @@ module.exports = {
                             msg: err
                         });
                     }
-                    return res.send(result);
-                    if (result.affectedRows >= 1) {
+                    // return res.send(result);
+                    if (result.affectedRows) {
                         return res.status(201).send({
                             msg: "Successfully enabled.",
                         });
@@ -1159,7 +1159,7 @@ module.exports = {
             const id = req.query.country_id
             const status = "Disable";
             db.query(
-                `UPDATE countries SET status='${status}' WHERE country_id='${id}'`,
+                `UPDATE countries SET status='${status}' WHERE id='${id}'`,
                 (err, result) => {
                     if (err) {
                         // throw err;
@@ -1168,7 +1168,7 @@ module.exports = {
                         });
                     }
 
-                    if (result.affectedRows >= 1) {
+                    if (result.affectedRows) {
                         return res.status(201).send({
                             msg: "Successfully disabled.",
                         });
