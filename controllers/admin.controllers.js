@@ -1126,6 +1126,7 @@ module.exports = {
         try {
             const id = req.query.country_id
             const status = "Enable";
+            return id;
             db.query(
                 `UPDATE countries SET status='${status}' WHERE country_id='${id}'`,
                 (err, result) => {
