@@ -1100,10 +1100,11 @@ const cancelBoughtService = (req, res, next) => {
     try {
 
         const appId = req.query.appId;
-        const sta = "Cancel"
+        const sta = "Cancelled"
+        const new_msg = "SMS not received";
         if (!appId) { return res.status(403).send({ msg: 'application/service Id is required as parameter.' }); }
         db.query(
-            `UPDATE purchached_apps SET status='${sta}' WHERE application_id='${appId}'`,
+            `UPDATE purchached_apps SET status='${sta}', message='${new_msg}' WHERE application_id='${appId}'`,
             (err, result) => {
                 // user does not exists
                 if (err) {
