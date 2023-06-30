@@ -134,18 +134,28 @@ const payment = () => {
                 <div className=" mb-5 grid grid-cols-2 gap-4 lg:grid-cols-3">
                   <div
                     onClick={() => setAmount(10)}
-                    className="rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md"
+                    className={`rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md ${
+                      amount === 10
+                        ? "rounded-md border-4 border-blue-500"
+                        : "border-0"
+                    }`}
                   >
                     $10
                   </div>
                   <div
                     onClick={() => setAmount(50)}
-                    className="rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md"
+                    className={`rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md ${
+                      amount === 50
+                        ? "rounded-md border-4 border-blue-500"
+                        : "border-0"
+                    }`}
                   >
                     $50
                   </div>
                   <div
-                    className="rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md"
+                    className={`rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md ${
+                      amount === 100 ? "border-4 border-blue-500" : "border-0"
+                    }`}
                     onClick={() => setAmount(100)}
                   >
                     $100

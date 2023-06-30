@@ -9,7 +9,7 @@ import Image from "next/image";
 import { Icon } from "@iconify/react";
 import { useRouter } from "next/router";
 
-const BlogComponent = ({ title, description, Author, date, id }) => {
+const BlogComponent = ({ title, description, Author, date, id, socialLinks }) => {
   const router = useRouter();
   const readMore = () => {
     router.push(`/blog/${id}`);

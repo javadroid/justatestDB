@@ -90,12 +90,12 @@ const RentedNumberHistory = () => {
   const id = data.length;
   console.log(id, "id");
 
-  setTimeout(() => {
-    setHidden(true);
-    setTimeout(() => {
-      setHidden(false);
-    }, 33000);
-  }, 5000);
+  // setTimeout(function () {
+  //   setHidden(true);
+  //   setTimeout(function () {
+  //     console.log("alright");
+  //   }, 3300);
+  // }, 5000);
 
   return (
     <div>
