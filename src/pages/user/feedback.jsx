@@ -10,7 +10,7 @@ import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 
 const Feedback = () => {
-  const url = "http://161.35.218.95:3000/api/feedback";
+  const url = process.env.NEXT_PUBLIC_BASE_URL + "/feedback";
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   function postData({ email, username, message }) {

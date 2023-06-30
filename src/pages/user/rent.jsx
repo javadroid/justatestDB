@@ -1,16 +1,14 @@
-import React from "react";
 import UserDashboardLayout from "@/Components/UserDashboardLayout";
-import Country from "@/Components/countries/country";
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import UK from "../../assets/flags/UK.svg";
+// import UK from "../../assets/flags/UK.svg";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import RentedNumberHistory from "@/Components/RentedNumberHistory";
 
 const Rent = () => {
-  const url = "http://161.35.218.95:3000/api/countries";
+  const url = process.env.NEXT_PUBLIC_BASE_URL + "/countries";
   const [data, setData] = useState([]);
   let maxNameLength = 11;
   const fetchData = async () => {
@@ -35,7 +33,7 @@ const Rent = () => {
 
   const getRentFee = async () => {
     const response = await axios.get(
-      "http://161.35.218.95:3000/api/rentfees/country/duration",
+      process.env.NEXT_PUBLIC_BASE_URL + "/rentfees/country/duration",
       {
         params: {
           country: country || "nigeria",
@@ -78,7 +76,7 @@ const Rent = () => {
       return null;
     }
     const response = await axios.post(
-      "http://161.35.218.95:3000/api/rent/number",
+      process.env.NEXT_PUBLIC_BASE_URL + "/rent/number",
       {
         country: country,
         count: count,
@@ -138,8 +136,10 @@ const Rent = () => {
                                 <td className="flex w-full items-center justify-start py-1">
                                   <span>
                                     <Image
-                                      src={UK}
-                                      alt=""
+                                      src={`https://flagcdn.com/${country.country_code.toLowerCase()}.svg`}
+                                      width={20}
+                                      height={20}
+                                      alt={country.country_name}
                                       className="ml-4 mr-2 flex w-8 items-center"
                                     />
                                   </span>

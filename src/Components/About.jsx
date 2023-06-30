@@ -52,7 +52,7 @@ export default function About() {
   const onSubmit = async (data) => {
     try {
       const response = await instance.post(
-        "http://161.35.218.95:3000/api/signup",
+        process.env.NEXT_PUBLIC_BASE_URL + "/signup",
         {
           username: data.username,
           email: data.email,
@@ -68,10 +68,8 @@ export default function About() {
       toast.success(response.data.msg);
       router.push("/");
     } catch (error) {
-        toast.error(error.response.data.msg);
-      return (<div>
-        {error}
-      </div>);
+      toast.error(error.response.data.msg);
+      console.log(error);
     }
   };
 

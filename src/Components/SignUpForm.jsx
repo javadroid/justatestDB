@@ -53,7 +53,7 @@ const SignUpForm = () => {
     console.log(data);
     try {
       const response = await instance.post(
-        "http://161.35.218.95:3000/api/signup",
+        process.env.NEXT_PUBLIC_BASE_URL + "/signup",
         {
           username: data.username,
           email: data.email,
@@ -143,7 +143,7 @@ const SignUpForm = () => {
           />
           <button
             disabled={!isVerified}
-            className="w-full rounded-3xl bg-color-primary py-3 text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl"
+            className={isVerified ? "group relative w-full overflow-hidden rounded-3xl bg-color-primary py-3 text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl" : "relative w-full overflow-hidden rounded-3xl bg-color-primary py-3 text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl opacity-50 cursor-not-allowed"}
           >
             Sign up
           </button>

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const ServiceQty = () => {
-  const url = "http://161.35.218.95:3000/api/applications";
+  const url = process.env.NEXT_PUBLIC_BASE_URL + "/applications";
   const [services, setServices] = useState([]);
   const maxNameLength = 11;
   const [searchTerm, setSearchTerm] = useState("");
@@ -18,7 +18,7 @@ const ServiceQty = () => {
       });
       setServices(response.data.applications);
     } catch (error) {
-      return <div>{error}</div>;
+      console.log(error);
     }
   };
 

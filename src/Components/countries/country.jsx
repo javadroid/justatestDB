@@ -3,7 +3,7 @@ import Image from "next/image";
 import UK from "../../assets/flags/UK.svg";
 import axios from "axios";
 
-const url = "http://161.35.218.95:3000/api/countries";
+const url = process.env.NEXT_PUBLIC_BASE_URL + "/countries";
 
 const Country = () => {
   const [data, setData] = useState([]);
@@ -17,9 +17,8 @@ const Country = () => {
       });
       setData(response.data.countries);
     } catch (error) {
-      return (<div>
-        {error}
-      </div>);
+      console.log(error)
+
     }
   };
 
@@ -43,8 +42,10 @@ const Country = () => {
             <td className="flex w-full items-center justify-start py-1">
               <span>
                 <Image
-                  src={UK}
-                  alt=""
+                  src={`https://flagcdn.com/${country.country_code.toLowerCase()}.svg`}
+                  width={20}
+                  height={20}
+                  alt={country.country_id}
                   className="ml-4 mr-2 flex w-8 items-center"
                 />
               </span>

@@ -23,7 +23,7 @@ const Rent = () => {
   useEffect(() => {
     const getRentFee = async () => {
       const response = await axios.get(
-        "http://161.35.218.95:3000/api/rentfees/country/duration",
+        process.env.NEXT_PUBLIC_BASE_URL + "/rentfees/country/duration",
         {
           params: {
             country: country || "nigeria",

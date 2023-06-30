@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import React from 'react'
 import UserDashboardLayout from "@/Components/UserDashboardLayout";
 import step1 from '../../assets/images/step_1.jpg'
 import step2 from '../../assets/images/step_2.webp'

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 const Popup = ({ isVisible, onClose }) => {
   if (!isVisible) return null;
-  const url = "http://161.35.218.95:3000/api/user";
+  const url = process.env.NEXT_PUBLIC_BASE_URL + "/user";
   const [data, setData] = useState([]);
   const fetchData = async () => {
     try {
@@ -17,10 +17,10 @@ const Popup = ({ isVisible, onClose }) => {
       });
       setData(response.data.user.apikey);
     } catch (error) {
-      return error;
+      console.log(error)
     }
   };
-
+  
   useEffect(() => {
     fetchData();
   }, []);

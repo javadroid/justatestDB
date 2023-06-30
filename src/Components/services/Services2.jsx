@@ -4,17 +4,30 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Popup from "./popup";
+import { toast } from "react-hot-toast";
 
 const Services2 = ({ searchTerm }) => {
-  const url = "http://161.35.218.95:3000/api/applications";
+  const instance = axios.create({
+    validateStatus: function (status) {
+      return status >= 200 && status < 300; // default
+    },
+  });
+  const url = process.env.NEXT_PUBLIC_BASE_URL + "/applications";
+  const apiKeyUrl = process.env.NEXT_PUBLIC_BASE_URL + "/user";
+  const postUrl = process.env.NEXT_PUBLIC_BASE_URL + "/buy_service";
+  const balanceUrl = process.env.NEXT_PUBLIC_BASE_URL + "/balance";
+  const [userKey, setUserKey] = useState("");
   const [services, setServices] = useState([]);
   const [showMore, setShowMore] = useState(false);
-
   const [modalVisible, setModalVisible] = useState(false);
+  const [balance, setBalance] = useState(0);
   const maxNameLength = 11;
+
   const toggleMore = () => {
     setShowMore(!showMore);
   };
+
+  // const handleClick = () => {};
 
   const fetchServices = async () => {
     try {
@@ -25,12 +38,74 @@ const Services2 = ({ searchTerm }) => {
       });
       setServices(response.data.applications);
     } catch (error) {
-      return <div>{error}</div>;
+      console.log(error);
+    }
+  };
+
+  const fetchUserApi = async () => {
+    try {
+      const response = await instance.get(apiKeyUrl, {
+        params: {
+          userid: sessionStorage.getItem("id"),
+        },
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+        },
+      });
+      setUserKey(response.data.user.apikey);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const getBalance = async () => {
+    try {
+      const response = await instance.get(balanceUrl, {
+        params: {
+          userid: sessionStorage.getItem("id"),
+        },
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+        },
+      });
+      setBalance(response.data.data[0].balance);
+    } catch (error) {
+      console.log(error.message || error);
+    }
+  };
+
+  const postServices = async (service) => {
+    const clickedCountry = localStorage.getItem("selectedCountry");
+    console.log(clickedCountry);
+    try {
+      const response = await instance.post(
+        postUrl,
+        {
+          userApiKey: userKey,
+          appId: service.application_id,
+          country: clickedCountry,
+          price: service.price,
+        },
+        {
+          params: {
+            userId: sessionStorage.getItem("id"),
+          },
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        }
+      );
+      // console.log(response);
+      toast.success(response.data.msg);
+    } catch (error) {
+      console.log(error.message);
     }
   };
 
   useEffect(() => {
     fetchServices();
+    fetchUserApi();
+    getBalance();
   }, []);
 
   if (services.length === 0) {
@@ -82,8 +157,18 @@ const Services2 = ({ searchTerm }) => {
                   <span className="mx-2 xl:mr-0">{service.price}</span>
                 </div>
                 <button
-                  onClick={() => setModalVisible(true)}
-                  className="group relative overflow-hidden rounded-xl bg-color-primary py-1 text-color-white lg:px-1 xl:px-2"
+                  onClick={() => {
+                    if (balance < service.price) {
+                      toast.error("Low balance, please topup your balance.");
+                      return;
+                    } else {
+                      postServices(service);
+                    }
+                    // if (service.price <= 0) {
+                    //   setModalVisible(true);
+                    // } else
+                  }}
+                  className="group relative overflow-hidden rounded-xl bg-color-primary py-1 text-color-white active:opacity-60 lg:px-1 xl:px-2"
                 >
                   <span className="absolute left-0 top-0 mt-16 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                   <span className="relative">Buy SMS</span>
@@ -113,7 +198,7 @@ const Services2 = ({ searchTerm }) => {
           </>
         ) : (
           <>
-            <span>Available services - 2312</span>
+            <span>Available services - {services.length}</span>
             <ChevronDownIcon width={16} />
           </>
         )}

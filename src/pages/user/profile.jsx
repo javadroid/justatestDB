@@ -16,7 +16,7 @@ const Profile = () => {
   useEffect(() => {
     const getBalance = async () => {
       const response = await Promise.all([
-        instance.get("http://161.35.218.95:3000/api/balance", {
+        instance.get(process.env.NEXT_PUBLIC_BASE_URL + "/balance", {
           params: {
             userid: sessionStorage.getItem("id"),
           },
@@ -24,7 +24,7 @@ const Profile = () => {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
           },
         }),
-        instance.get("http://161.35.218.95:3000/api/user", {
+        instance.get(process.env.NEXT_PUBLIC_BASE_URL + "/user", {
           params: {
             userid: sessionStorage.getItem("id"),
           },
@@ -51,7 +51,7 @@ const Profile = () => {
   const onSubmit = async (data) => {
     try {
       const password = await instance.put(
-        "http://161.35.218.95:3000/api/change/password",
+        process.env.NEXT_PUBLIC_BASE_URL + "/change/password",
         {
           newPassword: data.newPassword,
           repeat_newPassword: data.repeat_newPassword,
@@ -74,7 +74,7 @@ const Profile = () => {
   const handleApiKeyChange = async () => {
     try {
       const apiChange = await instance.put(
-        "http://161.35.218.95:3000/api/user/changeapikey",
+        process.env.NEXT_PUBLIC_BASE_URL + "/user/changeapikey",
         {},
         {
           params: {
@@ -96,7 +96,7 @@ const Profile = () => {
     <section>
       <div className="bg-color-bg_light pb-8 pt-10 lg:pl-4 lg:pr-2">
         <h1 className="mb-5 text-center text-2xl font-bold">Profile</h1>
-        <div className="mx-2 h-full rounded-xl bg-white shadow-lg lg:w-full xl:w-[80vw]">
+        <div className="mx-2 px-2 h-full rounded-xl bg-white shadow-lg w-full lg:max-w-3xl lg:mx-auto xl:max-w-5xl">
           <div className="flex flex-col lg:flex-row lg:items-baseline lg:gap-72">
             <div className="flex flex-grow flex-col px-2">
               <div className="my-5 flex justify-between">

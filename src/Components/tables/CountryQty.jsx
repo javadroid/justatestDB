@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const CountryQty = () => {
-  const url = "http://161.35.218.95:3000/api/countries";
+  const url = process.env.NEXT_PUBLIC_BASE_URL + "/countries";
   const [searchTerm, setSearchTerm] = useState("");
   const maxNameLength = 11;
   const [data, setData] = useState([]);
@@ -18,9 +18,7 @@ const CountryQty = () => {
       });
       setData(response.data.countries);
     } catch (error) {
-      return (<div>
-        {error}
-      </div>);
+      console.log(error);
     }
   };
 
@@ -68,7 +66,13 @@ const CountryQty = () => {
                 className="flex items-center justify-between p-2 text-xs md:text-lg"
               >
                 <div className="flex items-center space-x-2">
-                  <Image className="h-6 w-6" src={countryImg} alt="country" />
+                  <Image
+                    className="h-6 w-6"
+                    src={`https://flagcdn.com/${country.country_code.toLowerCase()}.svg`}
+                    width={20}
+                    height={20}
+                    alt={country.country_id}
+                  />
                   <span>
                     {country.country_name.length > maxNameLength
                       ? `${country.country_name.substring(0, maxNameLength)}...`

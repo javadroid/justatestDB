@@ -23,7 +23,7 @@ const BlogPage = () => {
   useEffect(() => {
     const getComments = async () => {
       const data = await instance.get(
-        "http://161.35.218.95:3000/api/blog/post",
+        process.env.NEXT_PUBLIC_BASE_URL + "/blog/post",
         {
           params: {
             post_id: router?.query?.id || 1,
@@ -50,7 +50,7 @@ const BlogPage = () => {
     console.log(data);
     try {
       const response = await instance.post(
-        "http://161.35.218.95:3000/api/comment",
+        process.env.NEXT_PUBLIC_BASE_URL + "/comment",
         {
           comment: data.post,
         },

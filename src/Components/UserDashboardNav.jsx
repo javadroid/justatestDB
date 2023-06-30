@@ -21,7 +21,7 @@ const UserDashboardNav = () => {
     }
     const getBalance = async () => {
       const response = await Promise.all([
-        instance.get("http://161.35.218.95:3000/api/balance", {
+        instance.get(process.env.NEXT_PUBLIC_BASE_URL + "/balance", {
           params: {
             userid: sessionStorage.getItem("id"),
           },
@@ -29,7 +29,7 @@ const UserDashboardNav = () => {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
           },
         }),
-        instance.get("http://161.35.218.95:3000/api/user", {
+        instance.get(process.env.NEXT_PUBLIC_BASE_URL + "/user", {
           params: {
             userid: sessionStorage.getItem("id"),
           },
@@ -48,11 +48,11 @@ const UserDashboardNav = () => {
   const [userData, setUserData] = useState({});
 
   return (
-    <nav className="top-0 z-50 flex h-16 w-full items-center justify-between bg-color-bg_primary-500 p-4 text-white lg:h-20">
-      <div className="flex flex-grow items-center justify-end lg:justify-between">
-        <div className="mr-5 hidden lg:flex lg:items-center lg:gap-24 lg:py-8">
-          <Image src={Logo} alt="diginums" className="w-[12%] h-auto" />
-          <button className="group flex items-center space-x-5 rounded-md border border-color-primary bg-white px-9 py-2 text-black">
+    <nav className="top-0 z-50 flex h-16 w-full items-center justify-between bg-color-bg_primary-500 p-2 text-white lg:h-20">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-center md:space-x-2 lg:justify-between">
+        <div className="flex w-full items-center justify-center md:w-3/5 lg:justify-between lg:gap-10 lg:py-8">
+          <Image src={Logo} alt="diginums" className="h-auto w-full md:w-1/5" />
+          <button className="group hidden items-center space-x-5 rounded-md border border-color-primary bg-white px-2 py-2 text-black md:flex md:w-4/5">
             <div>
               <Icon
                 icon="ion:paper-plane"
@@ -67,27 +67,23 @@ const UserDashboardNav = () => {
             </div>
           </button>
         </div>
-        <div className=" flex items-center justify-evenly gap-x-9">
-          <div className="w-full flex items-center justify-between gap-10 rounded-lg border border-color-accent bg-white px-5 py-1 lg:py-2">
-            <div className="w-1/3">
-              <p className="hidden text-xs text-black lg:inline-block">
+        <div className="flex w-full items-center justify-end gap-x-1 md:w-2/5 lg:w-2/5">
+          <div className="flex w-3/4 items-center justify-between rounded-lg border border-color-accent bg-white px-2 py-1 lg:py-2">
+            <div className="w-full md:w-1/3">
+              <p className="hidden text-xs text-black md:inline-block">
                 Balance:
               </p>
               <p className="font-bold text-black">{Number(balance).toFixed(2)}</p>
             </div>
-            <button className="group w-2/3 relative flex items-center space-x-2 overflow-hidden rounded-2xl bg-color-accent px-2 py-2 text-black hover:text-white">
-              <span className="absolute left-0 top-0 mt-16 h-20 w-full rounded-3xl bg-color-decor_orange transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
-              <div>
-                <CreditCardIcon className="relative h-6 w-6 text-black group-hover:rotate-45 group-hover:text-color-white" />
-              </div>
-              {/* <div className=" flex flex-col items-start"> */}
-                <p className="relative hidden text-sm font-bold lg:block">
-                  Top up
-                </p>
-              {/* </div> */}
+            <button className="group relative flex w-2/3 items-center justify-center overflow-hidden rounded  bg-color-accent text-black hover:text-white md:w-1/2 md:rounded-lg md:py-2">
+              <span className="absolute left-0 top-0 mt-16 hidden h-20 w-full rounded-3xl bg-color-decor_orange transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
+              <CreditCardIcon className="relative h-6 w-6 text-black group-hover:rotate-45 group-hover:text-color-white" />
+              <p className="relative hidden text-sm font-bold md:block md:w-1/2">
+                Top up
+              </p>
             </button>
           </div>
-          <div className="group relative flex items-center justify-between">
+          <div className="group relative flex w-1/4 items-center justify-end">
             <UserCircleIcon className="h-8 w-8 text-color-primary" />
             <ChevronDownIcon className="h-6 w-6 text-color-primary" />
             <div className="absolute right-1/2 z-50 hidden pt-32 group-hover:block">

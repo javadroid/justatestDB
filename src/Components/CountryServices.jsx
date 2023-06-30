@@ -1,11 +1,12 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import star from "../assets/images/star.svg";
 import UsersCountry from "./countries/country2";
+import star from "../assets/images/star.svg";
 import { useState } from "react";
 
 const CountryServices = ({ title }) => {
-const [ searchTerms, setSearchTerms ] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
     <div className="country flex flex-col py-4">
       <div className="flex flex-col items-start md:flex-row md:items-center md:space-x-8">
@@ -18,13 +19,13 @@ const [ searchTerms, setSearchTerms ] = useState("");
           <input
             type="text"
             placeholder="Search by country"
-            onChange={(e) => setSearchTerms(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="text-xs italic text-[#aec3f9] placeholder:text-[#aec3f9] focus:outline-none sm:text-base"
           />
         </div>
       </div>
       <div className="country body">
-        <UsersCountry  searchTerm={searchTerms} />
+        <UsersCountry searchTerm={searchTerm} />
       </div>
     </div>
   );

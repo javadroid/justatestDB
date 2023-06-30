@@ -1,11 +1,12 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import star from "../assets/images/star.svg";
 import Services2 from "./services/Services2";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 
 const ServicesComponent = ({ title }) => {
-  const [ searchTerms, setSearchTerms ] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
     <div className="service flex flex-col py-4">
       <div className="flex flex-col items-start px-4 md:flex-row md:items-center md:space-x-8">
@@ -20,13 +21,13 @@ const ServicesComponent = ({ title }) => {
           <input
             type="text"
             placeholder="Search by service"
-            onChange={(e) => setSearchTerms(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="px-4 text-xs italic text-[#aec3f9] placeholder:text-[#aec3f9] focus:outline-none sm:text-base"
           />
         </form>
       </div>
       <div className="service body">
-        <Services2 searchTerm={searchTerms} />
+        <Services2 searchTerm={searchTerm} />
       </div>
     </div>
   );
