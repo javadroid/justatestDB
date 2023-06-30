@@ -42,8 +42,10 @@ const Country = () => {
             <td className="flex w-full items-center justify-start py-1">
               <span>
                 <Image
-                  src={UK}
-                  alt=""
+                  src={`https://flagcdn.com/${country.country_code.toLowerCase()}.svg`}
+                  width={20}
+                  height={20}
+                  alt={country.country_id}
                   className="ml-4 mr-2 flex w-8 items-center"
                 />
               </span>

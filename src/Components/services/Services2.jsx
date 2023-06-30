@@ -27,6 +27,8 @@ const Services2 = ({ searchTerm }) => {
     setShowMore(!showMore);
   };
 
+  // const handleClick = () => {};
+
   const fetchServices = async () => {
     try {
       const response = await axios.get(url, {
@@ -93,7 +95,7 @@ const Services2 = ({ searchTerm }) => {
           },
         }
       );
-      console.log(response);
+      // console.log(response);
       toast.success(response.data.msg);
     } catch (error) {
       console.log(error.message);
@@ -162,10 +164,11 @@ const Services2 = ({ searchTerm }) => {
                     } else {
                       postServices(service);
                     }
-                    fetchUserApi();
-                    // setModalVisible(true)
+                    // if (service.price <= 0) {
+                    //   setModalVisible(true);
+                    // } else
                   }}
-                  className="group relative overflow-hidden rounded-xl bg-color-primary py-1 text-color-white lg:px-1 xl:px-2"
+                  className="group relative overflow-hidden rounded-xl bg-color-primary py-1 text-color-white active:opacity-60 lg:px-1 xl:px-2"
                 >
                   <span className="absolute left-0 top-0 mt-16 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                   <span className="relative">Buy SMS</span>

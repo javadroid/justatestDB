@@ -72,8 +72,8 @@ const router = useRouter();
   ];
 
   return (
-    <aside className="h-auto w-[12%] bg-color-bg_primary-500 md:w-1/4 md:px-8">
-      <div className="flex w-full flex-col space-y-2 text-sm lg:text-sm xl:px-8 lg:mt-12 lg:font-medium">
+    <aside className="h-auto w-[12%] bg-color-bg_primary-500 lg:w-1/4 lg:px-8">
+      <div className="flex w-full flex-col space-y-2 text-sm items-center lg:items-start lg:text-sm xl:px-8 lg:mt-12 lg:font-medium">
         {sidebarLists.map((list, index) => {
           const isActive = list.path === router.pathname;
         return (<Link title={list.name} key={index} href={list.path} className={isActive ? "bg-color-bg_light flex items-center gap-3 p-2 relative rounded-xl active:bg-color-bg_light" :"flex items-center gap-3 p-2 relative rounded-xl transition-all ease-in-out duration-300 hover:bg-color-bg_light active:bg-color-bg_light"}>

@@ -3,7 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import serviceimg from "../../assets/socials/Amazon.svg";
 import { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import axios from "axios";
+
 
 const ServicePrice = () => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/applications";
@@ -72,7 +75,7 @@ const ServicePrice = () => {
                 className="flex items-center justify-between p-2 text-xs md:text-lg"
               >
                 <div className="flex items-center space-x-2">
-                  <Image className="h-6 w-6" src={serviceimg} alt="service" />
+                  <FontAwesomeIcon icon={faFacebook} />
                   <span className="lg:text-base">
                     {service.app_name.length > maxNameLength
                       ? `${service.app_name.substring(0, maxNameLength)}...`

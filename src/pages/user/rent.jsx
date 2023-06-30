@@ -2,7 +2,7 @@ import UserDashboardLayout from "@/Components/UserDashboardLayout";
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import UK from "../../assets/flags/UK.svg";
+// import UK from "../../assets/flags/UK.svg";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import RentedNumberHistory from "@/Components/RentedNumberHistory";
@@ -114,8 +114,10 @@ const Rent = () => {
                                 <td className="flex w-full items-center justify-start py-1">
                                   <span>
                                     <Image
-                                      src={UK}
-                                      alt=""
+                                      src={`https://flagcdn.com/${country.country_code.toLowerCase()}.svg`}
+                                      width={20}
+                                      height={20}
+                                      alt={country.country_name}
                                       className="ml-4 mr-2 flex w-8 items-center"
                                     />
                                   </span>
