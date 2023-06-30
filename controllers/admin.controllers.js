@@ -1126,7 +1126,7 @@ module.exports = {
         try {
             const id = req.query.country_id
             const status = "Enable";
-            return res.send(id);
+            // return res.send(id);
             db.query(
                 `UPDATE countries SET status='${status}' WHERE country_id='${id}'`,
                 (err, result) => {
@@ -1136,6 +1136,7 @@ module.exports = {
                             msg: err
                         });
                     }
+                    return res.send(result);
                     if (result.affectedRows >= 1) {
                         return res.status(201).send({
                             msg: "Successfully enabled.",
@@ -1166,6 +1167,7 @@ module.exports = {
                             msg: err
                         });
                     }
+
                     if (result.affectedRows >= 1) {
                         return res.status(201).send({
                             msg: "Successfully disabled.",
