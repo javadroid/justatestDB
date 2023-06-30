@@ -49,7 +49,7 @@ const Navbar = () => {
       }`}
     >
       <div className="relative mx-auto flex max-w-6xl flex-grow items-center justify-between">
-        <div>
+        <div onClick={() => router.push("/")}>
           <Image
             src={Logo}
             alt="Logo Image"

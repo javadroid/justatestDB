@@ -70,9 +70,9 @@ const SignUpForm = () => {
       router.push("/");
     } catch (error) {
       toast.error(error.response.data.msg);
-      return (<div>
-        {error}
-      </div>);
+      return <div>{error}</div>;
+      // console.log("Error is", error);
+      // router.push("/user/receive-sms");
     }
   };
 

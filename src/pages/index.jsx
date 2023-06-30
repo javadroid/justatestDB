@@ -27,7 +27,6 @@ import arrow from "@/assets/arrows/arrow.png";
 import next from "@/assets/arrows/next.png";
 
 export default function Home() {
-
   return (
     <>
       <Head>
@@ -40,21 +39,33 @@ export default function Home() {
       <main className="">
         <section className="w-full bg-gradient-to-b from-color-primary_darken to-color-primary_black">
           <div className="relative mx-auto mt-14 flex max-w-6xl flex-col px-4 pt-16 lg:flex-row lg:items-center lg:justify-between">
-              <Image width={200} src={curvedArrow} alt="curved-arrow" className="absolute -bottom-24 right-10 sm:right-20  md:right-[40%]" />
-            <div className="basis-1/2 relative">
-              <Image src={rightArrow} width={60} alt="right arrow" className="hidden absolute -left-20 top-50 bottom-0 lg:flex" />
+            <Image
+              width={200}
+              src={curvedArrow}
+              alt="curved-arrow"
+              className="absolute -bottom-24 right-10 sm:right-20  md:right-[40%]"
+            />
+            <div className="relative basis-1/2">
+              <Image
+                src={rightArrow}
+                width={60}
+                alt="right arrow"
+                className="top-50 absolute -left-20 bottom-0 hidden lg:flex"
+              />
               <div>
                 <p className="text-sm text-white md:text-2xl">
-                 with us you can
+                  With us you can
                 </p>
                 <h1 className="mb-4 text-center text-xl font-extrabold text-color-white md:w-full md:text-left md:text-5xl lg:text-4xl">
                   Send an SMS from anywhere
                 </h1>
               </div>
-              <div className="flex w-full flex-col items-center justify-between space-y-5 pt-11 md:flex-row md:place-items-baseline md:justify-center md:space-y-0 md:space-x-6">
-                
-                <Link href={"/login"}  className="w-full rounded-full bg-white py-2 text-center text-sm md:text-lg font-bold text-color-primary_black group relative overflow-hidden hover:text-white">
-                  <span className="absolute left-0 top-0 mt-12 h-20 w-full bg-color-primary_black transition-all duration-300 ease-in-out rounded-3xl group-hover:-mt-4"></span>
+              <div className="flex w-full flex-col items-center justify-between space-y-5 pt-11 md:flex-row md:place-items-baseline md:justify-center md:space-x-6 md:space-y-0">
+                <Link
+                  href={"/login"}
+                  className="group relative w-full overflow-hidden rounded-full bg-white py-2 text-center text-sm font-bold text-color-primary_black hover:text-white md:text-lg"
+                >
+                  <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                   <button className="relative">Receive SMS</button>
                 </Link>
                 <Link
@@ -80,10 +91,10 @@ export default function Home() {
         <section className="bg-color-bg_light-100 py-20">
           <div className="mx-auto max-w-7xl lg:flex lg:flex-col">
             <div className="px-1">
-              <h2 className="text-center md:text-xl font-extrabold text-color-primary">
+              <h2 className="text-center font-extrabold text-color-primary md:text-xl">
                 Check How it Works!
               </h2>
-              <h1 className="text-center mt-4 md:text-2xl font-extrabold max-w-lg mx-auto">
+              <h1 className="mx-auto mt-4 max-w-lg text-center font-extrabold md:text-2xl">
                 Choose your country and service receive SMS right now
               </h1>
             </div>
@@ -106,40 +117,42 @@ export default function Home() {
             </h1>
             <div className="md:flex md:justify-center md:space-x-5">
               <div className="flex flex-col items-center rounded-3xl bg-color-bg_primary-500 py-5">
-                <Image
-                  src={Ad}
-                  alt="AD image"
-                  className="h-80 w-80"
-                />
+                <Image src={Ad} alt="AD image" className="h-80 w-80" />
                 <div className="flex flex-col">
-                  <h3 className="w-3/4 self-center text-center mx-auto md:w-full md:text-2xl font-bold">
+                  <h3 className="mx-auto w-3/4 self-center text-center font-bold md:w-full md:text-2xl">
                     Have you registered on Facebook?
                   </h3>
-                  <p className="md:w-3/4 pt-4 px-4 text-xs self-center text-left md:text-lg font-medium lg:px-0">
+                  <p className="self-center px-4 pt-4 text-left text-xs font-medium md:w-3/4 md:text-lg lg:px-0">
                     You immediately receive an avalanche of targeted
                     advertising.
                   </p>
                 </div>
               </div>
               <div className="mt-4 flex flex-col items-center rounded-3xl bg-color-bg_primary-500 py-5 md:mt-0">
-                <Image
-                  src={Ad2}
-                  alt="AD image"
-                  className="h-80 w-80"
-                />
+                <Image src={Ad2} alt="AD image" className="h-80 w-80" />
                 <div className="flex flex-col">
-                  <h3 className="w-3/4 self-center text-center md:text-2xl font-bold md:text-left">
+                  <h3 className="w-3/4 self-center text-center font-bold md:text-left md:text-2xl">
                     Post an ad on Craigslist?
                   </h3>
-                  <p className="md:w-3/4 pt-4 px-4 text-xs self-center text-left md:text-lg font-medium lg:px-0">
+                  <p className="self-center px-4 pt-4 text-left text-xs font-medium md:w-3/4 md:text-lg lg:px-0">
                     Expect a lot of spam calls with offers to arange a loan!
                   </p>
                 </div>
               </div>
             </div>
             <div className="relative mx-auto mt-16 max-w-3xl">
-              <Image src={scribble} width={100} alt="scribble" className="hidden lg:flex absolute -left-40" />
-              <Image src={zigzag} width={100} alt="zigzag" className="hidden lg:flex absolute -right-[10%] -top-10"/>
+              <Image
+                src={scribble}
+                width={100}
+                alt="scribble"
+                className="absolute -left-40 hidden lg:flex"
+              />
+              <Image
+                src={zigzag}
+                width={100}
+                alt="zigzag"
+                className="absolute -right-[10%] -top-10 hidden lg:flex"
+              />
               <div className="flex items-center space-x-9">
                 <Image
                   src={Cry}
@@ -171,9 +184,19 @@ export default function Home() {
         <SignUpSecton />
         <section className="bg-color-bg_light py-16">
           <div className="relative mx-auto flex max-w-7xl flex-col items-center px-5">
-            <Image src={arrow} width={100} alt="arrow" className="hidden lg:flex absolute top-1/3" />
-            <Image src={next} width={100} alt="arrow" className="hidden lg:flex absolute bottom-1/4" />
-            <h1 className="self-center text-center md:text-2xl font-extrabold md:w-2/5">
+            <Image
+              src={arrow}
+              width={100}
+              alt="arrow"
+              className="absolute top-1/3 hidden lg:flex"
+            />
+            <Image
+              src={next}
+              width={100}
+              alt="arrow"
+              className="absolute bottom-1/4 hidden lg:flex"
+            />
+            <h1 className="self-center text-center font-extrabold md:w-2/5 md:text-2xl">
               Registration on the sites without SMS to your personal number in 3
               steps
             </h1>

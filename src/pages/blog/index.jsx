@@ -31,7 +31,7 @@ const blog = () => {
     <section className="my-10 flex">
       <div className="mx-auto flex max-w-7xl flex-col px-3 lg:flex-row lg:items-start lg:gap-5">
         <div>
-          {blogData?.posts?.map((blog) => {
+          {blogData?.post?.map((blog) => {
             return (
               <BlogComponent
                 key={blog.id}

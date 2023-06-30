@@ -25,7 +25,7 @@ const RentedNumberHistory = () => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/rent/numbers";
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [hidden, setHidden] = useState(false);
+  const [hidden, setHidden] = useState(true);
 
   const fetchData = async () => {
     try {
@@ -88,12 +88,9 @@ const RentedNumberHistory = () => {
   const id = data.length;
   console.log(id, "id");
 
-  setTimeout(() => {
-    setHidden(true);
-    setTimeout(() => {
-      setHidden(false);
-    }, 33000);
-  }, 5000);
+  setTimeout(function () {
+    setHidden(false);
+  }, 4000);
 
   return (
     <div>
@@ -180,7 +177,9 @@ const RentedNumberHistory = () => {
                                 <button className="w-full rounded-md bg-color-primary py-3 font-extrabold text-white">
                                   Read More
                                 </button>
-                                {data.id == id + 1 && hidden ? (
+                                {data.id == id + 1 &&
+                                hidden &&
+                                data?.status !== "Cancelled" ? (
                                   <button
                                     className="w-full rounded-md bg-rose-500 py-3 font-extrabold text-white"
                                     onClick={() =>

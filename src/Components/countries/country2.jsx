@@ -7,6 +7,7 @@ import axios from "axios";
 
 const UsersCountry = ({ searchTerm }) => {
   const [showMore, setShowMore] = useState(false);
+
   const maxNameLength = 11;
   const [activeIndex, setActiveIndex] = useState(0);
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/countries";
@@ -34,7 +35,6 @@ const UsersCountry = ({ searchTerm }) => {
       setData(response.data.countries);
     } catch (error) {
       console.log(error)
-
     }
   };
 

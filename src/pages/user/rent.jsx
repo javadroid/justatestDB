@@ -29,6 +29,7 @@ const Rent = () => {
   const [count, setCount] = useState(1);
   const [fee, setFee] = useState(1);
   const [show, setShow] = useState(false);
+  const [balance, setBalance] = useState(0);
 
   const getRentFee = async () => {
     const response = await axios.get(
@@ -44,9 +45,23 @@ const Rent = () => {
     setFee(response?.data?.data[0]?.amount);
   };
 
+  const getBalance = async () => {
+    const response = await axios.get("http://161.35.218.95:3000/api/balance", {
+      params: {
+        userid: sessionStorage.getItem("id"),
+      },
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+      },
+    });
+    console.log("Here is my res", response);
+    setBalance(response?.data?.data[0]?.balance);
+  };
+
   useEffect(() => {
     fetchData();
     getRentFee();
+    getBalance();
   }, [country, time]);
 
   if (data.length === 0) {
@@ -56,6 +71,10 @@ const Rent = () => {
   const rentFee = fee * count;
 
   const RentNumber = async () => {
+    if (balance < rentFee) {
+      toast.error("Insufficient balance. Please top up your account.");
+      return null;
+    }
     const response = await axios.post(
       process.env.NEXT_PUBLIC_BASE_URL + "/rent/number",
       {
@@ -80,6 +99,8 @@ const Rent = () => {
       window.location.reload();
     }, 2000);
   };
+  console.log(typeof rentFee, "This is the rent fee");
+  console.log(balance, "Balance");
 
   return (
     <div className="h-full w-full bg-color-bg_light">
@@ -96,6 +117,7 @@ const Rent = () => {
                 <div className="py-6 pl-4">
                   <span className="font-extrabold">1. Select your country</span>
                 </div>
+                
                 {/* countries */}
                 <div className="body">
                   <div className="country mb-4 px-2">

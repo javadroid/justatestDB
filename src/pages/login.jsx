@@ -213,7 +213,7 @@ const Login = () => {
                 />
               </div>
             </div>
-            <div>
+            {/* <div>
               <Link href="/">
                 <button className="flex items-center justify-center space-x-4 rounded-lg bg-[#54a9eb] px-4 py-2 text-center text-color-white transition duration-500 ease-in-out hover:opacity-75">
                   <Icon icon="akar-icons:telegram-fill" className="text-3xl" />
@@ -226,7 +226,7 @@ const Login = () => {
               >
                 Sign Out
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

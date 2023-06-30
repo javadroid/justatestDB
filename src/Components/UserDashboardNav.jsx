@@ -73,7 +73,7 @@ const UserDashboardNav = () => {
               <p className="hidden text-xs text-black md:inline-block">
                 Balance:
               </p>
-              <p className="max-w-md font-bold text-black">{balance}</p>
+              <p className="font-bold text-black">{Number(balance).toFixed(2)}</p>
             </div>
             <button className="group relative flex w-2/3 items-center justify-center overflow-hidden rounded  bg-color-accent text-black hover:text-white md:w-1/2 md:rounded-lg md:py-2">
               <span className="absolute left-0 top-0 mt-16 hidden h-20 w-full rounded-3xl bg-color-decor_orange transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
