@@ -1140,7 +1140,7 @@ module.exports = {
                             msg: "Successfully enabled.",
                         });
                     } else {
-                        return res.status(201).send({
+                        return res.status(505).send({
                             msg: 'Something went wrong, try again later',
                         });
                     }
