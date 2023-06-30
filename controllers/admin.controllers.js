@@ -1157,7 +1157,7 @@ module.exports = {
             const id = req.query.country_id
             const status = "Disable";
             db.query(
-                `UPDATE countries SET status='${status}' WHERE country_id='${id}'s`,
+                `UPDATE countries SET status='${status}' WHERE country_id='${id}'`,
                 (err, result) => {
                     if (err) {
                         // throw err;
