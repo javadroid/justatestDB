@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 1);
   }, []);
   return (
     <div>

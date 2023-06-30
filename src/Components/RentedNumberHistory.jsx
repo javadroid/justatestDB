@@ -1,6 +1,4 @@
 import { ClipboardDocumentCheckIcon } from "@heroicons/react/24/outline";
-import Image from "next/image";
-import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";

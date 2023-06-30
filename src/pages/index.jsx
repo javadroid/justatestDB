@@ -38,7 +38,6 @@ export default function Home() {
 
       <main className="">
         <section className="w-full bg-gradient-to-b from-color-primary_darken to-color-primary_black">
-          {/* <section className="w-full bg-gradient-to-b from-[#0d41d5] to-[#0187FF]"> */}
           <div className="relative mx-auto mt-14 flex max-w-6xl flex-col px-4 pt-16 lg:flex-row lg:items-center lg:justify-between">
             <Image
               width={200}

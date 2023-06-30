@@ -31,14 +31,10 @@ const Rent = () => {
           },
         }
       );
-      // console.log(response?.data?.data[0]?.amount);
       setFee(response?.data?.data[0]?.amount);
     };
     getRentFee();
   }, [country, time]);
-
-  // console.log("This is the rent country", country);
-  // console.log("This is the rent time", time);
 
   const rentFee = fee * count;
 

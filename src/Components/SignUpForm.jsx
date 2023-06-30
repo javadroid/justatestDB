@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -16,7 +16,6 @@ const SignUpForm = () => {
   const { data: session } = useSession();
   const router = useRouter();
 
-  // console.log(session);
 
   const {
     register,

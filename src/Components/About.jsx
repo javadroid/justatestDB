@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Icon } from "@iconify/react";
 import chatting from "../assets/images/chatting.png";
 import Image from "next/image";
 import stars from "../assets/random-shapes/christmas-stars.png";
 import hashtag from "../assets/random-shapes/hashtag.png";
 import arrow from "../assets/arrows/broken-arrow.png";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
@@ -16,7 +16,6 @@ import ReCAPTCHA from "react-google-recaptcha";
 export default function About() {
   const { data: session } = useSession();
   const router = useRouter();
-  console.log(session);
 
   const {
     register,
@@ -51,7 +50,6 @@ export default function About() {
     });
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       const response = await instance.post(
         "http://161.35.218.95:3000/api/signup",
@@ -70,13 +68,11 @@ export default function About() {
       toast.success(response.data.msg);
       router.push("/");
     } catch (error) {
-      // console.log("Error is", error);
         toast.error(error.response.data.msg);
       return (<div>
         {error}
       </div>);
     }
-    // router.push("/user/receive-sms");
   };
 
   const [isVerified, setIsVerified] = useState(false);

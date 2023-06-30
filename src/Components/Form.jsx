@@ -1,5 +1,3 @@
-import React from "react";
-
 const Form = () => {
   return (
     <form className="w-full max-w-sm rounded-md bg-white p-8 shadow-md">

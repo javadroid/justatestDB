@@ -49,7 +49,6 @@ const Profile = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       const password = await instance.put(
         "http://161.35.218.95:3000/api/change/password",
@@ -66,10 +65,8 @@ const Profile = () => {
           },
         }
       );
-      console.log("password change", password);
       toast.success(password.data.msg);
     } catch (error) {
-      console.log("Error is", error);
       toast.error(error?.response?.data.msg || "No response from the server.");
     }
   };
@@ -88,11 +85,9 @@ const Profile = () => {
           },
         }
       );
-      console.log("api change", apiChange);
       toast.success(apiChange.data.msg);
       window.location.reload();
     } catch (error) {
-      console.log("Error is", error);
       toast.error(error?.response?.data.msg || "No response from the server.");
     }
   };

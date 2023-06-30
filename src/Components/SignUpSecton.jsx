@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import blank from "../assets/random-shapes/blank.png";

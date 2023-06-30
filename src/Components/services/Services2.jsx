@@ -3,12 +3,14 @@ import star from "../../assets/images/star.svg";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Popup from "./popup";
 
 const Services2 = ({ searchTerm }) => {
   const url = "http://161.35.218.95:3000/api/applications";
   const [services, setServices] = useState([]);
   const [showMore, setShowMore] = useState(false);
 
+  const [modalVisible, setModalVisible] = useState(false);
   const maxNameLength = 11;
   const toggleMore = () => {
     setShowMore(!showMore);
@@ -81,7 +83,7 @@ const Services2 = ({ searchTerm }) => {
                   </span>
                   <span className="mx-2 xl:mr-0">{service.price}</span>
                 </div>
-                <button className="group relative overflow-hidden rounded-xl bg-color-primary py-1 text-color-white lg:px-1 xl:px-2">
+                <button onClick={() => setModalVisible(true)} className="group relative overflow-hidden rounded-xl bg-color-primary py-1 text-color-white lg:px-1 xl:px-2">
                   <span className="absolute left-0 top-0 mt-16 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                   <span className="relative">Buy SMS</span>
                 </button>
@@ -91,8 +93,8 @@ const Services2 = ({ searchTerm }) => {
         {searchTerm !== "" &&
           services.filter((service) => {
             return service.app_name
-              .toLowerCase()
-              .includes(searchTerm.toLowerCase());
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase());
           }).length === 0 && (
             <div className="flex items-center justify-between p-2 text-xs md:text-lg">
               No results found
@@ -115,6 +117,7 @@ const Services2 = ({ searchTerm }) => {
           </>
         )}
       </div>
+<Popup isVisible={modalVisible} onClose={() => setModalVisible(false)} />
     </div>
   );
 };

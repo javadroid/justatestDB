@@ -1,10 +1,11 @@
 import { ClipboardDocumentCheckIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import React from "react";
 import rus from "../assets/flags/Russia.svg";
 import vib from "../assets/socials/Viber.svg";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import CopyToClipboard from "./Copy";
+
 const History = () => {
   const histories = [
     {
@@ -40,11 +41,10 @@ const History = () => {
           userid: sessionStorage.getItem("id"),
         },
       });
-      console.log(response);
       setData(response.data.numbers);
       setIsLoading(false);
     } catch (error) {
-      console.log(error);
+      return error;
     }
   };
 
@@ -116,10 +116,12 @@ const History = () => {
                             </h6>
                             <p className="flex items-center">
                               {data.rented_number}
-                              <ClipboardDocumentCheckIcon
-                                width={20}
-                                className="ml-3 text-color-primary"
-                              />
+                              <CopyToClipboard textToCopy={data.rented_number}>
+                                <ClipboardDocumentCheckIcon
+                                  width={20}
+                                  className="ml-3 text-color-primary cursor-pointer"
+                                />
+                              </CopyToClipboard>
                             </p>
                           </div>
                           <div className="td price">
