@@ -66,15 +66,15 @@ const payment = () => {
   return (
     <section>
       <h1 className="ml-3 mt-6 text-xl font-bold">Top up your balance</h1>
-      <div className="pl-10 pr-5 pt-10 lg:flex lg:pl-4 lg:pr-2 ">
-        <div className="h-full rounded-2xl  bg-white py-5 shadow-lg md:w-[80vw] lg:w-full xl:w-[80vw]">
+      <div className="w-full max-w-4xl px-4 pt-10 lg:flex xl:mx-auto">
+        <div className="mb-16 h-full rounded-2xl bg-white py-5 shadow-lg lg:w-full xl:w-[80vw] ">
           <div className="flex flex-col px-4 lg:items-baseline">
             <div className="flex flex-grow flex-col gap-y-6">
               <div>
                 <h1 className="text-lg font-bold">
                   1. Choose a payment method
                 </h1>
-                <div className=" grid grid-cols-2 justify-items-center gap-4 px-10 lg:grid-cols-5">
+                <div className="mt-4 grid grid-cols-1 justify-items-center gap-4 px-10 md:grid-cols-2 lg:grid-cols-3">
                   <div
                     className={`flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg ${
                       method === "stripe"
@@ -129,7 +129,7 @@ const payment = () => {
                 <h1 className="mb-5 text-lg font-bold">
                   2. Specify top up amount
                 </h1>
-                <div className=" mb-5 grid grid-cols-2 gap-4 lg:grid-cols-3">
+                <div className="mb-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
                   <div
                     onClick={() => setAmount(10)}
                     className="rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md"
