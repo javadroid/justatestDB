@@ -37,7 +37,7 @@ const Profile = () => {
       setUserData(response[1].data?.user);
     };
     getBalance();
-  });
+  }, []);
 
   const [balance, setBalance] = useState(0);
   const [userData, setUserData] = useState({});

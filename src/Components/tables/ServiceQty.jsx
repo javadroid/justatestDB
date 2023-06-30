@@ -18,15 +18,13 @@ const ServiceQty = () => {
       });
       setServices(response.data.applications);
     } catch (error) {
-      return (<div>
-        {error}
-      </div>);
+      return <div>{error}</div>;
     }
   };
 
   useEffect(() => {
     fetchServices();
-  });
+  }, []);
 
   if (services.length === 0) {
     return <div>Please wait...</div>;

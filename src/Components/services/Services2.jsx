@@ -25,15 +25,13 @@ const Services2 = ({ searchTerm }) => {
       });
       setServices(response.data.applications);
     } catch (error) {
-     return (<div>
-        {error}
-      </div>);
+      return <div>{error}</div>;
     }
   };
 
   useEffect(() => {
     fetchServices();
-  });
+  }, []);
 
   if (services.length === 0) {
     return <div>Please wait...</div>;
@@ -83,7 +81,10 @@ const Services2 = ({ searchTerm }) => {
                   </span>
                   <span className="mx-2 xl:mr-0">{service.price}</span>
                 </div>
-                <button onClick={() => setModalVisible(true)} className="group relative overflow-hidden rounded-xl bg-color-primary py-1 text-color-white lg:px-1 xl:px-2">
+                <button
+                  onClick={() => setModalVisible(true)}
+                  className="group relative overflow-hidden rounded-xl bg-color-primary py-1 text-color-white lg:px-1 xl:px-2"
+                >
                   <span className="absolute left-0 top-0 mt-16 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                   <span className="relative">Buy SMS</span>
                 </button>
@@ -93,8 +94,8 @@ const Services2 = ({ searchTerm }) => {
         {searchTerm !== "" &&
           services.filter((service) => {
             return service.app_name
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase());
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase());
           }).length === 0 && (
             <div className="flex items-center justify-between p-2 text-xs md:text-lg">
               No results found
@@ -117,7 +118,7 @@ const Services2 = ({ searchTerm }) => {
           </>
         )}
       </div>
-<Popup isVisible={modalVisible} onClose={() => setModalVisible(false)} />
+      <Popup isVisible={modalVisible} onClose={() => setModalVisible(false)} />
     </div>
   );
 };

@@ -73,7 +73,7 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const response = await instance.post(
-        "http://161.35.218.95:3000/api/login",
+        "http://161.35.218.95:3000/api/loginUser",
         {
           email: data.email,
           password: data.password,

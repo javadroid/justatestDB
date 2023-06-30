@@ -8,7 +8,7 @@ import axios from "axios";
 const UsersCountry = ({ searchTerm }) => {
   const url = "http://161.35.218.95:3000/api/countries";
   const [showMore, setShowMore] = useState(false);
-  
+
   const maxNameLength = 11;
   const toggleMore = () => {
     setShowMore(!showMore);
@@ -24,15 +24,13 @@ const UsersCountry = ({ searchTerm }) => {
       });
       setData(response.data.countries);
     } catch (error) {
-      return (<div>
-        {error}
-      </div>);
+      return <div>{error}</div>;
     }
   };
 
   useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   if (data.length === 0) {
     return <div>Please wait...</div>;
