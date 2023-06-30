@@ -1091,9 +1091,9 @@ module.exports = {
             const country_id = req.body.new_country_id;
             const country = req.body.country_name;
             const code = req.body.country_code;
-            if (!country || !code || !country_id) {
+            if (!country || !code || !country_id || !currId) {
                 return res.status(401).send({
-                    msg: "Country name, code, and country Id  are required!"
+                    msg: "Country name, code, country Id, and new country Id  are required!"
                 });
             }
             db.query(
@@ -1137,7 +1137,7 @@ module.exports = {
                     }
                     if (result.affectedRows >= 1) {
                         return res.status(201).send({
-                            msg: "Successfully enable.",
+                            msg: "Successfully enabled.",
                         });
                     } else {
                         return res.status(201).send({
@@ -1167,7 +1167,7 @@ module.exports = {
                     }
                     if (result.affectedRows >= 1) {
                         return res.status(201).send({
-                            msg: "Successfully enable.",
+                            msg: "Successfully disabled.",
                         });
                     } else {
                         return res.status(201).send({
