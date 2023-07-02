@@ -873,19 +873,19 @@ module.exports = {
             // }
 
             // encoding the content input
-            await uploadImage(req, res);
-            console.log(req.file);
-            if (req.file == undefined) {
-                return res.status(400).send({ msg: "Please upload an image!" });
-            }
-            const imag = req.file.originalname;
-            let image = baseURL + `/uploads/${imag}`;
+            // await uploadImage(req, res);
+            // console.log(req.file);
+            // if (req.file == undefined) {
+            //     return res.status(400).send({ msg: "Please upload an image!" });
+            // }
+            // const imag = req.file.originalname;
+            // let image = baseURL + `/uploads/${imag}`;
             const Encoded = Buffer.from(content, 'utf8').toString('base64');
             let ss = JSON.stringify(social_media_links)
             const social = Buffer.from(ss, 'utf8').toString('base64');
             db.query(
-                `INSERT INTO blog_posts(title, author, description, content, image, social_media_link)
-            VALUES ('${title}', '${author}', '${description}', '${Encoded}', '${image}', '${social}')`,
+                `INSERT INTO blog_posts(title, author, description, content, social_media_link)
+            VALUES ('${title}', '${author}', '${description}', '${Encoded}', '${social}')`,
                 (err, result) => {
                     if (err) {
                         // throw err;
