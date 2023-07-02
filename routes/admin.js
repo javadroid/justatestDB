@@ -124,6 +124,7 @@ router.put('/application', userMiddleware.isLoggedIn, adminControllers.updateApp
 router.put('/application/enable', userMiddleware.isLoggedIn, adminControllers.enableApp);
 router.put('/application/disable', userMiddleware.isLoggedIn, adminControllers.disableApp);
 router.get('/admins', userMiddleware.isLoggedIn, adminControllers.fetchAllAdmins);
+router.post('/admin', userMiddleware.isLoggedIn, adminControllers.createAdmin);
 // Export router
 
 module.exports = router;

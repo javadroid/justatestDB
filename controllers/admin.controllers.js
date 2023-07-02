@@ -1855,6 +1855,45 @@ module.exports = {
             })
         }
     },
+    createAdmin: (req, res, next) => {
+        try {
+            const { username, password, role } = req.body;
+            // await uploadAppLogo(req, res);
+            // if (req.file == undefined) {
+            //     return res.status(400).send({ msg: "Please upload country flag!" });
+            // }
+            // const appLogo = req.file.originalname;
+            if (!username || !password || !role) {
+                return res.status(401).send({
+                    msg: "Username, password, and role are required!"
+                });
+            } else {
+                db.query(
+                    `INSERT INTO admins (user, password, role) VALUES ('${username}', '${password}', '${role}')`,
+                    (e, result) => {
+                        if (e) {
+                            // throw err;
+                            return res.status(400).send({
+                                msg: e
+                            });
+                        }
+                        if (result.affectedRows >= 1) {
+                            return res.status(201).send({
+                                msg: 'New user has been successfully created.'
+                            });
+                        } else return res.status(409).send({ msg: "Something went wrong." })
+
+                    }
+
+                );
+            }
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send({
+                Error: err
+            });
+        }
+    },
 
 
 }
