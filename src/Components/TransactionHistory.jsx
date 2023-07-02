@@ -2,11 +2,15 @@ import { ClipboardDocumentCheckIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import rus from "../assets/flags/Russia.svg";
 import vib from "../assets/socials/Viber.svg";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import axios from "axios";
 import CopyToClipboard from "./Copy";
+import useHistoryStore from "@/store/HistoryStore";
+import { set } from "react-hook-form";
 
 const History = () => {
+  const historyData = useHistoryStore((state) => state.historyData);
+  const setHistoryData = useHistoryStore((state) => state.setHistoryData);
   const histories = [
     {
       title: "Bought",
@@ -29,7 +33,7 @@ const History = () => {
   ];
 
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/bought_apps?userId=719pr";
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(historyData);
   const [isLoading, setIsLoading] = useState(true);
   const instance = axios.create({
     validateStatus: function (status) {
@@ -56,8 +60,15 @@ const History = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    // fetchData();
+    setHistoryData();
   }, []);
+
+  useEffect(() => {
+    setData(historyData);
+    setIsLoading(false);
+    // console.log(historyData);
+  }, [historyData]);
 
   if (data.length == 0) {
     return (
@@ -73,7 +84,7 @@ const History = () => {
   }
 
   return (
-    <div>
+    <div id="transactions">
       <div>
         <h2 className="text-center font-extrabold md:pl-8 md:text-left md:text-xl">
           History

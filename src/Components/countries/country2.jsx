@@ -18,7 +18,6 @@ const UsersCountry = ({ searchTerm }) => {
   }
   const handleCountryClick = (countryName) => {
     localStorage.setItem("selectedCountry", countryName);
-    // console.log(countryName)
   };
 
   const toggleMore = () => {
