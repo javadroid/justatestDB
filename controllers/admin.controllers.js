@@ -1832,7 +1832,7 @@ module.exports = {
             console.log(err);
         }
     },
-    // fetch all users
+    // fetch admin users management module starts here
     fetchAllAdmins: (req, res, next) => {
         try {
             db.query(
@@ -1892,6 +1892,30 @@ module.exports = {
             return res.status(500).send({
                 Error: err
             });
+        }
+    },
+    updateAdmin: (req, res, next) => {
+        try {
+            const user_id = req.query.user_id;
+            const { new_username, new_password, new_role } = req.body;
+            db.query(
+                `UPDATE admins SET user='${new_username}', password='${new_password}', role='${new_role}' WHERE id='${user_id}'`,
+                (err, result) => {
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: 'Something went wrong, please try a moment later.',
+                            Error: err
+                        });
+                    }
+                    return res.status(200).send({
+                        msg: "User has been updated."
+                    });
+                }
+
+            );
+        } catch (err) {
+            console.log(err);
         }
     },
 
