@@ -123,5 +123,7 @@ router.delete('/application', userMiddleware.isLoggedIn, adminControllers.delete
 router.put('/application', userMiddleware.isLoggedIn, adminControllers.updateApplication);
 router.put('/application/enable', userMiddleware.isLoggedIn, adminControllers.enableApp);
 router.put('/application/disable', userMiddleware.isLoggedIn, adminControllers.disableApp);
+router.get('/admins', userMiddleware.isLoggedIn, adminControllers.fetchAllAdmins);
 // Export router
+
 module.exports = router;

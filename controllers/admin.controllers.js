@@ -1832,6 +1832,29 @@ module.exports = {
             console.log(err);
         }
     },
+    // fetch all users
+    fetchAllAdmins: (req, res, next) => {
+        try {
+            db.query(
+                `SELECT * FROM admins`,
+                (err, result) => {
+                    if (result.length) {
+                        return res.status(200).send({
+                            users: { result }
+                        });
+                    } else {
+                        return res.status(404).send({
+                            msg: 'No user is found!'
+                        });
+                    }
+
+                });
+        } catch (err) {
+            return res.status(401).send({
+                Error: err
+            })
+        }
+    },
 
 
 }
