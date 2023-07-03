@@ -1105,13 +1105,13 @@ module.exports = {
                             msg: err
                         });
                     }
-                    if (result.affectedRows >= 1) {
-                        return res.status(201).send({
+                    if (result.affectedRows) {
+                        return res.status(200).send({
                             msg: country + ' has been successfully updated',
                         });
                     } else {
-                        return res.status(201).send({
-                            msg: 'Something went wrong, try again later',
+                        return res.status(403).send({
+                            msg: 'Incorrect old country id was passed on the params.',
                         });
                     }
                 }
