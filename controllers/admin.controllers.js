@@ -1097,7 +1097,7 @@ module.exports = {
                 });
             }
             db.query(
-                `UPDATE countries SET country_name='${country}', country_id='${country_id}', country_code='${code}' WHERE country_id='${currId}'`,
+                `UPDATE countries SET country_name='${country}', country_id='${country_id}', country_code='${code}' WHERE id='${currId}'`,
                 (err, result) => {
                     if (err) {
                         // throw err;
