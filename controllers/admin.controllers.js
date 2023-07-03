@@ -1105,7 +1105,7 @@ module.exports = {
                             msg: err
                         });
                     }
-                    if (result.affectedRows) {
+                    if (result.affectedRows >= 1) {
                         return res.status(200).send({
                             msg: country + ' has been successfully updated',
                         });
