@@ -86,6 +86,7 @@ const Login = () => {
       );
       sessionStorage.setItem("id", response?.data?.user?.id);
       sessionStorage.setItem("authToken", response?.data?.token);
+      sessionStorage.setItem("refCode", response?.data?.user?.ref_code);
       toast.success(response.data.msg);
       router.push(`/user/receive-sms/`);
     } catch (error) {

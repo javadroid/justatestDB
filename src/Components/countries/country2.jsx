@@ -1,5 +1,4 @@
 import Image from "next/image";
-import UK from "../../assets/flags/UK.svg";
 import star from "../../assets/images/star.svg";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
@@ -77,7 +76,13 @@ const UsersCountry = ({ searchTerm }) => {
                 <Image src={star} alt="" className="-mt-1" />
                 <div className="flex w-full items-center">
                   <span>
-                    <Image src={UK} alt="" width={20} className="mr-2" />
+                  <Image
+                  src={`https://flagcdn.com/${country.country_code.toLowerCase()}.svg`}
+                  width={20}
+                  height={20}
+                  alt={country.country_id}
+                  className="mr-2"
+                />
                   </span>
                   <span>
                     {country.country_name.length > maxNameLength

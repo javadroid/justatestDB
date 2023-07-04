@@ -4,30 +4,19 @@ import axios from "axios";
 const useHistoryStore = create((set) => ({
   historyData: [],
   setHistoryData: () => {
-    const instance = axios.create({
-      validateStatus: function (status) {
-        return status >= 200 && status < 300;
-      },
-    });
+    const userid = sessionStorage.getItem("id");
+    const url = process.env.NEXT_PUBLIC_BASE_URL + `/bought_apps?userId=${userid}`;
 
-    const url = process.env.NEXT_PUBLIC_BASE_URL + "/bought_apps?userId=719pr";
     const fetchData = async () => {
       try {
-        const response = await instance.get(url, {
-          params: {
-            userid: sessionStorage.getItem("id"),
-          },
+        const response = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
           },
         });
-        // setData(response.data.bougth_services);
         set({ historyData: response.data.bougth_services });
-      // console.log(response.data.bougth_services);
-        // console.log(response.data.bougth_services);
-        // setIsLoading(false);
       } catch (error) {
-        return error;
+        console.log (error);
       }
     };
     fetchData();

@@ -2,7 +2,6 @@ import UserDashboardLayout from "@/Components/UserDashboardLayout";
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-// import UK from "../../assets/flags/UK.svg";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import RentedNumberHistory from "@/Components/RentedNumberHistory";
@@ -41,7 +40,7 @@ const Rent = () => {
         },
       }
     );
-    console.log(response?.data?.data[0]?.amount);
+    // console.log(response?.data?.data[0]?.amount);
     setFee(response?.data?.data[0]?.amount);
   };
 
@@ -54,7 +53,7 @@ const Rent = () => {
         Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
       },
     });
-    console.log("Here is my res", response);
+    // console.log("Here is my res", response);
     setBalance(response?.data?.data[0]?.balance);
   };
 
@@ -99,8 +98,8 @@ const Rent = () => {
       window.location.reload();
     }, 2000);
   };
-  console.log(typeof rentFee, "This is the rent fee");
-  console.log(balance, "Balance");
+  // console.log(typeof rentFee, "This is the rent fee");
+  // console.log(balance, "Balance");
 
   return (
     <div className="h-full w-full bg-color-bg_light">
