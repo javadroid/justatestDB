@@ -1912,6 +1912,7 @@ module.exports = {
             console.log(err);
         }
     },
+    // coupon module starts here
     createCoupon: (req, res, next) => {
         try {
             const { coupon_name, coupon_value, exp_date } = req.body;
@@ -1967,6 +1968,36 @@ module.exports = {
                     }
 
                 });
+        } catch (err) {
+            return res.status(401).send({
+                Error: err
+            })
+        }
+    },
+    deleteCouponById: (req, res, next) => {
+        try {
+            const couponId = req.query.coupon_id;
+            db.query(
+                `DELETE FROM coupons WHERE id='${couponId}'`,
+                (err, result) => {
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: err
+                        });
+                    }
+                    if (result.affectedRows) {
+                        return res.status(200).send({
+                            msg: result.affectedRows + ' coupon has been successfully deleted!',
+                        });
+                    } else {
+                        return res.status(404).send({
+                            msg: 'No coupn exist with such id.',
+                        });
+                    }
+                }
+            );
+
         } catch (err) {
             return res.status(401).send({
                 Error: err

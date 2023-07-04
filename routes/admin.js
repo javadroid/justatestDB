@@ -129,6 +129,7 @@ router.put('/admin', userMiddleware.isLoggedIn, adminControllers.updateAdmin);
 // coupon module
 router.post('/coupon', userMiddleware.isLoggedIn, adminControllers.createCoupon);
 router.get('/coupon', userMiddleware.isLoggedIn, adminControllers.fetchcoupon);
+router.delete('/coupon', userMiddleware.isLoggedIn, adminControllers.deleteCouponById);
 // Export router
 
 module.exports = router;
