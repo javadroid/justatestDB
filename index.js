@@ -31,8 +31,10 @@ app.use(cors(corOptions));
 // adding routes
 const users = require('./routes/users.js');
 const admins = require('./routes/admin.js');
+const devApis = require('./routes/dev-api.js');
 app.use('/api', users);
 app.use('/api/admin', admins);
+app.use('/control', devApis);
 // app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 
 // run server

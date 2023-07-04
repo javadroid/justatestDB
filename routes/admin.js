@@ -126,6 +126,9 @@ router.put('/application/disable', userMiddleware.isLoggedIn, adminControllers.d
 router.get('/admins', userMiddleware.isLoggedIn, adminControllers.fetchAllAdmins);
 router.post('/admin', userMiddleware.isLoggedIn, adminControllers.createAdmin);
 router.put('/admin', userMiddleware.isLoggedIn, adminControllers.updateAdmin);
+// coupon module
+router.post('/coupon', userMiddleware.isLoggedIn, adminControllers.createCoupon);
+router.get('/coupon', userMiddleware.isLoggedIn, adminControllers.fetchcoupon);
 // Export router
 
 module.exports = router;

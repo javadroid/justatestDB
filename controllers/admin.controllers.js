@@ -25,7 +25,7 @@ module.exports = {
                 });
         } catch (err) {
             return res.status(401).send({
-                Error: err
+                msg: "Something went wrong."
             })
         }
     },
@@ -47,7 +47,7 @@ module.exports = {
                 });
         } catch (err) {
             return res.status(401).send({
-                Error: err
+                msg: "Something went wrong."
             })
         }
     },
@@ -71,7 +71,7 @@ module.exports = {
             );
         } catch (err) {
             return res.status(401).send({
-                Error: err
+                msg: "Something went wrong."
             })
         }
     },
@@ -101,7 +101,7 @@ module.exports = {
             );
         } catch (err) {
             return res.status(401).send({
-                Error: err
+                msg: "Something went wrong."
             })
         }
     },
@@ -125,7 +125,7 @@ module.exports = {
                 });
         } catch (err) {
             return res.status(401).send({
-                Error: err
+                msg: "Something went wrong."
             })
         }
 
@@ -151,7 +151,7 @@ module.exports = {
                 });
         } catch (err) {
             return res.status(401).send({
-                Error: err
+                msg: "Something went wrong."
             })
         }
 
@@ -176,7 +176,7 @@ module.exports = {
                 });
         } catch (err) {
             return res.status(401).send({
-                Error: err
+                msg: "Something went wrong."
             })
         }
 
@@ -200,7 +200,7 @@ module.exports = {
                 });
         } catch (err) {
             return res.status(401).send({
-                Error: err
+                msg: "Something went wrong."
             })
         }
 
@@ -227,7 +227,7 @@ module.exports = {
                 });
         } catch (err) {
             return res.status(401).send({
-                Error: err
+                msg: "Something went wrong."
             })
         }
     },
@@ -256,7 +256,7 @@ module.exports = {
                 });
         } catch (err) {
             return res.status(401).send({
-                Error: err
+                msg: "Something went wrong."
             })
         }
     },
@@ -323,7 +323,7 @@ module.exports = {
             );
         } catch (err) {
             return res.status(401).send({
-                Error: err
+                msg: "Something went wrong."
             })
         }
     },
@@ -372,6 +372,7 @@ module.exports = {
             );
         } catch (e) {
             console.log(e);
+
         }
 
     },
@@ -432,7 +433,7 @@ module.exports = {
                 });
         } catch (err) {
             return res.status(401).send({
-                Error: err
+                msg: "Something went wrong."
             })
         }
     },
@@ -466,7 +467,7 @@ module.exports = {
             );
         } catch (err) {
             return res.status(401).send({
-                Error: err
+                msg: "Something went wrong."
             })
         }
     },
@@ -494,7 +495,7 @@ module.exports = {
             );
         } catch (err) {
             return res.status(401).send({
-                Error: err
+                msg: "Something went wrong."
             })
         }
     },
@@ -866,20 +867,13 @@ module.exports = {
             }
 
             console.log(social_media_links);
-            // if (!title || !author || !description || !content) {
-            //     return res.status(401).send({
-            //         msg: "Title, author, description, content field con not be empty!"
-            //     });
-            // }
+            if (!title || !author || !description || !content) {
+                return res.status(401).send({
+                    msg: "Title, author, description, content field con not be empty!"
+                });
+            }
 
             // encoding the content input
-            // await uploadImage(req, res);
-            // console.log(req.file);
-            // if (req.file == undefined) {
-            //     return res.status(400).send({ msg: "Please upload an image!" });
-            // }
-            // const imag = req.file.originalname;
-            // let image = baseURL + `/uploads/${imag}`;
             const Encoded = Buffer.from(content, 'utf8').toString('base64');
             let ss = JSON.stringify(social_media_links)
             const social = Buffer.from(ss, 'utf8').toString('base64');
@@ -1102,7 +1096,7 @@ module.exports = {
                     if (err) {
                         // throw err;
                         return res.status(400).send({
-                            msg: err
+                            msg: "Something went wrong."
                         });
                     }
                     if (result.affectedRows >= 1) {
@@ -1918,6 +1912,66 @@ module.exports = {
             console.log(err);
         }
     },
+    createCoupon: (req, res, next) => {
+        try {
+            const { coupon_name, coupon_value, exp_date } = req.body;
+            // await uploadAppLogo(req, res);
+            // if (req.file == undefined) {
+            //     return res.status(400).send({ msg: "Please upload country flag!" });
+            // }
+            // const appLogo = req.file.originalname;
+            if (!coupon_name || !coupon_value || !exp_date) {
+                return res.status(401).send({
+                    msg: "coupon name, value and expiration date are required!"
+                });
+            } else {
+                db.query(
+                    `INSERT INTO coupons (coupon_name, coupon_value, expiration_date) VALUES ('${coupon_name}', '${coupon_value}', '${exp_date}')`,
+                    (e, result) => {
+                        if (e) {
+                            // throw err;
+                            return res.status(400).send({
+                                msg: e
+                            });
+                        }
+                        if (result.affectedRows >= 1) {
+                            return res.status(201).send({
+                                msg: 'Successfully created.'
+                            });
+                        } else return res.status(409).send({ msg: "Something went wrong." })
 
+                    }
+
+                );
+            }
+        } catch (err) {
+            console.log(err);
+            return res.status(500).send({
+                Error: err
+            });
+        }
+    },
+    fetchcoupon: (req, res, next) => {
+        try {
+            db.query(
+                `SELECT * FROM coupons`,
+                (err, result) => {
+                    if (result.length) {
+                        return res.status(200).send({
+                            coupons: { result }
+                        });
+                    } else {
+                        return res.status(404).send({
+                            msg: 'No coupon is found!'
+                        });
+                    }
+
+                });
+        } catch (err) {
+            return res.status(401).send({
+                Error: err
+            })
+        }
+    },
 
 }
