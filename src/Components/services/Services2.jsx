@@ -5,8 +5,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Popup from "./popup";
 import { toast } from "react-hot-toast";
+import useHistoryStore from "@/store/HistoryStore";
 
 const Services2 = ({ searchTerm }) => {
+  const setHistoryData = useHistoryStore((state) => state.setHistoryData);
   const instance = axios.create({
     validateStatus: function (status) {
       return status >= 200 && status < 300; // default
@@ -76,7 +78,6 @@ const Services2 = ({ searchTerm }) => {
 
   const postServices = async (service) => {
     const clickedCountry = localStorage.getItem("selectedCountry");
-    console.log(clickedCountry);
     try {
       const response = await instance.post(
         postUrl,
@@ -96,7 +97,9 @@ const Services2 = ({ searchTerm }) => {
         }
       );
       // console.log(response);
+      setHistoryData();
       toast.success(response.data.msg);
+      document.getElementById("transactions").scrollIntoView();
     } catch (error) {
       console.log(error.message);
     }
@@ -158,15 +161,12 @@ const Services2 = ({ searchTerm }) => {
                 </div>
                 <button
                   onClick={() => {
-                    if (balance < service.price) {
+                    if (Number(balance) < Number(service.price)) {
                       toast.error("Low balance, please topup your balance.");
                       return;
                     } else {
                       postServices(service);
                     }
-                    // if (service.price <= 0) {
-                    //   setModalVisible(true);
-                    // } else
                   }}
                   className="group relative overflow-hidden rounded-xl bg-color-primary py-1 text-color-white active:opacity-60 lg:px-1 xl:px-2"
                 >

@@ -37,7 +37,6 @@ const RentedNumberHistory = () => {
           userid: sessionStorage.getItem("id"),
         },
       });
-      console.log(response);
       setData(response.data.numbers);
       setIsLoading(false);
     } catch (error) {
@@ -48,15 +47,6 @@ const RentedNumberHistory = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  // histories.map().sor
-  console.log(
-    data.sort(function (a, b) {
-      //console.log(b.id);
-      return b.id - a.id;
-    }),
-    "This is the data"
-  );
 
   const CancelRent = async (number, amount) => {
     try {
@@ -74,7 +64,6 @@ const RentedNumberHistory = () => {
           },
         }
       );
-      console.log("Cancel", Cancel);
       toast.success(Cancel.data.msg);
       setTimeout(() => {
         window.location.reload();
@@ -84,10 +73,8 @@ const RentedNumberHistory = () => {
       toast.error(error?.response?.data.msg || "No response from the server.");
     }
   };
-  console.log(data.length, "This");
-  const id = data.length;
-  console.log(id, "id");
 
+  const id = data.length;
   setTimeout(function () {
     setHidden(false);
   }, 4000);
