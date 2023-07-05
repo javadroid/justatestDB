@@ -842,7 +842,7 @@ module.exports = {
     // Blog posts module starts here
     createPost: async(req, res, next) => {
         const social_media_links = {};
-        let baseURL = "http://161.35.218.95:3000";
+        // let baseURL = "http://161.35.218.95:3000";
         try {
             const { title, author, description, content } = req.body;
 
@@ -860,7 +860,7 @@ module.exports = {
                 social_media_links.telegram = req.body.telegram_link;
             }
             if (req.body.pint_link) {
-                social_media_links.pint = req.body.pint_link;
+                social_media_links.pint = req.body.pinterest_link;
             }
             if (req.body.reddit_link) {
                 social_media_links.reddit = req.body.reddit_link;
@@ -950,7 +950,7 @@ module.exports = {
                 social_media_links.telegram = req.body.telegram_link;
             }
             if (req.body.pint_link) {
-                social_media_links.pint = req.body.pint_link;
+                social_media_links.pint = req.body.pinterest_link;
             }
             if (req.body.reddit_link) {
                 social_media_links.reddit = req.body.reddit_link;
