@@ -735,6 +735,9 @@ const getAllBlogPosts = (req, res, next) => {
             );
         } catch (err) {
             console.log(err)
+            return res.status(200).send({
+                Error: err
+            });
         }
     }
     // fetching single blog post
