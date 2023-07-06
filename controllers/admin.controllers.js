@@ -921,7 +921,7 @@ module.exports = {
                     var media_links;
                     var key;
                     for (key in resul) {
-                        media_links = JSON.parse(Buffer.from(resul[key].social_media_link, 'base64').toString('utf8'))
+                        media_links = Buffer.from(resul[key].social_media_link, 'base64').toString('utf8')
                         result[key].social_media_links = media_links
                         console.log({ post: resul });
 
@@ -932,7 +932,7 @@ module.exports = {
                 }
             );
         } catch (err) {
-            console.log(err)
+            //console.log(err)
             return res.status(500).send({
                 Error: err.message
             });

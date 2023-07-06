@@ -39,3 +39,5 @@ app.use('/control', devApis);
 
 // run server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+var server = app.listen();
+server.setTimeout(500000);
