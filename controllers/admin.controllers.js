@@ -901,7 +901,6 @@ module.exports = {
     // fetching all blog posts
     getAllBlogPosts: (req, res, next) => {
         try {
-
             db.query(
                 `SELECT * FROM blog_posts ORDER BY date_created DESC`,
                 async(err, result) => {
@@ -918,16 +917,16 @@ module.exports = {
                             msg: 'There is no post available yet.'
                         });
                     }
-                    await result;
+                    const resul = await result;
                     var media_links;
-                    for (const key in result) {
-                        media_links = JSON.parse(Buffer.from(result[key].social_media_link, 'base64').toString('utf8'))
+                    for (const key in resul) {
+                        media_links = await JSON.parse(Buffer.from(resul[key].social_media_link, 'base64').toString('utf8'))
                         result[key].social_media_links = media_links
-                        console.log({ post: result });
+                        console.log({ post: resul });
 
                     }
                     return res.status(200).send({
-                        post: result
+                        post: resul
                     });
                 }
             );
