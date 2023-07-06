@@ -918,13 +918,13 @@ module.exports = {
                         });
                     }
                     const resul = await result;
-                    var media_links;
-                    for (const key in resul) {
-                        media_links = await JSON.parse(Buffer.from(resul[key].social_media_link, 'base64').toString('utf8'))
-                        result[key].social_media_links = media_links
-                        console.log({ post: resul });
+                    // var media_links;
+                    // for (const key in resul) {
+                    //     media_links = await JSON.parse(Buffer.from(resul[key].social_media_link, 'base64').toString('utf8'))
+                    //     result[key].social_media_links = media_links
+                    //     console.log({ post: resul });
 
-                    }
+                    // }
                     return res.status(200).send({
                         post: resul
                     });
