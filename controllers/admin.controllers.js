@@ -898,6 +898,47 @@ module.exports = {
             })
         }
     },
+    // fetching all blog posts
+    getAllBlogPosts: (req, res, next) => {
+        try {
+
+            db.query(
+                `SELECT * FROM blog_posts ORDER BY date_created DESC`,
+                async(err, result) => {
+                    // if query error
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: err
+                        });
+                    }
+                    // if there is no language available
+                    if (!result.length) {
+                        return res.status(309).send({
+                            msg: 'There is no post available yet.'
+                        });
+                    }
+                    await result;
+                    var media_links;
+                    for (const key in result) {
+                        media_links = JSON.parse(Buffer.from(result[key].social_media_link, 'base64').toString('utf8'))
+                        result[key].social_media_links = media_links
+                        console.log({ post: result });
+
+                    }
+                    return res.status(200).send({
+                        post: result
+                    });
+                }
+            );
+        } catch (err) {
+            console.log(err)
+            return res.status(500).send({
+                Error: err
+            });
+        }
+    },
+
     // Deleting blog post
     deletePostById: (req, res, next) => {
         try {
