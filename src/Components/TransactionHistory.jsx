@@ -5,6 +5,8 @@ import vib from "../assets/socials/Viber.svg";
 import { useState, useEffect } from "react";
 import CopyToClipboard from "./Copy";
 import useHistoryStore from "@/store/HistoryStore";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const History = () => {
   const historyData = useHistoryStore((state) => state.historyData);
@@ -31,6 +33,7 @@ const History = () => {
   ];
   const [data, setData] = useState(historyData);
   const [isLoading, setIsLoading] = useState(true);
+  // const [hidden, setHidden] = useState(true);
 
   useEffect(() => {
     setHistoryData();
@@ -38,8 +41,29 @@ const History = () => {
 
   useEffect(() => {
     setData(historyData);
+    // console.log(historyData);
     setIsLoading(false);
   }, [historyData]);
+
+  useEffect(() => {
+    if (data.length == 0) {
+      return;
+    }
+    const THIRTY_SECONDS = 30 * 1000;
+    const interval = setInterval(() => {
+      const newData = data.map((item) => { 
+        let currentTime = Date.now();
+        const TWENTY_MINUTES = 20 * 60 * 1000;
+        const PURCHASED_DATE = new Date(item.purchased_date).getTime();
+        item.cancelBtnActive = new Date(PURCHASED_DATE).getTime() + TWENTY_MINUTES > currentTime;
+        return item;
+       });
+      setData(newData);
+      console.log("first iteration")
+    }, THIRTY_SECONDS);
+
+    return () => clearInterval(interval);
+  },[])
 
   if (data.length == 0) {
     return (
@@ -140,10 +164,31 @@ const History = () => {
                               <h6 className="font-medium text-color-table_gray">
                                 Message
                               </h6>
-                              <p className="group relative cursor-pointer overflow-hidden rounded-3xl bg-[rgba(255,67,130,.1)] py-2 text-color-api-red md:rounded-md">
-                                <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-inherit transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
-                                <span className="relative">{data.message}</span>
-                              </p>
+                              {data.message === "Receive SMS" ? (
+                                <div className="flex flex-col items-center justify-center gap-5">
+                                  <button className="group relative cursor-pointer overflow-hidden rounded-3xl bg-blue-700 py-2 text-color-api-red md:rounded-md">
+                                    <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-inherit transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
+                                    <span className="relative">
+                                      Receive sms
+                                    </span>
+                                  </button>
+                                  {data.cancelBtnActive ? (
+                                    <button>Cancel Activation</button>
+                                  ) : null}
+                                </div>
+                              ) : data.message === "No message received yet" ? (
+                                <p className="group relative cursor-pointer overflow-hidden rounded-3xl bg-[rgba(255,67,130,.1)] py-2 text-color-api-red md:rounded-md">
+                                  <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-inherit transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
+                                  <span className="relative">
+                                    No SMS received yet
+                                  </span>
+                                </p>
+                              ) : (
+                                <p className="group relative cursor-pointer overflow-hidden rounded-3xl bg-[rgba(122,107,248,0.1)] py-2 text-color-api-red md:rounded-md">
+                                  <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-inherit transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
+                                  <span className="relative">233</span>
+                                </p>
+                              )}
                             </div>
                           </div>
                         ))}
