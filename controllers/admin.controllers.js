@@ -902,7 +902,7 @@ module.exports = {
     getAllBlogPosts: (req, res, next) => {
         try {
             db.query(
-                `SELECT * FROM blog_posts ORDER BY date_created DESC`,
+                `SELECT * FROM blog_posts ORDER BY id DESC`,
                 async(err, result) => {
                     // if query error
                     if (err) {
@@ -933,7 +933,7 @@ module.exports = {
         } catch (err) {
             console.log(err)
             return res.status(500).send({
-                Error: err
+                Error: err.message
             });
         }
     },
