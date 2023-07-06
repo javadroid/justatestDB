@@ -899,7 +899,7 @@ module.exports = {
         }
     },
     // fetching all blog posts
-    getAllBlogPosts: (req, res, next) => {
+    getAllBlogPosts: async(req, res, next) => {
         try {
             db.query(
                 `SELECT * FROM blog_posts ORDER BY id DESC`,
@@ -921,7 +921,7 @@ module.exports = {
                     var media_links;
                     var key;
                     for (key in resul) {
-                        media_links = await JSON.parse(Buffer.from(resul[key].social_media_link, 'base64').toString('utf8'))
+                        media_links = JSON.parse(Buffer.from(resul[key].social_media_link, 'base64').toString('utf8'))
                         result[key].social_media_links = media_links
                         console.log({ post: resul });
 
