@@ -86,7 +86,7 @@ router.put('/feedback', userMiddleware.isLoggedIn, adminControllers.markFeedback
 
 // Blog posts module starts here
 router.post('/blog_post', userMiddleware.isLoggedIn, multer.any(), adminControllers.createPost);
-router.post('/blog_post', userMiddleware.isLoggedIn, adminControllers.getAllBlogPosts);
+router.get('/blog_post', userMiddleware.isLoggedIn, adminControllers.getAllBlogPosts);
 // Deleting blog post
 router.delete('/delete/post', userMiddleware.isLoggedIn, adminControllers.deletePostById);
 // Editing blog post
