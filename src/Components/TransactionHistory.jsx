@@ -33,7 +33,22 @@ const History = () => {
   ];
   const [data, setData] = useState(historyData);
   const [isLoading, setIsLoading] = useState(true);
-  // const [hidden, setHidden] = useState(true);
+  const cancelService = async (id) => {
+    const url =
+      process.env.NEXT_PUBLIC_BASE_URL + `/cancel_bought_app?appId=${id}`;
+    try {
+      const response = await axios.put(url, {
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+        },
+      });
+      console.log(response.data);
+      setHistoryData();
+      toast.success(response.data.msg);
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
+  };
 
   useEffect(() => {
     setHistoryData();
@@ -41,7 +56,7 @@ const History = () => {
 
   useEffect(() => {
     setData(historyData);
-    // console.log(historyData);
+    console.log(historyData);
     setIsLoading(false);
   }, [historyData]);
 
@@ -51,19 +66,23 @@ const History = () => {
     }
     const THIRTY_SECONDS = 30 * 1000;
     const interval = setInterval(() => {
-      const newData = data.map((item) => { 
+      const newData = data.map((item) => {
+        if (item.message !== "Receive SMS") {
+          return item;
+        }
         let currentTime = Date.now();
         const TWENTY_MINUTES = 20 * 60 * 1000;
         const PURCHASED_DATE = new Date(item.purchased_date).getTime();
-        item.cancelBtnActive = new Date(PURCHASED_DATE).getTime() + TWENTY_MINUTES > currentTime;
+        item.cancelBtnActive =
+          new Date(PURCHASED_DATE).getTime() + TWENTY_MINUTES > currentTime;
         return item;
-       });
+      });
       setData(newData);
-      console.log("first iteration")
+      console.log("first iteration");
     }, THIRTY_SECONDS);
 
     return () => clearInterval(interval);
-  },[])
+  }, []);
 
   if (data.length == 0) {
     return (
@@ -166,23 +185,33 @@ const History = () => {
                               </h6>
                               {data.message === "Receive SMS" ? (
                                 <div className="flex flex-col items-center justify-center gap-5">
-                                  <button className="group relative cursor-pointer overflow-hidden rounded-3xl bg-blue-700 py-2 text-color-api-red md:rounded-md">
-                                    <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-inherit transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
+                                  <button className="group relative cursor-pointer overflow-hidden rounded-3xl bg-color-primary py-2 text-color-white md:rounded-md">
+                                    <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                                     <span className="relative">
                                       Receive sms
                                     </span>
                                   </button>
                                   {data.cancelBtnActive ? (
-                                    <button>Cancel Activation</button>
+                                    <button
+                                      onClick={() =>
+                                        cancelService(data.application_id)
+                                      }
+                                      className="group relative cursor-pointer overflow-hidden rounded-3xl bg-[rgba(255,67,130,.1)] py-2 text-color-api-red font-bold md:rounded-md"
+                                    >
+                                      <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-inherit transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
+                                      <span className="relative">
+                                        Cancel Activation
+                                      </span>
+                                    </button>
                                   ) : null}
                                 </div>
                               ) : data.message === "No message received yet" ? (
-                                <p className="group relative cursor-pointer overflow-hidden rounded-3xl bg-[rgba(255,67,130,.1)] py-2 text-color-api-red md:rounded-md">
+                                <button className="group relative cursor-pointer overflow-hidden rounded-3xl bg-[rgba(255,67,130,.1)] py-2 text-color-api-red md:rounded-md">
                                   <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-inherit transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                                   <span className="relative">
                                     No SMS received yet
                                   </span>
-                                </p>
+                                </button>
                               ) : (
                                 <p className="group relative cursor-pointer overflow-hidden rounded-3xl bg-[rgba(122,107,248,0.1)] py-2 text-color-api-red md:rounded-md">
                                   <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-inherit transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
