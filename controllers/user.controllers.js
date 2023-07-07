@@ -1116,7 +1116,7 @@ const cancelBoughtService = (req, res, next) => {
                         msg: err
                     });
                 }
-                return res.status(202).send({
+                return res.status(200).send({
                     msg: 'Service has been successfully cancelled.'
                 });
             }
