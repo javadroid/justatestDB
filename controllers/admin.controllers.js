@@ -938,7 +938,65 @@ module.exports = {
             });
         }
     },
+    getSingleBlogPost: (req, res, next) => {
+        let postid = req.query.post_id;
+        try {
+            db.query(
+                `SELECT * FROM blog_posts WHERE id='${postid}'`,
+                (err, resul) => {
+                    // if query error
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: err
+                        });
+                    }
+                    // if there is no language available
+                    if (!resul.length) {
+                        return res.status(309).send({
+                            msg: 'This post does not exist!'
+                        });
+                    }
+                    if (resul) {
+                        var total_comments;
 
+                        db.query(
+                            `SELECT * FROM comments WHERE postid='${postid}'`,
+                            (err, result) => {
+                                if (err) { // throw err;
+                                    return res.status(400).send({
+                                        msg: err
+                                    });
+                                }
+                                if (!result.length) {
+                                    total_comments = 0;
+                                }
+                                total_comments = result.length
+                                var media_links;
+                                var blogcon;
+                                for (const key in resul) {
+                                    media_links = JSON.parse(Buffer.from(resul[key].social_media_link, 'base64').toString('utf8'))
+                                    blogcon = Buffer.from(resul[key].content, 'base64').toString('utf8')
+                                    resul[key].social_media_links = media_links;
+                                    resul[key].blog_content = blogcon;
+                                    console.log({ post: resul });
+
+                                }
+                                return res.status(200).send({
+                                    post: resul,
+                                    comments: result,
+                                    total_comments: total_comments
+                                });
+                            }
+                        );
+                    }
+
+                }
+            );
+        } catch (err) {
+            console.log(err)
+        }
+    },
     // Deleting blog post
     deletePostById: (req, res, next) => {
         try {
