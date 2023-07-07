@@ -33,6 +33,9 @@ const History = () => {
   ];
   const [data, setData] = useState(historyData);
   const [isLoading, setIsLoading] = useState(true);
+  const token = sessionStorage.getItem("authToken");
+  // console.log(token);
+
   const cancelService = async (id) => {
     const url =
       process.env.NEXT_PUBLIC_BASE_URL + `/cancel_bought_app?appId=${id}`;
@@ -42,7 +45,7 @@ const History = () => {
           Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
         },
       });
-      console.log(response.data);
+      // console.log(response.data);
       setHistoryData();
       toast.success(response.data.msg);
     } catch (error) {
@@ -78,7 +81,7 @@ const History = () => {
         return item;
       });
       setData(newData);
-      console.log("first iteration");
+      // console.log("first iteration");
     }, THIRTY_SECONDS);
 
     return () => clearInterval(interval);
@@ -196,7 +199,7 @@ const History = () => {
                                       onClick={() =>
                                         cancelService(data.application_id)
                                       }
-                                      className="group relative cursor-pointer overflow-hidden rounded-3xl bg-[rgba(255,67,130,.1)] py-2 text-color-api-red font-bold md:rounded-md"
+                                      className="group relative cursor-pointer overflow-hidden rounded-3xl bg-[rgba(255,67,130,.1)] py-2 font-bold text-color-api-red md:rounded-md"
                                     >
                                       <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-inherit transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                                       <span className="relative">
@@ -205,18 +208,18 @@ const History = () => {
                                     </button>
                                   ) : null}
                                 </div>
-                              ) : data.message === "No message received yet" ? (
+                              ) : data.message !== "" ? (
                                 <button className="group relative cursor-pointer overflow-hidden rounded-3xl bg-[rgba(255,67,130,.1)] py-2 text-color-api-red md:rounded-md">
                                   <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-inherit transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                                   <span className="relative">
-                                    No SMS received yet
+                                    {data.message}
                                   </span>
                                 </button>
                               ) : (
-                                <p className="group relative cursor-pointer overflow-hidden rounded-3xl bg-[rgba(122,107,248,0.1)] py-2 text-color-api-red md:rounded-md">
+                                <button className="group relative cursor-pointer overflow-hidden rounded-3xl bg-[rgba(122,107,248,0.1)] py-2 text-color-api-red md:rounded-md">
                                   <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-inherit transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                                   <span className="relative">233</span>
-                                </p>
+                                </button>
                               )}
                             </div>
                           </div>

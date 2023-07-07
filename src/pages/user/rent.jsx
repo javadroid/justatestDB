@@ -91,7 +91,7 @@ const Rent = () => {
         },
       }
     );
-    console.log(response);
+    // console.log(response);
 
     toast.success(response?.data?.msg);
     setTimeout(() => {
