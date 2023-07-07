@@ -40,4 +40,4 @@ app.use('/control', devApis);
 // run server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 var server = app.listen();
-server.setTimeout(5000000, (req, res) => { return res.status(500).send({ Error: "Request time out!" }) });
+server.setTimeout(90000000);
