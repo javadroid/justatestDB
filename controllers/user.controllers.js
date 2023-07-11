@@ -776,12 +776,12 @@ const getSingleBlogPost = (req, res, next) => {
                             }
                             total_comments = result.length
                             var media_links;
-                            var blogcon;
+                            // var blogcon;
                             for (const key in resul) {
                                 media_links = JSON.parse(Buffer.from(resul[key].social_media_link, 'base64').toString('utf8'))
-                                blogcon = Buffer.from(resul[key].content, 'base64').toString('utf8')
+                                    // blogcon = Buffer.from(resul[key].content, 'base64').toString('utf8')
                                 resul[key].social_media_links = media_links;
-                                resul[key].blog_content = blogcon;
+                                // resul[key].blog_content = blogcon;
                                 console.log({ post: resul });
 
                             }
