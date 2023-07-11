@@ -938,17 +938,13 @@ module.exports = {
             });
         }
     },
-    getSingleBlogPost: async(req, res, next) => {
+    // fetching single blog post
+    getSingleBlogPost: (req, res, next) => {
         let postid = req.query.post_id;
         try {
-            if (!postid) {
-                return res.status(309).send({
-                    msg: 'Post Id is required!'
-                });
-            }
             db.query(
                 `SELECT * FROM blog_posts WHERE id='${postid}'`,
-                async(err, resul) => {
+                (err, resul) => {
                     // if query error
                     if (err) {
                         // throw err;
@@ -956,19 +952,18 @@ module.exports = {
                             msg: err
                         });
                     }
-                    const re = await resul;
                     // if there is no language available
-                    if (!re.length) {
-                        return res.status(404).send({
+                    if (!resul.length) {
+                        return res.status(309).send({
                             msg: 'This post does not exist!'
                         });
                     }
-                    if (re) {
+                    if (resul) {
                         var total_comments;
 
                         db.query(
                             `SELECT * FROM comments WHERE postid='${postid}'`,
-                            async(err, result) => {
+                            (err, result) => {
                                 if (err) { // throw err;
                                     return res.status(400).send({
                                         msg: err
@@ -977,20 +972,20 @@ module.exports = {
                                 if (!result.length) {
                                     total_comments = 0;
                                 }
-                                total_comments = await result.length
+                                total_comments = result.length
                                 var media_links;
                                 // var blogcon;
-                                for (const key in re) {
-                                    media_links = JSON.parse(Buffer.from(re[key].social_media_link, 'base64').toString('utf8'))
-                                        // blogcon = Buffer.from(re[key].content, 'base64').toString('utf8')
-                                    re[key].social_media_links = media_links;
-                                    // re[key].blog_content = blogcon;
-                                    console.log({ post: re });
+                                for (const key in resul) {
+                                    media_links = JSON.parse(Buffer.from(resul[key].social_media_link, 'base64').toString('utf8'))
+                                        // blogcon = Buffer.from(resul[key].content, 'base64').toString('utf8')
+                                    resul[key].social_media_links = media_links;
+                                    // resul[key].blog_content = blogcon;
+                                    console.log({ post: resul });
 
                                 }
                                 return res.status(200).send({
-                                    post: re,
-                                    comments: await result,
+                                    post: resul,
+                                    comments: result,
                                     total_comments: total_comments
                                 });
                             }
