@@ -28,7 +28,7 @@ const CountryPrice = () => {
   }, []);
 
   if (data.length === 0) {
-    return <div>No data</div>;
+    return <div>No Country</div>;
   }
 
   return (
