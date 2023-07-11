@@ -1062,14 +1062,14 @@ module.exports = {
                 });
             }
             // encoding the content input
-            let Encoded = Buffer.from(content, 'utf8').toString('base64');
+            // let Encoded = Buffer.from(content, 'utf8').toString('base64');
             // decoding the content
-            let DEcontent = Buffer.from(Encoded, 'base64').toString('utf8');
-            console.log("Encoded: " + Encoded);
-            console.log("Decoded: " + DEcontent);
-            console.log("Main content: " + content);
+            // let DEcontent = Buffer.from(Encoded, 'base64').toString('utf8');
+            // console.log("Encoded: " + Encoded);
+            // console.log("Decoded: " + DEcontent);
+            // console.log("Main content: " + content);
             db.query(
-                `UPDATE blog_posts SET title='${title}', author='${author}', description='${description}', content='${Encoded}', social_media_link='[${social_media_links}]' WHERE id='${postid}'`,
+                `UPDATE blog_posts SET title='${title}', author='${author}', description='${description}', blog_content='${content}', social_media_link='[${social_media_links}]' WHERE id='${postid}'`,
                 (err, result) => {
                     if (err) {
                         // throw err;
