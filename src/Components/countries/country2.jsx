@@ -13,7 +13,9 @@ const UsersCountry = ({ searchTerm }) => {
   const [data, setData] = useState([]);
 
   function handleClick(index) {
-    setActiveIndex(index === activeIndex ? -1 : index);
+    setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
+    // setActiveIndex(prevIndex => (prevIndex === index ? -1 : index));
+    // setActiveIndex(index === activeIndex ? -1 : index);
   }
   const handleCountryClick = (countryName) => {
     localStorage.setItem("selectedCountry", countryName);
@@ -32,7 +34,7 @@ const UsersCountry = ({ searchTerm }) => {
       });
       setData(response.data.countries);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -68,21 +70,27 @@ const UsersCountry = ({ searchTerm }) => {
           .map((country, index) => (
             <div
               key={country.id}
-              onClick={() => {handleClick(index)
-                handleCountryClick(country.country_name)}}
-              className={activeIndex === index ? "mb-1 flex rounded-lg border border-color-primary bg-color-bg_primary-500 cursor-pointer" : "mb-1 flex rounded-lg bg-color-bg_primary-500 cursor-pointer"}
+              onClick={() => {
+                handleClick(index);
+                handleCountryClick(country.country_name);
+              }}
+              className={
+                activeIndex === index
+                  ? "mb-1 flex cursor-pointer rounded-lg border border-color-primary bg-color-bg_primary-500"
+                  : "mb-1 flex cursor-pointer rounded-lg bg-color-bg_primary-500"
+              }
             >
               <div className="flex w-full items-center p-4 text-xs sm:justify-between md:text-base">
                 <Image src={star} alt="" className="-mt-1" />
                 <div className="flex w-full items-center">
                   <span>
-                  <Image
-                  src={`https://flagcdn.com/${country.country_code.toLowerCase()}.svg`}
-                  width={20}
-                  height={20}
-                  alt={country.country_id}
-                  className="mr-2"
-                />
+                    <Image
+                      src={`https://flagcdn.com/${country.country_code.toLowerCase()}.svg`}
+                      width={20}
+                      height={20}
+                      alt={country.country_id}
+                      className="mr-2"
+                    />
                   </span>
                   <span>
                     {country.country_name.length > maxNameLength

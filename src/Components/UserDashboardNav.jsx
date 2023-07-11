@@ -51,7 +51,7 @@ const UserDashboardNav = () => {
     <nav className="top-0 z-50 flex h-16 w-full items-center justify-between bg-color-bg_primary-500 p-2 text-white lg:h-20">
       <div className="mx-auto flex w-full max-w-7xl items-center justify-center md:space-x-2 lg:justify-between">
         <div className="flex w-full items-center justify-center md:w-3/5 lg:justify-between lg:gap-10 lg:py-8">
-          <Image src={Logo} alt="diginums" className="h-auto w-full md:w-1/5" />
+          <Image src={Logo} alt="diginums" className="h-auto w-[100px] md:w-1/5" />
           <button className="group hidden items-center space-x-5 rounded-md border border-color-primary bg-white px-2 py-2 text-black md:flex md:w-4/5">
             <div>
               <Icon

@@ -52,7 +52,6 @@ const RentedNumberHistory = () => {
     try {
       const Cancel = await axios.put(
         process.env.NEXT_PUBLIC_BASE_URL + "/number/cancel",
-        {},
         {
           params: {
             userid: sessionStorage.getItem("id"),
@@ -69,7 +68,7 @@ const RentedNumberHistory = () => {
         window.location.reload();
       }, 2000);
     } catch (error) {
-      console.log("Error is", error);
+      // console.log("Error is", error);
       toast.error(error?.response?.data.msg || "No response from the server.");
     }
   };

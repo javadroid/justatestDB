@@ -45,7 +45,7 @@ const Rent = () => {
   };
 
   const getBalance = async () => {
-    const response = await axios.get("http://161.35.218.95:3000/api/balance", {
+    const response = await axios.get(process.env.NEXT_PUBLIC_BASE_URL + "/balance", {
       params: {
         userid: sessionStorage.getItem("id"),
       },
@@ -91,7 +91,7 @@ const Rent = () => {
         },
       }
     );
-    console.log(response);
+    // console.log(response);
 
     toast.success(response?.data?.msg);
     setTimeout(() => {
