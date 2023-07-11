@@ -1350,10 +1350,10 @@ module.exports = {
     setUserBalance: (req, res, next) => {
         try {
             let balanc = req.query.available_balance;
-            let adminId = req.query.adminid;
-            let userid = req.query.userid;
-            const newBalance = req.body.newBalance;
-            const newBonus = req.body.newEarnBalance;
+            let adminId = req.query.admin_id;
+            let userid = req.query.user_id;
+            const newBalance = req.body.new_balance;
+            const newBonus = req.body.new_earn_balance;
             const bonusStatus = req.body.ref_bonus_status
             var query = '';
             if (newBalance) {
