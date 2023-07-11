@@ -38,6 +38,6 @@ app.use('/control', devApis);
 // app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(docs));
 
 // run server
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-var server = app.listen();
-server.setTimeout(90000000);
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`)).setTimeout(9000000);
+// var server = app.listen();
+// server.setTimeout(90000000);

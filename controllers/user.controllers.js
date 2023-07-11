@@ -699,7 +699,6 @@ const sendFeedback = (req, res, next) => {
     }
 }
 
-
 // Blog modules
 // fetching all blog posts
 const getAllBlogPosts = (req, res, next) => {
@@ -742,6 +741,7 @@ const getAllBlogPosts = (req, res, next) => {
     }
     // fetching single blog post
 const getSingleBlogPost = (req, res, next) => {
+    return res.send({ msg: "This endpoint is on review." });
     let postid = req.query.post_id;
     try {
         db.query(
