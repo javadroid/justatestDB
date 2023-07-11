@@ -874,12 +874,12 @@ module.exports = {
             }
 
             // encoding the content input
-            const Encoded = Buffer.from(content, 'utf8').toString('base64');
+            // const Encoded = Buffer.from(content, 'utf8').toString('base64');
             let ss = JSON.stringify(social_media_links)
             const social = Buffer.from(ss, 'utf8').toString('base64');
             db.query(
-                `INSERT INTO blog_posts(title, author, description, content, social_media_link)
-            VALUES ('${title}', '${author}', '${description}', '${Encoded}', '${social}')`,
+                `INSERT INTO blog_posts(title, author, description, blog_content, social_media_link)
+            VALUES ('${title}', '${author}', '${description}', '${content}', '${social}')`,
                 (err, result) => {
                     if (err) {
                         // throw err;
@@ -979,12 +979,12 @@ module.exports = {
                                 }
                                 total_comments = await result.length
                                 var media_links;
-                                var blogcon;
+                                // var blogcon;
                                 for (const key in re) {
                                     media_links = JSON.parse(Buffer.from(re[key].social_media_link, 'base64').toString('utf8'))
-                                    blogcon = Buffer.from(re[key].content, 'base64').toString('utf8')
+                                        // blogcon = Buffer.from(re[key].content, 'base64').toString('utf8')
                                     re[key].social_media_links = media_links;
-                                    re[key].blog_content = blogcon;
+                                    // re[key].blog_content = blogcon;
                                     console.log({ post: re });
 
                                 }
