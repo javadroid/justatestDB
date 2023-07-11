@@ -1058,7 +1058,7 @@ module.exports = {
 
             if (!title || !author || !description || !content) {
                 return res.status(401).send({
-                    msg: "Title, author, description, image, content field con not be empty!"
+                    msg: "Title, author, description, content field con not be empty!"
                 });
             }
             // encoding the content input
