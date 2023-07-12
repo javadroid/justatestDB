@@ -3,6 +3,7 @@ import Image from "next/image";
 import serviceimg from "../../assets/socials/Amazon.svg";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const ServiceQty = () => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/applications";
@@ -18,7 +19,8 @@ const ServiceQty = () => {
       });
       setServices(response.data.applications);
     } catch (error) {
-      console.log(error);
+      // console.log(error.message)
+      toast.error(error.message);
     }
   };
 
