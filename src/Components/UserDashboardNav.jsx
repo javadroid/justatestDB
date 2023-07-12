@@ -38,7 +38,7 @@ const UserDashboardNav = () => {
           },
         }),
       ]);
-      setBalance(response[0].data?.data[0]?.balance);
+      setBalance(Number(response[0].data?.data[0]?.balance).toFixed(2));
       setUserData(response[1].data?.user);
     };
     getBalance();
@@ -73,7 +73,7 @@ const UserDashboardNav = () => {
               <p className="hidden text-xs text-black md:inline-block">
                 Balance:
               </p>
-              <p className="font-bold text-black">{Number(balance).toFixed(2)}</p>
+              <p className="font-bold text-black">${balance}</p>
             </div>
             <button className="group relative flex w-2/3 items-center justify-center overflow-hidden rounded  bg-color-accent text-black hover:text-white md:w-1/2 md:rounded-lg md:py-2">
               <span className="absolute left-0 top-0 mt-16 hidden h-20 w-full rounded-3xl bg-color-decor_orange transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
