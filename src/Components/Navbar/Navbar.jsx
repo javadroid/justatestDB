@@ -39,7 +39,7 @@ const Navbar = () => {
       setLanguages(data?.data?.languages);
     };
     getLanguages();
-  }, []);
+  }, [instance]);
 
   const [languages, setLanguages] = useState([]);
   return (

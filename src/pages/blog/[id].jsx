@@ -41,7 +41,7 @@ const BlogPage = () => {
     // }, 3000);
 
     // return () => clearTimeout(timer);
-  }, [router?.query?.id]);
+  }, [router?.query?.id, instance]);
 
   const [comments, setComments] = useState([]);
   const [body, setBody] = useState("");
@@ -100,9 +100,9 @@ const BlogPage = () => {
           <p className="text-2xl font-medium">({comments.length})</p>
         </div>
 
-        {comments.map((comment) => {
+        {comments.map((comment, index) => {
           return (
-            <ul className="list-disc px-3 text-lg">
+            <ul key={index} className="list-disc px-3 text-lg">
               <li>{comment?.comment}</li>
             </ul>
           );

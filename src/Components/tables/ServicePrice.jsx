@@ -7,28 +7,27 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import axios from "axios";
 
-
 const ServicePrice = () => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/applications";
   const [services, setServices] = useState([]);
   const maxNameLength = 11;
   const [searchTerm, setSearchTerm] = useState("");
-  const fetchServices = async () => {
-    try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-      });
-      setServices(response.data.applications);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        });
+        setServices(response.data.applications);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchServices();
-  }, []);
+  }, [url]);
 
   if (services.length === 0) {
     return <div>Please wait...</div>;

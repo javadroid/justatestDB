@@ -5,23 +5,13 @@ import Image from "next/image";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import RentedNumberHistory from "@/Components/RentedNumberHistory";
+import { get } from "react-hook-form";
 
 const Rent = () => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/countries";
   const [data, setData] = useState([]);
   let maxNameLength = 11;
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-      });
-      setData(response.data.countries);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+ 
 
   const [country, setCountry] = useState("");
   const [time, setTime] = useState("");
@@ -30,20 +20,7 @@ const Rent = () => {
   const [show, setShow] = useState(false);
   const [balance, setBalance] = useState(0);
 
-  const getRentFee = async () => {
-    const response = await axios.get(
-      process.env.NEXT_PUBLIC_BASE_URL + "/rentfees/country/duration",
-      {
-        params: {
-          country: country || "nigeria",
-          duration: time || "hour",
-        },
-      }
-    );
-    // console.log(response?.data?.data[0]?.amount);
-    setFee(response?.data?.data[0]?.amount);
-  };
-
+ 
   const getBalance = async () => {
     const response = await axios.get(process.env.NEXT_PUBLIC_BASE_URL + "/balance", {
       params: {
@@ -58,10 +35,36 @@ const Rent = () => {
   };
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        });
+        setData(response.data.countries);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const getRentFee = async () => {
+      const response = await axios.get(
+        process.env.NEXT_PUBLIC_BASE_URL + "/rentfees/country/duration",
+        {
+          params: {
+            country: country || "nigeria",
+            duration: time || "hour",
+          },
+        }
+      );
+      // console.log(response?.data?.data[0]?.amount);
+      setFee(response?.data?.data[0]?.amount);
+    };
+  
     fetchData();
     getRentFee();
     getBalance();
-  }, [country, time]);
+  }, [country, time, url]);
 
   if (data.length === 0) {
     return <div>Loading...</div>;

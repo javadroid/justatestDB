@@ -25,22 +25,21 @@ const UsersCountry = ({ searchTerm }) => {
     setShowMore(!showMore);
   };
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-      });
-      setData(response.data.countries);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        });
+        setData(response.data.countries);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchData();
-  }, []);
+  }, [url]);
 
   if (data.length === 0) {
     return <div>Please wait...</div>;

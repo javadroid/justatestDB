@@ -29,53 +29,6 @@ const Services2 = ({ searchTerm }) => {
     setShowMore(!showMore);
   };
 
-  // const handleClick = () => {};
-
-  const fetchServices = async () => {
-    try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-      });
-      setServices(response.data.applications);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const fetchUserApi = async () => {
-    try {
-      const response = await instance.get(apiKeyUrl, {
-        params: {
-          userid: sessionStorage.getItem("id"),
-        },
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-      });
-      setUserKey(response.data.user.apikey);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const getBalance = async () => {
-    try {
-      const response = await instance.get(balanceUrl, {
-        params: {
-          userid: sessionStorage.getItem("id"),
-        },
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-      });
-      setBalance(response.data.data[0].balance);
-    } catch (error) {
-      console.log(error.message || error);
-    }
-  };
-
   const postServices = async (service) => {
     const clickedCountry = localStorage.getItem("selectedCountry");
     try {
@@ -106,10 +59,61 @@ const Services2 = ({ searchTerm }) => {
   };
 
   useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        });
+        setServices(response.data.applications);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const fetchUserApi = async () => {
+      try {
+        const response = await instance.get(apiKeyUrl, {
+          params: {
+            userid: sessionStorage.getItem("id"),
+          },
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        });
+        setUserKey(response.data.user.apikey);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    const getBalance = async () => {
+      try {
+        const response = await instance.get(balanceUrl, {
+          params: {
+            userid: sessionStorage.getItem("id"),
+          },
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        });
+        setBalance(response.data.data[0].balance);
+      } catch (error) {
+        console.log(error.message || error);
+      }
+    };
     fetchServices();
     fetchUserApi();
     getBalance();
-  }, []);
+  }, [
+   url,
+    apiKeyUrl,
+    balanceUrl,
+    instance,
+    postUrl,
+    setHistoryData,
+    userKey,
+  ]);
 
   if (services.length === 0) {
     return <div>Please wait...</div>;
