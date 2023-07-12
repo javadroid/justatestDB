@@ -4,6 +4,7 @@ import Link from "next/link";
 import countryImg from "../../assets/flags/Croatia.svg";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const CountryPrice = () => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/countries";
@@ -19,7 +20,8 @@ const CountryPrice = () => {
       });
       setData(response.data.countries);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
+      toast.error(error.message);
     }
   };
 

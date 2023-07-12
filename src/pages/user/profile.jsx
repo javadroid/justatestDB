@@ -33,7 +33,7 @@ const Profile = () => {
           },
         }),
       ]);
-      setBalance(response[0].data?.data[0]?.balance);
+      setBalance(Number(response[0].data?.data[0]?.balance).toFixed(2));
       setUserData(response[1].data?.user);
     };
     getBalance();
