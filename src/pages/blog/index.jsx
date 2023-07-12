@@ -2,15 +2,18 @@ import BlogComponent from "@/Components/BlogComponent";
 import BlogSidebar from "@/Components/BlogSidebar";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { get } from "react-hook-form";
 
-const blog = () => {
-  var instance = axios.create({
-    validateStatus: function (status) {
-      return status >= 200 && status < 300; // default
-    },
-  });
+const useBlogs = () => {
+  const [blogData, setBlogData] = useState([]);
 
   useEffect(() => {
+    const instance = axios.create({
+      validateStatus: function (status) {
+        return status >= 200 && status < 300; // default
+      },
+    });
+
     const getBlogs = async () => {
       const data = await instance.get(
         process.env.NEXT_PUBLIC_BASE_URL + "/blog/posts"
@@ -21,11 +24,12 @@ const blog = () => {
     getBlogs();
   }, []);
 
-  const [blogData, setBlogData] = useState([]);
-  // console.log("useState data", blogData);
-  // console.log("useState id", blogData?.posts?.id);
+  return blogData;
+};
+
+const Blog = () => {
+  const blogData = useBlogs();
   const date = new Date();
-  //date.toDateString
 
   return (
     <section className="my-10 flex">
@@ -43,7 +47,6 @@ const blog = () => {
               />
             );
           })}
-          {/* <BlogComponent /> */}
         </div>
         <BlogSidebar />
       </div>
@@ -51,4 +54,4 @@ const blog = () => {
   );
 };
 
-export default blog;
+export default Blog;

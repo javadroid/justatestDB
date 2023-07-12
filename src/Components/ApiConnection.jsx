@@ -132,7 +132,7 @@ const ApiConnection = () => {
             <h4 className="text-center font-extrabold md:text-left">Result</h4>
             <div className="api-box rounded-xl border border-[#dbebff] bg-color-bg_light">
               <div>
-                <strong>"balanc799.70"</strong>
+                <strong>&quot;balanc799.70&quot;</strong>
               </div>
             </div>
             <h4 className="text-center font-extrabold md:text-left">

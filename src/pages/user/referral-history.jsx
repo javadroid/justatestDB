@@ -12,29 +12,28 @@ const ReferralHistory = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchReferralHistory = async () => {
-    try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-      });
-      setReferralHistory(response.data.referrals.result);
-      setIsLoading(false);
-    } catch (error) {
-      // console.error("Error occurred:", error.message);
-      if (error.response) {
-        setIsLoading(false);
-        setError(error.response.data.msg);
-        // console.error("Response status:", error.response.status);
-        // console.error("Response data:", error.response.data);
-      }
-    }
-  };
-
   useEffect(() => {
+    const fetchReferralHistory = async () => {
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        });
+        setReferralHistory(response.data.referrals.result);
+        setIsLoading(false);
+      } catch (error) {
+        // console.error("Error occurred:", error.message);
+        if (error.response) {
+          setIsLoading(false);
+          setError(error.response.data.msg);
+          // console.error("Response status:", error.response.status);
+          // console.error("Response data:", error.response.data);
+        }
+      }
+    };
     fetchReferralHistory();
-  }, []);
+  }, [url]);
 
   const colNames = ["Date", "Name", "Deposit", "Earn"];
 

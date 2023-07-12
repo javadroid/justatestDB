@@ -27,26 +27,26 @@ const RentedNumberHistory = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [hidden, setHidden] = useState(true);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-        params: {
-          userid: sessionStorage.getItem("id"),
-        },
-      });
-      setData(response.data.numbers);
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+          params: {
+            userid: sessionStorage.getItem("id"),
+          },
+        });
+        setData(response.data.numbers);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchData();
-  }, []);
+  }, [ url]);
 
   const CancelRent = async (number, amount) => {
     try {

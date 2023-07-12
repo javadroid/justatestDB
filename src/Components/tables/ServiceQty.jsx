@@ -10,23 +10,23 @@ const ServiceQty = () => {
   const [services, setServices] = useState([]);
   const maxNameLength = 11;
   const [searchTerm, setSearchTerm] = useState("");
-  const fetchServices = async () => {
-    try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-      });
-      setServices(response.data.applications);
-    } catch (error) {
-      // console.log(error.message)
-      toast.error(error.message);
-    }
-  };
-
+  
   useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        });
+        setServices(response.data.applications);
+      } catch (error) {
+        // console.log(error.message)
+        toast.error(error.message);
+      }
+    };
     fetchServices();
-  }, []);
+  }, [setServices, url]);
 
   if (services.length === 0) {
     return <div>Please wait...</div>;

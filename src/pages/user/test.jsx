@@ -1,6 +1,4 @@
-import React from "react";
-
-const test = () => {
+const Test = () => {
   const [open, setOpen] = React.useState(true);
   const log = () => {
     console.log(open);
@@ -331,4 +329,4 @@ const test = () => {
   );
 };
 
-export default test;
+export default Test;

@@ -42,7 +42,7 @@ const UserDashboardNav = () => {
       setUserData(response[1].data?.user);
     };
     getBalance();
-  }, []);
+  }, [instance]);
 
   const [balance, setBalance] = useState(0);
   const [userData, setUserData] = useState({});

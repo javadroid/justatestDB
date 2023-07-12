@@ -1,7 +1,7 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
-import countryImg from "../../assets/flags/Croatia.svg";
+// import countryImg from "../../assets/flags/Croatia.svg";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -11,23 +11,23 @@ const CountryPrice = () => {
   const maxNameLength = 11;
   const [data, setData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-      });
-      setData(response.data.countries);
-    } catch (error) {
-      // console.log(error);
-      toast.error(error.message);
-    }
-  };
-
+  
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        });
+        setData(response.data.countries);
+      } catch (error) {
+        // console.log(error);
+        toast.error(error.message);
+      }
+    };
     fetchData();
-  }, []);
+  }, [url]);
 
   if (data.length === 0) {
     return <div>No Country</div>;

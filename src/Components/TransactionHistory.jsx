@@ -7,6 +7,7 @@ import CopyToClipboard from "./Copy";
 import useHistoryStore from "@/store/HistoryStore";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { set } from "react-hook-form";
 
 const History = () => {
   const historyData = useHistoryStore((state) => state.historyData);
@@ -55,7 +56,7 @@ const History = () => {
 
   useEffect(() => {
     setHistoryData();
-  }, []);
+  }, [setHistoryData]);
 
   useEffect(() => {
     setData(historyData);
@@ -85,7 +86,7 @@ const History = () => {
     }, THIRTY_SECONDS);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [data]);
 
   if (data.length == 0) {
     return (

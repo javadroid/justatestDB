@@ -12,29 +12,29 @@ const TopUpHistory = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchTopUpHistory = async () => {
-    try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-      });
-      setTopUpHistory(response.data.user_topups.result);
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      // console.error("Error occurred:", error.message);
-      if (error.response) {
-        setError(error.response.data.msg);
-        // console.error("Response status:", error.response.status);
-        // console.error("Response data:", error.response.data);
-      }
-    }
-  };
-
+  
   useEffect(() => {
+    const fetchTopUpHistory = async () => {
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        });
+        setTopUpHistory(response.data.user_topups.result);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        // console.error("Error occurred:", error.message);
+        if (error.response) {
+          setError(error.response.data.msg);
+          // console.error("Response status:", error.response.status);
+          // console.error("Response data:", error.response.data);
+        }
+      }
+    };
     fetchTopUpHistory();
-  }, []);
+  }, [url]);
 
   const headings = ["Date", "Amount", "Status"];
 

@@ -42,7 +42,7 @@ const Login = () => {
       }
     };
     res();
-  }, [session]);
+  }, [session, instance, router]);
 
   const {
     register,
