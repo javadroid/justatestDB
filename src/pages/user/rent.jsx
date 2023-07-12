@@ -215,7 +215,10 @@ const Rent = () => {
                     <div className="mb-4  flex h-10 w-full justify-between rounded-lg bg-color-bg_primary-500 p-1 font-bold active:border active:text-color-primary">
                       <MinusCircleIcon
                         className="text-color-primary"
-                        onClick={() => setCount(count - 1)}
+                        onClick={() => 
+                          count <= 1 ? setCount(count) :
+                          setCount(count - 1)}
+
                       />
                       <p className="text-xl">{count}</p>
                       <PlusCircleIcon
