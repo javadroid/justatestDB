@@ -1193,6 +1193,37 @@ const getRentNumber = (req, res, next) => {
     }
 
 }
+const getRentDetails = (req, res, next) => {
+    // Everything wil be here
+    try {
+        const rentid = req.query.rent_id;
+        if (!rentid) { res.status(403).send({ msg: "rend_id is required." }) }
+        db.query(
+            `SELECT * FROM rents WHERE rentId='${rentid}'`,
+            (err, result) => {
+                // if query error
+                if (err) {
+                    // throw err;
+                    return res.status(400).send({
+                        msg: err
+                    });
+                }
+                // if user have not rented number yet
+                if (result.length <= 0) {
+                    return res.status(303).send({
+                        msg: 'Incorect rent_id.'
+                    });
+                }
+                return res.status(200).send({
+                    details: result
+                });
+            }
+        );
+    } catch (err) {
+        console.log(err)
+    }
+
+}
 
 const cancelNumber = (req, res, next) => {
     try {
@@ -1304,4 +1335,5 @@ module.exports = {
     buyService,
     getBoughtServices,
     cancelBoughtService,
+    getRentDetails,
 }
