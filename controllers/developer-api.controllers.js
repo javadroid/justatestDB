@@ -238,7 +238,7 @@ module.exports = {
                                                                     msg: err
                                                                 });
                                                             }
-                                                            return res.status(201).send({
+                                                            return res.status(200).send({
 
                                                                 "request_id": rentId,
                                                                 "country_id": 1,
