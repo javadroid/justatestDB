@@ -1201,7 +1201,7 @@ const cancelNumber = (req, res, next) => {
         const rentedNum = req.query.rented_number;
         const amount = req.query.rented_amount;
         console.log(userid, rentedNum, amount);
-        if (!userid || !rentedNum || !amount) { return res.status(403).send({ msg: 'userid is required as parameters.' }); }
+        if (!userid) { return res.status(403).send({ msg: 'userid is required as parameters.' }); }
         if (!rentedNum) { return res.status(403).send({ msg: 'rented_number is required as parameters.' }); }
         if (!amount) { return res.status(403).send({ msg: 'rented_amount is required as parameters.' }); }
         db.query(
