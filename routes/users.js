@@ -84,7 +84,7 @@ router.get('/user', userMiddleware.isLoggedIn, userControllers.getUserDetails);
 // Number renting module starts here
 router.get('/rent/numbers', userMiddleware.isLoggedIn, userControllers.getRentNumber);
 router.post('/rent/number', userMiddleware.isLoggedIn, userControllers.rentNumber);
-router.put('/number/cancel', userMiddleware.isLoggedIn, userControllers.cancelNumber);
+router.put('/number/cancel', userControllers.cancelNumber);
 router.post('/buy_service', userMiddleware.isLoggedIn, userControllers.buyService)
 router.post('/stripe/checkout', userMiddleware.isLoggedIn, topupControllers.stripeTopup);
 router.get('/applications', userControllers.getApplications);
