@@ -131,7 +131,7 @@ module.exports = {
     },
     requestNumber: async(req, res, next) => {
         try {
-            const { token } = req.query.token;
+            const token = req.query.token;
             var country_id;
             var application_id;
             if (!token) {
