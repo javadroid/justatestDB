@@ -343,8 +343,8 @@ module.exports = {
                                         "country_id": resul[0].country,
                                         "application_id": resul[0].duration,
                                         "number": resul[0].rented_number,
-                                        "error_code": '=>' + '"wait_sms"',
-                                        "error_msg": '=>' + '"still waiting..."'
+                                        "error_code": '=> "wait_sms"',
+                                        "error_msg": '=> "still waiting..."'
                                     });
                                 }
                                 return res.status(200).send({
