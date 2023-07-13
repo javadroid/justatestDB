@@ -1197,7 +1197,7 @@ const getRentNumber = (req, res, next) => {
 const cancelNumber = (req, res, next) => {
     try {
 
-        let userid = req.query.userid;
+        const userid = req.query.userid;
         const rentedNum = req.query.rented_number;
         const amount = req.query.rented_amount;
         console.log(userid, rentedNum, amount);
