@@ -104,19 +104,20 @@ module.exports = {
                         });
                     }
                     const found = await result.length;
-                    if (!found) {
+                    if (found) {
                         console.log(result, token, found)
                         return res.status(404).send({
                             "success": false,
                             "error_code": "wrong_token",
                             "error_msg": { "token": "wrong token" }
                         });
-                    } else if (found) {
+                    } else if (!found) {
                         const response = await axios({
                             url: url,
                             method: 'get'
                         });
-                        return res.status(200).send({ response });
+                        const tr = response.data;
+                        return res.status(200).send(tr);
                     }
                 }
             );
