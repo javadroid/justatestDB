@@ -700,7 +700,7 @@ const sendFeedback = (req, res, next) => {
 }
 
 // Blog modules
-// fetching all blog posts
+// fetching all blog posts       
 const getAllBlogPosts = (req, res, next) => {
         try {
             let st = "Enable";

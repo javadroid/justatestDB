@@ -70,9 +70,10 @@ module.exports = {
     },
     totalNumbers: async(req, res, next) => {
         try {
-            const { token } = req.query.token;
+            const token = req.query.token;
             var country_id;
             var application_id;
+            var url;
             if (!token) {
                 return res.status(404).send({
                     "success": false,
@@ -83,9 +84,11 @@ module.exports = {
             if (req.query.country_id && req.query.application_id) {
                 country_id = req.query.country_id;
                 application_id = req.query.application_id;
+                url = `http://207.154.223.33:7014/gateway/routeXapi/backend/xapi/Wws/Numbers/list?page=1&page-chunk=24&country_id=${country_id}&type_id=2&application_id=${application_id}`;
+
             } else {
-                country_id = 1;
-                application_id = 1;
+                url = `http://207.154.223.33:7014/gateway/routeXapi/backend/xapi/Wws/Numbers/list`;
+
             }
             db.query(
                 `SELECT * FROM users WHERE apikey='${token}'`,
@@ -109,12 +112,11 @@ module.exports = {
                             "error_msg": { "token": "wrong token" }
                         });
                     } else if (found) {
-
-                        const url = `http://207.154.223.33:7014/gateway/routeXapi/backend/xapi/Wws/Numbers/available?country_id=${country_id}&application_id=${application_id}&type_id=1`;
                         const response = await axios({
                             url: url,
                             method: 'get'
                         });
+                        return res.status(200).send({ response });
                     }
                 }
             );
