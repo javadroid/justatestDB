@@ -99,16 +99,9 @@ const Navbar = () => {
               onClick={() => router.push("/user/receive-sms")}
               className="group relative overflow-hidden rounded-full border border-white px-6 py-2 hover:border-0"
             >
-              <span className="absolute -left-16 top-0 mt-12 h-64 w-60 rounded-full bg-color-primary transition-all duration-300 ease-out group-hover:-mt-4 group-hover:-rotate-180"></span>
+              <span className="absolute -right-1 top-0 mt-12 h-10 w-48 rounded bg-color-primary transition-all duration-300 ease-out group-hover:-mt-1 group-hover:rotate-360"></span>
               <span className="relative">You are logged in</span>
             </button>
-            {/* <button
-              onClick={() => router.push("/login")}
-              className="group relative overflow-hidden rounded-full border border-white px-6 py-2 hover:border-0"
-            >
-              <span className="absolute -left-16 top-0 mt-12 h-64 w-60 rounded-full bg-color-primary transition-all duration-300 ease-out group-hover:-mt-4 group-hover:-rotate-180"></span>
-              <span className="relative">Log In</span>
-            </button> */}
           </div>
         )}
         <div className="hidden lg:inline-block">
@@ -151,26 +144,39 @@ const Navbar = () => {
               ))}
             </ul>
           </div>
-          <div className="flex space-x-10">
+          {!authToken && (
+            <div className="flex space-x-10">
+              <button
+                onClick={() => {
+                  router.push("/signup");
+                  setIsOpen(false);
+                }}
+                className="rounded-full border-2 border-white px-12 py-2"
+              >
+                Sign Up
+              </button>
+              <button
+                onClick={() => {
+                  router.push("/login");
+                  setIsOpen(false);
+                }}
+                className="rounded-full border-2 border-white px-12 py-2"
+              >
+                Log In
+              </button>
+            </div>
+          )}
+          {authToken && (
             <button
               onClick={() => {
-                router.push("/signup");
+                router.push("/user/receive-sms");
                 setIsOpen(false);
               }}
               className="rounded-full border-2 border-white px-12 py-2"
             >
-              Sign Up
+              You are logged in
             </button>
-            <button
-              onClick={() => {
-                router.push("/login");
-                setIsOpen(false);
-              }}
-              className="rounded-full border-2 border-white px-12 py-2"
-            >
-              Log In
-            </button>
-          </div>
+          )}
         </div>
       )}
     </nav>

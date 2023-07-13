@@ -5,10 +5,10 @@ import Image from "next/image";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import RentedNumberHistory from "@/Components/RentedNumberHistory";
-// import { get } from "react-hook-form";
 
 const Rent = () => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/countries";
+  const rentUrl = process.env.NEXT_PUBLIC_BASE_URL + "/rent/numbers";
   const [data, setData] = useState([]);
   let maxNameLength = 11;
   const [country, setCountry] = useState("");
@@ -17,39 +17,48 @@ const Rent = () => {
   const [fee, setFee] = useState(1);
   const [show, setShow] = useState(false);
   const [balance, setBalance] = useState(0);
+  const [rentHistory, setRentHistory] = useState([]);
 
- 
   const getBalance = async () => {
-    const response = await axios.get(process.env.NEXT_PUBLIC_BASE_URL + "/balance", {
-      timeout: 30000,
-      params: {
-        userid: sessionStorage.getItem("id"),
-      },
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-      },
-    });
-    setBalance(response?.data?.data[0]?.balance);
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(url, {
-        timeout: 30000,
-        headers: {
+    try {
+      const response = await axios.get(
+        process.env.NEXT_PUBLIC_BASE_URL + "/balance",
+        {
+          timeout: 30000,
+          params: {
+            userid: sessionStorage.getItem("id"),
+          },
+          headers: {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
           },
-        });
-        setData(response.data.countries);
-      } catch (error) {
-        toast.error(error.response.data.msg);
-      }
-    };
-    const getRentFee = async () => {
+        }
+      );
+      setBalance(response?.data?.data[0]?.balance);
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(url, {
+        timeout: 30000,
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+        },
+      });
+      setData(response.data.countries);
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
+  };
+
+  const getRentFee = async () => {
+    try {
       const response = await axios.get(
         process.env.NEXT_PUBLIC_BASE_URL + "/rentfees/country/duration",
         {
+          timeout: 30000,
           params: {
             country: country || "nigeria",
             duration: time || "hour",
@@ -57,46 +66,73 @@ const Rent = () => {
         }
       );
       setFee(response?.data?.data[0]?.amount);
-    };
-  
-    fetchData();
-    getRentFee();
-    getBalance();
-  }, [country, time, url]);
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
+  };
 
-  if (data.length === 0) {
-    return <div>Loading...</div>;
-  }
-
-  const rentFee = fee * count;
+  const fetchRentHistory = async () => {
+    try {
+      const response = await axios.get(rentUrl, {
+        timeout: 30000,
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+        },
+        params: {
+          userid: sessionStorage.getItem("id"),
+        },
+      });
+      setRentHistory(response.data.numbers);
+    } catch (error) {
+      toast.error(error?.response?.data.msg);
+    }
+  };
 
   const RentNumber = async () => {
     if (balance < rentFee) {
       toast.error("Insufficient balance. Please top up your account.");
       return null;
     }
-    const response = await axios.post(
-      process.env.NEXT_PUBLIC_BASE_URL + "/rent/number",
-      {
-        country: country,
-        count: count,
-        duration: time,
-        amount: rentFee,
-      },
-      {
-        params: {
-          userid: sessionStorage.getItem("id"),
+    try {
+      const response = await axios.post(
+        process.env.NEXT_PUBLIC_BASE_URL + "/rent/number",
+        {
+          country: country,
+          count: count,
+          duration: time,
+          amount: rentFee,
         },
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-      }
-    );
-    toast.success(response?.data?.msg);
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
+        {
+          params: {
+            userid: sessionStorage.getItem("id"),
+          },
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        }
+      );
+      fetchData();
+      fetchRentHistory();
+      toast.success(response?.data?.msg);
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
   };
+  useEffect(() => {
+    fetchRentHistory();
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+    getRentFee();
+    getBalance();
+  }, [country, time, url]);
+
+  const rentFee = fee * count;
+
+  if (data.length === 0) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="h-full w-full bg-color-bg_light">
@@ -113,7 +149,7 @@ const Rent = () => {
                 <div className="py-6 pl-4">
                   <span className="font-extrabold">1. Select your country</span>
                 </div>
-                
+
                 {/* countries */}
                 <div className="body">
                   <div className="country mb-4 px-2">
@@ -176,50 +212,47 @@ const Rent = () => {
                   </div>
                 </div>
                 {/* Time */}
-                <div>
-                  <div className=" flex flex-col justify-between">
-                    <div className="mb-2 flex w-full justify-evenly space-x-4">
-                      <button
-                        className="w-1/2 rounded-lg bg-color-bg_primary-500 py-2 text-sm active:border active:text-color-primary md:text-base"
-                        onClick={() => setTime("Hour")}
-                      >
-                        Hour
-                      </button>
-                      <button
-                        className="w-1/2  rounded-lg bg-color-bg_primary-500 py-2 text-sm active:border active:text-color-primary md:text-base"
-                        onClick={() => setTime("Day")}
-                      >
-                        Day
-                      </button>
-                    </div>
-                    <div className="mb-2 flex w-full justify-evenly space-x-4">
-                      <button
-                        className="w-1/2  rounded-lg bg-color-bg_primary-500 py-2 text-sm active:border active:text-color-primary md:text-base"
-                        onClick={() => setTime("Week")}
-                      >
-                        Week
-                      </button>
-                      <button
-                        className="w-1/2  rounded-lg bg-color-bg_primary-500 py-2 text-sm active:border active:text-color-primary md:text-base"
-                        onClick={() => setTime("Monthly")}
-                      >
-                        Month
-                      </button>
-                    </div>
-                    <div className="mb-4  flex h-10 w-full justify-between rounded-lg bg-color-bg_primary-500 p-1 font-bold active:border active:text-color-primary">
-                      <MinusCircleIcon
-                        className="text-color-primary"
-                        onClick={() => 
-                          count <= 1 ? setCount(count) :
-                          setCount(count - 1)}
-
-                      />
-                      <p className="text-xl">{count}</p>
-                      <PlusCircleIcon
-                        className="text-color-primary"
-                        onClick={() => setCount(count + 1)}
-                      />
-                    </div>
+                <div className=" flex flex-col justify-between">
+                  <div className="mb-2 flex w-full justify-evenly space-x-4">
+                    <button
+                      className="w-1/2 rounded-lg bg-color-bg_primary-500 py-2 text-sm active:border active:border-color-primary_darken active:text-color-primary md:text-base"
+                      onClick={() => setTime("Hour")}
+                    >
+                      Hour
+                    </button>
+                    <button
+                      className="w-1/2  rounded-lg bg-color-bg_primary-500 py-2 text-sm active:border active:text-color-primary md:text-base"
+                      onClick={() => setTime("Day")}
+                    >
+                      Day
+                    </button>
+                  </div>
+                  <div className="mb-2 flex w-full justify-evenly space-x-4">
+                    <button
+                      className="w-1/2  rounded-lg bg-color-bg_primary-500 py-2 text-sm active:border active:text-color-primary md:text-base"
+                      onClick={() => setTime("Week")}
+                    >
+                      Week
+                    </button>
+                    <button
+                      className="w-1/2  rounded-lg bg-color-bg_primary-500 py-2 text-sm active:border active:text-color-primary md:text-base"
+                      onClick={() => setTime("Monthly")}
+                    >
+                      Month
+                    </button>
+                  </div>
+                  <div className="mb-4  flex h-10 w-full justify-between rounded-lg bg-color-bg_primary-500 p-1 font-bold active:border active:text-color-primary">
+                    <MinusCircleIcon
+                      className="text-color-primary"
+                      onClick={() =>
+                        count <= 1 ? setCount(count) : setCount(count - 1)
+                      }
+                    />
+                    <p className="text-xl">{count}</p>
+                    <PlusCircleIcon
+                      className="text-color-primary"
+                      onClick={() => setCount(count + 1)}
+                    />
                   </div>
                 </div>
               </div>
@@ -237,7 +270,7 @@ const Rent = () => {
                 {/* others */}
                 <div className="mt-4 flex w-full flex-col items-center justify-center">
                   <button className="mb-4 w-full rounded-xl bg-color-bg_primary-500 px-4 py-2 text-sm md:w-48 md:text-base lg:w-full">
-                    It will cost {rentFee.toFixed(2)}
+                    It will cost ${rentFee.toFixed(2)}
                   </button>
                   <button
                     className="md:32 group relative w-full overflow-hidden rounded-xl bg-color-primary px-12 py-2 text-base font-bold text-white md:w-48 md:px-16 md:text-xl lg:w-full"
@@ -258,7 +291,7 @@ const Rent = () => {
           <h1 className="mb-4 text-center font-extrabold md:text-left">
             My Numbers and SMS
           </h1>
-          <RentedNumberHistory />
+          <RentedNumberHistory rentHistory={rentHistory} fetchRentHistory={fetchRentHistory} />
         </div>
       </div>
     </div>
