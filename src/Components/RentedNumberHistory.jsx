@@ -28,7 +28,7 @@ const RentedNumberHistory = ({ rentHistory, fetchRentHistory }) => {
   const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
-      setIsLoading(false);
+    setIsLoading(false);
     setData(rentHistory);
   }, [url, rentHistory]);
 
@@ -52,34 +52,17 @@ const RentedNumberHistory = ({ rentHistory, fetchRentHistory }) => {
     }
   };
 
-  useEffect(() => {
-    if (data.length == 0) {
-      return;
-    }
-    const THIRTY_SECONDS = 30 * 1000;
-    const interval = setInterval(() => {
-      const newData = data.map((item) => {
-        console.log(item);
-        if (item.message !== "Read More") {
-          return item;
-        }
-        let currentTime = Date.now();
-        const TWENTY_MINUTES = 20 * 60 * 1000;
-        const PURCHASED_DATE = new Date(item.rented_date).getTime();
-        item.cancelBtnActive =
-          new Date(PURCHASED_DATE).getTime() + TWENTY_MINUTES > currentTime;
-        return item;
-      });
-      setData(newData);
-    }, THIRTY_SECONDS);
-
-    return () => clearInterval(interval);
-  }, [data]);
+  const CancelBtn = (rentedDate) => {
+    let currentTime = Date.now();
+    const TWENTY_MINUTES = 20 * 60 * 1000;
+    const PURCHASED_DATE = new Date(rentedDate).getTime();
+    console.log(currentTime);
+    if (PURCHASED_DATE + TWENTY_MINUTES >= currentTime) {
+      return true;
+    } else return false;
+  };
 
   const id = data.length;
-  // setTimeout(function () {
-  //   setHidden(true);
-  // }, 1000 * 60 * 20);
 
   return (
     <div>
@@ -162,21 +145,20 @@ const RentedNumberHistory = ({ rentHistory, fetchRentHistory }) => {
                                 <button className="w-full rounded-md bg-color-primary py-3 font-extrabold text-white">
                                   Read More
                                 </button>
-                                {data.id == id + 1 &&                              
-                                data?.status !== "Cancelled" ? (
-                                  
-                                  <button
-                                    className="w-full rounded-md bg-rose-500 py-3 font-extrabold text-white"
-                                    onClick={() => {
-                                      CancelRent(
-                                        data.rented_number,
-                                        data.amount
-                                      );
-                                    }}
-                                  >
-                                    Cancel
-                                  </button>
-                                ) : null}
+                                {CancelBtn(data.rented_date) &&
+                                  data.status !== "Cancelled" && (
+                                    <button
+                                      className="w-full rounded-md bg-rose-500 py-3 font-extrabold text-white"
+                                      onClick={() => {
+                                        CancelRent(
+                                          data.rented_number,
+                                          data.amount
+                                        );
+                                      }}
+                                    >
+                                      Cancel
+                                    </button>
+                                  )}
                               </div>
                             </div>
                           </div>
