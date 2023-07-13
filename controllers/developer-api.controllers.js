@@ -239,12 +239,12 @@ module.exports = {
                                                                 });
                                                             }
                                                             return res.status(201).send({
-                                                                Result: {
-                                                                    "request_id": rentId,
-                                                                    "country_id": 1,
-                                                                    "application_id": 1,
-                                                                    "number": number
-                                                                }
+
+                                                                "request_id": rentId,
+                                                                "country_id": 1,
+                                                                "application_id": 1,
+                                                                "number": number
+
                                                             });
                                                         }
                                                     );
