@@ -1350,7 +1350,9 @@ module.exports = {
             let userid = req.query.user_id;
             const newBalance = req.body.new_balance;
             const newBonus = req.body.new_earn_balance;
-            const bonusStatus = req.body.ref_bonus_status
+            const bonusStatus = req.body.ref_bonus_status;
+            // if(newBalance) { return res.status(403).send({ msg: "new_balance value is required." }) }
+            // if(newBalance) { return res.status(403).send({ msg: "new_balance value is required." }) }
             var query = '';
             if (newBalance) {
 

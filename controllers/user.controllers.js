@@ -901,11 +901,27 @@ const rentNumber = async(req, res, next) => {
                 url: 'http://207.154.223.33:7014/gateway/routeXapi/backend/xapi/Wws/Numbers/available?country_id=1&application_id=1&type_id=1',
                 method: 'get'
             });
+            var ex;
+            const tmt = new Date()
+            const tim = tmt.getTime()
             let userid = req.query.userid;
             const dur = req.body.duration;
             const til = req.body.count;
             const country = req.body.country;
             const amount = req.body.amount;
+            if (dur == "hour" || dur == "Hour" || dur == "Hourly" || dur == "hourly") {
+                const a = tmt.setHours(tmt.getHours() + til)
+                ex = new Date(a);
+            }
+            if (dur == "day" || dur == "Day" || dur == "Daily" || dur == "daily") {
+                ex = new Date(tim + til * 24 * 60 * 60 * 1000)
+            }
+            if (dur == "week" || dur == "Week" || dur == "Weekly" || dur == "Weekly") {
+                ex = new Date(tim + til * (24 * 7) * 60 * 60 * 1000)
+            }
+            if (dur == "month" || dur == "Month" || dur == "Monthly" || dur == "monthly") {
+                ex = new Date(tim + til * (24 * 30) * 60 * 60 * 1000)
+            }
             let duration = til + ' ' + dur;
             if (!country || !dur || !amount || !til) { return res.status(403).send({ msg: 'All fields are required!' }); }
             var number;
@@ -945,7 +961,7 @@ const rentNumber = async(req, res, next) => {
                         let rentId = Math.floor(Math.random() * 10053423) + 83;
                         let message = 'Your number will be activated shortly';
                         db.query(
-                            `INSERT INTO rents (rentId, userid, rented_number, duration,  amount,  country, rented_date, message) VALUES ('${rentId}', '${userid}', '${number}', '${duration}', '${amount}', '${country}', now(), '${message}')`,
+                            `INSERT INTO rents (rentId, userid, rented_number, duration,  amount,  country, rented_date, expires, message) VALUES ('${rentId}', '${userid}', '${number}', '${duration}', '${amount}', '${country}', now(), '${ex}', '${message}')`,
                             (err, resul) => {
                                 if (err) {
                                     // throw err;
