@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const useCancelServiceStore = create((set) => ({
   cancelService: [],
@@ -10,13 +11,14 @@ const useCancelServiceStore = create((set) => ({
     const fetchData = async () => {
       try {
         const response = await axios.get(url, {
-          headers: {
+        timeout: 30000,
+        headers: {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
           },
         });
         set({ historyData: response.data.bougth_services });
       } catch (error) {
-        console.log (error);
+        toast.error(error?.response?.data.msg || "No response from the server.");
       }
     };
     fetchData();

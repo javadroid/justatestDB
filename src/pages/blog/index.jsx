@@ -18,7 +18,6 @@ const useBlogs = () => {
       const data = await instance.get(
         process.env.NEXT_PUBLIC_BASE_URL + "/blog/posts"
       );
-      console.log(data);
       setBlogData(data?.data);
     };
     getBlogs();

@@ -5,14 +5,12 @@ import Image from "next/image";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import RentedNumberHistory from "@/Components/RentedNumberHistory";
-import { get } from "react-hook-form";
+// import { get } from "react-hook-form";
 
 const Rent = () => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/countries";
   const [data, setData] = useState([]);
   let maxNameLength = 11;
- 
-
   const [country, setCountry] = useState("");
   const [time, setTime] = useState("");
   const [count, setCount] = useState(1);
@@ -23,6 +21,7 @@ const Rent = () => {
  
   const getBalance = async () => {
     const response = await axios.get(process.env.NEXT_PUBLIC_BASE_URL + "/balance", {
+      timeout: 30000,
       params: {
         userid: sessionStorage.getItem("id"),
       },
@@ -30,7 +29,6 @@ const Rent = () => {
         Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
       },
     });
-    // console.log("Here is my res", response);
     setBalance(response?.data?.data[0]?.balance);
   };
 
@@ -38,13 +36,14 @@ const Rent = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(url, {
-          headers: {
+        timeout: 30000,
+        headers: {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
           },
         });
         setData(response.data.countries);
       } catch (error) {
-        console.log(error);
+        toast.error(error.response.data.msg);
       }
     };
     const getRentFee = async () => {
@@ -57,7 +56,6 @@ const Rent = () => {
           },
         }
       );
-      // console.log(response?.data?.data[0]?.amount);
       setFee(response?.data?.data[0]?.amount);
     };
   
@@ -94,15 +92,11 @@ const Rent = () => {
         },
       }
     );
-    // console.log(response);
-
     toast.success(response?.data?.msg);
     setTimeout(() => {
       window.location.reload();
     }, 2000);
   };
-  // console.log(typeof rentFee, "This is the rent fee");
-  // console.log(balance, "Balance");
 
   return (
     <div className="h-full w-full bg-color-bg_light">

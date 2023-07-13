@@ -41,7 +41,8 @@ const Services2 = ({ searchTerm }) => {
           price: service.price,
         },
         {
-          params: {
+        timeout: 30000,
+        params: {
             userId: sessionStorage.getItem("id"),
           },
           headers: {
@@ -49,12 +50,11 @@ const Services2 = ({ searchTerm }) => {
           },
         }
       );
-      // console.log(response);
       setHistoryData();
       toast.success(response.data.msg);
       document.getElementById("transactions").scrollIntoView();
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   };
 
@@ -62,19 +62,21 @@ const Services2 = ({ searchTerm }) => {
     const fetchServices = async () => {
       try {
         const response = await axios.get(url, {
-          headers: {
+        timeout: 30000,
+        headers: {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
           },
         });
         setServices(response.data.applications);
       } catch (error) {
-        console.log(error);
+        toast.error(error.message);
       }
     };
     const fetchUserApi = async () => {
       try {
         const response = await instance.get(apiKeyUrl, {
-          params: {
+        timeout: 30000,
+        params: {
             userid: sessionStorage.getItem("id"),
           },
           headers: {
@@ -83,14 +85,15 @@ const Services2 = ({ searchTerm }) => {
         });
         setUserKey(response.data.user.apikey);
       } catch (error) {
-        console.log(error.message);
+       toast.error(error.message);
       }
     };
 
     const getBalance = async () => {
       try {
         const response = await instance.get(balanceUrl, {
-          params: {
+        timeout: 30000,
+        params: {
             userid: sessionStorage.getItem("id"),
           },
           headers: {
@@ -99,7 +102,7 @@ const Services2 = ({ searchTerm }) => {
         });
         setBalance(response.data.data[0].balance);
       } catch (error) {
-        console.log(error.message || error);
+        toast.error(error.message);
       }
     };
     fetchServices();

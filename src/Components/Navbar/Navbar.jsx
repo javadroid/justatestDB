@@ -8,10 +8,7 @@ import { navlists } from "./navlists";
 import axios from "axios";
 
 const Navbar = () => {
-  const [authToken, setAuthToken] = useState(
-    sessionStorage.getItem("id")
-  );
-  // console.log(authToken);
+  const [authToken, setAuthToken] = useState(sessionStorage.getItem("id"));
   var instance = axios.create({
     validateStatus: function (status) {
       return status >= 200 && status < 300; // default
@@ -38,7 +35,8 @@ const Navbar = () => {
   useEffect(() => {
     const getLanguages = async () => {
       const data = await instance.get(
-        process.env.NEXT_PUBLIC_BASE_URL + "/languages"
+        process.env.NEXT_PUBLIC_BASE_URL + "/languages",
+        { timeout: 30000 }
       );
       setLanguages(data?.data?.languages);
     };

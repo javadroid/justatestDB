@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import ArticleImage from "@/assets/ArticleImage.jpg";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import axios from "axios";
@@ -14,40 +12,27 @@ const BlogPage = () => {
   });
 
   const router = useRouter();
-  console.log(router.query.id);
-
-  // const id = Number(query.id);
-  // console.log(id);
-  // console.log(typeof id);
-
   useEffect(() => {
     const getComments = async () => {
       const data = await instance.get(
         process.env.NEXT_PUBLIC_BASE_URL + "/blog/post",
         {
+          timeout: 30000,
           params: {
             post_id: router?.query?.id || 1,
           },
         }
       );
-      console.log(data);
-      console.log(data?.data?.comments);
       setComments(data?.data?.comments);
       setBody(data?.data?.post[0]?.blog_content);
     };
     getComments();
-    // const timer = setTimeout(() => {
-    //   getComments();
-    // }, 3000);
-
-    // return () => clearTimeout(timer);
   }, [router?.query?.id, instance]);
 
   const [comments, setComments] = useState([]);
   const [body, setBody] = useState("");
 
   const makeComment = async (data) => {
-    console.log(data);
     try {
       const response = await instance.post(
         process.env.NEXT_PUBLIC_BASE_URL + "/comment",
@@ -55,6 +40,7 @@ const BlogPage = () => {
           comment: data.post,
         },
         {
+          timeout: 30000,
           params: {
             postid: router?.query?.id,
             userid: sessionStorage.getItem("id"),
@@ -68,8 +54,7 @@ const BlogPage = () => {
       toast.success(response.data.msg);
       window.location.reload();
     } catch (error) {
-      console.log("Error is", error);
-      // toast.error(error.response.data.msg || "No response from server");
+      toast.error(error.response.data.msg || "No response from server");
     }
   };
 

@@ -17,7 +17,8 @@ const Profile = () => {
     const getBalance = async () => {
       const response = await Promise.all([
         instance.get(process.env.NEXT_PUBLIC_BASE_URL + "/balance", {
-          params: {
+        timeout: 30000,
+        params: {
             userid: sessionStorage.getItem("id"),
           },
           headers: {
@@ -25,7 +26,8 @@ const Profile = () => {
           },
         }),
         instance.get(process.env.NEXT_PUBLIC_BASE_URL + "/user", {
-          params: {
+        timeout: 30000,
+        params: {
             userid: sessionStorage.getItem("id"),
           },
           headers: {

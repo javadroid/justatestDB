@@ -34,8 +34,7 @@ const History = () => {
   ];
   const [data, setData] = useState(historyData);
   const [isLoading, setIsLoading] = useState(true);
-  const token = sessionStorage.getItem("authToken");
-  // console.log(token);
+  // const token = sessionStorage.getItem("authToken");
 
   const cancelService = async (id) => {
     const url =
@@ -46,7 +45,6 @@ const History = () => {
           Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
         },
       });
-      // console.log(response.data);
       setHistoryData();
       toast.success(response.data.msg);
     } catch (error) {
@@ -60,7 +58,6 @@ const History = () => {
 
   useEffect(() => {
     setData(historyData);
-    console.log(historyData);
     setIsLoading(false);
   }, [historyData]);
 

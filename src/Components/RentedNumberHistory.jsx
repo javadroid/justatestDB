@@ -32,7 +32,8 @@ const RentedNumberHistory = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(url, {
-          headers: {
+        timeout: 30000,
+        headers: {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
           },
           params: {
@@ -42,7 +43,7 @@ const RentedNumberHistory = () => {
         setData(response.data.numbers);
         setIsLoading(false);
       } catch (error) {
-        console.log(error);
+      toast.error(error?.response?.data.msg || "No response from the server.");
       }
     };
     fetchData();
@@ -53,7 +54,8 @@ const RentedNumberHistory = () => {
       const Cancel = await axios.put(
         process.env.NEXT_PUBLIC_BASE_URL + "/number/cancel",
         {
-          params: {
+        timeout: 30000,
+        params: {
             userid: sessionStorage.getItem("id"),
             rented_number: number,
             rented_amount: amount,
@@ -68,7 +70,6 @@ const RentedNumberHistory = () => {
         window.location.reload();
       }, 2000);
     } catch (error) {
-      // console.log("Error is", error);
       toast.error(error?.response?.data.msg || "No response from the server.");
     }
   };
