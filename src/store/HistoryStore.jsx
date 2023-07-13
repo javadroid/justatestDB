@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const useHistoryStore = create((set) => ({
   historyData: [],
@@ -10,7 +11,8 @@ const useHistoryStore = create((set) => ({
     const fetchData = async () => {
       try {
         const response = await axios.get(url, {
-          headers: {
+        timeout: 30000,
+        headers: {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
           },
         });
@@ -27,7 +29,7 @@ const useHistoryStore = create((set) => ({
         });
         set({ historyData: data });
       } catch (error) {
-        console.log(error);
+       toast.error(error?.response?.data.msg || "No response from the server.");
       }
     };
     fetchData();

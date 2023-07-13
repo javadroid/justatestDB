@@ -15,11 +15,17 @@ const Contact = () => {
   const { register, handleSubmit } = useForm();
 
   function postData({ email, username, message }) {
-    Axios.post(url, {
-      email,
-      username,
-      message,
-    })
+    Axios.post(
+      url,
+      {
+        email,
+        username,
+        message,
+      },
+      {
+        timeout: 30000,
+      }
+    )
       .then((res) => {
         res = res.data.msg;
         toast.success(res);
@@ -27,7 +33,6 @@ const Contact = () => {
       })
       .catch((err) => {
         toast.error(err);
-        console.log(err);
       });
   }
 

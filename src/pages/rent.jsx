@@ -25,6 +25,7 @@ const Rent = () => {
       const response = await axios.get(
         process.env.NEXT_PUBLIC_BASE_URL + "/rentfees/country/duration",
         {
+          timeout: 30000,
           params: {
             country: country || "nigeria",
             duration: time || "hour",
@@ -45,7 +46,7 @@ const Rent = () => {
         id="hero"
         className="text-2.2rem bg-gradient-to-b from-color-primary_darken to-color-primary_black text-color-white"
       >
-      {/* <section
+        {/* <section
         id="hero"
         className="text-2.2rem bg-gradient-to-b from-[#0d41d5] to-[#0187FF] text-color-white"
       > */}

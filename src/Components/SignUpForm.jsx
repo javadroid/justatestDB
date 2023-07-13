@@ -50,7 +50,6 @@ const SignUpForm = () => {
     });
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       const response = await instance.post(
         process.env.NEXT_PUBLIC_BASE_URL + "/signup",
@@ -61,7 +60,8 @@ const SignUpForm = () => {
           confirmPassword: data.confirmPassword,
         },
         {
-          headers: {
+        timeout: 30000,
+        headers: {
             "Content-Type": "application/json",
           },
         }
@@ -70,9 +70,6 @@ const SignUpForm = () => {
       router.push("/");
     } catch (error) {
       toast.error(error.response.data.msg);
-      return <div>{error}</div>;
-      // console.log("Error is", error);
-      // router.push("/user/receive-sms");
     }
   };
 

@@ -15,13 +15,13 @@ const ServiceQty = () => {
     const fetchServices = async () => {
       try {
         const response = await axios.get(url, {
-          headers: {
+        timeout: 30000,
+        headers: {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
           },
         });
         setServices(response.data.applications);
       } catch (error) {
-        // console.log(error.message)
         toast.error(error.message);
       }
     };
