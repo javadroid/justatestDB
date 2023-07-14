@@ -2,6 +2,7 @@ import { ClipboardDocumentCheckIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import Link from "next/link";
 
 const RentedNumberHistory = ({ rentHistory, fetchRentHistory }) => {
   const histories = [
@@ -25,7 +26,6 @@ const RentedNumberHistory = ({ rentHistory, fetchRentHistory }) => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/rent/numbers";
   const [data, setData] = useState(rentHistory);
   const [isLoading, setIsLoading] = useState(true);
-  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
     setIsLoading(false);
@@ -56,13 +56,15 @@ const RentedNumberHistory = ({ rentHistory, fetchRentHistory }) => {
     let currentTime = Date.now();
     const TWENTY_MINUTES = 20 * 60 * 1000;
     const PURCHASED_DATE = new Date(rentedDate).getTime();
-    console.log(currentTime);
     if (PURCHASED_DATE + TWENTY_MINUTES >= currentTime) {
       return true;
     } else return false;
   };
 
-  const id = data.length;
+  const handleClick = (rentId) => {
+    sessionStorage.setItem("rentid", rentId);
+    // console.log(rentId);
+  };
 
   return (
     <div>
@@ -85,7 +87,7 @@ const RentedNumberHistory = ({ rentHistory, fetchRentHistory }) => {
                 </div>
                 <div className="table-body lg:text-xs">
                   {isLoading ? (
-                    <p>Loading...</p>
+                    <p className="py-8 text-center">Loading...</p>
                   ) : (
                     <>
                       {data
@@ -142,9 +144,15 @@ const RentedNumberHistory = ({ rentHistory, fetchRentHistory }) => {
                                 Message
                               </h6>
                               <div className="flex flex-col gap-y-2">
-                                <button className="w-full rounded-md bg-color-primary py-3 font-extrabold text-white">
+                                <Link
+                                  href="/user/arent"
+                                  className="w-full rounded-md bg-color-primary py-3 text-center font-extrabold text-white"
+                                  onClick={() => {
+                                    handleClick(data.rentId);
+                                  }}
+                                >
                                   Read More
-                                </button>
+                                </Link>
                                 {CancelBtn(data.rented_date) &&
                                   data.status !== "Cancelled" && (
                                     <button

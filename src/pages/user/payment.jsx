@@ -44,7 +44,7 @@ const usePaymentHandlers = () => {
   };
 
   const handleCoinbaseCheckOut = async () => {
-    console.log("coinbase");
+    // console.log("coinbase");
     toast.success("coinbase");
   };
 
