@@ -77,13 +77,13 @@ const UserDashboardNav = () => {
               </p>
               <p className="font-bold text-black">${balance}</p>
             </div>
-            <button className="group relative flex w-2/3 items-center justify-center overflow-hidden rounded  bg-color-accent text-black hover:text-white md:w-1/2 md:rounded-lg md:py-2">
+            <Link href="/user/payment" className="group relative flex w-2/3 items-center justify-center overflow-hidden rounded  bg-color-accent text-black hover:text-white md:w-1/2 md:rounded-lg md:py-2">
               <span className="absolute left-0 top-0 mt-16 hidden h-20 w-full rounded-3xl bg-color-decor_orange transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
               <CreditCardIcon className="relative h-6 w-6 text-black group-hover:rotate-45 group-hover:text-color-white" />
               <p className="relative hidden text-sm font-bold md:block md:w-1/2">
                 Top up
               </p>
-            </button>
+            </Link>
           </div>
           <div className="group relative flex w-1/4 items-center justify-end">
             <UserCircleIcon className="h-8 w-8 text-color-primary" />

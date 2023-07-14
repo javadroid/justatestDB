@@ -5,7 +5,6 @@ import TopUp from "@/Components/TopUpHistory";
 
 const TopUpHistory = () => {
   const userid = sessionStorage.getItem("id");
-  console.log(userid);
   const url =
     process.env.NEXT_PUBLIC_BASE_URL + `/user/payment?userid=${userid}`;
   const [topUpHistory, setTopUpHistory] = useState([]);
