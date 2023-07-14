@@ -20,7 +20,6 @@ const RentDetails = () => {
           },
         });
         setRentDetails(response.data.details);
-        console.log(response.data.details);
       } catch (error) {
         toast.error(error?.response?.data.msg);
       }
@@ -66,7 +65,7 @@ const RentDetails = () => {
             <div className="md:w-1/2">
               <div className="p-4 rent-row">
                 <span className="font-bold">Number</span>
-                <span className="float-right flex items-center">{rent.rented_number}
+                <span className="float-right flex items-center justify-center">{rent.rented_number}
                 <CopyToClipboard textToCopy={rent.rented_number}>
                 <ClipboardDocumentCheckIcon
                   width={20}

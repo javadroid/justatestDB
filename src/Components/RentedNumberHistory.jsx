@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
+import CopyToClipboard from "./Copy";
 
 const RentedNumberHistory = ({ rentHistory, fetchRentHistory }) => {
   const histories = [
@@ -63,7 +64,6 @@ const RentedNumberHistory = ({ rentHistory, fetchRentHistory }) => {
 
   const handleClick = (rentId) => {
     sessionStorage.setItem("rentid", rentId);
-    // console.log(rentId);
   };
 
   return (
@@ -127,10 +127,14 @@ const RentedNumberHistory = ({ rentHistory, fetchRentHistory }) => {
                               </h6>
                               <p className="flex items-center">
                                 {data.rented_number}
-                                <ClipboardDocumentCheckIcon
-                                  width={20}
-                                  className="ml-3 text-color-primary"
-                                />
+                                <CopyToClipboard
+                                  textToCopy={data.rented_number}
+                                >
+                                  <ClipboardDocumentCheckIcon
+                                    width={20}
+                                    className="cursor-pointer text-color-primary"
+                                  />
+                                </CopyToClipboard>
                               </p>
                             </div>
                             <div className="td price">
