@@ -27,13 +27,13 @@ router.put('/disable/apikey', userMiddleware.isLoggedIn, adminControllers.disabl
 // User permission module ends here
 
 // set user payment history
-router.post('/users/payhistorys', adminControllers.setPaymentHistory);
+router.post('/users/payhistorys', userMiddleware.isLoggedIn, adminControllers.setPaymentHistory);
 
 // fetch user payment history
-router.get('/user/payhistorys', adminControllers.fetchAllUsersPaymentHistory);
+router.get('/user/payhistorys', userMiddleware.isLoggedIn, adminControllers.fetchAllUsersPaymentHistory);
 
 // fetch all users payment history
-router.get('/users/payhistorys',  adminControllers.getPaymentHistoryByUserId);
+router.get('/users/payhistorys',  userMiddleware.isLoggedIn, adminControllers.getPaymentHistoryByUserId);
 
 // fetch user transaction history
 router.get('/user/transactions', userMiddleware.isLoggedIn, adminControllers.getTrnxByUserId);
