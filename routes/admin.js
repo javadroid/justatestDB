@@ -26,11 +26,21 @@ router.put('/enable/apikey', userMiddleware.isLoggedIn, adminControllers.enableU
 router.put('/disable/apikey', userMiddleware.isLoggedIn, adminControllers.disableUserAPIKEY);
 // User permission module ends here
 
+// set user payment history
+router.post('/users/payhistorys', adminControllers.setPaymentHistory);
+
+// fetch user payment history
+router.get('/user/payhistorys', adminControllers.fetchAllUsersPaymentHistory);
+
+// fetch all users payment history
+router.get('/users/payhistorys',  adminControllers.getPaymentHistoryByUserId);
+
 // fetch user transaction history
 router.get('/user/transactions', userMiddleware.isLoggedIn, adminControllers.getTrnxByUserId);
 
 // fetch all users transaction history
 router.get('/users/trxhistory', userMiddleware.isLoggedIn, adminControllers.fetchAllUsersTrnxHistory);
+
 //Login user
 router.post('/loginAdmin', adminControllers.login);
 // change password
@@ -133,6 +143,8 @@ router.put('/admin', userMiddleware.isLoggedIn, adminControllers.updateAdmin);
 router.post('/coupon', userMiddleware.isLoggedIn, adminControllers.createCoupon);
 router.get('/coupon', userMiddleware.isLoggedIn, adminControllers.fetchcoupon);
 router.delete('/coupon', userMiddleware.isLoggedIn, adminControllers.deleteCouponById);
+
 // Export router
 
+router.get('/play',  adminControllers.play);
 module.exports = router;

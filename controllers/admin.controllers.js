@@ -440,6 +440,87 @@ module.exports = {
     // Number renting fee module ends here
 
 
+    // Payment history module starts here
+    // Set up payment history
+    setPaymentHistory:(req,res,next)=>{
+        const { user_id, tx_id, pay_method, status,created_time } = req.body;
+        console.log(req.body)
+        db.query(
+            `INSERT INTO pay_history ( user_id, tx_id, pay_method, status,created_time) VALUES ( '${user_id}', '${tx_id}', '${pay_method}', '${status}',now())`,
+            (err, result) => {
+                if (err) {
+                    console.error(err.code)
+                    if(err.code==='ER_NO_SUCH_TABLE'){
+                        db.query(
+                            `CREATE TABLE pay_history ( user_id varchar(255), tx_id varchar(255), pay_method varchar(255), status varchar(255),created_time varchar(255) )`)
+                    }
+                    // throw err;
+                    return res.status(400).send({
+                        msg: 'Something went wrong, please try a moment later.'
+                    });
+                }
+                return res.status(201).send({
+                    msg: result.affectedRows + ' user payment history has been successfully added',
+                });
+
+            }
+        );
+    },
+    // fetch user payment history
+    getPaymentHistoryByUserId: (req, res, next) => {
+        try {
+            const idv = req.query.userid;
+           
+            db.query(
+                `SELECT * FROM pay_history WHERE user_id='${idv}'`,
+                (err, result) => {
+                    if (result.length) {
+                        return res.status(200).send({
+                            users: { result }
+                        });
+                    } else {
+                        return res.status(404).send({
+                            msg: 'User has no payment history yet!'
+                        });
+                    }
+
+                });
+        } catch (err) {
+            return res.status(401).send({
+                msg: "Something went wrong."
+            })
+        }
+    },
+    // fetch all users transaction history
+    fetchAllUsersPaymentHistory: (req, res, next) => {
+        try {
+
+            db.query(
+                `SELECT * FROM pay_history ORDER BY trx_id DESC`,
+                (err, result) => {
+                    if (err) {
+                        return res.status(400).send({
+                            msg: err
+                        })
+                    }
+                    if (result.length >= 1) {
+                        return res.status(200).send({
+                            trx_history: { result }
+                        });
+                    } else {
+                        return res.status(404).send({
+                            msg: 'There is no payment history yet!'
+                        });
+                    }
+
+                });
+        } catch (err) {
+            return res.status(401).send({
+                msg: "Something went wrong."
+            })
+        }
+    },
+
     // Payment method module starts here
     // Set up payment method
     createPaymentMethod: (req, res, next) => {
@@ -2106,6 +2187,12 @@ module.exports = {
                 Error: err
             })
         }
+    },
+
+    play:(req, res, next) => {
+        return res.status(404).send({
+            msg: 'No coupon is found!'
+        });
     },
 
 }
