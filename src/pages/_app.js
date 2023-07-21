@@ -15,9 +15,6 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }) {
-  useEffect(() => {
-    localStorage.setItem("selectedCountry", "Nigeria");
-  }, []);
   const getLayout = Component.getLayout;
   if (getLayout) {
     return getLayout(

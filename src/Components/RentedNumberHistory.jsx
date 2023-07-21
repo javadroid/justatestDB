@@ -149,7 +149,7 @@ const RentedNumberHistory = ({ rentHistory, fetchRentHistory }) => {
                               </h6>
                               <div className="flex flex-col gap-y-2">
                                 <Link
-                                  href="/user/arent"
+                                  href={"/user/arent/" + data.rentId}
                                   className="w-full rounded-md bg-color-primary py-3 text-center font-extrabold text-white"
                                   onClick={() => {
                                     handleClick(data.rentId);
