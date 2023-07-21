@@ -26,7 +26,25 @@ import zigzag from "@/assets/random-shapes/zigzag.png";
 import arrow from "@/assets/arrows/arrow.png";
 import next from "@/assets/arrows/next.png";
 
-export default function Home() {
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from "react-i18next";
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale,["home"])),
+    }
+  }
+}
+
+
+export default function Home(props) {
+
+  const { t } = useTranslation();
+  function translateWord(word) {
+
+    return t('common:' + word);
+  }
   return (
     <>
       <Head>
@@ -54,7 +72,7 @@ export default function Home() {
               />
               <div>
                 <p className="text-sm text-white md:text-2xl">
-                  With us you can
+                  {t('home:Welcome')}  {props.locale}
                 </p>
                 <h1 className="mb-4 text-center text-xl font-extrabold text-color-white md:w-full md:text-left md:text-5xl lg:text-4xl">
                   Send an SMS from anywhere

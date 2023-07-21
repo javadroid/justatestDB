@@ -7,7 +7,16 @@ import { useRouter } from "next/router";
 import { navlists } from "./navlists";
 import axios from "axios";
 
-const Navbar = () => {
+import { useTranslation } from 'react-i18next'
+
+
+const languagesq = [
+  { value: '', text: "Options" },
+  { value: 'en', text: "English" },
+  { value: 'hi', text: "Hindi" },
+  { value: 'bn', text: "Bengali" }
+]
+const Navbar = (props) => {
   var instance = axios.create({
     validateStatus: function (status) {
       return status >= 200 && status < 300; // default
@@ -42,11 +51,23 @@ const Navbar = () => {
   }, [instance]);
 
   const [languages, setLanguages] = useState([]);
+
+  // It is a hook imported from 'react-i18next'
+  const { t } = useTranslation();
+
+  const [lang, setLang] = useState('en');
+
+  // This function put query that helps to
+  // change the language
+  const handleChange = e => {
+    setLang(e.target.value);
+   
+    window.location.replace(window.location.href.split('?')[0] + e.target.value);
+  }
   return (
     <nav
-      className={`fixed top-0 z-50 flex h-20 w-full items-center justify-between bg-color-primary_darken p-4 text-white transition-all duration-500 ease-in-out ${
-        isScrolled ? "navbar-scroll" : ""
-      }`}
+      className={`fixed top-0 z-50 flex h-20 w-full items-center justify-between bg-color-primary_darken p-4 text-white transition-all duration-500 ease-in-out ${isScrolled ? "navbar-scroll" : ""
+        }`}
     >
       <div className="relative mx-auto flex max-w-6xl flex-grow items-center justify-between">
         <div onClick={() => router.push("/")}>
@@ -95,12 +116,20 @@ const Navbar = () => {
         </div>
         <div className="hidden lg:inline-block">
           {languages.map((language) => {
+
             return (
               <Link className="" key={language.id} href="#">
                 {language.language}/
               </Link>
             );
           })}
+
+          <select value={lang} onChange={handleChange}>
+            {languagesq.map(item => {
+              return (<option key={item.value}
+                value={item.value}>{item.text}</option>);
+            })}
+          </select>
         </div>
         <div className="lg:hidden">
           <Bars3Icon

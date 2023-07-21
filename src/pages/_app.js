@@ -6,12 +6,13 @@ import { Toaster } from "react-hot-toast";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useEffect } from "react";
+import { appWithTranslation } from 'next-i18next';
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe("pk_test_qblFNYngBkEdjEZ16jxxoWSM");
 
-export default function App({
+function App({
   Component,
   pageProps: { session, ...pageProps },
 }) {
@@ -42,3 +43,5 @@ export default function App({
     );
   }
 }
+
+export default appWithTranslation(App)
