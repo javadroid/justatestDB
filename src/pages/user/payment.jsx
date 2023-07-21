@@ -28,7 +28,8 @@ const usePaymentHandlers = () => {
           amount: amount,
         },
         {
-          params: {
+        timeout: 30000,
+        params: {
             userId: sessionStorage.getItem("id"),
           },
           headers: {
@@ -38,33 +39,13 @@ const usePaymentHandlers = () => {
       );
       router.push(response?.data?.url);
     } catch (error) {
-      console.log(error);
+      toast.error(error?.response?.data.msg || "No response from the server.");
     }
   };
 
   const handleCoinbaseCheckOut = async () => {
-    console.log("coinbase");
+    // console.log("coinbase");
     toast.success("coinbase");
-    // try {
-    //   const response = await axios.post(
-    //     process.env.NEXT_PUBLIC_BASE_URL + "/api/stripe/checkout",
-    //     {
-    //       amount: amount,
-    //     },
-    //     {
-    //       params: {
-    //         userId: sessionStorage.getItem("id"),
-    //       },
-    //       headers: {
-    //         Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-    //       },
-    //     }
-    //   );
-    //   router.push(response?.data?.url);
-    //   console.log(response);
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
 
   return { handleCheckOut, handleCoinbaseCheckOut };

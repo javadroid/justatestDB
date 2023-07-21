@@ -32,7 +32,8 @@ const Login = () => {
             email: session?.user?.email,
           },
           {
-            headers: {
+        timeout: 30000,
+        headers: {
               "Content-Type": "application/json",
             },
           }
@@ -79,7 +80,8 @@ const Login = () => {
           password: data.password,
         },
         {
-          headers: {
+        timeout: 30000,
+        headers: {
             "Content-Type": "application/json",
           },
         }
@@ -90,7 +92,6 @@ const Login = () => {
       toast.success(response.data.msg);
       router.push(`/user/receive-sms/`);
     } catch (error) {
-      console.log("Error is", error);
       toast.error(error?.response?.data.msg || "No response from the server.");
     }
   };

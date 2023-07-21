@@ -3,6 +3,7 @@ import star from "../../assets/images/star.svg";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const UsersCountry = ({ searchTerm }) => {
   const [showMore, setShowMore] = useState(false);
@@ -13,10 +14,9 @@ const UsersCountry = ({ searchTerm }) => {
   const [data, setData] = useState([]);
 
   function handleClick(index) {
-    setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
-    // setActiveIndex(prevIndex => (prevIndex === index ? -1 : index));
-    // setActiveIndex(index === activeIndex ? -1 : index);
+    setActiveIndex((prevIndex) => (prevIndex === index ? index : index));
   }
+  
   const handleCountryClick = (countryName) => {
     localStorage.setItem("selectedCountry", countryName);
   };
@@ -26,16 +26,22 @@ const UsersCountry = ({ searchTerm }) => {
   };
 
   useEffect(() => {
+    localStorage.removeItem("selectedCountry")
     const fetchData = async () => {
       try {
         const response = await axios.get(url, {
-          headers: {
+        timeout: 30000,
+        headers: {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
           },
         });
         setData(response.data.countries);
+    localStorage.setItem("defaultCountry", response.data.countries[0].country_name);
+
+        // setDefaultCountry(localStorage.getItem("selectedCountry") || response.data.countries[0].country_name);
+        // console.log(response.data.countries[0].country_name);
       } catch (error) {
-        console.log(error);
+        toast.error(error.message);
       }
     };
     fetchData();

@@ -60,6 +60,7 @@ export default function About() {
           confirmPassword: data.confirmPassword,
         },
         {
+          timeout: 30000,
           headers: {
             "Content-Type": "application/json",
           },
@@ -69,7 +70,6 @@ export default function About() {
       router.push("/");
     } catch (error) {
       toast.error(error.response.data.msg);
-      console.log(error);
     }
   };
 

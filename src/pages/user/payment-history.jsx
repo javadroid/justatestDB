@@ -5,7 +5,6 @@ import TopUp from "@/Components/TopUpHistory";
 
 const TopUpHistory = () => {
   const userid = sessionStorage.getItem("id");
-  console.log(userid);
   const url =
     process.env.NEXT_PUBLIC_BASE_URL + `/user/payment?userid=${userid}`;
   const [topUpHistory, setTopUpHistory] = useState([]);
@@ -17,7 +16,8 @@ const TopUpHistory = () => {
     const fetchTopUpHistory = async () => {
       try {
         const response = await axios.get(url, {
-          headers: {
+        timeout: 30000,
+        headers: {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
           },
         });
@@ -25,11 +25,8 @@ const TopUpHistory = () => {
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
-        // console.error("Error occurred:", error.message);
         if (error.response) {
           setError(error.response.data.msg);
-          // console.error("Response status:", error.response.status);
-          // console.error("Response data:", error.response.data);
         }
       }
     };

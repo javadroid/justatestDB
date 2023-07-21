@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect} from "react";
+import { toast } from "react-hot-toast";
 
 const Popup = ({ isVisible, onClose }) => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/user";
@@ -11,7 +12,8 @@ const Popup = ({ isVisible, onClose }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(url, {
-          params: {
+        timeout: 30000,
+        params: {
             userid: sessionStorage.getItem("id"),
           },
           headers: {
@@ -20,7 +22,7 @@ const Popup = ({ isVisible, onClose }) => {
         });
         setData(response.data.user.apikey);
       } catch (error) {
-        console.log(error)
+        toast.error(error.message)
       }
     };
     fetchData();

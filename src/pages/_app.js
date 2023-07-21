@@ -16,14 +16,6 @@ function App({
   Component,
   pageProps: { session, ...pageProps },
 }) {
-  // const options = {
-  //   // passing the client secret obtained from the server
-  //   clientSecret:
-  //     "sk_test_51NH09ZLQDx3I44NE7VkeI6sBYxnbtbHPCd0is4LgXAZnIiIJtfAs7pUQFNmtgxx3Ihqxkq8pCq0GGEwuaZyAri0z00aTzE7Yix",
-  // };
-  useEffect(() => {
-    localStorage.setItem("selectedCountry", "Nigeria");
-  }, []);
   const getLayout = Component.getLayout;
   if (getLayout) {
     return getLayout(
