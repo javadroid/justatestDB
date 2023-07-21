@@ -30,7 +30,7 @@ const Services2 = ({ searchTerm }) => {
   };
 
   const postServices = async (service) => {
-    const clickedCountry = localStorage.getItem("selectedCountry");
+    const clickedCountry = localStorage.getItem("selectedCountry") || localStorage.getItem("defaultCountry");
     try {
       const response = await instance.post(
         postUrl,

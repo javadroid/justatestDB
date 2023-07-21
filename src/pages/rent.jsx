@@ -13,6 +13,7 @@ import rightArrow from "../assets/arrows/arrow-right.png";
 import curvedArrow from "../assets/arrows/curved-arrow.png";
 import axios from "axios";
 import Country from "@/Components/countries/country";
+import { toast } from "react-hot-toast";
 
 const Rent = () => {
   const [country, setCountry] = useState("");
@@ -20,8 +21,8 @@ const Rent = () => {
   const [count, setCount] = useState(1);
   const [fee, setFee] = useState(1);
 
-  useEffect(() => {
-    const getRentFee = async () => {
+  const getRentFee = async () => {
+    try {
       const response = await axios.get(
         process.env.NEXT_PUBLIC_BASE_URL + "/rentfees/country/duration",
         {
@@ -33,7 +34,12 @@ const Rent = () => {
         }
       );
       setFee(response?.data?.data[0]?.amount);
-    };
+    } catch (error) {
+      toast.error(error.response.data.msg);
+    }
+  };
+
+  useEffect(() => {
     getRentFee();
   }, [country, time]);
 
@@ -208,20 +214,22 @@ const Rent = () => {
                       </button>
                       <button
                         className="w-32 rounded-lg bg-color-bg_primary-500 py-2 text-sm active:border active:text-color-primary md:text-base"
-                        onClick={() => console.log("Month")}
+                        onClick={() => setTime("Monthly")}
                       >
                         Month
                       </button>
                     </div>
                     <div className="mb-4  flex h-10 w-[270px] max-w-[270px] justify-between rounded-lg bg-color-bg_primary-500 py-1 font-bold active:border active:text-color-primary">
+                      <MinusCircleIcon
+                        className="text-color-primary"
+                        onClick={() =>
+                          count <= 1 ? setCount(count) : setCount(count - 1)
+                        }
+                      />
+                      <p className="text-xl">{count}</p>
                       <PlusCircleIcon
                         className="text-color-primary"
                         onClick={() => setCount(count + 1)}
-                      />
-                      <p className="text-xl">{count}</p>
-                      <MinusCircleIcon
-                        className="text-color-primary"
-                        onClick={() => setCount(count - 1)}
                       />
                     </div>
                   </div>

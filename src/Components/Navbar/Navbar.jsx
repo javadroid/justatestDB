@@ -44,6 +44,7 @@ const Navbar = () => {
   }, [instance]);
 
   const [languages, setLanguages] = useState([]);
+  
   return (
     <nav
       className={`fixed top-0 z-50 flex h-20 w-full items-center justify-between bg-color-primary_darken p-4 text-white transition-all duration-500 ease-in-out ${

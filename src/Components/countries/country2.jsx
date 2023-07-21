@@ -14,8 +14,9 @@ const UsersCountry = ({ searchTerm }) => {
   const [data, setData] = useState([]);
 
   function handleClick(index) {
-    setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
+    setActiveIndex((prevIndex) => (prevIndex === index ? index : index));
   }
+  
   const handleCountryClick = (countryName) => {
     localStorage.setItem("selectedCountry", countryName);
   };
@@ -25,6 +26,7 @@ const UsersCountry = ({ searchTerm }) => {
   };
 
   useEffect(() => {
+    localStorage.removeItem("selectedCountry")
     const fetchData = async () => {
       try {
         const response = await axios.get(url, {
@@ -34,6 +36,10 @@ const UsersCountry = ({ searchTerm }) => {
           },
         });
         setData(response.data.countries);
+    localStorage.setItem("defaultCountry", response.data.countries[0].country_name);
+
+        // setDefaultCountry(localStorage.getItem("selectedCountry") || response.data.countries[0].country_name);
+        // console.log(response.data.countries[0].country_name);
       } catch (error) {
         toast.error(error.message);
       }

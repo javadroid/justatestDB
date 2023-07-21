@@ -2,7 +2,7 @@ import BlogComponent from "@/Components/BlogComponent";
 import BlogSidebar from "@/Components/BlogSidebar";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { get } from "react-hook-form";
+// import { get } from "react-hook-form";
 
 const useBlogs = () => {
   const [blogData, setBlogData] = useState([]);
