@@ -10,7 +10,7 @@ const app = express();
 global.__basedir = __dirname
 
 // set up port
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json({ limit: '100mb' }));
 app.use(bodyParser.urlencoded({
     // limit: '100mb',
