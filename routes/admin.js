@@ -27,13 +27,14 @@ router.put('/disable/apikey', userMiddleware.isLoggedIn, adminControllers.disabl
 // User permission module ends here
 
 // set user payment history
-router.post('/users/payhistorys', userMiddleware.isLoggedIn, adminControllers.setPaymentHistory);
+router.post('/users/payhistory', userMiddleware.isLoggedIn, adminControllers.addPaymentHistory);
+
 
 // fetch user payment history
-router.get('/user/payhistorys', userMiddleware.isLoggedIn, adminControllers.fetchAllUsersPaymentHistory);
+router.get('/users/payhistory', userMiddleware.isLoggedIn, adminControllers.fetchAllUsersPaymentHistory);
 
 // fetch all users payment history
-router.get('/users/payhistorys',  userMiddleware.isLoggedIn, adminControllers.getPaymentHistoryByUserId);
+router.get('/users/payhistory',  userMiddleware.isLoggedIn, adminControllers.getPaymentHistoryByUserId);
 
 // fetch user transaction history
 router.get('/user/transactions', userMiddleware.isLoggedIn, adminControllers.getTrnxByUserId);
@@ -55,6 +56,7 @@ router.delete('/logout', adminControllers.userLogout);
 // Admin can set the renting fee base on coutry and duration
 router.post('/setrentfee', userMiddleware.isLoggedIn, adminControllers.setRentFee);
 router.get('/rentednumbers', userMiddleware.isLoggedIn, adminControllers.getRentedNumbers);
+router.delete('/rentednumbers', userMiddleware.isLoggedIn, adminControllers.deleteRentedNumbers);
 // Number renting fee module ends here
 
 // Payment method module starts here

@@ -437,12 +437,41 @@ module.exports = {
             })
         }
     },
+    deleteRentedNumbers: (req, res, next) => {
+        const q_id = req.query.id ||req.query.setup_date;
+        try {
+            db.query(
+                `DELETE FROM rents WHERE id = '${q_id}'`,
+                (err, result) => {
+                    if (err) {
+                        return res.status(409).send({
+                            Error: err
+                        });
+                    }
+                    if (result.affectedRows >= 1) {
+                        return res.status(202).send({
+                            msg: result.affectedRows + ' Rent has been successfully deleted!'
+
+                        });
+                    } else {
+                        return res.status(404).send({
+                            msg: "No rent is found with such setup_date!"
+                        });
+                    }
+                }
+            );
+        } catch (err) {
+            return res.status(401).send({
+                msg: "Something went wrong."
+            })
+        }
+    },
     // Number renting fee module ends here
 
 
     // Payment history module starts here
-    // Set up payment history
-    setPaymentHistory:(req,res,next)=>{
+    // add up payment history
+    addPaymentHistory:(req,res,next)=>{
         const { user_id, tx_id, pay_method, status,created_time } = req.body;
         console.log(req.body)
         db.query(
@@ -1494,19 +1523,64 @@ module.exports = {
 
             }
             if (newBonus) {
-                query = `UPDATE wallets SET ref_bonus='${newBonus}' WHERE user_id='${userid}'`
+                // query = `UPDATE wallets SET ref_bonus='${newBonus}' WHERE user_id='${userid}'`
+                // db.query(
+                //     query,
+                //     (err, result) => {
+                //         if (err) {
+                //             // throw err;
+                //             return res.status(400).send({
+                //                 msg: err
+                //             });
+                //         }
+                //         return res.status(201).send({
+                //             msg: result.affectedRows + ' user ref balance has been successfully reset',
+                //         });
+                //     }
+                // );
+
                 db.query(
-                    query,
+                    `SELECT users.username AS username, admins.user AS admin_user FROM users JOIN admins ON users.id='${userid}' AND admins.id='${adminId}'`,
                     (err, result) => {
+                        // user does not exists
                         if (err) {
-                            // throw err;
-                            return res.status(400).send({
-                                msg: err
-                            });
+                            return res.status(400).send({ msg: err });
                         }
-                        return res.status(201).send({
-                            msg: result.affectedRows + ' user  balance has been successfully reset',
-                        });
+                        if (!result.length) {
+                            return res.status(401).send({ msg: 'UserId or AdminId passed in th params is incorrect!' });
+                            // check password
+                        } else {
+                            const us = result[0]['username'];
+                            const adminus = result[0]['admin_user'];
+                            db.query(`SELECT * FROM wallets WHERE user_id = '${userid}'`,
+                                (err, resu) => {
+                                    const oldbal = resu[0]['balance'];
+                                    console.log(oldbal);
+                                    if (resu.length) {
+                                        
+                                                query = `UPDATE wallets  SET ref_bonus='${newBonus}' WHERE user_id='${userid}'`
+                                                db.query(
+                                                    query,
+                                                    (err, result) => {
+                                                        if (err) {
+                                                            // throw err;
+                                                            return res.status(400).send({
+                                                                msg: err
+                                                            });
+                                                        }
+                                                        return res.status(201).send({
+                                                            msg: result.affectedRows + ' user ref balance has been successfully reset',
+                                                        });
+                                                    }
+             
+                                        );
+                                    } else {
+                                        return res.status(400).send({ msg: 'Incorrect userId was passed on params.' })
+                                    }
+
+                                }
+                            );
+                        }
                     }
                 );
             }
