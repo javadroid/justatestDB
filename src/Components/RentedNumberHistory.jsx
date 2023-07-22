@@ -2,8 +2,10 @@ import { ClipboardDocumentCheckIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import Link from "next/link";
+import CopyToClipboard from "./Copy";
 
-const RentedNumberHistory = () => {
+const RentedNumberHistory = ({ rentHistory, fetchRentHistory }) => {
   const histories = [
     {
       title: "Country",
@@ -23,60 +25,46 @@ const RentedNumberHistory = () => {
   ];
 
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/rent/numbers";
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(rentHistory);
   const [isLoading, setIsLoading] = useState(true);
-  const [hidden, setHidden] = useState(true);
-
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-        params: {
-          userid: sessionStorage.getItem("id"),
-        },
-      });
-      setData(response.data.numbers);
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    setIsLoading(false);
+    setData(rentHistory);
+  }, [url, rentHistory]);
 
   const CancelRent = async (number, amount) => {
     try {
+      let userId = sessionStorage.getItem("id");
       const Cancel = await axios.put(
-        process.env.NEXT_PUBLIC_BASE_URL + "/number/cancel",
+        process.env.NEXT_PUBLIC_BASE_URL +
+          `/number/cancel?userid=${userId}&rented_number=${number}&rented_amount=${amount}`,
         {
-          params: {
-            userid: sessionStorage.getItem("id"),
-            rented_number: number,
-            rented_amount: amount,
-          },
+          timeout: 30000,
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
           },
         }
       );
+      fetchRentHistory();
       toast.success(Cancel.data.msg);
-      setTimeout(() => {
-        window.location.reload();
-      }, 2000);
     } catch (error) {
-      // console.log("Error is", error);
-      toast.error(error?.response?.data.msg || "No response from the server.");
+      toast.error(error?.response?.data.msg);
     }
   };
 
-  const id = data.length;
-  setTimeout(function () {
-    setHidden(false);
-  }, 4000);
+  const CancelBtn = (rentedDate) => {
+    let currentTime = Date.now();
+    const TWENTY_MINUTES = 20 * 60 * 1000;
+    const PURCHASED_DATE = new Date(rentedDate).getTime();
+    if (PURCHASED_DATE + TWENTY_MINUTES >= currentTime) {
+      return true;
+    } else return false;
+  };
+
+  const handleClick = (rentId) => {
+    sessionStorage.setItem("rentid", rentId);
+  };
 
   return (
     <div>
@@ -99,7 +87,7 @@ const RentedNumberHistory = () => {
                 </div>
                 <div className="table-body lg:text-xs">
                   {isLoading ? (
-                    <p>Loading...</p>
+                    <p className="py-8 text-center">Loading...</p>
                   ) : (
                     <>
                       {data
@@ -139,10 +127,14 @@ const RentedNumberHistory = () => {
                               </h6>
                               <p className="flex items-center">
                                 {data.rented_number}
-                                <ClipboardDocumentCheckIcon
-                                  width={20}
-                                  className="ml-3 text-color-primary"
-                                />
+                                <CopyToClipboard
+                                  textToCopy={data.rented_number}
+                                >
+                                  <ClipboardDocumentCheckIcon
+                                    width={20}
+                                    className="cursor-pointer text-color-primary"
+                                  />
+                                </CopyToClipboard>
                               </p>
                             </div>
                             <div className="td price">
@@ -155,32 +147,30 @@ const RentedNumberHistory = () => {
                               <h6 className="font-medium text-color-table_gray">
                                 Message
                               </h6>
-                              {/* <p className="group relative cursor-pointer overflow-hidden rounded-3xl bg-[rgba(255,67,130,.1)] py-2 text-color-api-red md:rounded-md">
-                              <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-inherit transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
-                              <span className="relative">{data.status}</span>
-                            </p> */}
                               <div className="flex flex-col gap-y-2">
-                                <button className="w-full rounded-md bg-color-primary py-3 font-extrabold text-white">
+                                <Link
+                                  href={"/user/arent/" + data.rentId}
+                                  className="w-full rounded-md bg-color-primary py-3 text-center font-extrabold text-white"
+                                  onClick={() => {
+                                    handleClick(data.rentId);
+                                  }}
+                                >
                                   Read More
-                                </button>
-                                {data.id == id + 1 &&
-                                hidden &&
-                                data?.status !== "Cancelled" ? (
-                                  <button
-                                    className="w-full rounded-md bg-rose-500 py-3 font-extrabold text-white"
-                                    onClick={() =>
-                                      CancelRent(
-                                        data.rented_number,
-                                        data.amount
-                                      )
-                                    }
-                                  >
-                                    Cancel
-                                  </button>
-                                ) : (
-                                  //
-                                  <></>
-                                )}
+                                </Link>
+                                {CancelBtn(data.rented_date) &&
+                                  data.status !== "Cancelled" && (
+                                    <button
+                                      className="w-full rounded-md bg-rose-500 py-3 font-extrabold text-white"
+                                      onClick={() => {
+                                        CancelRent(
+                                          data.rented_number,
+                                          data.amount
+                                        );
+                                      }}
+                                    >
+                                      Cancel
+                                    </button>
+                                  )}
                               </div>
                             </div>
                           </div>

@@ -3,28 +3,30 @@ import Image from "next/image";
 import serviceimg from "../../assets/socials/Amazon.svg";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const ServiceQty = () => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/applications";
   const [services, setServices] = useState([]);
   const maxNameLength = 11;
   const [searchTerm, setSearchTerm] = useState("");
-  const fetchServices = async () => {
-    try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-      });
-      setServices(response.data.applications);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  
   useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get(url, {
+        timeout: 30000,
+        headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        });
+        setServices(response.data.applications);
+      } catch (error) {
+        toast.error(error.message);
+      }
+    };
     fetchServices();
-  }, []);
+  }, [setServices, url]);
 
   if (services.length === 0) {
     return <div>Please wait...</div>;

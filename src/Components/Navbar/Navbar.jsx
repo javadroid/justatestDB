@@ -7,7 +7,17 @@ import { useRouter } from "next/router";
 import { navlists } from "./navlists";
 import axios from "axios";
 
-const Navbar = () => {
+import { useTranslation } from 'react-i18next'
+
+
+const languagesq = [
+  { value: '', text: "Options" },
+  { value: 'en', text: "English" },
+  { value: 'hi', text: "Hindi" },
+  { value: 'bn', text: "Bengali" }
+]
+const Navbar = (props) => {
+  const [authToken, setAuthToken] = useState(sessionStorage.getItem("id"));
   var instance = axios.create({
     validateStatus: function (status) {
       return status >= 200 && status < 300; // default
@@ -34,27 +44,36 @@ const Navbar = () => {
   useEffect(() => {
     const getLanguages = async () => {
       const data = await instance.get(
-        process.env.NEXT_PUBLIC_BASE_URL + "/languages"
+        process.env.NEXT_PUBLIC_BASE_URL + "/languages",
+        { timeout: 30000 }
       );
       setLanguages(data?.data?.languages);
     };
     getLanguages();
-  }, []);
+  }, [instance]);
 
   const [languages, setLanguages] = useState([]);
+
+  // It is a hook imported from 'react-i18next'
+  const { t } = useTranslation();
+
+  const [lang, setLang] = useState('en');
+
+  // This function put query that helps to
+  // change the language
+  const handleChange = e => {
+    setLang(e.target.value);
+   
+    window.location.replace(window.location.href.split('?')[0] + e.target.value);
+  }
   return (
     <nav
-      className={`fixed top-0 z-50 flex h-20 w-full items-center justify-between bg-color-primary_darken p-4 text-white transition-all duration-500 ease-in-out ${
-        isScrolled ? "navbar-scroll" : ""
-      }`}
+      className={`fixed top-0 z-50 flex h-20 w-full items-center justify-between bg-color-primary_darken p-4 text-white transition-all duration-500 ease-in-out ${isScrolled ? "navbar-scroll" : ""
+        }`}
     >
       <div className="relative mx-auto flex max-w-6xl flex-grow items-center justify-between">
         <div onClick={() => router.push("/")}>
-          <Image
-            src={Logo}
-            alt="Logo Image"
-            className="h-auto w-20"
-          />
+          <Image src={Logo} alt="Logo Image" className="h-auto w-20" />
         </div>
         <div className="hidden w-1/3 lg:inline-block">
           <ul className="flex flex-grow items-center justify-between text-sm">
@@ -77,30 +96,51 @@ const Navbar = () => {
             })}
           </ul>
         </div>
-        <div className="hidden text-sm font-extrabold lg:flex lg:justify-evenly lg:space-x-10">
-          <button
-            onClick={() => router.push("/signup")}
-            className="group relative overflow-hidden rounded-full border border-white px-6 py-2 hover:border-0"
-          >
-            <span className="absolute -left-16 top-0 mt-12 h-64 w-60 rounded-full bg-color-primary transition-all duration-300 ease-out group-hover:-mt-4 group-hover:-rotate-180"></span>
-            <span className="relative">Sign up</span>
-          </button>
-          <button
-            onClick={() => router.push("/login")}
-            className="group relative overflow-hidden rounded-full border border-white px-6 py-2 hover:border-0"
-          >
-            <span className="absolute -left-16 top-0 mt-12 h-64 w-60 rounded-full bg-color-primary transition-all duration-300 ease-out group-hover:-mt-4 group-hover:-rotate-180"></span>
-            <span className="relative">Log In</span>
-          </button>
-        </div>
+        {!authToken && (
+          <div className="hidden text-sm font-extrabold lg:flex lg:justify-evenly lg:space-x-10">
+            <button
+              onClick={() => router.push("/signup")}
+              className="group relative overflow-hidden rounded-full border border-white px-6 py-2 hover:border-0"
+            >
+              <span className="absolute -left-16 top-0 mt-12 h-64 w-60 rounded-full bg-color-primary transition-all duration-300 ease-out group-hover:-mt-4 group-hover:-rotate-180"></span>
+              <span className="relative">Sign up</span>
+            </button>
+            <button
+              onClick={() => router.push("/login")}
+              className="group relative overflow-hidden rounded-full border border-white px-6 py-2 hover:border-0"
+            >
+              <span className="absolute -left-16 top-0 mt-12 h-64 w-60 rounded-full bg-color-primary transition-all duration-300 ease-out group-hover:-mt-4 group-hover:-rotate-180"></span>
+              <span className="relative">Log In</span>
+            </button>
+          </div>
+        )}
+        {authToken && (
+          <div className="hidden text-sm font-extrabold lg:flex lg:justify-evenly lg:space-x-10">
+            <button
+              onClick={() => router.push("/user/receive-sms")}
+              className="group relative overflow-hidden rounded-full border border-white px-6 py-2 hover:border-0"
+            >
+              <span className="absolute -right-1 top-0 mt-12 h-10 w-48 rounded bg-color-primary transition-all duration-300 ease-out group-hover:-mt-1 group-hover:rotate-360"></span>
+              <span className="relative">You are logged in</span>
+            </button>
+          </div>
+        )}
         <div className="hidden lg:inline-block">
           {languages.map((language) => {
+
             return (
               <Link className="" key={language.id} href="#">
                 {language.language}/
               </Link>
             );
           })}
+
+          <select value={lang} onChange={handleChange}>
+            {languagesq.map(item => {
+              return (<option key={item.value}
+                value={item.value}>{item.text}</option>);
+            })}
+          </select>
         </div>
         <div className="lg:hidden">
           <Bars3Icon
@@ -133,26 +173,39 @@ const Navbar = () => {
               ))}
             </ul>
           </div>
-          <div className="flex space-x-10">
+          {!authToken && (
+            <div className="flex space-x-10">
+              <button
+                onClick={() => {
+                  router.push("/signup");
+                  setIsOpen(false);
+                }}
+                className="rounded-full border-2 border-white px-12 py-2"
+              >
+                Sign Up
+              </button>
+              <button
+                onClick={() => {
+                  router.push("/login");
+                  setIsOpen(false);
+                }}
+                className="rounded-full border-2 border-white px-12 py-2"
+              >
+                Log In
+              </button>
+            </div>
+          )}
+          {authToken && (
             <button
               onClick={() => {
-                router.push("/signup");
+                router.push("/user/receive-sms");
                 setIsOpen(false);
               }}
               className="rounded-full border-2 border-white px-12 py-2"
             >
-              Sign Up
+              You are logged in
             </button>
-            <button
-              onClick={() => {
-                router.push("/login");
-                setIsOpen(false);
-              }}
-              className="rounded-full border-2 border-white px-12 py-2"
-            >
-              Log In
-            </button>
-          </div>
+          )}
         </div>
       )}
     </nav>

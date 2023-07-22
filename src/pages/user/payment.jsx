@@ -9,14 +9,18 @@ import Coinbase from "@/assets/coinbase.png";
 import Usdt from "@/assets/usdt.png";
 import { toast } from "react-hot-toast";
 
-const payment = () => {
+const usePaymentState = () => {
   const [amount, setAmount] = useState(10);
   const [active, setActive] = useState(false);
-  const router = useRouter();
-
   const [method, setMethod] = useState("stripe");
 
-  const handleCheckOut = async () => {
+  return { amount, setAmount, active, setActive, method, setMethod };
+};
+
+const usePaymentHandlers = () => {
+  const router = useRouter();
+
+  const handleCheckOut = async (amount) => {
     try {
       const response = await axios.post(
         process.env.NEXT_PUBLIC_BASE_URL + "/api/stripe/checkout",
@@ -24,7 +28,8 @@ const payment = () => {
           amount: amount,
         },
         {
-          params: {
+        timeout: 30000,
+        params: {
             userId: sessionStorage.getItem("id"),
           },
           headers: {
@@ -34,34 +39,23 @@ const payment = () => {
       );
       router.push(response?.data?.url);
     } catch (error) {
-      console.log(error);
+      toast.error(error?.response?.data.msg || "No response from the server.");
     }
   };
 
   const handleCoinbaseCheckOut = async () => {
-    console.log("coinbase");
+    // console.log("coinbase");
     toast.success("coinbase");
-    // try {
-    //   const response = await axios.post(
-    //     process.env.NEXT_PUBLIC_BASE_URL + "/api/stripe/checkout",
-    //     {
-    //       amount: amount,
-    //     },
-    //     {
-    //       params: {
-    //         userId: sessionStorage.getItem("id"),
-    //       },
-    //       headers: {
-    //         Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-    //       },
-    //     }
-    //   );
-    //   router.push(response?.data?.url);
-    //   console.log(response);
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
+
+  return { handleCheckOut, handleCoinbaseCheckOut };
+};
+
+const Payment = () => {
+  const { amount, setAmount, active, setActive, method, setMethod } =
+    usePaymentState();
+  const { handleCheckOut, handleCoinbaseCheckOut } = usePaymentHandlers();
+  const router = useRouter();
 
   return (
     <section>
@@ -111,18 +105,6 @@ const payment = () => {
                   >
                     <Image src={Usdt} alt="Payment" className="" />
                   </div>
-                  {/* <div className="flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg">
-                    <Image src={Visa} alt="Payment" className="" />
-                  </div>
-                  <div className="flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg">
-                    <Image src={Visa} alt="Payment" className="" />
-                  </div>
-                  <div className="flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg">
-                    <Image src={Visa} alt="Payment" className="" />
-                  </div>
-                  <div className="col-span-2 flex h-20 w-32 flex-col items-center justify-center justify-self-center bg-white shadow-lg lg:justify-self-start">
-                    <Image src={Visa} alt="Payment" className="" />
-                  </div> */}
                 </div>
               </div>
               <div>
@@ -168,7 +150,7 @@ const payment = () => {
                 className="group relative overflow-hidden rounded-md bg-color-primary px-2 py-2 text-white lg:w-40"
                 onClick={() => {
                   if (method === "stripe") {
-                    handleCheckOut();
+                    handleCheckOut(amount);
                   }
                   if (method === "coinbase") {
                     handleCoinbaseCheckOut();
@@ -195,8 +177,8 @@ const payment = () => {
   );
 };
 
-export default payment;
+export default Payment;
 
-payment.getLayout = function getLayout(page) {
+Payment.getLayout = function getLayout(page) {
   return <UserDashboardLayout>{page}</UserDashboardLayout>;
 };

@@ -33,8 +33,6 @@ const History = () => {
   ];
   const [data, setData] = useState(historyData);
   const [isLoading, setIsLoading] = useState(true);
-  const token = sessionStorage.getItem("authToken");
-  // console.log(token);
 
   const cancelService = async (id) => {
     const url =
@@ -45,7 +43,6 @@ const History = () => {
           Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
         },
       });
-      // console.log(response.data);
       setHistoryData();
       toast.success(response.data.msg);
     } catch (error) {
@@ -55,11 +52,10 @@ const History = () => {
 
   useEffect(() => {
     setHistoryData();
-  }, []);
+  }, [setHistoryData]);
 
   useEffect(() => {
     setData(historyData);
-    console.log(historyData);
     setIsLoading(false);
   }, [historyData]);
 
@@ -81,11 +77,10 @@ const History = () => {
         return item;
       });
       setData(newData);
-      // console.log("first iteration");
     }, THIRTY_SECONDS);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [data]);
 
   if (data.length == 0) {
     return (
@@ -187,8 +182,8 @@ const History = () => {
                                 Message
                               </h6>
                               {data.message === "Receive SMS" ? (
-                                <div className="flex flex-col items-center justify-center gap-5">
-                                  <button className="group relative cursor-pointer overflow-hidden rounded-3xl bg-color-primary py-2 text-color-white md:rounded-md">
+                                <div className="flex flex-col items-center justify-center gap-4">
+                                  <button className="group relative w-full cursor-pointer overflow-hidden rounded-3xl bg-color-primary py-2 text-color-white md:rounded-md">
                                     <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                                     <span className="relative">
                                       Receive sms
@@ -199,7 +194,7 @@ const History = () => {
                                       onClick={() =>
                                         cancelService(data.application_id)
                                       }
-                                      className="group relative cursor-pointer overflow-hidden rounded-3xl bg-[rgba(255,67,130,.1)] py-2 font-bold text-color-api-red md:rounded-md"
+                                      className="group relative w-full cursor-pointer overflow-hidden rounded-3xl bg-[rgba(255,67,130,.1)] py-2 font-bold text-color-api-red md:rounded-md"
                                     >
                                       <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-inherit transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                                       <span className="relative">
@@ -209,7 +204,7 @@ const History = () => {
                                   ) : null}
                                 </div>
                               ) : data.message !== "" ? (
-                                <button className="group relative cursor-pointer overflow-hidden rounded-3xl bg-[rgba(255,67,130,.1)] py-2 text-color-api-red md:rounded-md">
+                                <button className="group relative w-full cursor-pointer overflow-hidden rounded-3xl bg-[rgba(255,67,130,.1)] py-2 text-color-api-red md:rounded-md">
                                   <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-inherit transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                                   <span className="relative">
                                     {data.message}

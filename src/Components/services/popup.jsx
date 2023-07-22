@@ -1,31 +1,34 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState, useEffect} from "react";
+import { toast } from "react-hot-toast";
 
 const Popup = ({ isVisible, onClose }) => {
-  if (!isVisible) return null;
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/user";
   const [data, setData] = useState([]);
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(url, {
-        params: {
-          userid: sessionStorage.getItem("id"),
-        },
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-      });
-      setData(response.data.user.apikey);
-    } catch (error) {
-      console.log(error)
-    }
-  };
+  
   
   useEffect(() => {
+    if (!isVisible) return;
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(url, {
+        timeout: 30000,
+        params: {
+            userid: sessionStorage.getItem("id"),
+          },
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        });
+        setData(response.data.user.apikey);
+      } catch (error) {
+        toast.error(error.message)
+      }
+    };
     fetchData();
-  }, []);
+  }, [isVisible, url]);
 
-  if (data.length === 0) {
+  if (!isVisible || data.length === 0) {
     return <div>Please wait...</div>;
   }
   return (

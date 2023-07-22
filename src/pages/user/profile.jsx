@@ -17,7 +17,8 @@ const Profile = () => {
     const getBalance = async () => {
       const response = await Promise.all([
         instance.get(process.env.NEXT_PUBLIC_BASE_URL + "/balance", {
-          params: {
+        timeout: 30000,
+        params: {
             userid: sessionStorage.getItem("id"),
           },
           headers: {
@@ -25,7 +26,8 @@ const Profile = () => {
           },
         }),
         instance.get(process.env.NEXT_PUBLIC_BASE_URL + "/user", {
-          params: {
+        timeout: 30000,
+        params: {
             userid: sessionStorage.getItem("id"),
           },
           headers: {
@@ -33,11 +35,11 @@ const Profile = () => {
           },
         }),
       ]);
-      setBalance(response[0].data?.data[0]?.balance);
+      setBalance(Number(response[0].data?.data[0]?.balance).toFixed(2));
       setUserData(response[1].data?.user);
     };
     getBalance();
-  }, []);
+  }, [instance]);
 
   const [balance, setBalance] = useState(0);
   const [userData, setUserData] = useState({});

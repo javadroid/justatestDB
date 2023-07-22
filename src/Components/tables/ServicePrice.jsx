@@ -1,34 +1,34 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
-import serviceimg from "../../assets/socials/Amazon.svg";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import axios from "axios";
-
+import { toast } from "react-hot-toast";
 
 const ServicePrice = () => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/applications";
   const [services, setServices] = useState([]);
   const maxNameLength = 11;
   const [searchTerm, setSearchTerm] = useState("");
-  const fetchServices = async () => {
-    try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-      });
-      setServices(response.data.applications);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get(url, {
+        timeout: 30000,
+        headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        });
+        setServices(response.data.applications);
+      } catch (error) {
+       toast.error(error.message);
+      }
+    };
     fetchServices();
-  }, []);
+  }, [url]);
 
   if (services.length === 0) {
     return <div>Please wait...</div>;

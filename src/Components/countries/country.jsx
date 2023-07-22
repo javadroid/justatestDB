@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import UK from "../../assets/flags/UK.svg";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const url = process.env.NEXT_PUBLIC_BASE_URL + "/countries";
 
@@ -11,14 +11,14 @@ const Country = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(url, {
+        timeout: 30000,
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
         },
       });
       setData(response.data.countries);
     } catch (error) {
-      console.log(error)
-
+    toast.error(error.message);
     }
   };
 

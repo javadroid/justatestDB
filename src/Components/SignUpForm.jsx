@@ -50,7 +50,6 @@ const SignUpForm = () => {
     });
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       const response = await instance.post(
         process.env.NEXT_PUBLIC_BASE_URL + "/signup",
@@ -61,7 +60,8 @@ const SignUpForm = () => {
           confirmPassword: data.confirmPassword,
         },
         {
-          headers: {
+        timeout: 30000,
+        headers: {
             "Content-Type": "application/json",
           },
         }
@@ -70,9 +70,6 @@ const SignUpForm = () => {
       router.push("/");
     } catch (error) {
       toast.error(error.response.data.msg);
-      return <div>{error}</div>;
-      // console.log("Error is", error);
-      // router.push("/user/receive-sms");
     }
   };
 
@@ -147,13 +144,6 @@ const SignUpForm = () => {
           >
             Sign up
           </button>
-          {/* <div
-            // href={"/user/receive-sms"}
-            className="group relative w-full overflow-hidden rounded-3xl bg-color-primary py-3 text-center text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl"
-          >
-            <span className="absolute left-0 top-0 mt-16 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
-           
-          </div> */}
           <button
             onClick={signOut}
             className="w-full rounded-3xl bg-color-primary py-3 text-sm font-bold text-color-white md:text-lg lg:py-4 lg:text-xl"

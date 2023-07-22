@@ -5,36 +5,33 @@ import TopUp from "@/Components/TopUpHistory";
 
 const TopUpHistory = () => {
   const userid = sessionStorage.getItem("id");
-  console.log(userid);
   const url =
     process.env.NEXT_PUBLIC_BASE_URL + `/user/payment?userid=${userid}`;
   const [topUpHistory, setTopUpHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchTopUpHistory = async () => {
-    try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-      });
-      setTopUpHistory(response.data.user_topups.result);
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-      // console.error("Error occurred:", error.message);
-      if (error.response) {
-        setError(error.response.data.msg);
-        // console.error("Response status:", error.response.status);
-        // console.error("Response data:", error.response.data);
-      }
-    }
-  };
-
+  
   useEffect(() => {
+    const fetchTopUpHistory = async () => {
+      try {
+        const response = await axios.get(url, {
+        timeout: 30000,
+        headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        });
+        setTopUpHistory(response.data.user_topups.result);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        if (error.response) {
+          setError(error.response.data.msg);
+        }
+      }
+    };
     fetchTopUpHistory();
-  }, []);
+  }, [url]);
 
   const headings = ["Date", "Amount", "Status"];
 

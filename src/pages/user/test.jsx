@@ -1,13 +1,11 @@
-import React from "react";
-
-const test = () => {
+const Test = () => {
   const [open, setOpen] = React.useState(true);
   const log = () => {
     console.log(open);
   };
   const show = () => {
     setOpen(true);
-
+// comment
     
   };
   return (
@@ -331,4 +329,4 @@ const test = () => {
   );
 };
 
-export default test;
+export default Test;

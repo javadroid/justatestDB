@@ -22,7 +22,8 @@ const UserDashboardNav = () => {
     const getBalance = async () => {
       const response = await Promise.all([
         instance.get(process.env.NEXT_PUBLIC_BASE_URL + "/balance", {
-          params: {
+        timeout: 30000,
+        params: {
             userid: sessionStorage.getItem("id"),
           },
           headers: {
@@ -30,7 +31,8 @@ const UserDashboardNav = () => {
           },
         }),
         instance.get(process.env.NEXT_PUBLIC_BASE_URL + "/user", {
-          params: {
+        timeout: 30000,
+        params: {
             userid: sessionStorage.getItem("id"),
           },
           headers: {
@@ -38,11 +40,11 @@ const UserDashboardNav = () => {
           },
         }),
       ]);
-      setBalance(response[0].data?.data[0]?.balance);
+      setBalance(Number(response[0].data?.data[0]?.balance).toFixed(2));
       setUserData(response[1].data?.user);
     };
     getBalance();
-  }, []);
+  }, [instance]);
 
   const [balance, setBalance] = useState(0);
   const [userData, setUserData] = useState({});
@@ -73,15 +75,15 @@ const UserDashboardNav = () => {
               <p className="hidden text-xs text-black md:inline-block">
                 Balance:
               </p>
-              <p className="font-bold text-black">{Number(balance).toFixed(2)}</p>
+              <p className="font-bold text-black">${balance}</p>
             </div>
-            <button className="group relative flex w-2/3 items-center justify-center overflow-hidden rounded  bg-color-accent text-black hover:text-white md:w-1/2 md:rounded-lg md:py-2">
+            <Link href="/user/payment" className="group relative flex w-2/3 items-center justify-center overflow-hidden rounded  bg-color-accent text-black hover:text-white md:w-1/2 md:rounded-lg md:py-2">
               <span className="absolute left-0 top-0 mt-16 hidden h-20 w-full rounded-3xl bg-color-decor_orange transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
               <CreditCardIcon className="relative h-6 w-6 text-black group-hover:rotate-45 group-hover:text-color-white" />
               <p className="relative hidden text-sm font-bold md:block md:w-1/2">
                 Top up
               </p>
-            </button>
+            </Link>
           </div>
           <div className="group relative flex w-1/4 items-center justify-end">
             <UserCircleIcon className="h-8 w-8 text-color-primary" />
@@ -100,6 +102,7 @@ const UserDashboardNav = () => {
                 </Link>
                 <Link
                   href="/"
+                  onClick={() => {sessionStorage.clear()}}
                   className="flex items-center justify-start rounded-xl px-4 py-2 hover:bg-color-bg_primary-500"
                 >
                   <PowerIcon width={16} className="mr-2 text-color-primary" />{" "}

@@ -1,30 +1,31 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import countryImg from "../../assets/flags/Croatia.svg";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 const CountryQty = () => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/countries";
   const [searchTerm, setSearchTerm] = useState("");
   const maxNameLength = 11;
   const [data, setData] = useState([]);
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-        },
-      });
-      setData(response.data.countries);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(url, {
+        timeout: 30000,
+        headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+          },
+        });
+        setData(response.data.countries);
+      } catch (error) {
+        toast.error(error.message);
+      }
+    };
     fetchData();
-  }, []);
+  }, [url]);
 
   if (data.length === 0) {
     return <div>Please wait...</div>;
