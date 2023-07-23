@@ -1,0 +1,6 @@
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/jamfortetech/repositories/diginum_backend
+    - /bin/cp -R * $DEPLOYPATH
+
+   
