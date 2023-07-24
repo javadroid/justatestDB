@@ -2173,7 +2173,7 @@ module.exports = {
     // coupon module starts here
     createCoupon: (req, res, next) => {
         try {
-            const { coupon_name, coupon_value, exp_date } = req.body;
+            const { coupon_name, coupon_value,  exp_date } = req.body;
             // await uploadAppLogo(req, res);
             // if (req.file == undefined) {
             //     return res.status(400).send({ msg: "Please upload country flag!" });

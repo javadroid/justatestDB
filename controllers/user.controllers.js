@@ -1322,7 +1322,63 @@ const cancelNumber = (req, res, next) => {
     }
 }
 
+const fetchcoupon= (req, res, next) => {
+    try {
+        db.query(
+            `SELECT * FROM coupons WHERE coupon_name = '${req.query.coupon_name}'`,
+            (err, result) => {
+
+                if (result?.length) {
+                    if(result[0].statue==='Active'){
+                        return res.status(200).send({
+                            coupons: { result:result[0] }
+                        });
+                    }else{
+                        return res.status(404).send({
+                            msg: 'Coupon already used'
+                        });
+                    }
+                 
+                    
+                } else {
+                    return res.status(404).send({
+                        msg: 'No coupon is found!'
+                    });
+                }
+
+            });
+    } catch (err) {
+        return res.status(401).send({
+            Error: err
+        })
+    }
+}
+
+const useCoupon= (req, res, next) => {
+    try {
+        db.query(
+            `UPDATE coupons SET status='USED' WHERE coupon_name = '${req.body.coupon_name}'`,
+            (err, result) => {
+                if (result.length) {
+                    return res.status(200).send({
+                        msg: 'Congrats! you have used your coupon '+req.body.coupon_name
+                    });
+                } else {
+                    return res.status(404).send({
+                        msg: 'Coupon already used'
+                    });
+                }
+
+            });
+    } catch (err) {
+        return res.status(401).send({
+            Error: err
+        })
+    }
+}
 module.exports = {
+    fetchcoupon,
+    useCoupon,
     registerUser,
     socialLogin,
     verifyEmail,
