@@ -36,4 +36,4 @@ function App({
   }
 }
 
-export default appWithTranslation(App)
+export default (App)
