@@ -77,7 +77,7 @@ const Payment = () => {
       } catch (error) {
         setCouponDetails(error.response.data);
         // toast.error(error.response.data.msg);
-        // console.log(error.response.data.msg);
+        // console.log(error.response?.data.msg);
       }
     }, 700);
   };

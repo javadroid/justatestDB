@@ -16,6 +16,7 @@ const Rent = () => {
   const [count, setCount] = useState(1);
   const [fee, setFee] = useState(1);
   const [show, setShow] = useState(false);
+  const [isrentable, setisrentable] = useState(false);
   const [balance, setBalance] = useState(0);
   const [rentHistory, setRentHistory] = useState([]);
 
@@ -42,12 +43,14 @@ const Rent = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(url, {
-        timeout: 30000,
+
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
         },
       });
       setData(response.data.countries);
+      console.log(response.data.countries)
+      
     } catch (error) {
       toast.error(error.response.data.msg);
     }
@@ -56,31 +59,25 @@ const Rent = () => {
   const getRentFee = async () => {
     try {
       const response = await axios.get(
-        process.env.NEXT_PUBLIC_BASE_URL + "/rentfees/country/duration",
-        {
-          timeout: 30000,
-          params: {
-            country: country || "nigeria",
-            duration: time || "hour",
-          },
-        }
+        process.env.NEXT_PUBLIC_BASE_URL + `/rentfees/country/duration?country=${country}&duration=${time}`,
+
       );
       setFee(response?.data?.data[0]?.amount);
+      setisrentable(true)
     } catch (error) {
-      toast.error(error.response.data.msg);
+      setisrentable(false)
+      toast.error("This country / duration you seleted does not have numbers available for rent.");
     }
   };
 
   const fetchRentHistory = async () => {
     try {
-      const response = await axios.get(rentUrl, {
+      const response = await axios.get(rentUrl + "?userid=" + sessionStorage.getItem("id"), {
         timeout: 30000,
         headers: {
           Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
         },
-        params: {
-          userid: sessionStorage.getItem("id"),
-        },
+
       });
       setRentHistory(response.data.numbers);
     } catch (error) {
@@ -89,45 +86,59 @@ const Rent = () => {
   };
 
   const RentNumber = async () => {
-    if (balance < rentFee) {
-      toast.error("Insufficient balance. Please top up your account.");
-      return null;
-    }
-    try {
-      const response = await axios.post(
-        process.env.NEXT_PUBLIC_BASE_URL + "/rent/number",
-        {
-          country: country,
-          count: count,
-          duration: time,
-          amount: rentFee,
-        },
-        {
-          params: {
-            userid: sessionStorage.getItem("id"),
+
+    if (isrentable) {
+      if (balance < rentFee) {
+        toast.error("Insufficient balance. Please top up your account.");
+        return null;
+      }
+      try {
+        const response = await axios.post(
+          process.env.NEXT_PUBLIC_BASE_URL + "/rent/number?userid=" + sessionStorage.getItem("id"),
+          {
+            country: country,
+            count: count,
+            duration: time,
+            amount: rentFee,
           },
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-          },
-        }
-      );
-      fetchData();
-      fetchRentHistory();
-      toast.success(response?.data?.msg);
-    } catch (error) {
-      toast.error(error.response.data.msg);
+          {
+
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+            },
+          }
+        );
+
+        // fetchRentHistory();
+        toast.success(response?.data?.msg);
+       
+      } catch (error) {
+        console.log(error,sessionStorage.getItem("id"));
+        console.log(sessionStorage.getItem("authToken"))
+        toast.error(error?.response?.data.msg);
+      }
+    } else {
+      toast.error("This country / duration you seleted does not have numbers available for rent.");
     }
+
   };
   useEffect(() => {
     fetchRentHistory();
   }, []);
 
   useEffect(() => {
-    fetchData();
-    getRentFee();
-    getBalance();
-  }, [country, time, url]);
+    
 
+    fetchData();
+
+    getBalance();
+
+
+  }, []);
+  useEffect(() => {
+    getRentFee();
+
+  }, [time, country]);
   const rentFee = fee * count;
 
   if (data.length === 0) {
@@ -157,36 +168,38 @@ const Rent = () => {
                       <div className="h-32 w-full pr-2">
                         <table className="ml-0 w-full pl-4">
                           <tbody>
-                            {data.map((country) => (
+                            {data.map((countrys) => (
                               <tr
-                                key={country.id}
-                                className="cursor-pointer rounded-2xl bg-color-white hover:bg-color-bg_primary-500  active:bg-color-bg_primary-500"
-                                onClick={() =>
-                                  setCountry(country?.country_name)
+                                key={countrys.id}
+                                className={country === countrys?.country_name ? "cursor-pointer rounded-2xl bg-color-text_light hover:bg-color-bg_primary-500  active:bg-color-bg_primary-500 " : "cursor-pointer rounded-2xl bg-color-white hover:bg-color-bg_primary-500  active:bg-color-bg_primary-500 "}
+                                onClick={() => {
+                                  setCountry(countrys?.country_name)
+                                  console.log(countrys?.country_name, country)
+                                }
                                 }
                               >
                                 <td className="flex w-full items-center justify-start py-1">
                                   <span>
                                     <Image
-                                      src={`https://flagcdn.com/${country.country_code.toLowerCase()}.svg`}
+                                      src={`https://flagcdn.com/${countrys.country_code.toLowerCase()}.svg`}
                                       width={20}
                                       height={20}
-                                      alt={country.country_name}
+                                      alt={countrys.country_name}
                                       className="ml-4 mr-2 flex w-8 items-center"
                                     />
                                   </span>
                                   <span className="text-xs font-medium md:text-base">
-                                    {country.country_name.length > maxNameLength
-                                      ? `${country.country_name.substring(
-                                          0,
-                                          maxNameLength
-                                        )}...`
-                                      : country.country_name}
+                                    {countrys.country_name.length > maxNameLength
+                                      ? `${countrys.country_name.substring(
+                                        0,
+                                        maxNameLength
+                                      )}...`
+                                      : countrys.country_name}
                                   </span>
                                 </td>
                                 <td>
                                   <span className="text-xs text-gray-500">
-                                    {country.country_code}
+                                    {countrys.country_code}
                                   </span>
                                 </td>
                               </tr>
@@ -215,13 +228,15 @@ const Rent = () => {
                 <div className=" flex flex-col justify-between">
                   <div className="mb-2 flex w-full justify-evenly space-x-4">
                     <button
-                      className="w-1/2 rounded-lg bg-color-bg_primary-500 py-2 text-sm active:border active:border-color-primary_darken active:text-color-primary md:text-base"
+                      className={time === "Hour" ? "w-1/2 rounded-lg bg-color-bg_primary-500 py-2 text-sm border border-color-primary_darken text-color-primary md:text-base" :
+                        "w-1/2 rounded-lg bg-color-bg_primary-500 py-2 text-sm active:border active:border-color-primary_darken active:text-color-primary md:text-base"}
                       onClick={() => setTime("Hour")}
                     >
                       Hour
                     </button>
                     <button
-                      className="w-1/2  rounded-lg bg-color-bg_primary-500 py-2 text-sm active:border active:text-color-primary md:text-base"
+                      className={time === "Day" ? "w-1/2 rounded-lg bg-color-bg_primary-500 py-2 text-sm border border-color-primary_darken text-color-primary md:text-base" :
+                        "w-1/2 rounded-lg bg-color-bg_primary-500 py-2 text-sm active:border active:border-color-primary_darken active:text-color-primary md:text-base"}
                       onClick={() => setTime("Day")}
                     >
                       Day
@@ -229,13 +244,15 @@ const Rent = () => {
                   </div>
                   <div className="mb-2 flex w-full justify-evenly space-x-4">
                     <button
-                      className="w-1/2  rounded-lg bg-color-bg_primary-500 py-2 text-sm active:border active:text-color-primary md:text-base"
+                      className={time === "Week" ? "w-1/2 rounded-lg bg-color-bg_primary-500 py-2 text-sm border border-color-primary_darken text-color-primary md:text-base" :
+                        "w-1/2 rounded-lg bg-color-bg_primary-500 py-2 text-sm active:border active:border-color-primary_darken active:text-color-primary md:text-base"}
                       onClick={() => setTime("Week")}
                     >
                       Week
                     </button>
                     <button
-                      className="w-1/2  rounded-lg bg-color-bg_primary-500 py-2 text-sm active:border active:text-color-primary md:text-base"
+                      className={time === "Monthly" ? "w-1/2 rounded-lg bg-color-bg_primary-500 py-2 text-sm border border-color-primary_darken text-color-primary md:text-base" :
+                        "w-1/2 rounded-lg bg-color-bg_primary-500 py-2 text-sm active:border active:border-color-primary_darken active:text-color-primary md:text-base"}
                       onClick={() => setTime("Monthly")}
                     >
                       Month
