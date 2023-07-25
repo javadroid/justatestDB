@@ -1,6 +1,6 @@
 import UserDashboardLayout from "@/Components/UserDashboardLayout";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Visa from "@/assets/visa.png";
 import PiggyBank from "@/assets/piggy-bank.svg";
 import { useRouter } from "next/router";
@@ -28,8 +28,8 @@ const usePaymentHandlers = () => {
           amount: amount,
         },
         {
-        timeout: 30000,
-        params: {
+          timeout: 30000,
+          params: {
             userId: sessionStorage.getItem("id"),
           },
           headers: {
@@ -56,6 +56,59 @@ const Payment = () => {
     usePaymentState();
   const { handleCheckOut, handleCoinbaseCheckOut } = usePaymentHandlers();
   const router = useRouter();
+
+
+  const url = process.env.NEXT_PUBLIC_BASE_URL + "/coupon";
+  const [couponName, setCouponName] = useState("");
+  const validateCoupon = async () => {
+    try {
+      const response = await axios.get(url, {
+        params: {
+          coupon_name: "Vera",
+        }
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
+
+  const useCoupon = async () => {
+    try {
+      const response = await axios.post(url, {
+        coupon_name: "Vera",
+      });
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    validateCoupon();
+    useCoupon();
+  }, [])
+
+  function Coupon(name) {
+    if (name == "") {
+      setBtnActive(true);
+    } else setBtnActive(false);
+    if (name !== "bella") {
+      return "no coupon found";
+    }
+    return {
+      coupon_name: "bella",
+      coupon_value: 23,
+      expiration_date: " 24/8/23",
+      status: notUsed,
+    };
+    // return {coupon_name: "bella", coupon_value: 23, expiration_date:" 24/8/23" , status: notUsed};
+  }
+
+  const [btnActive, setBtnActive] = useState(true);
+  function InputChange() {
+    setBtnActive(!btnActive);
+  }
 
   return (
     <section>
@@ -146,18 +199,29 @@ const Payment = () => {
                   className="mb-5 w-full rounded-md bg-color-bg_primary-500 px-3 py-2 lg:w-96"
                 />
               </div>
+              <div>
+                <h3 className="mb-5 text-lg font-bold">
+                  3. Add coupon code here
+                </h3>
+                <input
+                  placeholder="Enter coupon code"
+                  onChange={(e)=>{InputChange}}
+                  className="mb-5 w-full rounded-md bg-color-bg_primary-500 px-3 py-2 lg:w-96"
+                />
+              </div>
               <button
-                className="group relative overflow-hidden rounded-md bg-color-primary px-2 py-2 text-white lg:w-40"
-                onClick={() => {
-                  if (method === "stripe") {
-                    handleCheckOut(amount);
-                  }
-                  if (method === "coinbase") {
-                    handleCoinbaseCheckOut();
-                  } else {
-                    console.log("nothing");
-                  }
-                }}
+                disabled={!btnActive}
+                className={btnActive ? "group relative overflow-hidden rounded-md bg-color-primary px-2 py-2 text-white lg:w-40" : "group relative overflow-hidden rounded-md bg-color-primary px-2 py-2 text-white lg:w-40 opacity-50 cursor"}
+                // onClick={() => {
+                //   if (method === "stripe") {
+                //     handleCheckOut(amount);
+                //   }
+                //   if (method === "coinbase") {
+                //     handleCoinbaseCheckOut();
+                //   } else {
+                //     console.log("nothing");
+                //   }
+                // }}
               >
                 <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                 <span className="relative">Pay</span>
