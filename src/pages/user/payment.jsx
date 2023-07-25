@@ -61,7 +61,7 @@ const Payment = () => {
   const router = useRouter();
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/coupon";
   const [couponDetails, setCouponDetails] = useState();
-  const [payable, setPayable] = useState(Number(amount));
+  const [payable, setPayable] = useState(0);
 
   const validateCoupon = (couponName) => {
     setTimeout(async () => {
@@ -83,14 +83,29 @@ const Payment = () => {
   };
 
   const useCoupon = async () => {
-    try {
-      const response = await axios.post(url, {
-        coupon_name: couponName,
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
+
+    if(couponDetails?.coupon_value){
+      const posted={
+        coupon_name: couponDetails.coupon_name,
+        user_id: sessionStorage.getItem("id"),
+        new_balance: couponDetails.coupon_value
+      }
+      console.log(posted)
+      try {
+        const response = await axios.post(url, posted);
+       
+        toast.success(response.data.msg);
+        setTimeout(()=>{
+ window.location.reload()
+        },1000)
+       
+      } catch (error) {
+        console.log(error);
+      }
+    }else{
+      toast.error(couponDetails?.msg||'Enter a valid coupon');
     }
+   
   };
 
   function Coupon(name) {
@@ -111,16 +126,11 @@ const Payment = () => {
 
   useEffect(() => {
     if (couponDetails?.coupon_value) {
-      toast.success(couponDetails.coupon_value);
-      if (Number(amount) > Number(couponDetails?.coupon_value)) {
-        setPayable(Number(amount) - Number(couponDetails?.coupon_value));
-        toast.success("payable");
-      } else {
-        setPayable(Number(amount));
-        toast.error("You can only buy more than" +" $" + couponDetails?.coupon_value);
-      }
+
+      setPayable(Number(couponDetails?.coupon_value));
+
     } else {
-      setPayable(Number(amount));
+      setPayable(0);
     }
   }, [couponDetails?.coupon_value, amount]);
 
@@ -142,11 +152,10 @@ const Payment = () => {
                 </h1>
                 <div className="mt-4 grid grid-cols-1 justify-items-center gap-4 px-10 md:grid-cols-2 lg:grid-cols-3">
                   <div
-                    className={`flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg ${
-                      method === "stripe"
-                        ? "rounded-md border-4 border-blue-500"
-                        : "border-0"
-                    }`}
+                    className={`flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg ${method === "stripe"
+                      ? "rounded-md border-4 border-blue-500"
+                      : "border-0"
+                      }`}
                     onClick={() => {
                       setMethod("stripe");
                     }}
@@ -154,11 +163,10 @@ const Payment = () => {
                     <Image src={Visa} alt="Payment" className="" />
                   </div>
                   <div
-                    className={`flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg ${
-                      method === "coinbase"
-                        ? "rounded-md border-4 border-blue-500"
-                        : "border-0"
-                    }`}
+                    className={`flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg ${method === "coinbase"
+                      ? "rounded-md border-4 border-blue-500"
+                      : "border-0"
+                      }`}
                     onClick={() => {
                       setMethod("coinbase");
                     }}
@@ -166,88 +174,105 @@ const Payment = () => {
                     <Image src={Coinbase} alt="Payment" className="" />
                   </div>
                   <div
-                    className={`flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg ${
-                      method === "usdt"
-                        ? "rounded-md border-4 border-blue-500"
-                        : "border-0"
-                    }`}
+                    className={`flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg ${method === "usdt"
+                      ? "rounded-md border-4 border-blue-500"
+                      : "border-0"
+                      }`}
                     onClick={() => {
                       setMethod("usdt");
                     }}
                   >
                     <Image src={Usdt} alt="Payment" className="" />
+
+
+                  </div>
+                  <div
+                    className={`flex h-20 w-32 flex-col items-center justify-center bg-white shadow-lg ${method === "coupon"
+                      ? "rounded-md border-4 border-blue-500"
+                      : "border-0"
+                      }`}
+                    onClick={() => {
+                      setMethod("coupon");
+                    }}
+                  >
+                    {/* <Image src={Usdt} alt="Payment" className="" /> */}
+                    <p>Use Coupon</p>
+
+
                   </div>
                 </div>
               </div>
-              <div>
-                <h1 className="mb-5 text-lg font-bold">
-                  2. Specify top up amount
-                </h1>
-                <div className="mb-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  <div
-                    onClick={() => setAmount(10)}
-                    className={`rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md ${
-                      amount === 10
+              {method !== 'coupon' &&
+                <div>
+                  <h1 className="mb-5 text-lg font-bold">
+                    2. Specify top up amount
+                  </h1>
+                  <div className="mb-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    <div
+                      onClick={() => setAmount(10)}
+                      className={`rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md ${amount === 10
                         ? "rounded-md border-4 border-blue-500"
                         : "border-0"
-                    }`}
-                  >
-                    $10
-                  </div>
-                  <div
-                    onClick={() => setAmount(50)}
-                    className={`rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md ${
-                      amount === 50
+                        }`}
+                    >
+                      $10
+                    </div>
+                    <div
+                      onClick={() => setAmount(50)}
+                      className={`rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md ${amount === 50
                         ? "rounded-md border-4 border-blue-500"
                         : "border-0"
-                    }`}
-                  >
-                    $50
+                        }`}
+                    >
+                      $50
+                    </div>
+                    <div
+                      className={`rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md ${amount === 100 ? "border-4 border-blue-500" : "border-0"
+                        }`}
+                      onClick={() => setAmount(100)}
+                    >
+                      $100
+                    </div>
                   </div>
-                  <div
-                    className={`rounded-md bg-color-bg_primary-500 px-16 py-2 shadow-md ${
-                      amount === 100 ? "border-4 border-blue-500" : "border-0"
-                    }`}
-                    onClick={() => setAmount(100)}
-                  >
-                    $100
-                  </div>
-                </div>
-                <input
-                  placeholder="Other amount"
-                  onChange={(e) => {
-                    setAmount(e.target.value);
-                  }}
-                  className="mb-5 w-full rounded-md bg-color-bg_primary-500 px-3 py-2 lg:w-96"
-                />
-              </div>
-              <div>
-                <h3 className="mb-5 text-lg font-bold">
-                  3. Add coupon code here
-                </h3>
-                <input
-                  placeholder="Enter coupon code"
-                  onChange={(e) => {
-                    validateCoupon(e.target.value);
-                  }}
-                  className="mb-5 w-full rounded-md bg-color-bg_primary-500 px-3 py-2 lg:w-96"
-                />
-                {couponDetails && (
-                  <p className="flex items-center text-sm text-color-primary_darken">
-                    {couponDetails.status}
-                    {/* <CheckCircleIcon class="h-4 w-4 text-green-600" /> */}
-                  </p>
-                )}
-                {couponDetails && <p>{couponDetails.msg}</p>}
-              </div>
+                  <input
+                    placeholder="Other amount"
+                    onChange={(e) => {
+                      setAmount(e.target.value);
+                    }}
+                    className="mb-5 w-full rounded-md bg-color-bg_primary-500 px-3 py-2 lg:w-96"
+                  />
+                </div>}
+
+              {method === 'coupon' &&
+                <div>
+                  <h3 className="mb-5 text-lg font-bold">
+                    2. Add coupon code here
+                  </h3>
+                  <input
+                    placeholder="Enter coupon code"
+                    onChange={(e) => {
+                      validateCoupon(e.target.value);
+                    }}
+                    className="mb-5 w-full rounded-md bg-color-bg_primary-500 px-3 py-2 lg:w-96"
+                  />
+                  {couponDetails && (
+                    <p className="flex items-center text-sm text-color-primary_darken">
+                      {couponDetails.status}
+                      {/* <CheckCircleIcon class="h-4 w-4 text-green-600" /> */}
+                    </p>
+                  )}
+                  {couponDetails && <p>{couponDetails.msg}</p>}
+                </div>}
+
               <button
                 className="group relative overflow-hidden rounded-md bg-color-primary px-2 py-2 text-white lg:w-40"
                 onClick={() => {
                   if (method === "stripe") {
                     handleCheckOut(amount);
-                  }
-                  if (method === "coinbase") {
+                  } else if (method === "coinbase") {
                     handleCoinbaseCheckOut();
+                  } else if (method === "coupon") {
+                    useCoupon();
                   } else {
                     console.log("nothing");
                   }
