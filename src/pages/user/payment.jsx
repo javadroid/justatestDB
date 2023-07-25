@@ -8,6 +8,9 @@ import axios from "axios";
 import Coinbase from "@/assets/coinbase.png";
 import Usdt from "@/assets/usdt.png";
 import { toast } from "react-hot-toast";
+// import { CheckCircleIcon } from "@heroicons/24/outline";
+import { set } from "react-hook-form";
+import { CheckCircleIcon } from "@heroicons/react/24/outline";
 
 const usePaymentState = () => {
   const [amount, setAmount] = useState(10);
@@ -56,38 +59,39 @@ const Payment = () => {
     usePaymentState();
   const { handleCheckOut, handleCoinbaseCheckOut } = usePaymentHandlers();
   const router = useRouter();
-
-
   const url = process.env.NEXT_PUBLIC_BASE_URL + "/coupon";
-  const [couponName, setCouponName] = useState("");
-  const validateCoupon = async () => {
-    try {
-      const response = await axios.get(url, {
-        params: {
-          coupon_name: "Vera",
-        }
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.log(error.response.data);
-    }
+  const [couponDetails, setCouponDetails] = useState();
+  const [payable, setPayable] = useState(Number(amount));
+
+  const validateCoupon = (couponName) => {
+    setTimeout(async () => {
+      try {
+        const response = await axios.get(url, {
+          params: {
+            coupon_name: couponName,
+          },
+        });
+        setCouponDetails(response.data.coupons.result);
+        // toast.success(response.data.coupons.result.status);
+        // console.log(response.data);
+      } catch (error) {
+        setCouponDetails(error.response.data);
+        // toast.error(error.response.data.msg);
+        // console.log(error.response.data.msg);
+      }
+    }, 700);
   };
 
   const useCoupon = async () => {
     try {
       const response = await axios.post(url, {
-        coupon_name: "Vera",
+        coupon_name: couponName,
       });
       console.log(response.data);
     } catch (error) {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    validateCoupon();
-    useCoupon();
-  }, [])
 
   function Coupon(name) {
     if (name == "") {
@@ -104,6 +108,21 @@ const Payment = () => {
     };
     // return {coupon_name: "bella", coupon_value: 23, expiration_date:" 24/8/23" , status: notUsed};
   }
+
+  useEffect(() => {
+    if (couponDetails?.coupon_value) {
+      toast.success(couponDetails.coupon_value);
+      if (Number(amount) > Number(couponDetails?.coupon_value)) {
+        setPayable(Number(amount) - Number(couponDetails?.coupon_value));
+        toast.success("payable");
+      } else {
+        setPayable(Number(amount));
+        toast.error("You can only buy more than" +" $" + couponDetails?.coupon_value);
+      }
+    } else {
+      setPayable(Number(amount));
+    }
+  }, [couponDetails?.coupon_value, amount]);
 
   const [btnActive, setBtnActive] = useState(true);
   function InputChange() {
@@ -196,6 +215,9 @@ const Payment = () => {
                 </div>
                 <input
                   placeholder="Other amount"
+                  onChange={(e) => {
+                    setAmount(e.target.value);
+                  }}
                   className="mb-5 w-full rounded-md bg-color-bg_primary-500 px-3 py-2 lg:w-96"
                 />
               </div>
@@ -205,9 +227,18 @@ const Payment = () => {
                 </h3>
                 <input
                   placeholder="Enter coupon code"
-                  onChange={(e)=>{InputChange}}
+                  onChange={(e) => {
+                    validateCoupon(e.target.value);
+                  }}
                   className="mb-5 w-full rounded-md bg-color-bg_primary-500 px-3 py-2 lg:w-96"
                 />
+                {couponDetails && (
+                  <p className="flex items-center text-sm text-color-primary_darken">
+                    {couponDetails.status}
+                    {/* <CheckCircleIcon class="h-4 w-4 text-green-600" /> */}
+                  </p>
+                )}
+                {couponDetails && <p>{couponDetails.msg}</p>}
               </div>
               <button
                 className="group relative overflow-hidden rounded-md bg-color-primary px-2 py-2 text-white lg:w-40"
@@ -223,7 +254,7 @@ const Payment = () => {
                 }}
               >
                 <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
-                <span className="relative">Pay</span>
+                <span className="relative">Pay ${payable}</span>
               </button>
             </div>
           </div>
