@@ -12,10 +12,13 @@ import star from "../assets/random-shapes/shooting-star.png";
 import Image from "next/image";
 import ReCAPTCHA from "react-google-recaptcha";
 
-const SignUpForm = () => {
+const SignUpForm = ({ referrer }) => {
   const { data: session } = useSession();
   const router = useRouter();
 
+  // Accessing the query parameters
+  const { id } = router.query;
+  console.log("referrer",id )
 
   const {
     register,
@@ -50,6 +53,7 @@ const SignUpForm = () => {
     });
 
   const onSubmit = async (data) => {
+
     try {
       const response = await instance.post(
         process.env.NEXT_PUBLIC_BASE_URL + "/signup",
@@ -58,10 +62,11 @@ const SignUpForm = () => {
           email: data.email,
           password: data.password,
           confirmPassword: data.confirmPassword,
+          referrer:id,
         },
         {
-        timeout: 30000,
-        headers: {
+          timeout: 30000,
+          headers: {
             "Content-Type": "application/json",
           },
         }
@@ -86,6 +91,7 @@ const SignUpForm = () => {
         width={100}
         className="absolute -left-40 bottom-40 hidden lg:flex"
       />
+      
       <Image
         src={hashtag}
         width={70}

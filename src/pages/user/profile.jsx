@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import ClipboardJS from "clipboard";
+import CopyToClipboard from "@/Components/Copy";
 
 const Profile = () => {
   var instance = axios.create({
@@ -14,11 +16,12 @@ const Profile = () => {
   });
 
   useEffect(() => {
+    console.log(sessionStorage.length)
     const getBalance = async () => {
       const response = await Promise.all([
         instance.get(process.env.NEXT_PUBLIC_BASE_URL + "/balance", {
-        timeout: 30000,
-        params: {
+          timeout: 30000,
+          params: {
             userid: sessionStorage.getItem("id"),
           },
           headers: {
@@ -26,8 +29,8 @@ const Profile = () => {
           },
         }),
         instance.get(process.env.NEXT_PUBLIC_BASE_URL + "/user", {
-        timeout: 30000,
-        params: {
+          timeout: 30000,
+          params: {
             userid: sessionStorage.getItem("id"),
           },
           headers: {
@@ -173,18 +176,18 @@ const Profile = () => {
               <h2 className="mb-5 text-center font-bold md:text-xl">
                 Referal Program
               </h2>
-              <div className="flex flex-col gap-y-8 text-xs md:text-base lg:flex-row lg:justify-between">
+              <div className="flex flex-col gap-y-8 text-xs md:text-base  ">
                 <div>
                   <p className="w-full text-xs font-extrabold md:text-base">
                     Recommend the service and earn money
-                  </p>
+                  </p> 
                   <p className="text-color-primary">Read more...</p>
                 </div>
                 <div>
                   <div className="flex items-center gap-x-2">
                     <p>Your referral balance:</p>
                     <p>
-                      0.00${" "}
+                      {'0.00'}${" "}
                       <Link
                         href="/user/referral-history"
                         className="text-color-primary"
@@ -193,9 +196,16 @@ const Profile = () => {
                       </Link>
                     </p>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <p>Your REF code</p>
-                    <p>https//somerandomurl</p>
+                  <div className=" ">
+                    <p>Your REF code: {userData.ref_code}</p>
+                    <br />
+                    <p> {`${window.location.host}/signup/${userData.ref_code}`}</p>
+                    
+                    <CopyToClipboard textToCopy={`${window.location.host}/signup/${userData.ref_code}`}>
+                   
+                <button className="btn btn-primary" >Copy referrer link</button>
+              </CopyToClipboard>
+                    {/* */}
                   </div>
                 </div>
               </div>
