@@ -5,6 +5,7 @@ import ReferralList from "@/Components/ReferralList";
 
 const ReferralHistory = () => {
   const userRefCode = sessionStorage.getItem("refCode");
+  console.log(userRefCode)
   const url =
     process.env.NEXT_PUBLIC_BASE_URL +
     `/referral/history?refCode=${userRefCode}`;
