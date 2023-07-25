@@ -210,18 +210,17 @@ const Payment = () => {
                 />
               </div>
               <button
-                disabled={!btnActive}
-                className={btnActive ? "group relative overflow-hidden rounded-md bg-color-primary px-2 py-2 text-white lg:w-40" : "group relative overflow-hidden rounded-md bg-color-primary px-2 py-2 text-white lg:w-40 opacity-50 cursor"}
-                // onClick={() => {
-                //   if (method === "stripe") {
-                //     handleCheckOut(amount);
-                //   }
-                //   if (method === "coinbase") {
-                //     handleCoinbaseCheckOut();
-                //   } else {
-                //     console.log("nothing");
-                //   }
-                // }}
+                className="group relative overflow-hidden rounded-md bg-color-primary px-2 py-2 text-white lg:w-40"
+                onClick={() => {
+                  if (method === "stripe") {
+                    handleCheckOut(amount);
+                  }
+                  if (method === "coinbase") {
+                    handleCoinbaseCheckOut();
+                  } else {
+                    console.log("nothing");
+                  }
+                }}
               >
                 <span className="absolute left-0 top-0 mt-12 h-20 w-full rounded-3xl bg-color-primary_black transition-all duration-300 ease-in-out group-hover:-mt-4"></span>
                 <span className="relative">Pay</span>
