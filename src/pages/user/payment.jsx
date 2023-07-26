@@ -82,10 +82,10 @@ const Payment = () => {
     }, 700);
   };
 
-  const useCoupon = async () => {
+  const handleUseCoupon = async () => {
 
-    if(couponDetails?.coupon_value){
-      const posted={
+    if (couponDetails?.coupon_value) {
+      const posted = {
         coupon_name: couponDetails.coupon_name,
         user_id: sessionStorage.getItem("id"),
         new_balance: couponDetails.coupon_value
@@ -93,19 +93,19 @@ const Payment = () => {
       console.log(posted)
       try {
         const response = await axios.post(url, posted);
-       
+
         toast.success(response.data.msg);
-        setTimeout(()=>{
- window.location.reload()
-        },1000)
-       
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
+
       } catch (error) {
         console.log(error);
       }
-    }else{
-      toast.error(couponDetails?.msg||'Enter a valid coupon');
+    } else {
+      toast.error(couponDetails?.msg || 'Enter a valid coupon');
     }
-   
+
   };
 
   function Coupon(name) {
@@ -272,7 +272,7 @@ const Payment = () => {
                   } else if (method === "coinbase") {
                     handleCoinbaseCheckOut();
                   } else if (method === "coupon") {
-                    useCoupon();
+                    handleUseCoupon();
                   } else {
                     console.log("nothing");
                   }
