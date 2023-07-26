@@ -41,12 +41,15 @@ const UserDashboardNav = () => {
         }),
       ]);
       setBalance(Number(response[0].data?.data[0]?.balance).toFixed(2));
+      sessionStorage.setItem("walletBalance",Number(response[0].data?.data[0]?.balance).toFixed(2))
       setUserData(response[1].data?.user);
+      sessionStorage.setItem("ref_code",response[1].data?.user.ref_code)
     };
     getBalance();
   }, [instance]);
 
-  const [balance, setBalance] = useState(0);
+  const WB=sessionStorage.getItem("walletBalance")
+  const [balance, setBalance] = useState(WB||0);
   const [userData, setUserData] = useState({});
 
   return (

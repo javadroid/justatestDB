@@ -31,12 +31,14 @@ const Services2 = ({ searchTerm }) => {
 
   const postServices = async (service) => {
     const clickedCountry = localStorage.getItem("selectedCountry") || localStorage.getItem("defaultCountry");
+    let str = "application_id"
+    const refID = Math.floor(Math.random() * 5000) + 1 + (str.charAt(0) + str.charAt(1) + str.charAt(2));
     try {
       const response = await instance.post(
         postUrl,
         {
           userApiKey: userKey,
-          appId: service.application_id,
+          appId: service.application_id+'-'+refID,
           country: clickedCountry,
           price: service.price,
         },
@@ -72,22 +74,7 @@ const Services2 = ({ searchTerm }) => {
         toast.error(error.message);
       }
     };
-    const fetchUserApi = async () => {
-      try {
-        const response = await instance.get(apiKeyUrl, {
-        timeout: 30000,
-        params: {
-            userid: sessionStorage.getItem("id"),
-          },
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-          },
-        });
-        setUserKey(response.data.user.apikey);
-      } catch (error) {
-       toast.error(error.message);
-      }
-    };
+    
 
     const getBalance = async () => {
       try {
@@ -101,12 +88,13 @@ const Services2 = ({ searchTerm }) => {
           },
         });
         setBalance(response.data.data[0].balance);
+        sessionStorage.setItem("walletBalance",response.data.data[0].balance)
       } catch (error) {
         toast.error(error.message);
       }
     };
     fetchServices();
-    fetchUserApi();
+    
     getBalance();
   }, [
    url,
@@ -118,6 +106,26 @@ const Services2 = ({ searchTerm }) => {
     userKey,
   ]);
 
+  useEffect(() => {
+    fetchUserApi();
+  }, [])
+  
+  const fetchUserApi = async () => {
+    try {
+      const response = await instance.get(apiKeyUrl, {
+      timeout: 30000,
+      params: {
+          userid: sessionStorage.getItem("id"),
+        },
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+        },
+      });
+      setUserKey(response.data.user.apikey);
+    } catch (error) {
+     toast.error(error.message);
+    }
+  };
   if (services.length === 0) {
     return <div>Please wait...</div>;
   }

@@ -11,8 +11,8 @@ const Rent = () => {
   const rentUrl = process.env.NEXT_PUBLIC_BASE_URL + "/rent/numbers";
   const [data, setData] = useState([]);
   let maxNameLength = 11;
-  const [country, setCountry] = useState("");
-  const [time, setTime] = useState("");
+  const [country, setCountry] = useState()
+  const [time, setTime] = useState();
   const [count, setCount] = useState(1);
   const [fee, setFee] = useState(1);
   const [show, setShow] = useState(false);
@@ -50,7 +50,7 @@ const Rent = () => {
       });
       setData(response.data.countries);
       console.log(response.data.countries)
-      
+
     } catch (error) {
       toast.error(error.response.data.msg);
     }
@@ -80,6 +80,7 @@ const Rent = () => {
 
       });
       setRentHistory(response.data.numbers);
+      console.log(response.data.numbers)
     } catch (error) {
       toast.error(error?.response?.data.msg);
     }
@@ -109,11 +110,11 @@ const Rent = () => {
           }
         );
 
-        // fetchRentHistory();
+        fetchRentHistory();
         toast.success(response?.data?.msg);
-       
+
       } catch (error) {
-        console.log(error,sessionStorage.getItem("id"));
+        console.log(error, sessionStorage.getItem("id"));
         console.log(sessionStorage.getItem("authToken"))
         toast.error(error?.response?.data.msg);
       }
@@ -127,7 +128,7 @@ const Rent = () => {
   }, []);
 
   useEffect(() => {
-    
+
 
     fetchData();
 
@@ -136,7 +137,8 @@ const Rent = () => {
 
   }, []);
   useEffect(() => {
-    getRentFee();
+    if (country && time)
+      getRentFee();
 
   }, [time, country]);
   const rentFee = fee * count;

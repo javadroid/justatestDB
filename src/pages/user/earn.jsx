@@ -2,8 +2,12 @@ import CopyToClipboard from "@/Components/Copy";
 import UserDashboardLayout from "@/Components/UserDashboardLayout";
 import { ClipboardDocumentCheckIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { useState } from "react";
 
 const earn = () => {
+  const refcode=sessionStorage.getItem("ref_code")
+  // const [refcode,setrefcode]=useState(r)
+// console.log(r,"fddf")
   return (
     <section>
       <div className="px-2 pt-10">
@@ -14,8 +18,8 @@ const earn = () => {
           </h2>
           <p className="mb-3">Your referral link</p>
           <p className="mb-3 flex items-center italic text-red-500">
-            <span>https://sms-man.com/?ref=J1sM-q3NGej6</span>
-            <CopyToClipboard textToCopy="https://sms-man.com/?ref=J1sM-q3NGej6">
+            <span>{`${window.location.host}/signup/${refcode}`}</span>
+            <CopyToClipboard textToCopy={`${window.location.host}/signup/${refcode}`}>
               <ClipboardDocumentCheckIcon
                 width={20}
                 className="ml-2 cursor-pointer text-color-primary"

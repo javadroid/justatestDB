@@ -77,24 +77,31 @@ const Profile = () => {
   };
 
   const handleApiKeyChange = async () => {
-    try {
-      const apiChange = await instance.put(
-        process.env.NEXT_PUBLIC_BASE_URL + "/user/changeapikey",
-        {},
-        {
-          params: {
-            userid: sessionStorage.getItem("id"),
-          },
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
-          },
-        }
-      );
-      toast.success(apiChange.data.msg);
-      window.location.reload();
-    } catch (error) {
-      toast.error(error?.response?.data.msg || "No response from the server.");
+    const apiUpdate = new Date(userData.api_updatedAt).getTime()
+
+    if (Date.now() > apiUpdate + 6 * 60 * 60 * 1000) {
+      try {
+        const apiChange = await instance.put(
+          process.env.NEXT_PUBLIC_BASE_URL + "/user/changeapikey",
+          {},
+          {
+            params: {
+              userid: sessionStorage.getItem("id"),
+            },
+            headers: {
+              Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+            },
+          }
+        );
+        toast.success(apiChange.data.msg);
+        window.location.reload();
+      } catch (error) {
+        toast.error(error?.response?.data.msg || "No response from the server.");
+      }
+    }else{
+      toast.error("You can only request a new API token every 6 hours");
     }
+   
   };
 
   return (
@@ -180,7 +187,7 @@ const Profile = () => {
                 <div>
                   <p className="w-full text-xs font-extrabold md:text-base">
                     Recommend the service and earn money
-                  </p> 
+                  </p>
                   <p className="text-color-primary">Read more...</p>
                 </div>
                 <div>
@@ -200,11 +207,11 @@ const Profile = () => {
                     <p>Your REF code: {userData.ref_code}</p>
                     <br />
                     <p> {`${window.location.host}/signup/${userData.ref_code}`}</p>
-                    
+
                     <CopyToClipboard textToCopy={`${window.location.host}/signup/${userData.ref_code}`}>
-                   
-                <button className="btn btn-primary" >Copy referrer link</button>
-              </CopyToClipboard>
+
+                      <button className="btn btn-primary" >Copy referrer link</button>
+                    </CopyToClipboard>
                     {/* */}
                   </div>
                 </div>

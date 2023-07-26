@@ -7,6 +7,7 @@ import CopyToClipboard from "./Copy";
 
 const RentedNumberHistory = ({ rentHistory, fetchRentHistory }) => {
   const histories = [
+
     {
       title: "Country",
     },
@@ -33,12 +34,18 @@ const RentedNumberHistory = ({ rentHistory, fetchRentHistory }) => {
     setData(rentHistory);
   }, [url, rentHistory]);
 
-  const CancelRent = async (number, amount) => {
+  const CancelRent = async (number, amount, rentedId) => {
+    console.log(number, amount, rentedId)
     try {
       let userId = sessionStorage.getItem("id");
       const Cancel = await axios.put(
         process.env.NEXT_PUBLIC_BASE_URL +
-          `/number/cancel?userid=${userId}&rented_number=${number}&rented_amount=${amount}`,
+        `/number/cancel?userid=${userId}`,
+        {
+          rented_number:number,
+          rented_amount:amount,
+          rentedId:rentedId
+        },
         {
           timeout: 30000,
           headers: {
@@ -164,7 +171,7 @@ const RentedNumberHistory = ({ rentHistory, fetchRentHistory }) => {
                                       onClick={() => {
                                         CancelRent(
                                           data.rented_number,
-                                          data.amount
+                                          data.amount, data.rentId
                                         );
                                       }}
                                     >

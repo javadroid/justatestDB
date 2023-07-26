@@ -11,6 +11,30 @@ import { toast } from "react-hot-toast";
 const History = () => {
   const historyData = useHistoryStore((state) => state.historyData);
   const setHistoryData = useHistoryStore((state) => state.setHistoryData);
+  const balanceUrl = process.env.NEXT_PUBLIC_BASE_URL + "/balance";
+  const [balance, setBalance] = useState(0);
+  const instance = axios.create({
+    validateStatus: function (status) {
+      return status >= 200 && status < 300; // default
+    },
+  });
+  const getBalance = async () => {
+    try {
+      const response = await instance.get(balanceUrl, {
+        timeout: 30000,
+        params: {
+          userid: sessionStorage.getItem("id"),
+        },
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("authToken")}`,
+        },
+      });
+      setBalance(response.data.data[0].balance);
+      sessionStorage.setItem("walletBalance",response.data.data[0].balance)
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
   const histories = [
     {
       title: "Bought",
@@ -34,9 +58,9 @@ const History = () => {
   const [data, setData] = useState(historyData);
   const [isLoading, setIsLoading] = useState(true);
 
-  const cancelService = async (id) => {
+  const cancelService = async (data) => {
     const url =
-      process.env.NEXT_PUBLIC_BASE_URL + `/cancel_bought_app?appId=${id}`;
+      process.env.NEXT_PUBLIC_BASE_URL + `/cancel_bought_app?appId=${data.application_id}&userid=${data.user_id}&amount=${data.price} `;
     try {
       const response = await axios.put(url, {
         headers: {
@@ -44,6 +68,7 @@ const History = () => {
         },
       });
       setHistoryData();
+      getBalance()
       toast.success(response.data.msg);
     } catch (error) {
       toast.error(error.response.data.msg);
@@ -60,6 +85,7 @@ const History = () => {
   }, [historyData]);
 
   useEffect(() => {
+    console.log(data)
     if (data.length == 0) {
       return;
     }
@@ -192,7 +218,7 @@ const History = () => {
                                   {data.cancelBtnActive ? (
                                     <button
                                       onClick={() =>
-                                        cancelService(data.application_id)
+                                        cancelService(data)
                                       }
                                       className="group relative w-full cursor-pointer overflow-hidden rounded-3xl bg-[rgba(255,67,130,.1)] py-2 font-bold text-color-api-red md:rounded-md"
                                     >
