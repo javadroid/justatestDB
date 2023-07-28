@@ -3,8 +3,14 @@ const bodyParser = require('body-parser')
 const path = require('path');
 require('dotenv').config();
 const cors = require('cors');
+
+const allowedOrigins = [
+    'http://localhost:3000',
+    'jamfortetech.com',
+    'apis.jamfortetech.com' // Add more origins as needed
+  ];
 const corOptions = {
-    origin: "http://localhost:3000"
+    origin: allowedOrigins
 };
 const app = express();
 global.__basedir = __dirname

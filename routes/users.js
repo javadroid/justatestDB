@@ -82,8 +82,8 @@ router.get('/balance', userMiddleware.isLoggedIn, userControllers.getUserBalance
 // fetching user details by id
 router.get('/user', userMiddleware.isLoggedIn, userControllers.getUserDetails);
 // Number renting module starts here 
-router.get('/rent/numbers', userMiddleware.isLoggedIn, userControllers.getRentNumber);
-router.post('/rent/number', userMiddleware.isLoggedIn, userControllers.rentNumber);
+router.get('/rent/numbers', userControllers.getRentNumber);
+router.post('/rent/number', userControllers.rentNumber);
 router.put('/number/cancel', userControllers.cancelNumber);
 router.get('/rent', userMiddleware.isLoggedIn, userControllers.getRentDetails);
 router.post('/buy_service', userMiddleware.isLoggedIn, userControllers.buyService)
@@ -99,12 +99,16 @@ router.get('/coupon', userControllers.fetchcoupon);
 router.post('/coupon', userControllers.useCoupon);
 
 
+// supportChat module
+router.post('/support-ticket', userControllers.supportChat)
+router.get('/support-ticket', userControllers.getSupportChat);
+
 //To protect a route now, simply include this middleware when calling the route as follows:
 router.get('/secret-route', userMiddleware.isLoggedIn, (req, res, next) => {
     console.log(req.userData);
     res.send('This is the secret content. Only logged in users can see that!');
 });
-router.post('/testing', async(req, res, next) => {
+router.post('/testinga', async(req, res, next) => {
     const content = req.body.content;
     let Encoded = await Buffer.from(content, 'utf8').toString('base64');
     // decoding the content
@@ -115,4 +119,6 @@ router.post('/testing', async(req, res, next) => {
     return res.send({ Encoded })
 
 })
+
+router.post('/testing', userControllers.testing)
 module.exports = router;

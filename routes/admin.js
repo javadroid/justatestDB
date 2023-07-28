@@ -27,14 +27,14 @@ router.put('/disable/apikey', userMiddleware.isLoggedIn, adminControllers.disabl
 // User permission module ends here
 
 // set user payment history
-router.post('/users/payhistory', userMiddleware.isLoggedIn, adminControllers.addPaymentHistory);
+router.post('/users/payhistory',  adminControllers.addPaymentHistory);
 
 
 // fetch user payment history
-router.get('/users/payhistory', userMiddleware.isLoggedIn, adminControllers.fetchAllUsersPaymentHistory);
+router.get('/users/payhistory',  adminControllers.fetchAllUsersPaymentHistory);
 
 // fetch all users payment history
-router.get('/users/payhistory',  userMiddleware.isLoggedIn, adminControllers.getPaymentHistoryByUserId);
+router.get('/user/payhistory',   adminControllers.getPaymentHistoryByUserId);
 
 // fetch user transaction history
 router.get('/user/transactions', userMiddleware.isLoggedIn, adminControllers.getTrnxByUserId);
@@ -78,7 +78,7 @@ router.put('/enablemethod', userMiddleware.isLoggedIn, adminControllers.enablePa
 //setting up language
 router.post('/createlang', userMiddleware.isLoggedIn, adminControllers.createLanguage);
 // fetching available languages
-router.get('/languages', userMiddleware.isLoggedIn, adminControllers.getLanguages);
+router.get('/languages',  adminControllers.getLanguages);
 
 
 // deleting a language from the system
@@ -146,7 +146,12 @@ router.post('/coupon', userMiddleware.isLoggedIn, adminControllers.createCoupon)
 router.get('/coupon', userMiddleware.isLoggedIn, adminControllers.fetchcoupon);
 router.delete('/coupon', userMiddleware.isLoggedIn, adminControllers.deleteCouponById);
 
-// Export router
 
+
+    // translation router starts here
+    router.post('/translation', userMiddleware.isLoggedIn, adminControllers.updateTranslation);
+router.get('/translation',  adminControllers.fetchTranslation);
+
+// Export router
 router.get('/play',  adminControllers.play);
 module.exports = router;

@@ -2263,6 +2263,57 @@ module.exports = {
         }
     },
 
+    // translation module starts here
+    fetchTranslation: (req, res, next) => {
+        try {
+            db.query(
+                `SELECT * FROM translation`,
+                (err, result) => {
+                    if (result.length) {
+                        return res.status(200).send({
+                            result 
+                        });
+                    } else {
+                        return res.status(404).send({
+                            msg: 'No translation found!'
+                        });
+                    }
+
+                });
+        } catch (err) {
+            return res.status(401).send({
+                Error: err
+            })
+        }
+    },
+    updateTranslation: (req, res, next) => {
+        try {
+            const key = req.body.key;
+            const translation = req.body.translation;
+            
+            db.query(
+                `UPDATE Translation SET translation='${translation}' WHERE id='${key}'`,
+                (err, result) => {
+                    if (err) {
+                        // throw err;
+                        return res.status(400).send({
+                            msg: 'Something went wrong, please try a moment later.',
+                            Error: err
+                        });
+                    }
+                    return res.status(200).send({
+                        msg: "Updated."
+                    });
+                }
+
+            );
+        } catch (err) {
+            return res.status(401).send({
+                msg: err
+            });
+        }
+    },
+
     play:(req, res, next) => {
         return res.status(404).send({
             msg: 'No coupon is found!'
